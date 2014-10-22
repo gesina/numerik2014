@@ -1,0 +1,934 @@
+\documentclass[ngerman,fontsize=11pt, paper=a4, parskip=false, titlepage=false, toc=bib]{scrbook}
+%%options:
+%	ngerman:	provides german headers etc.; default english
+%	fontsize:	use 10-12pt
+%	paper:		use a4
+%	parskip: 	false sets to 1em
+%	titlepage:	titlepage (true) or titlehead (false)
+%	toc:		table of contents options
+%
+%
+%ESSENTIAL PACKAGES
+%-----------------------------------------------------------------------section-------------------------
+%..................................................
+%%encodings
+\usepackage[T1]{fontenc}		%font-encoding WITH e.g. ö (default is OT1 with 7- instead of 8-bit)
+\usepackage[utf8]{inputenc}		%input-encoding WITH e.g. ö (depends on system), better after fontenc
+%
+%..................................................
+%%language
+\usepackage{babel}				%rules typical for chosen language(s)
+%
+%..................................................
+%%font-settings
+\usepackage{lmodern}			%font: latin modern
+\usepackage{microtype}			%micro-typographic optimizing, e.g. ligatures
+%
+%
+%
+%EXTRA PACKAGES
+%------------------------------------------------------------------------------------------------\\
+%..................................................
+%%font-settings
+\usepackage{scrpage2}			%KOMA pagestyles scrheadings, scrplain
+%
+%..................................................
+%%quotes
+\usepackage{csquotes}			%easy quotes with \enquote{...}
+%
+%..................................................
+%%maths
+\usepackage{amsmath}			%improves maths-sections
+\usepackage{mathtools}                  %provides tools like \DeclareParedDelimiter or \DefineMathOperator
+%\usepackage{amsthm}			%for proofs etc.
+\usepackage{amssymb}			%further maths symbols like \square for proofs
+\usepackage{dsfont}			%for \mathds{letter} to create e.g. the rational numbers symbol Q
+\usepackage{stmaryrd}			%for math symbols like lightning bold
+%\usepackage{mathrsfs}			%for calligraphic math symbols with \mathscr{letter}
+%\usepackage{esint}				%for different sorts of integral signs like \landupint
+%
+%\usepackage{siunitx}			%units
+%
+%
+%..................................................
+%%pagestyle
+%\usepackage{scrpage2}			%KOMA-script specialty for headings, footnotes, extends pagestyle
+%\usepackage{enumitem}			%provides nicer items for enumeration, like \alpha*)
+\usepackage{enumerate}
+%
+%..................................................
+%%colors
+%\usepackage{color}				%to set/define colors, predefined: white , black, red, green, blue, cyan, magenta, yellow
+%
+%..................................................
+%%objects
+%	\usepackage{graphicx}			%for inclusion of graphics with \includegraphics{name} command
+%	\usepackage{placeins}			%to set barriers for floating objects with \FloatBarrier, to add to commands, list them in as options, e.g. \usepackage[section]{placeins}
+%
+%..................................................
+%%index/bibliography
+	\usepackage{makeidx}			%enables to create an index with \makeindex in head, creates *.idx file
+		\makeindex					%if index is required (after {makeidx})
+%	\usepackage[backend=biber]{biblatex}	%enables to print bibliography with \printbibliography, needs \bibliography{bib ﬁles}
+%		\bibliography{bib}					%loads .bib-file for biber-bibliography after {biblatex}
+%
+%..................................................
+%%(nicer)tables
+%	\usepackage{booktabs} 			%enables better spacing and lines in tables
+%	\usepackage{multirow}			%allows option multirow for tables (centers text vertically)
+%	\usepackage{multicol}			%allows option multicol for tables
+%	\usepackage{tabularx}  			%table with extendable X-column
+%	\usepackage{tabulary}			%table-width matches content
+%
+%..................................................
+%%(nicer) footnotes and marginpars
+%	\usepackage[outer=4.5cm, marginparwidth=5cm]{geometry}		%provides commands to manipulate the dimension of several elements; needed for marginnote (outer is space width for margins)
+%	\usepackage{marginnote}				%more individual marginpars with \marginnote{text}[width]; geometry package needed
+%	\usepackage{todonotes}				%fancy styled (colored etc.) marginpars with \todo[options]{text}
+%	\usepackage{footmisc}				%nicer footnotes
+%
+%..................................................
+
+%strike text out
+\usepackage{ulem}
+
+
+
+%hyperlinks
+	\usepackage{hyperref}			%for links/hyperlinks, better load last!, options: colorlink=true (-> no boxes but colored hyperlinks), color of all link
+%
+%
+%..................................................
+%fonts
+%	\usepackage{anyfontsize}		%changes the fontsize with \fontsize{size}{baselineskip}\selectfont to any size
+
+
+
+
+
+%DEFINITIONS
+%------------------------------------------------------------------------------------------------
+%..................................................
+%math (theorems)
+%\theoremstyle{definition}
+%\newtheorem{Def}{Definition}		%definition with \begin{Def}
+%\newtheorem{Ax}[Def]{Axiom}		%axiom with \begin{Ax}
+%\newtheorem{Satz}[Def]{Satz}		%theorem with \begin{Satz}
+%\newtheorem{Prop}[Def]{Proposition}%proposition with \begin{Prop}
+%\newtheorem{Lem}[Def]{Lemma}		%lemma with \begin{Lem}
+%\newtheorem{Korr}[Def]{Korrolar}	%corollary with \begin{Korr}
+
+%colors
+%\definecolor{ashgrey}{rgb}{0.7, 0.75, 0.71}
+
+
+
+
+%NEW COMMAMDS
+%------------------------------------------------------------------------------------------------
+%\newcommand{\<new command>}{<what it shall do>}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+
+
+
+%STYLE SETTINGS
+%------------------------------------------------------------------------------------------------
+%\pagestyle{scrplain}				%set pagestyle to scrheadings or scrplain (instead of headings or plain)
+%\clearscrplain						%clear old style (either scrplain odr scrheadings)
+%\cfoot[<text for scrplain>]{<text for scrheadings>}	%any new settings for foots/ headings
+\allowdisplaybreaks              %allow multipage for equations
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+
+
+
+
+%************************************************************************************************
+\begin{document}
+
+
+%----------------------------------------------------------------------------------------------
+%FRONTMATTER
+%----------------------------------------------------------------------------------------------
+%\frontmatter	%for book only, part for title etc.
+
+%TITLE(PAGE)
+%	\titlehead{titlehead (free)}
+	\title{Skript Numerik I}
+	\subtitle{bei Prof. Dr. Blank im WS14/15}
+%	\subject{type}
+	\author{Gesina Schwalbe}
+%	\date{date}
+%	\extratitle{Schmutztitel}
+%	\publishers{Verlag}
+%	\uppertitleback{Titelrückseitenkopf }
+%	\lowertitleback{Titelrückseitenfuß}
+%	\dedication{Widmung}
+%	\thanks{Fußnote}
+\maketitle
+
+%---------------------------------------------------
+\tableofcontents
+
+
+
+%----------------------------------------------------------------------------------------------
+%ACTUAL CONTENT
+%----------------------------------------------------------------------------------------------
+%\mainmatter		%for book only, part for main content of document
+\chapter{Einführung}
+
+\chapter{Lineare Gleichungssysteme: Direkte Methoden}
+\label{2.1}
+Sei $ A \in \R^{n\times n}$, $b \in \R^n$. Gesucht ist $x\in \R^n$ mit 
+\begin{gather*}
+	A\cdot x = b
+\end{gather*}
+Weitere Voraussetzungen sind die Existenz und Eindeutigkeit einer Lösung.
+Bemerkung:
+\begin{itemize}
+	\item Ein verlässlicher Lösungsalgorithmus überprüft dies und behandelt alle Fälle. 
+	\item Die Cramersche Regel ist ineffizient (s. Einführung).
+	\item Das Inverse für $x=A^{-1}\cdot b$ aufzustellen ist ebenso ineffizient, denn es ist keine Lösung für alle $b\in \R^n$ verlangt und der Algorithmus wird evtl. instabil aufgrund vieler Operationen.
+	\item [$\Rightarrow$] Invertieren von Matrizen vermeiden!!
+	\item [$\Rightarrow$] Lösen des Linearen Gleichungssystems!!
+\end{itemize}
+
+\section{Gaußsches Eliminationsverfahren} \label{2.1} \index{Gaußsches Eliminationsverfahren}\index{Dreieckszerlegung}
+Das Verfahren wurde 1809 von Friedrich Gauß, 1759 von Josepf Louis Lagrange beschrieben und war seit dem 1. Jhd. v. Chr. in China bekannt.
+
+\subsection{Vorwärtselimination} \label{2.1.1}\index{Vorwärtselimination}\index{Vorwärtssubstitution}
+Das Gaußverfahren gilt der Lösung eines linearen Gleichungssystems der Form
+\begin{align*}
+	Ax &= b
+\end{align*}
+mit $A=(a_{ij})_{i,j \leq n} \in K^{n\times n}$ Matrix und $b=(b_i)_{i\leq n} \in K^n$ Vektor.\\
+Der zugehörige Algorithmus sieht folgendermaßen aus:
+\begin{gather*}
+	\begin{array}{ccccccccc}
+	a_{11}x_1 &+& a_{12}x_2 &+& \cdots &+& a_{1n}x_n & = & b_1 \\
+	a_{21}x_1 &+& a_{22}x_2 &+& \cdots &+& a_{2n}x_n & = & b_2 \\
+	\vdots         &&        \vdots     &&              &&   \vdots       &    & \vdots \\
+	a_{n1}x_1 &+& a_{n2}x_2 &+& \cdots &+& a_{nn}x_n & = & b_n \\\\
+	&&&& \Arrowvert &&&& 
+	\end{array} \\
+\quad 	(\text{i-te Zeile}) - (\text{1. Zeile})\cdot \frac{a_{i1}}{a_11} \Rightarrow a_{i1}=0\\
+\begin{array}{ccccccccc}
+&&&& \Downarrow &&&&  \\\\
+a_{11}x_1 &+& a_{12}x_2 &+& \cdots &+& a_{1n}x_n & = & b_1 \\
+				  &+& a_{22}^{(1)}x_2 &+& \cdots &+& a_{2n}^{(1)}x_n & = & b_2^{(1)} \\
+				 &&        \vdots     &&              &&   \vdots       &    & \vdots \\
+														&& && && a_{nn}^{(1)}x_n & = & b_n^{(1)} \\\\
+&&&& \Downarrow &&&&\\
+&&&& \vdots &&&&
+\end{array} 
+\end{gather*}
+mit
+\begin{align*}
+	a_{ij}^{(1)} &= a_{ij}-a_{1j}\cdot \frac{a_{i1}}{a_{11}} & \text{für }i,j = 2, \cdots, n \\
+	b_i^{(1)}      &= b_i- b_1\cdot \frac{a_{i1}}{a_{11}}        & \text{für }i = 2, \cdots, n 
+\end{align*}
+In jedem Schritt werden die Einträge der $k$-ten Spalte analog unterhalb der Diagonalen (also $k=1, \cdots, n-1$) eliminiert:
+\begin{align*}
+	(\text{$i$-te Zeile})- (\text{$k$-te Zeile})\cdot\frac{a_{ik}}{a_{kk}} && \text{für } i=k+1, \cdots ,n 
+\end{align*}
+Die Reihe 
+\begin{gather*}
+			A \rightarrow A^{(1)} \rightarrow A^{(2)} \rightarrow \dotsm \rightarrow A^{(n-1)}
+\end{gather*}
+wird bis zum $n$-ten Schritt fortgeführt, d.h. bis eine obere Dreiecksgestalt eintritt:
+\begin{align}
+\nonumber
+\underbrace{	\begin{pmatrix}
+	a_{11} & \dotsm & \dotsm & a_{1n} \\
+	             & a_{22}^{(1)} & \dotsm & a_{2n}^{(1)} \\
+	             &&              \ddots  &  \vdots \\
+	   0        && &                             a_{nn}^{(n-1)}
+	\end{pmatrix}}_{\coloneqq R}
+	\cdot
+	\begin{pmatrix}
+		x_1 \\
+		x_2 \\
+		\vdots \\
+		x_n
+	\end{pmatrix}
+	& =
+	\underbrace{\begin{pmatrix}
+		b_1 \\
+		b_2^{(1)} \\
+		\vdots \\
+		b_n^{(n-1)}
+	\end{pmatrix}}_{\coloneqq z} \\
+Rx &= z 	\label{II.1.1} 
+\end{align}
+wobei für  $i=k+1, \cdots ,n$ die Einträge wie folgt aussehen:
+\begin{align}	
+	l_{ik} &\coloneqq \frac{a_{ik}^{(k-1)}}{a_{kk}^{(k-1)}} \label{II.1.2} \\
+	a_{ij}^{(k)} &= a_{ij}^{(k-1)} - a_{kj}^{(k-1)}\cdot l_{ik} \label{II.1.3}
+				 & \text{für } j=k+1, \cdots , n\\ %
+	b_i^{(k)} &= b_i^{(k-1)} -b_k^{(k-1)} \cdot   l_{ik}\label{II.1.4}\index{Vorwärtssubstitution}
+\end{align}
+Dieser Prozess wird \textbf{Vorwärtselimination} genannt.
+
+\subsection{Rückwärtselimination}\label{2.1.2}
+Für die Lösung des Gleichungssystems ist dann noch die \textbf{Rückwärtssubstitution} \index{Rückwärtssubstitution} nötig:
+\begin{align}
+	x_1 &= \frac{b_1^{(n-1)}}{a_{nn}^{(n-1)}} \label{II.1.5} \\
+	x_{n-1} &=  \frac{b_{n-1}^{(n-2)}-a_{n-1,n}^{(n-1)}\cdot x_n}{a_{(n-1)(n-1)}^{(n-2)}} \label{II.1.6} \\
+	x_k &= \frac{b_k^{(k-1)}-\sum_{j=k+1}^{n}a_{kj}^{(k-1)}x_j}{a_{kk}^{(k-1)}} \label{II.1.7}
+\end{align}
+
+\subsection{Vorsicht}
+	Algorithmen \ref{2.1.1} und \ref{2.1.2} sind nur ausführbar, falls für die sog. \textbf{Pivotelemente $\mathbf{a_{kk}^{(k-1)}}$ } \index{Pivotelement} gilt:
+	\begin{gather*}
+			a_{kk}^{(k-1)} \neq 0 \quad   \text{für } k=1, \cdots , n
+	\end{gather*}
+	Dies ist auch für invertierbare Matrizen nicht immer gewährleistet.
+	
+\subsection{Weitere algorithmische Anmerkungen}	\label{2.1.4}
+Matrix $A$ und Vektor $b$ sollten möglichst \textbf{nie} überschrieben werden! (Stattdessen kann eine Kopie überschrieben werden.) \\
+Das Aufstellen von $A$ und $b$ ist bei manchen Anwendungen das teuerste, sie gehen sonst verloren. In \ref{2.1.1} wird das obere Dreieck von $A$ überschrieben. Dies ist möglich, da in \eqref{II.1.3} nur die Zeilen $k+1, \cdots, n$ mithilfe der $k$-ten bearbeitet werden. Am Ende steht $R$ im oberen Dreieck von $A$ und $z$ in $b$. \\
+Die $l_{ik}$ werden spaltenweise berechnet und können daher anstelle der entsprechenden Nullen (in der Kopie) von $A$ gespeichert werden, d.h.:
+\begin{gather}
+	\widetilde{L} \coloneqq (l_{ik})  \label{II.1.8}
+\end{gather}
+und $R$ werden sukzessive in A geschrieben.
+TIKZ MISSING
+Der Vektor $z$ und anschließend der Lösungsvektor $x$ kann in (eine Kopie von) $b$ geschrieben werden.
+Wird eine neue rechte Seite $b$ betrachtet, muss \ref{II.1.1} nicht komplett neu ausgeführt werden, da sich $\widetilde{L}$ nicht ändert. Es reicht \ref{II.1.4} zu wiederholen.
+TIKZ MISSING
+
+\subsection{Dreieckszerlegung} \label{2.1.5} \index{Dreieckszerlegung}
+Die Dreieckszerlegung einer Matrix $A$ entspricht dem Verfahren aus \ref{2.1.1}, nur ohne die Zeile \eqref{II.1.4}.
+
+\subsection{Vorwärtssubstitution} \index{Vorwärtssubstitution}
+Die Vorwärtssubstitution entspricht der in \ref{2.1.4} bzw. dem Verfahren aus \ref{2.1.1} ohne die Bestimmung von $l_{ik}$ und $R$, also nur Schritt \ref{II.1.4}.
+
+\subsection{Gauß-Eleminator zur Lösung von $Ax=b$}\index{Gauß-Eleminator}
+\begin{enumerate}[1]
+	\item Dreieckszerlegung
+	\item Vorwärtssubstitution        $\quad b_i^{(k)} = b_i^{(k-1)} -b_k^{(k-1)} \cdot   l_{ik} $
+	\item Rückwärtssubstitution      $\quad x_k = \frac{b_k^{(k-1)}-\sum_{j=k+1}^{n}a_{kj}^{(k-1)}x_j}{a_{kk}^{(k-1)}}$
+\end{enumerate}
+
+\subsection{Rechenaufwand gezählt in \enquote{flops}} \index{flops}\index{floating point operations}\index{Rechenaufwand}
+\textbf{\enquote{flops} }= \textbf{f}loating \textbf{p}oint \textbf{op}eration\textbf{s} \\
+MISSING
+
+\subsection{Definition: Landau-Symbole} \index{Landau-Symbole}
+MISSING
+
+\subsection{Allgemeines zur Aufwandsbetrachtung}\index{Rechenaufwand}
+MISSING
+
+\subsection{Formalisieren des Gauß-Algorithmus} \index{Gaußsches Eliminationsverfahren} \index{LR-Zerlegung}\index{LU-Zerlegung}
+MISSING
+
+\subsection{Lemma (Eigenschaften der $L_k$-Matrizen)} \label{2.1.12} \index{Frobeniusmatrix}
+MISSING
+
+
+\subsection{Satz (LR- oder LU-Zerlegung)} \index{LR-Zerlegung}\index{LU-Zerlegung}
+MISSING
+\index{Verfahren von Crout}
+
+\section{Gaußsches Eliminationsverfahren mit Pivotisierung}
+MISSING
+\subsection{Spaltenpivotisierung (=partielle/ halbmaximale Pivotisierung)} \index{Spaltenpivotisierung}\index{Pivotisierung}\index{halbmaximale, partielle Pivotisierung}
+
+\subsection{Bemerkungen}
+\index{Zeilenpivotisierung}
+\index{Vollständig Pivotsuche}\index{vollständige Pivotisierung}
+\index{Permutationsmatrix}
+
+\subsection{Satz: Dreieckszerlegung mit Permutationsmatrix} \label{2.2.4} 
+
+\paragraph{Beweis}~	\marginpar[15.10.2014 \\(Fortsetzung)]{15.10.2014 \\(Fortsetzung)}
+	\begin{align*}
+		PA &= LR  \\
+		R &= A^{(n-1)}\\& = L_{n-1}P_{\tau_{n-1}}\dots L_1P_{\tau_1}A
+		\end{align*}
+	Da $\tau_i$ nur zwei Zahlen $\geq i $ vertauscht, ist
+	\begin{align*}\index{Vorwärtselimination}
+		\Pi_i  &\coloneqq \tau_{n-1} \circ \dots \tau_i \quad\text{ für } i=1,\dots (n-1) 
+		\end{align*}
+	eine Permutation der Zahlen $\{i,\dots, n\}$, d.h. insbesondere gilt:
+	\begin{alignat*}{2}
+		\Pi_i(j)&=j  & \quad &\text{ für } j=1,\dots,(i-1) \\
+%	\intertext{sowie}
+		\Pi_i(j)&\in \{i, \dots, n\} & &\text{~für~}j=i,\dots, n\,. \\
+		P _{\Pi_{i+1}}  &= (e_1, \dotsc e_i, e_{\Pi_{i+i}(i+1)}, \dotsc, e_{\Pi_{i+1}(n)}) && \\
+%								&= \left(\begin{array}{c@{\vdots \,\,}c}
+%									I_i & 0 \\
+%							%		\dotsm & \dotsm \\
+%									0  & P_{\sigma}
+%									\end{array}\right)
+								&= \begin{pmatrix}
+										I_i & 0 \\
+										0 & P_{\sigma}
+								\end{pmatrix}
+	\end{alignat*}
+	Damit folgt:
+	\begin{align*}
+	P_{\Pi_(i+1)}\cdot P_{\Pi_{i+1}}^{-1}  &= 
+													P_{\Pi_{i+1}} \cdot \left(\begin{array}{ccc|ccc}
+																						& I_i & && 0 & \\
+																						\cline{1-6}
+																						&     & -l_{i+1, i} & & & \\
+																						&  0 &  \vdots      & & I_{n-i} &\\
+																						&     & -l_{n, i} & &  & 
+																					\end{array}\right)
+																			\cdot \begin{pmatrix}
+																					I_i & 0 \\
+																					0 & P_{\sigma}^{-1}
+																			\end{pmatrix}\\
+	 &= \begin{pmatrix}
+				 I_i & 0 \\
+				 0 & P_{\sigma}
+			 \end{pmatrix} \cdot   \l\cdot  \cdot  \left(\begin{array}{ccc|ccc}
+													 & I_i & && 0 & \\
+													 \cline{1-6}
+												\cdot  	 &     & -l_{i+1, i} & & & \\
+													 &  0 &  \vdots      & & P_{\sigma}^{-1} &\\
+													 &     & -l_{n, i} & &  & 
+												\end{array}\right) \\
+	 &= \left(\begin{array}{ccc|ccc}
+				 & I_i & && 0 & \\
+				 \cline{1-6}
+				 &     & -l_{\Pi{i+1}(i+1), i} & & & \\
+				 &  0 &  \vdots      & & I_{n-i} &\\
+				 &     & -l_{\Pi{i+1}(n), i} & &  & 
+		 \end{array}\right) \\
+	 &= I - (P_{\Pi_{i+1}} l_i)e_i^T\\
+	 &\eqqcolon \widehat{L}_i
+	\end{align*}
+	und
+	\begin{align*}		R =&\, L_{n-1}\\
+					&\cdot (P_{\tau_{n-1}}L_{n-2}P_{\tau_{n-1}}^{-1})\\
+		&				\cdot (P_{\tau_{n-1}}P_{\tau_{n-2}}L_{n-2}P_{\tau_{n-2}}^{-1}P_{\tau_{n-1}}^{-1})\\
+		&\; \vdots \\
+		&		 \cdot (P_{\tau_{n-1}}\dotsm P_{\tau_{1}}L_{1}P_{\tau_{1}}\dotsm P_{\tau_{n-1}}) \cdot A\\
+=&\,L_{n-1}\widehat{L}_{n-2}\dotsm\widehat{L}_1P_{\Pi_{1}}\cdot A
+\end{align*}
+Nach Lemma \ref{2.1.12} gilt daher, es existiert eine Permutation $\Pi_{1}$ mit
+\begin{gather*}
+	P_{\Pi_1}\cdot A = LR ,
+	\end{gather*}
+wobei $R$ obere Dreiecksgestalt hat und
+\begin{align*}
+		L  &=  \begin{pmatrix}
+						1 && & 0\\
+						l_{\Pi_2(2),1} & \ddots & \\
+						\vdots &            \ddots &  1\\
+						l_{\Pi_n(n),1}& \dotsm &  l_{\Pi_n(n),n-1} & 1 
+					\end{pmatrix} 
+					& \text{mit } |l_{ij}| \leq 1 
+\end{align*}
+gilt.
+
+\subsection{Lösen eines Gleichungssystems $Ax=b$} \label{2.2.5}
+\subsection{Bemerkungen}
+\subsection{Beispiel zur Pivotisierung}
+
+
+
+\chapter{Fehleranalyse} \index{Fehler}
+MISSING
+\index{Stabilität des Algorithmus}
+\section{Zahlendarstellung und Rundungsfehler} \label{3.1} \index{Fehler} \index{Rundungsfehler}\index{Zahlendarstellung}
+\subsection{Definition: Gleitkommazahl} \label{3.1.1} \index{Gleitkommazahl}
+Eine Zahl $x\in\Q$ mit einer Darstellung
+\begin{align*}
+	x&=\sigma \cdot(a_1 . a_2 \cdots a_t)_{\beta}\cdot \beta^e 
+	 = \sigma\beta^e \cdot \sum_{\nu=1}^{t}a_\nu \beta^{-\nu+1}\\\\
+&\quad\begin{array}{ll}
+	\beta\in\N & \text{Basis des Zahlensystems}\index{Basis}\\
+	\sigma \in\{\pm 1\} &\text{Vorzeichen} \\
+	m = (a_1 . a_2 \cdots a_t)_{\beta} &\text{Mantisse}\index{Mantisse}\\
+	\phantom{m}= \sum_{\nu=1}^{t}a_\nu \beta^{-\nu+1} \\
+	a_i \in\{0,\cdots , \beta-1\}&\text{Ziffern der Mantisse}\\
+	t\in\N&\text{Mantissenlänge} \\
+	e\in\Z &\text{mit }e_{min}\leq e \leq e_{max} \text{ Exponent}
+\end{array}
+\end{align*}
+heißt \textbf{Gleitkommazahl} mit $t$ Stellen und Exponent $e$ zur Basis $b$. \\
+Ist $a_1\neq 0$, so heißt $x$ \textbf{normalisierte Gleitkommazahl}\index{normalisierte Gleitkommazahl}
+
+\subsection{Bemerkung} \label{3.1.2}
+\begin{enumerate}[a)]
+	\item 0 ist keine normalisierte Gleitkommazahl, da $a_1 =  0$ ist.
+	\item $a_1\neq 0$ stellt sicher, dass die Gleitkommadarstellung eindeutig ist.
+	\item In der Praxis werden auch nicht-normalisierte Darstellungen verwendet.
+	\item Heutige Rechner verwenden meist $\beta =2$, aber auch $\beta=8, \beta=16$.
+\end{enumerate}
+
+\subsection{Beispiel} \label{3.1.3}
+ bit-Darstellung nach IEEE-Standard 754 von floating point numbers
+ MISSING
+ 
+\begin{align*}
+\intertext{Betragsmäßig \textbf{größte Zahl}:}
+	 \begin{array}{|c|c|c|}
+	 \cline{1-3} 	
+	 0 & 01\cdots 1& 1\cdots\cdots 1\\
+	 \cline{1-3}
+	 \end{array} && 
+	 x_{max} = (2-2^{-23})\cdot 2^{127}  & \approx 3,4 \cdot 10^{38}
+\intertext{Betragsmäßig \textbf{kleinste Zahl}:}
+	\begin{array}{|c|c|c|}
+	\cline{1-3} 	
+	0 & 0\cdots 0& 0\cdots\cdots 01\\
+	\cline{1-3}
+	\end{array} && 
+	x_{min} = (2-2^{-23})\cdot 2^{-126} = 2^{-149}  & \approx 1,4 \cdot 10^{-45}
+\end{align*}
+
+\subsection{Verteilung der Maschinenzahlen} \label{3.1.4}
+ungleichmäßig im Dezimalsystem, z. B.
+\begin{align*}
+		x &= \pm a_1 . a_2 a_3 \cdot 2^e  & -2\leq & e\leq 1 & a_i & \in \{0,1\}  \\
+		TIKZ MISSING
+\end{align*}
+ist im Dualsystem gleichmäßig verteilt.
+
+\subsection{Bezeichnungen} \label{3.1.5}
+\begin{itemize}
+	\item[\textbf{overflow}] es ergibt sich eine Zahl, die betragsmäßig größer ist als die größte maschinendarstellbare Zahl
+	\item[\textbf{underflow}] entsprechend, betragsmäßig kleiner als die kleinste positive Zahl
+\end{itemize}
+Bsp.: overflow beim integer $b=e+127$
+\begin{align*}
+	\begin{array}{rrr@{}}
+	b &= 254                                &11111110 \\
+	   &+  \phantom{24}3 &00000011 \\
+	   \cline{3-3} %
+	 b+3 = 257 \text{ mod } 2^8  &=\phantom{24}1& \xout{1}00000001 
+	\end{array}	  
+\end{align*}
+
+
+\subsection{Rundungsfehler} \label{3.1.6}
+Habe $x\in \R $ die normalisierte Darstellung
+\begin{align*}
+	x &= \sigma \cdot \beta^e (\sum_{\nu=1}^{t}a_{\nu}\beta{1-\nu} + \sum_{\nu=t+1}^{\infty}a_{\nu}\beta^{1-\nu} ) \\
+	  &= \sigma \cdot \beta^e (\sum_{\nu=1}^{t}a_{\nu}\beta^{1-\nu} + \beta^{1-t}\sum_{l=1}^{\infty}a_{t+l}\beta^{l} )
+\end{align*}
+mit $e_{min} \leq e \leq e_{max}$, dann wird mit $fl(x)$ die gerundete Zahl bezeichnet, wobei $fl(x)$ 
+eindeutig gegeben ist durch die Schranke an den \textbf{absoluten Rundungsfehler} \index{Fehler!absoluter Rundungsfehler}
+\begin{align*}
+	| fl(x) - x | \leq \begin{cases}
+								\frac{1}{2}\beta^{e+1+t} & \text{bei symmetrischem Runden}\\
+								\beta^{e+1+t}                    & \text{bei Abschneiden}
+							\end{cases} \quad .
+\end{align*}
+Für die \textbf{relative Rechengenauigkeit} \index{Genauigkeit!relative Rechengenauigkeit}folgt somit 
+\begin{align*}
+\frac{| fl(x) - x | }{|x|} & \leq \begin{cases}
+												\frac{1}{2}\beta^{1-t} & \text{bei symmetrischem Runden}\\
+												\beta^{1-t}                    & \text{bei Abschneiden}
+											\end{cases} \quad .
+\end{align*}
+Die \textbf{Maschinengenauigkeit} \index{Genauigkeit!Maschinengenauigkeit} des Rechners ist daher durch 
+\begin{align*}
+	  eps &= \beta^{1-t} & \text{(für float}\approx 10^{-7}  \text{, für double} \approx10^{-16} )
+\end{align*}
+gegeben.
+
+Die Mantissenlänge bestimmt also die Maschinengenauigkeit. Bei einfacher Genauigkeit ist $fl(x)$ bis auf ungefähr 7 signifikante Stellen genau. \\
+Im Folgenden betrachten wir symmetrisches Runden und definieren daher
+\[ \tau \coloneqq \frac{1}{2}eps\]
+Weiterhin gilt:
+\begin{enumerate}[a)]
+	\item Die kleinste Zahl am Rechner, welche größer als 1 ist, ist
+					\[ 1 + eps \]
+	\item Eine Maschinenzahl x repräsentiert eine Eingabemenge
+					\[  E(x) = \{\widehat{x} \in \R : |\widehat{x}-x| \leq \tau|x|\} \]
+					TIKZ MISSING
+\end{enumerate}
+
+\subsection{Bemerkung} \label{3.1.7}
+Gesetze der arithmetischen Operationen gelten i.A. nicht, z.B.
+\begin{itemize}
+	\item 	$x$ Maschinenzahl $\quad \Rightarrow fl(x+\nu) = x \text{     für }|\nu| < \tau |x|$
+	\item Assoziativ- und Distributivgesetze gelten nicht, z.B. für $\beta = 10, \, t=3, \, a=0,1 ,\, b= 105 , \, c= -104$ gilt:
+					\begin{align*}
+						fl(a+fl(a+c)) &= 1,1 \\
+						fl(fl(a+b)+c) &= fl(fl(105,1) + (-104) ) \\
+							                &= fl(105-104) \\
+							                &= 1 \quad \lightning
+					\end{align*}
+	\item[ $\Rightarrow$] Für einen Algorithmus ist die Reihenfolge der Operationen wesentlich!
+									  Mathematisch äquivalente Formulierungen können zu verschiedenen Ergebnissen führen.
+\end{itemize}
+
+\subsection{Auslöschung von signifikanten Stellen} \label{3.1.8}
+Sei $x=9,995\cdot 10^{-1}, y=9,984 \cdot 10^{-1}$. Runde auf drei signifikante Stellen und berechne $x-y$:
+\begin{align*}
+	\widehat{f}(x,y) &\coloneqq fl(fl(x)- fl(y)) = fl(1,00\cdot 10^0 - 9,98\cdot 10^{-1}) \\
+							  &= 	fl(0,02\cdot 10^{-1}) \\
+							  &= fl(2,00 \cdot 10^{-3}) \\
+	f(x,y)  &\coloneqq x-y \\
+		      &\coloneqq 0,0011 = 1,1\cdot 10^{-3}
+	\intertext{Daraus ergibt sich der relative Fehler}
+	\frac{|\widehat{f}(x,y)-f(x,y)|}{|f(x,y)|}
+		     &= \frac{|2\cdot 10^{-3}- 1,1\cdot 10^{-3}|}{|1,1\cdot 10^{-3}}
+		       = 82\%
+\end{align*}
+Der Grund hierfür ist, dass das Problem der Substraktion zweier annähernd gleich großer Zahlen
+schlecht konditioniert ist.
+
+\textbf{Zwei Regeln:}
+\begin{enumerate}[1)]
+	\item Umgehbare Substraktion annähernd gleich großer Zahlen vermeiden!
+	\item Unumgängliche Substraktion möglihcst an den Anfang des Algorithmus stellen! (s. später)
+\end{enumerate}
+
+% 2.2
+%-----------------------------------------------------------------------------------------------------------------------------------------
+\section{Kondition eines Problems} \label{3.2}
+Es wird das Verhältnis 
+\begin{gather*}
+	\frac{\text{Ausgabefehler}}{\text{Eingabefehler}}
+\end{gather*}
+untersucht.
+
+\subsection{Definition: Problem} \label{3.2.1} \index{Problem}
+Sei $f: U \subseteq \R^n \mapsto \R^m$ mit $U$ offen und sei $x\in U$. Dann bezeichne $(f, x)$ das Problem, zu einem gegebenen $x$ die Lösung $f(x)$ zu finden.
+
+\subsection{Definition: absoluter und relativer Fehler} \label{3.2.2} \index{Fehler}
+Sei $x\in\R^n$ und $\widehat{x} \in \R^n$ eine Näherung an $x$. Weiterhin sei $||\cdot||$ eine Norm auf $\R^n$.
+\begin{itemize}
+	\item[a)] $||\widehat{x} - x||$ heißt \textbf{absoluter Fehler} \index{Fehler!absoluter}
+	\item[b)] $\frac{||\widehat{x} - x||}{||x||}$ heißt \textbf{relativer Fehler}\index{Fehler!relativer}
+\end{itemize}
+Da der relative Fehler skalierungsinvariant ist, d.h. unabhänging von der  Wahl von $x$ ist, ist dieser i.d.R. von größerem Interesse.
+Beide Fehler hängen von der Wahl der Norm ab!
+Häufig werden Fehler auch komponentenweise gemessen:
+\begin{align*}
+	\text{Für } i=1,\cdots , n : && |\widehat{x}_i - x_i | & \leq \delta & \text{ (absolut)} \\
+											 && |\widehat{x}_i - x_i | &\leq \delta |x_i| & \text{ (relativ)}
+\end{align*}
+
+\subsection{Wiederholung: Normen} \label{3.2.3}\index{Norm}
+
+\begin{align*}
+	\text{Euklidische Norm ($l_2$-Norm):} &&	||x||_2 &\coloneqq \sqrt{\sum_{i=1}^{n}|x_i|^2}
+		\index{Norm!Euklidische Norm}
+			TIKZ MISSING \\
+	\text{Maximumsnorm ($l_\infty$-Norm):} &&	||x||_\infty &\coloneqq \max\{|x_i| : i=1, \cdots n\}
+	  	\index{Norm!Maximumsnorm}
+		  	TIKZ MISSING \\
+	\text{Summennorm ($l_1$-Norm):} &&	||x||_1 &\coloneqq \sum_{i=1}^{n}|x_i| 
+		\index{Norm!Summennorm}
+			TIKZ MISSING \\
+	\text{Hölder-Norm ($l_p$-Norm):} &&	||x||_p &\coloneqq 
+		\left(\sum_{i=1}^{n}|x_i|^p\right)^{\frac{1}{p}} 
+		\index{Norm!Hölder-Norm}
+\end{align*}
+
+\subsection{Definition: Matrixnorm} \label{3.2.4}
+Auf dem $\R^n$  sei die Norm $||\cdot||_a$ und auf dem $\R^m$ die Norm $||\cdot||_b$ gegeben.
+Dann ist die zugehörige \textbf{Matrixnorm} \index{Norm!Matrixnorm} gegeben durch:
+\begin{align}
+	||A||_{a,b} &\coloneqq \sup_{x\neq 0}- \frac{||Ax||_b}{||x||_a} \\ \nonumber
+					 &= \sup_{||x||_a=1} ||Ax||_b \label{Matrixnorm} 
+\end{align}
+Also ist   $||A||_{a,b}||$ die kleinste Zahl $c>0$ mit
+\begin{gather*}
+	||Ax||_b  \leq c||x||_a \quad\quad \forall x\in \R^n
+\end{gather*}
+
+\subsection{Definition: Frobeniusnorm, p-Norm, Verträglichkeit} \label{3.2.5}
+Sei $A\in \R^{m\times m}$.
+\begin{enumerate}[a)]
+	\item \textbf{Frobeniusnorm} (Schurnorm):
+			 $ \quad ||A||_F \coloneqq \sqrt{\sum_{i=1}^{m}\sum_{j=1}^{n}|a_{ij}^2}
+				 \index{Norm!Frobeniusnorm}$
+    \item \textbf{p-Norm}: 
+			 $\quad ||A||_p \coloneqq ||A||_{p,p}
+				 \index{p-Norm}$
+    \item Eine Matrixnorm heißt \textbf{verträglich} \index{Norm!verträglich} mit den Vektornormen 
+			    $||\cdot||_a, ||\cdot||_b$, falls gilt
+			    \footnote{ Beachte: $||A||_{a,b}$ ist die kleinste Norm im Gegensatz zu $||A||$, welche hier beliebig ist.}:
+				 \begin{gather*}
+					 	||Ax||_b \leq ||A|| \cdot ||x||_a \quad \forall x\in \R^n
+				 \end{gather*}
+\end{enumerate}
+
+\subsection{Bemerkungen} \label{3.2.6}
+\begin{enumerate}[a)]
+	\item Die Normen $||\cdot||_F$ und $||\cdot||_p$ sind \textbf{submultiplikativ} \index{Norm!submultiplikativ}, d.h.
+				\begin{gather*}
+					||A\cdot B|| \leq ||A|| \cdot ||B||
+				\end{gather*}
+	\item Die \textbf{Spaltensummennorm}\index{Norm!Spaltensummennorm} ist definiert als
+				\begin{gather*}
+					||A||_1 = \max_{1\leq j \leq n}\sum_{i=1}^{m}|a_{ij}|
+				\end{gather*}
+			Sie ist das Maximum der Spaltensummen.
+	\item Die \textbf{Zeilensummennorm} \index{Zeilensummennorm}ist äquivalent definiert als
+				\begin{gather*}
+					||A||_\infty = \max_{1\leq i \leq m}\sum_{j=1}^{n}|a_{ij}|
+				\end{gather*}
+	\item Die Frobeniusnorm $||\cdot||_F$ ist verträglich mit der euklidischen Norm $||\cdot||_2$
+	\item Die Wurzeln aus den Eigenwerten von $A^TA$ heißen \textbf{Singulärwerte $\sigma_i$} \index{Singulärwert} von A. Sie definieren die Norm
+				\begin{align*}
+					||A||_2 &\coloneqq max \{\sqrt{\mu} : A^TA\cdot x = \mu x\text{ für ein }x\neq 0 \} \\
+								& = \sigma_{max}
+				\end{align*}
+\end{enumerate}
+
+%ultimate evil hack to go along with numeration
+\minisec{\Large3.2 a) Normweise Konditionsanalyse} \label{3.2a}\vspace{1eM}
+
+\subsection{Definition: absolute und relative Normweise Kondition}\index{normweise Kondition}
+Sei $(f,x)$ ein Problem mit $f:U\in\R^n \rightarrow \R^m$
+und $||\cdot||_a$ auf $\R^n$ und $||\cdot||_b$ auf $\R^m$ eine Norm.
+\begin{enumerate}[a)]
+	\item Die \textbf{absolute normweise Kondition}\index{Kondition!absolute normweise} eines Problems $(f,x)$ ist die kleinste Zahl 
+			 $\kappa _{abs} > 0 $ mit
+			 \begin{align}
+			 	||f(\widehat{x})-f(x)||_b &\leq \kappa _{abs}(f,x) ||\widehat{x}-x||_a
+			 	+ o\left(||\widetilde{x}-x||_a\right) \label{III.2.2} \\\nonumber
+			 	\Bigl(f(\widetilde{x})- f(x) 
+						 	&=\underbrace{ f'(x)(\widetilde{x}-x)+ o\left(||\widetilde{x}-x||\right)}_{Taylorentwicklung}
+							 \quad \text{für }\widetilde{x}\rightarrow x 
+						 	\Bigr)
+			 \end{align}
+	\item Die \textbf{relative normweise Kondition}\index{Kondition!absolute normweise} eines Problems $(f,x)$  mit $x\neq 0, f(x) \neq 0$
+			 	ist die kleinste Zahl 
+			 	$\kappa _{rel} > 0 $ mit
+			 	\begin{align}
+			 \frac{	||f(\widetilde{x})-f(x)||_b }{||f(x)||_b}
+				 &\leq \kappa _{abs}(f,x)\frac{ ||\widetilde{x}-x||_a}{||x||_a}
+			 	+ 
+			 	\frac{||\widetilde{x}-x||_a}{||x||_a}) \label{III.2.3}
+					 &&	\text{für } \widetilde{x} \rightarrow x
+			 	\end{align}
+	\item Sprechweise:
+		\begin{itemize}\index{Kondition!gut/schlecht konditioniert}
+			\item falls $\kappa$ \enquote{klein} ist, ist das Problem \enquote{gut konditioniert}
+			\item falls $\kappa$ \enquote{groß} ist, ist das Problem \enquote{schlecht konditioniert}
+		\end{itemize}
+\end{enumerate}
+
+\subsection{Lemma} \label{3.2.8}
+Falls $f$ diffenrenzierbar ist, gilt
+\begin{gather}
+	\kappa_{abs}(f,x) = ||Df(x)||_{a,b} \label{III.2.4}
+\end{gather}
+und für $f(x) \neq 0$
+\begin{gather}
+	\kappa_{rel}(f,x) = \frac{||x_a||}{||f(x)||_b} -||Df(x)||_{a,b} \label{III.2.5}
+\end{gather}
+wobei $Df(x)$ die Jakobi-Matrix bezeichnet.
+%
+\subsection{Beispiel: Kondition der Addition} \index{Kondition der Addition}
+$f(x_1, x_2) \coloneqq x_1 +x_2 , \, f:\R^2 \rightarrow \R$. \\
+Wähle $l_1$-Norm auf $\R^2$ (und $\R$)
+\begin{align*}
+			Df(x_1, x_2) \, =(\triangledown f^T) \, &= (\frac{\partial}{\partial x_1}f, \frac{\partial}{\partial x_2}f )\\
+				&= (1,1) && \text{(Matrix!)}
+\end{align*}
+damit
+\begin{align*}
+	\kappa_{abs} (f,x)&= ||Df(x)||_{1,1} && \text{(Matrix-Norm!!)}\\
+						 		&= ||Df(x)||_1 \\
+								&=1 \\
+	\kappa_{rel} (f,x) &= \frac{||x||_1}{||f(x)||_1}| \cdot ||Df(x)||_{1} \\
+								&= \frac{|x1| + |x_2|}{|x_1+x_2|}
+\end{align*}
+Daraus folgt: Die Addition zweier Zahlen mit gleichem Vorzeichen ergibt
+\begin{gather*}
+	\kappa_{rel} = 1
+\end{gather*}
+Die Subtraktion zweier annähernd gleich großer  Zahlen ergibt eine sehr schlechte relative
+Konditionierung:
+\begin{gather*}
+\kappa_{rel} \gg 1
+\end{gather*}
+Zum Beispiel in \ref{3.1.8}: Es ist 
+\begin{align*}
+	x &= \begin{pmatrix}
+		9,995 \\
+		-9,984
+	\end{pmatrix}
+	\cdot 10^{-1} \\
+	\widetilde{x} = fl(x) &= \begin{pmatrix}
+		1 \\
+		-9,98\cdot 10^{-1}
+	\end{pmatrix}
+\intertext{also}
+	\frac{|f(\widetilde{x})-f(x)|}{|f(x)|}	&= \frac{0,9}{1,1} 
+															= 0,\overline{81} \\
+															&\leq \kappa_{rel}(f,x)\cdot \frac{||\widetilde{x}-x||_1}{||x||_1} \\
+															&= \kappa_{rel}(f,x) \cdot 4,6\cdot 10^{-4}
+\end{align*}
+%
+
+\subsection{Beispiel: Lösen eines Gleichungssystems}
+Sei $A\in \R^{n\times n}$ invertierbar und $b\in \R^n$. Es soll 
+\begin{gather*}
+	Ax =b
+\end{gather*}
+gelöst werden.
+Die mögliche Lösungen in $A$ und in $b$ lassen sich folgendermaßen ermitteln:
+\begin{enumerate}[a)]
+	\item Betrachte die Störungen in $b$:
+			\begin{gather*}
+			f: b\mapsto x= A^{-1}b 
+			\end{gather*}
+			Berechne dann $ \kappa(f,b)$ und löse 
+			\begin{align*}
+					A(x + \Delta x) &= b+\Delta b \\
+					f(b + \Delta b) - f(b) &= \Delta x \\
+													&= A^{-1} \cdot \Delta b && \text{da }x = A^{-1}b \\
+					\Rightarrow ||\Delta x||  &= ||A^{-1}\Delta b|| \\
+														&\leq ||A^{-1}||\cdot ||\Delta b|| && \forall b, \Delta b 
+			\end{align*}
+			wobei $||\cdot|| $ auf $\R^{n\times n}||$ die zum $||\R^n||$ zugeordnete Matrix-Norm sei. \\
+			Die Abschätzung ist \textbf{scharf}, d.h. es gibt ein $\Delta b\in \R^n$, so dass \enquote{=} gilt, nach Definition \ref{3.2.4}. \\
+			Also gilt
+			\begin{gather}
+				\kappa_{absl}(f,b) = ||A^{-1}|| \label{II.2.4}
+			\end{gather}
+			unabhängig von b $\left( x\mapsto Ax \quad \kappa_{abs}\right)$.
+			Ebenso folgt die scharfe Abschätzung 
+			\begin{align}
+				\nonumber
+				\frac{||	f(b + \Delta b) - f(b) - f(b)||}{||f(b)||} &= \frac{||\Delta x||}{||x||}\\ \nonumber
+						& \leq  \frac{||A^{-1}||\cdot ||b||}{||x||} \cdot \frac{||\Delta b||}{||b||} \\
+				\intertext{Damit}
+				\kappa_{rel} (f,b) &= ||A^{-1} || \cdot \frac{||b||}{||A^{-1}\cdot b||} \label{III.2.7}
+			\end{align}
+			Da $||b|| \leq ||A||\cdot||x|| = ||A||\cdot||x|| = ||A||\cdot ||A^{-1}b||$ folgt:
+			\begin{gather}
+				\kappa_{rel}(f,b) \leq ||A|| \cdot ||A^{-1}|| \label{III.2.8}
+			\end{gather}
+			für alle (möglichen rechten Seiten) $b $.
+			\ref{3.2.8} ist scharf in dem Sinne, dass es ein $\widehat{b}\in \R^n$ gibt 
+			mit 
+			\begin{gather*}
+				||\widehat{b}|| = ||A||\cdot ||\widehat{x}||
+			\end{gather*}
+			und somit
+			\begin{gather}
+				\kappa_{rel}(f,\widehat{b}) = ||A||\cdot ||A^{-1}||
+			\end{gather} %
+			%
+	\item betrachte Störungen in $A$:\\
+			löse also 
+			\begin{align*}
+				(A+\Delta A)(x+\Delta x) &= b \\
+				f:A&\mapsto x= A^{-1}b \\
+				\R^{n\times n}&\rightarrow \R^n
+			\end{align*}
+			und berechne $\kappa(f,A)$ mittels Ableitung $Df(A):\R^{n\times n} \rightarrow \R^n$:
+			\begin{align*}
+				C\mapsto Df(A) C&= \frac{d}{dt} \left((A+tC)^{-1} \cdot b\right) \Big\vert_{t=0} \\
+										  & = \frac{d}{dt}\left((A+tC)^{-1}\right)\Big\vert_{t=0}\cdot b
+			\end{align*}			
+			Weiterhin gilt
+			\begin{align*}
+				\frac{d}{dt} \left((A+tC)^{-1}\right) \Big\vert_{t=0} &= -A^{-1}CA^{-1} \label{III.2.9}
+			\end{align*}
+			da
+			\begin{align*}
+				0&= \frac{d}{dt}MISSING \\
+				  &= \frac{d}{dt}\left( (A+tC)(A+tC)^{-1}\right)\\
+				  &= C(A+tC)^{-1} +(A+tC)\cdot \frac{d}{dt}(A+tC)^{-1} \\
+				  &\Rightarrow \frac{d}{dt} (A+ tC)^{-1} \\
+				  &= -(A+tC)^{-1} \cdot C(A+tc)^{-1} \, ,
+			\end{align*}
+			falls $(A+tC)$ invertierbar ist. Für $t$ klein genug ist das gewährleistet, da $A$ invertierbar ist (s. Lemma \ref{3.2.12}) MISSING.
+			\begin{gather*}
+				\Rightarrow Df(A) C = -A^{-1}CA^{-1}b
+			\end{gather*}
+			Somit folgt
+			\begin{align*}
+				\nonumber
+				\kappa_{abs} (f,A) &= ||Df(A)|| \\ \nonumber
+											  &= \sup_{\substack{
+																C\neq 0 \\ \nonumber
+																C \in \R^{n\times n}														  	
+														  	}}
+														  \frac{||A^{-1}CA^{-1}b||}{||C||} \\ \nonumber
+											  &= \sup_{\substack{
+															 	C\neq 0 \\
+															 	C \in \R^{n\times n}														  	
+															 }}
+												 \frac{||A^{-1}||\cdot||C||\cdot||A^{-1}b||}{||C||} \\
+											  &= ||A^{-1}|| \cdot||x||
+											  &\leq   ||A^{-1}||^2 \cdot||b||\\
+				 \kappa_{rel}(f,A)  &= \frac{||A||}{||f(A)||} \cdot ||Df(A)|| \\\nonumber
+											 &\leq ||A||\cdot ||A^{-1}|| \label{III.2.10}
+			\end{align*}
+	 \item betrachte Störungen in $A$ und $b$ :
+		 \begin{gather*}
+		 	(A+\Delta A)(x+\Delta x) = (b+\Delta b) 
+		 \end{gather*}
+		 Für $\kappa$ müsste $||(A,b)||$ festgelegt werden. Dies wird jedoch nichgt betrachtet. Es gilt jedoch folgende Abschätzung für invertierbare Matrizen $A\in \R{n\times n} $ und Störungen
+		 $\Delta A \in \R^{n\times n}$ mit $||A^{-1}||\cdot ||\Delta A|| < 1$:
+		 \begin{align*}
+			 \frac{||\Delta x||}{||x||} & \leq ||A|| \cdot ||A{-1}||\cdot (1- ||A^{-1}\cdot ||\Delta A||) 
+													 \cdot \underbrace{\neq  \frac{||(\Delta A, \Delta b)||}{||(A,b)||} }{\left(  \frac{||\Delta b||}{||b||} +  \frac{||\Delta A||}{||A||}  \right)}
+													 \label{III.2.11}
+		 \end{align*}
+		 \textbf{Beweis:} s. Übungsblatt
+\end{enumerate}
+
+\subsection{Definition: Kondition einer Matrix} \index{MISSING}
+Sei $||\cdot||$ eine Norm auf $\R{n\times n} $ und $A\in \R{n\times n}$ eine reguläre Matrix.
+Die Größe
+\begin{gather*}
+	\mathbb{\kappa_{||\cdot||}(A) }= cond_{||\cdot||} \coloneqq ||A|| \cdot ||A^{-1}||
+\end{gather*}
+heißt \textbf{Kondition der Matrix} bzgl. der Norm ${||\cdot||}$. \\
+Ist  ${||\cdot||}$ von einer Vektor-Norm ${||\cdot||}_p$ induziert, bezeichnet 
+	$\mathbb{cond_p(A)}$
+die $cond_{||\cdot||_p}(A)$. Wir schreiben $cond(A)$ für $cond_2(A)$. \\
+$cond_{||\cdot||}(A) $ schätzt die relative Kondition eines linearen GLS $Ax=b$ für alle möglichen Störungen in $b$ oder in $A$ ab und diese Abschatzung ist scharf. \\
+Es stellt sich nun die Frage: \\
+\textit{Wann existiert die Inverse der gestörten invertierbaren Matrix $A$?}
+\begin{align*}
+	A+\Delta A &= A (I+A^{-1}\Delta A)\\
+	||c|| < 1 \\
+	(I-C)^{-1} &= \sum_{k=0}^{\infty}C^k \\
+	||	(I-C)^{-1} || &\leq \frac{1}{1-||C||}
+\end{align*}
+
+
+%
+%\begin{gather*}
+%\int \dotsi \int \\
+%+ \dotsb + \\
+%, \dotsc , \\
+%\dotso
+%\end{gather*}
+
+%----------------------------------------------------------------------------------------------
+%BACKMATTER
+%----------------------------------------------------------------------------------------------
+%\backmatter		%for book only, part for index etc.
+
+
+\printindex		%only with package makeidx
+%\listoffigures		
+%\listoftables
+%\printbibliography	%only with package biblatex
+
+
+\end{document}
+%**********************************************************************************************
+
+
+
+
+
+
+
+
+
