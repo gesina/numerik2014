@@ -1,4 +1,4 @@
-\documentclass[ngerman,fontsize=11pt, paper=a4, parskip=false, titlepage=false, toc=bib]{scrbook}
+\documentclass[ngerman,fontsize=11pt, paper=a4, parskip=false, titlepage=true, toc=bib]{scrbook}
 %%options:
 %	ngerman:	provides german headers etc.; default english
 %	fontsize:	use 10-12pt
@@ -74,7 +74,7 @@
 %
 %..................................................
 %%(nicer)tables
-%	\usepackage{booktabs} 			%enables better spacing and lines in tables
+	\usepackage{booktabs} 			%enables better spacing and lines in tables
 %	\usepackage{multirow}			%allows option multirow for tables (centers text vertically)
 %	\usepackage{multicol}			%allows option multicol for tables
 %	\usepackage{tabularx}  			%table with extendable X-column
@@ -127,10 +127,20 @@
 %NEW COMMAMDS
 %------------------------------------------------------------------------------------------------
 %\newcommand{\<new command>}{<what it shall do>}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathds{R}}
+\newcommand{\Rn}{\mathds{R}^{n}}
+\newcommand{\Rnn}{\mathds{R}^{n\times n}}
+\newcommand{\Q}{\mathds{Q}}
+\newcommand{\N}{\mathds{N}}
+\newcommand{\Z}{\mathds{Z}}
+
+\newcommand{\floatbox}[3]{ %
+	\begin{array}{|c|c|c|}
+		\cline{1-3} 	
+		#1 & #2 & #3\\
+		\cline{1-3}
+	\end{array}
+	}
 
 
 
@@ -148,12 +158,11 @@
 
 %************************************************************************************************
 \begin{document}
-
-
+	
 %----------------------------------------------------------------------------------------------
 %FRONTMATTER
 %----------------------------------------------------------------------------------------------
-%\frontmatter	%for book only, part for title etc.
+\frontmatter	%for book only, part for title etc.
 
 %TITLE(PAGE)
 %	\titlehead{titlehead (free)}
@@ -178,8 +187,8 @@
 %----------------------------------------------------------------------------------------------
 %ACTUAL CONTENT
 %----------------------------------------------------------------------------------------------
-%\mainmatter		%for book only, part for main content of document
-\chapter{Einführung}
+\mainmatter		%for book only, part for main content of document
+\chapter{Einführung}\marginpar{06.10.2014}
 
 \chapter{Lineare Gleichungssysteme: Direkte Methoden}
 \label{2.1}
@@ -295,11 +304,11 @@ Die $l_{ik}$ werden spaltenweise berechnet und können daher anstelle der entspr
 \begin{gather}
 	\widetilde{L} \coloneqq (l_{ik})  \label{II.1.8}
 \end{gather}
-und $R$ werden sukzessive in A geschrieben.
-TIKZ MISSING
+und $R$ werden sukzessive in A geschrieben. \\
+IMAGE~MISSING \\
 Der Vektor $z$ und anschließend der Lösungsvektor $x$ kann in (eine Kopie von) $b$ geschrieben werden.
-Wird eine neue rechte Seite $b$ betrachtet, muss \ref{II.1.1} nicht komplett neu ausgeführt werden, da sich $\widetilde{L}$ nicht ändert. Es reicht \ref{II.1.4} zu wiederholen.
-TIKZ MISSING
+Wird eine neue rechte Seite $b$ betrachtet, muss \ref{II.1.1} nicht komplett neu ausgeführt werden, da sich $\widetilde{L}$ nicht ändert. Es reicht \ref{II.1.4} zu wiederholen. \\
+IMAGE~MISSING \\
 
 \subsection{Dreieckszerlegung} \label{2.1.5} \index{Dreieckszerlegung}
 Die Dreieckszerlegung einer Matrix $A$ entspricht dem Verfahren aus \ref{2.1.1}, nur ohne die Zeile \eqref{II.1.4}.
@@ -324,7 +333,9 @@ MISSING
 \subsection{Allgemeines zur Aufwandsbetrachtung}\index{Rechenaufwand}
 MISSING
 
-\subsection{Formalisieren des Gauß-Algorithmus} \index{Gaußsches Eliminationsverfahren} \index{LR-Zerlegung}\index{LU-Zerlegung}
+\subsection{Formalisieren des Gauß-Algorithmus} \index{Gaußsches Eliminationsverfahren} \index{LR-Zerlegung}
+\marginpar{13.10.2014}
+
 MISSING
 
 \subsection{Lemma (Eigenschaften der $L_k$-Matrizen)} \label{2.1.12} \index{Frobeniusmatrix}
@@ -337,11 +348,11 @@ MISSING
 
 \section{Gaußsches Eliminationsverfahren mit Pivotisierung}
 MISSING
-\subsection{Spaltenpivotisierung (=partielle/ halbmaximale Pivotisierung)} \index{Spaltenpivotisierung}\index{Pivotisierung}\index{halbmaximale, partielle Pivotisierung}
+\subsection{Spaltenpivotisierung (=partielle/ halbmaximale Pivotisierung)} \index{Pivotisierung!Spalten-}\index{Pivotisierung}\index{Pivotisierung!halbmaximale}\index{Pivotisierung!partielle}
 
 \subsection{Bemerkungen}
-\index{Zeilenpivotisierung}
-\index{Vollständig Pivotsuche}\index{vollständige Pivotisierung}
+\index{Pivotisierung!Zeilen-}
+\index{Pivotisierung!vollständige}
 \index{Permutationsmatrix}
 
 \subsection{Satz: Dreieckszerlegung mit Permutationsmatrix} \label{2.2.4} 
@@ -351,6 +362,7 @@ MISSING
 		PA &= LR  \\
 		R &= A^{(n-1)}\\& = L_{n-1}P_{\tau_{n-1}}\dots L_1P_{\tau_1}A
 		\end{align*}
+		\marginpar{15.10.2014}
 	Da $\tau_i$ nur zwei Zahlen $\geq i $ vertauscht, ist
 	\begin{align*}\index{Vorwärtselimination}
 		\Pi_i  &\coloneqq \tau_{n-1} \circ \dots \tau_i \quad\text{ für } i=1,\dots (n-1) 
@@ -358,14 +370,8 @@ MISSING
 	eine Permutation der Zahlen $\{i,\dots, n\}$, d.h. insbesondere gilt:
 	\begin{alignat*}{2}
 		\Pi_i(j)&=j  & \quad &\text{ für } j=1,\dots,(i-1) \\
-%	\intertext{sowie}
 		\Pi_i(j)&\in \{i, \dots, n\} & &\text{~für~}j=i,\dots, n\,. \\
 		P _{\Pi_{i+1}}  &= (e_1, \dotsc e_i, e_{\Pi_{i+i}(i+1)}, \dotsc, e_{\Pi_{i+1}(n)}) && \\
-%								&= \left(\begin{array}{c@{\vdots \,\,}c}
-%									I_i & 0 \\
-%							%		\dotsm & \dotsm \\
-%									0  & P_{\sigma}
-%									\end{array}\right)
 								&= \begin{pmatrix}
 										I_i & 0 \\
 										0 & P_{\sigma}
@@ -436,9 +442,40 @@ gilt.
 
 
 \chapter{Fehleranalyse} \index{Fehler}
-MISSING
+%
+\begin{align*}
+	\overset{x+\epsilon \text{ statt } x}{\framebox[3cm]{Eingabe}} \longrightarrow 
+	\overset{\underset{\text{\tiny (z.B. durch Rundung)}}{\widetilde{f} \text{ statt } f}}{\framebox[3cm]{Algorithmus}} \longrightarrow
+	\overset{\widetilde{f}(x+\epsilon) \text{ statt } f(x)}{\framebox[3cm]{Resultat\phantom{g}}}
+\end{align*}\\
+
+Bei der Fehleranalyse liegt das Hauptaugenmerk auf
+\begin{itemize}
+	\item[] \textbf{Eingabefehler}\\ z.B.Rundungsfehler, Fehler in Messdaten, Fehler im Modell (falsche Parameter)
+	\item[] \textbf{Fehler im Algorithmus} \\ z.B. Rundungsfehler durch Rechenoperationen, Approximationen \\
+	 (z.B. Ableitung durch Differenzenquotient oder die Berechnung von Sinus durch abgebrochene Reihenentwicklung)
+	\\
+	\item[\textit{1. Frage}] Wie wirken sich Eingabefehler auf das Resultat unabhängig vom gewählten Algorithmus aus?
+		\item[\textit{2. Frage}]Wie wirken sich (Rundungs-)Fehler des Algorithmus aus?\\
+											Und wie verstärkt der Algorithmus Eingabefehler?
+\end{itemize}
+
 \index{Stabilität des Algorithmus}
 \section{Zahlendarstellung und Rundungsfehler} \label{3.1} \index{Fehler} \index{Rundungsfehler}\index{Zahlendarstellung}
+Auf (Digital-)Rechnern können nur endlich viele Zahlen realisiert werden. \\
+Die wichtigsten Typen sind: 
+\begin{itemize}
+	\item \textbf{ganze Zahlen}  (integer)\index{integer}:
+					\begin{align*}
+						 z&=\pm \sum_{i=0}^{m}z_i\beta_i & \text{mit }
+						 \begin{array}{l@{\,}l}
+							 \beta &= \text{Basis des Zahlensystems (oft $\beta=2$)} \\
+							 z_i &\in \{0, \cdots \beta-1\}
+						 \end{array}
+						\end{align*}
+	\item \textbf{Gleitpunktzahlen} (floating point) \index{floating point}
+\end{itemize}
+
 \subsection{Definition: Gleitkommazahl} \label{3.1.1} \index{Gleitkommazahl}
 Eine Zahl $x\in\Q$ mit einer Darstellung
 \begin{align*}
@@ -466,23 +503,50 @@ Ist $a_1\neq 0$, so heißt $x$ \textbf{normalisierte Gleitkommazahl}\index{norma
 \end{enumerate}
 
 \subsection{Beispiel} \label{3.1.3}
- bit-Darstellung nach IEEE-Standard 754 von floating point numbers
- MISSING
+ bit-Darstellung nach IEEE-Standard 754 von floating point numbers \\
+ Sei die Basis $\beta=2$.
  
+\begin{tabular}{l@{}cccc@{}}
+				& Speicherplatz & $t$ & $e_{min}$ & $e_{max}$ \\
+				\cmidrule{2-5}
+	einfache Genauigkeit (float) \index{floating point} & 32bits = 4Bytes & 24 &-126 & 127 \\
+	doppelte  Genauigkeit (double)~~\index{double} & 64bits = 8Bytes& 52 & -1022 & 1023
+\end{tabular}\\
+
+Darstellung im Rechner (Bitmuster) für float:
+\begin{gather*}
+\floatbox{s}{b_0\cdots b_7}{a_2\cdots\cdots a_{24}}\\
+\text{(Da $a_1\neq 0$, also $a_1=1$ gilt, wird $a_1$ nicht gespeichert)}
+\end{gather*}
+
+Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
+\begin{itemize}
+		\item$s$ Vorzeichenbit: $\quad \sigma=(-1)^s 
+										\Rightarrow \begin{array}{l}
+																\sigma(0)=1 \\
+																\sigma(1)=-1
+															\end{array} $
+		\item $b=\sum_{i=0}^{7}b_i\cdot2^i \in \{1, \cdots, 254\}$ speichert den Exponenten mit \\
+							$ \quad e = b-\underbrace{127}_\text{Basiswert}$ (kein Vorzeichen nötig) \\
+							Beachte: $b_0=\cdots=b_7=0$ sowie $b_0=\cdots=b_7=0$ sind bis auf Ausnahmen keine gültigen Exponenten
+		\item $m=(a_1.a_2\cdots a_{24})=1+\sum_{\nu=2}^{24}a_{\nu}2^{1-\nu}$ stellt die Mantisse dar, $a_1=1$ wird nicht abgespeichert.
+		\item Besondere Zahlen per Konvention:
+		\begin{itemize}
+			\item[$x=0$:] $s$ bel., $b=0$, $m=1 \quad \floatbox{s}{0\cdots0}{0\cdots0}$
+			\item[$x=\pm\infty$:]  $s$ bel., $b=255$, $m=1  \quad \floatbox{s}{1\cdots1}{0\cdots0}$
+			\item[$x=$NaN] $s$ bel., $b=255$, $m\neq 1$
+			\item[$x=(-1)^s$] $s$ bel., $b=0$, $m\neq 1$ und x hat die Form $x=(0+\sum_{\nu=2}^{24}a_{\nu}\cdot 2^{1-\nu})\cdot 2^{126}$ (\enquote{denormalized} number)
+		\end{itemize}
+\end{itemize}
+
+  
+ \marginpar{20.10.2014}
 \begin{align*}
 \intertext{Betragsmäßig \textbf{größte Zahl}:}
-	 \begin{array}{|c|c|c|}
-	 \cline{1-3} 	
-	 0 & 01\cdots 1& 1\cdots\cdots 1\\
-	 \cline{1-3}
-	 \end{array} && 
+	\floatbox{0}{01\cdots 1}{ 1\cdots\cdots 1} && 
 	 x_{max} = (2-2^{-23})\cdot 2^{127}  & \approx 3,4 \cdot 10^{38}
 \intertext{Betragsmäßig \textbf{kleinste Zahl}:}
-	\begin{array}{|c|c|c|}
-	\cline{1-3} 	
-	0 & 0\cdots 0& 0\cdots\cdots 01\\
-	\cline{1-3}
-	\end{array} && 
+	\floatbox{0}{0\cdots 0}{ 0\cdots\cdots 01} && 
 	x_{min} = (2-2^{-23})\cdot 2^{-126} = 2^{-149}  & \approx 1,4 \cdot 10^{-45}
 \end{align*}
 
@@ -490,7 +554,7 @@ Ist $a_1\neq 0$, so heißt $x$ \textbf{normalisierte Gleitkommazahl}\index{norma
 ungleichmäßig im Dezimalsystem, z. B.
 \begin{align*}
 		x &= \pm a_1 . a_2 a_3 \cdot 2^e  & -2\leq & e\leq 1 & a_i & \in \{0,1\}  \\
-		TIKZ MISSING
+		IMAGE~MISSING
 \end{align*}
 ist im Dualsystem gleichmäßig verteilt.
 
@@ -513,8 +577,8 @@ Bsp.: overflow beim integer $b=e+127$
 \subsection{Rundungsfehler} \label{3.1.6}
 Habe $x\in \R $ die normalisierte Darstellung
 \begin{align*}
-	x &= \sigma \cdot \beta^e (\sum_{\nu=1}^{t}a_{\nu}\beta{1-\nu} + \sum_{\nu=t+1}^{\infty}a_{\nu}\beta^{1-\nu} ) \\
-	  &= \sigma \cdot \beta^e (\sum_{\nu=1}^{t}a_{\nu}\beta^{1-\nu} + \beta^{1-t}\sum_{l=1}^{\infty}a_{t+l}\beta^{l} )
+	x &= \sigma \cdot \beta^e (\sum_{\nu=1}^{t}a_{\nu}\beta^{1-\nu} + \sum_{\nu=t+1}^{\infty}a_{\nu}\beta^{1-\nu} ) \\
+	  &= \sigma \cdot \beta^e (\sum_{\nu=1}^{t}a_{\nu}\beta^{1-\nu} + \beta^{1-t}\sum_{l=1}^{\infty}a_{t+l}\beta^{-l} )
 \end{align*}
 mit $e_{min} \leq e \leq e_{max}$, dann wird mit $fl(x)$ die gerundete Zahl bezeichnet, wobei $fl(x)$ 
 eindeutig gegeben ist durch die Schranke an den \textbf{absoluten Rundungsfehler} \index{Fehler!absoluter Rundungsfehler}
@@ -545,8 +609,8 @@ Weiterhin gilt:
 	\item Die kleinste Zahl am Rechner, welche größer als 1 ist, ist
 					\[ 1 + eps \]
 	\item Eine Maschinenzahl x repräsentiert eine Eingabemenge
-					\[  E(x) = \{\widehat{x} \in \R : |\widehat{x}-x| \leq \tau|x|\} \]
-					TIKZ MISSING
+					\[  E(x) = \{\widetilde{x} \in \R : |\widetilde{x}-x| \leq \tau|x|\} \] \\
+					IMAGE~MISSING
 \end{enumerate}
 
 \subsection{Bemerkung} \label{3.1.7}
@@ -567,23 +631,23 @@ Gesetze der arithmetischen Operationen gelten i.A. nicht, z.B.
 \subsection{Auslöschung von signifikanten Stellen} \label{3.1.8}
 Sei $x=9,995\cdot 10^{-1}, y=9,984 \cdot 10^{-1}$. Runde auf drei signifikante Stellen und berechne $x-y$:
 \begin{align*}
-	\widehat{f}(x,y) &\coloneqq fl(fl(x)- fl(y)) = fl(1,00\cdot 10^0 - 9,98\cdot 10^{-1}) \\
+	\widetilde{f}(x,y) &\coloneqq fl(fl(x)- fl(y)) = fl(1,00\cdot 10^0 - 9,98\cdot 10^{-1}) \\
 							  &= 	fl(0,02\cdot 10^{-1}) \\
 							  &= fl(2,00 \cdot 10^{-3}) \\
 	f(x,y)  &\coloneqq x-y \\
 		      &\coloneqq 0,0011 = 1,1\cdot 10^{-3}
 	\intertext{Daraus ergibt sich der relative Fehler}
-	\frac{|\widehat{f}(x,y)-f(x,y)|}{|f(x,y)|}
+	\frac{|\widetilde{f}(x,y)-f(x,y)|}{|f(x,y)|}
 		     &= \frac{|2\cdot 10^{-3}- 1,1\cdot 10^{-3}|}{|1,1\cdot 10^{-3}}
 		       = 82\%
 \end{align*}
 Der Grund hierfür ist, dass das Problem der Substraktion zweier annähernd gleich großer Zahlen
-schlecht konditioniert ist.
+schlecht konditioniert ist.\\
 
 \textbf{Zwei Regeln:}
 \begin{enumerate}[1)]
 	\item Umgehbare Substraktion annähernd gleich großer Zahlen vermeiden!
-	\item Unumgängliche Substraktion möglihcst an den Anfang des Algorithmus stellen! (s. später)
+	\item Unumgängliche Substraktion möglichst an den Anfang des Algorithmus stellen! (siehe später)
 \end{enumerate}
 
 % 2.2
@@ -599,84 +663,87 @@ untersucht.
 Sei $f: U \subseteq \R^n \mapsto \R^m$ mit $U$ offen und sei $x\in U$. Dann bezeichne $(f, x)$ das Problem, zu einem gegebenen $x$ die Lösung $f(x)$ zu finden.
 
 \subsection{Definition: absoluter und relativer Fehler} \label{3.2.2} \index{Fehler}
-Sei $x\in\R^n$ und $\widehat{x} \in \R^n$ eine Näherung an $x$. Weiterhin sei $||\cdot||$ eine Norm auf $\R^n$.
+Sei $x\in\R^n$ und $\widetilde{x} \in \R^n$ eine Näherung an $x$. Weiterhin sei $\|\cdot\|$ eine Norm auf $\R^n$.
 \begin{itemize}
-	\item[a)] $||\widehat{x} - x||$ heißt \textbf{absoluter Fehler} \index{Fehler!absoluter}
-	\item[b)] $\frac{||\widehat{x} - x||}{||x||}$ heißt \textbf{relativer Fehler}\index{Fehler!relativer}
+	\item[a)] $\|\widetilde{x} - x\|$ heißt \textbf{absoluter Fehler} \index{Fehler!absoluter}
+	\item[b)] $\frac{\|\widetilde{x} - x\|}{\|x\|}$ heißt \textbf{relativer Fehler}\index{Fehler!relativer}
 \end{itemize}
 Da der relative Fehler skalierungsinvariant ist, d.h. unabhänging von der  Wahl von $x$ ist, ist dieser i.d.R. von größerem Interesse.
 Beide Fehler hängen von der Wahl der Norm ab!
 Häufig werden Fehler auch komponentenweise gemessen:
 \begin{align*}
-	\text{Für } i=1,\cdots , n : && |\widehat{x}_i - x_i | & \leq \delta & \text{ (absolut)} \\
-											 && |\widehat{x}_i - x_i | &\leq \delta |x_i| & \text{ (relativ)}
+	\text{Für } i=1,\cdots , n : && |\widetilde{x}_i - x_i | & \leq \delta & \text{ (absolut)} \\
+											 && |\widetilde{x}_i - x_i | &\leq \delta |x_i| & \text{ (relativ)}
 \end{align*}
 
 \subsection{Wiederholung: Normen} \label{3.2.3}\index{Norm}
 
 \begin{align*}
-	\text{Euklidische Norm ($l_2$-Norm):} &&	||x||_2 &\coloneqq \sqrt{\sum_{i=1}^{n}|x_i|^2}
-		\index{Norm!Euklidische Norm}
-			TIKZ MISSING \\
-	\text{Maximumsnorm ($l_\infty$-Norm):} &&	||x||_\infty &\coloneqq \max\{|x_i| : i=1, \cdots n\}
+	\text{Euklidische Norm ($l_2$-Norm):} &&	\|x\|_2 &\coloneqq \sqrt{\sum_{i=1}^{n}|x_i|^2}
+		\index{Norm!Euklidische Norm} \\
+			IMAGE~MISSING \\
+	\text{Maximumsnorm ($l_\infty$-Norm):} &&	\|x\|_\infty &\coloneqq \max\{|x_i| : i=1, \cdots n\} \\
 	  	\index{Norm!Maximumsnorm}
-		  	TIKZ MISSING \\
-	\text{Summennorm ($l_1$-Norm):} &&	||x||_1 &\coloneqq \sum_{i=1}^{n}|x_i| 
-		\index{Norm!Summennorm}
-			TIKZ MISSING \\
-	\text{Hölder-Norm ($l_p$-Norm):} &&	||x||_p &\coloneqq 
+		  	IMAGE~MISSING \\
+	\text{Summennorm ($l_1$-Norm):} &&	\|x\|_1 &\coloneqq \sum_{i=1}^{n}|x_i| 
+		\index{Norm!Summennorm}\\
+			IMAGE~MISSING \\
+	\text{Hölder-Norm ($l_p$-Norm):} &&	\|x\|_p &\coloneqq 
 		\left(\sum_{i=1}^{n}|x_i|^p\right)^{\frac{1}{p}} 
 		\index{Norm!Hölder-Norm}
 \end{align*}
 
 \subsection{Definition: Matrixnorm} \label{3.2.4}
-Auf dem $\R^n$  sei die Norm $||\cdot||_a$ und auf dem $\R^m$ die Norm $||\cdot||_b$ gegeben.
+Auf dem $\R^n$  sei die Norm $\|\cdot\|_a$ und auf dem $\R^m$ die Norm $\|\cdot\|_b$ gegeben.
 Dann ist die zugehörige \textbf{Matrixnorm} \index{Norm!Matrixnorm} gegeben durch:
 \begin{align}
-	||A||_{a,b} &\coloneqq \sup_{x\neq 0}- \frac{||Ax||_b}{||x||_a} \\ \nonumber
-					 &= \sup_{||x||_a=1} ||Ax||_b \label{Matrixnorm} 
+	\|A\|_{a,b} &\coloneqq \sup_{x\neq 0} \frac{\|Ax\|_b}{\|x\|_a} \\ \nonumber
+					 &= \sup_{\|x\|_a=1} \|Ax\|_b \label{Matrixnorm} 
 \end{align}
-Also ist   $||A||_{a,b}||$ die kleinste Zahl $c>0$ mit
+Also ist   $\|A\|_{a,b}$ die kleinste Zahl $c>0$ mit
 \begin{gather*}
-	||Ax||_b  \leq c||x||_a \quad\quad \forall x\in \R^n
+	\|Ax\|_b  \leq c\|x\|_a \quad\quad \forall x\in \R^n
 \end{gather*}
 
 \subsection{Definition: Frobeniusnorm, p-Norm, Verträglichkeit} \label{3.2.5}
 Sei $A\in \R^{m\times m}$.
 \begin{enumerate}[a)]
 	\item \textbf{Frobeniusnorm} (Schurnorm):
-			 $ \quad ||A||_F \coloneqq \sqrt{\sum_{i=1}^{m}\sum_{j=1}^{n}|a_{ij}^2}
+			 $ \quad \|A\|_F \coloneqq \sqrt{\sum_{i=1}^{m}\sum_{j=1}^{n}|a_{ij}^2|}
 				 \index{Norm!Frobeniusnorm}$
     \item \textbf{p-Norm}: 
-			 $\quad ||A||_p \coloneqq ||A||_{p,p}
+			 $\quad \|A\|_p \coloneqq \|A\|_{p,p}
 				 \index{p-Norm}$
     \item Eine Matrixnorm heißt \textbf{verträglich} \index{Norm!verträglich} mit den Vektornormen 
-			    $||\cdot||_a, ||\cdot||_b$, falls gilt
-			    \footnote{ Beachte: $||A||_{a,b}$ ist die kleinste Norm im Gegensatz zu $||A||$, welche hier beliebig ist.}:
+			    $\|\cdot\|_a, \|\cdot\|_b$, falls gilt
+			    \footnote{ Beachte: $\|A\|_{a,b}$ ist die kleinste Norm im Gegensatz zu $\|A\|$, welche hier beliebig ist.}:
 				 \begin{gather*}
-					 	||Ax||_b \leq ||A|| \cdot ||x||_a \quad \forall x\in \R^n
+					 	\|Ax\|_b \leq \|A\| \cdot \|x\|_a \quad \forall x\in \R^n
 				 \end{gather*}
 \end{enumerate}
 
 \subsection{Bemerkungen} \label{3.2.6}
 \begin{enumerate}[a)]
-	\item Die Normen $||\cdot||_F$ und $||\cdot||_p$ sind \textbf{submultiplikativ} \index{Norm!submultiplikativ}, d.h.
+	\item Die Normen $\|\cdot\|_F$ und $\|\cdot\|_p$ sind \textbf{submultiplikativ} \index{Norm!submultiplikative}, d.h.
 				\begin{gather*}
-					||A\cdot B|| \leq ||A|| \cdot ||B||
+					\|A\cdot B\| \leq \|A\| \cdot \|B\|
 				\end{gather*}
-	\item Die \textbf{Spaltensummennorm}\index{Norm!Spaltensummennorm} ist definiert als
+	\item Die Norm $\|\cdot\|_{1,1}$ wird auch \textbf{Spaltensummennorm}\index{Norm!Spaltensummennorm} genannt:
 				\begin{gather*}
-					||A||_1 = \max_{1\leq j \leq n}\sum_{i=1}^{m}|a_{ij}|
+					\|A\|_1 = \max_{1\leq j \leq n}\sum_{i=1}^{m}|a_{ij}|
 				\end{gather*}
-			Sie ist das Maximum der Spaltensummen.
-	\item Die \textbf{Zeilensummennorm} \index{Zeilensummennorm}ist äquivalent definiert als
+			Sie ist das Maximum der Spaltensummen\footnote{Beweis: siehe Übungsblatt 3}.
+	\item Die Norm $\|\cdot\|_{\infty, \infty}$ wird auch \textbf{Zeilensummennorm} \index{Zeilensummennorm}
+	 genannt\footnote{Beweis: siehe Übungsblatt 3}:
+	%not sure, why \footref won't work here ...
 				\begin{gather*}
-					||A||_\infty = \max_{1\leq i \leq m}\sum_{j=1}^{n}|a_{ij}|
+					\|A\|_\infty = \max_{1\leq i \leq m}\sum_{j=1}^{n}|a_{ij}|
 				\end{gather*}
-	\item Die Frobeniusnorm $||\cdot||_F$ ist verträglich mit der euklidischen Norm $||\cdot||_2$
-	\item Die Wurzeln aus den Eigenwerten von $A^TA$ heißen \textbf{Singulärwerte $\sigma_i$} \index{Singulärwert} von A. Sie definieren die Norm
+	\item Die Frobeniusnorm $\|\cdot\|_F$ ist verträglich mit der euklidischen Norm $\|\cdot\|_2$
+	\item Die Wurzeln aus den Eigenwerten von $A^TA$ heißen \textbf{Singulärwerte $\sigma_i$} \index{Singulärwert} von A.
+	Mit ihnen kann die $\|\cdot \|_{2,2}$ Norm dargestellt werden\footnote{Beweis: siehe Übungsblatt 3}:
 				\begin{align*}
-					||A||_2 &\coloneqq max \{\sqrt{\mu} : A^TA\cdot x = \mu x\text{ für ein }x\neq 0 \} \\
+					\|A\|_2 &= max \{\sqrt{\mu} : A^TA\cdot x = \mu x\text{ für ein }x\neq 0 \} \\
 								& = \sigma_{max}
 				\end{align*}
 \end{enumerate}
@@ -686,15 +753,15 @@ Sei $A\in \R^{m\times m}$.
 
 \subsection{Definition: absolute und relative Normweise Kondition}\index{normweise Kondition}
 Sei $(f,x)$ ein Problem mit $f:U\in\R^n \rightarrow \R^m$
-und $||\cdot||_a$ auf $\R^n$ und $||\cdot||_b$ auf $\R^m$ eine Norm.
+und $\|\cdot\|_a$ auf $\R^n$ und $\|\cdot\|_b$ auf $\R^m$ eine Norm.
 \begin{enumerate}[a)]
 	\item Die \textbf{absolute normweise Kondition}\index{Kondition!absolute normweise} eines Problems $(f,x)$ ist die kleinste Zahl 
 			 $\kappa _{abs} > 0 $ mit
 			 \begin{align}
-			 	||f(\widehat{x})-f(x)||_b &\leq \kappa _{abs}(f,x) ||\widehat{x}-x||_a
-			 	+ o\left(||\widetilde{x}-x||_a\right) \label{III.2.2} \\\nonumber
+			 	\|f(\widetilde{x})-f(x)\|_b &\leq \kappa _{abs}(f,x) \|\widetilde{x}-x\|_a
+			 	+ o\left(\|\widetilde{x}-x\|_a\right) \label{III.2.2} \\\nonumber
 			 	\Bigl(f(\widetilde{x})- f(x) 
-						 	&=\underbrace{ f'(x)(\widetilde{x}-x)+ o\left(||\widetilde{x}-x||\right)}_{Taylorentwicklung}
+						 	&=\underbrace{ f'(x)(\widetilde{x}-x)+ o\left(\|\widetilde{x}-x\|\right)}_{Taylorentwicklung}
 							 \quad \text{für }\widetilde{x}\rightarrow x 
 						 	\Bigr)
 			 \end{align}
@@ -702,10 +769,10 @@ und $||\cdot||_a$ auf $\R^n$ und $||\cdot||_b$ auf $\R^m$ eine Norm.
 			 	ist die kleinste Zahl 
 			 	$\kappa _{rel} > 0 $ mit
 			 	\begin{align}
-			 \frac{	||f(\widetilde{x})-f(x)||_b }{||f(x)||_b}
-				 &\leq \kappa _{abs}(f,x)\frac{ ||\widetilde{x}-x||_a}{||x||_a}
+			 \frac{	\|f(\widetilde{x})-f(x)\|_b }{\|f(x)\|_b}
+				 &\leq \kappa _{abs}(f,x)\frac{ \|\widetilde{x}-x\|_a}{\|x\|_a}
 			 	+ 
-			 	\frac{||\widetilde{x}-x||_a}{||x||_a}) \label{III.2.3}
+			 	o\left(\frac{\|\widetilde{x}-x\|_a}{\|x\|_a}\right) \label{III.2.3}
 					 &&	\text{für } \widetilde{x} \rightarrow x
 			 	\end{align}
 	\item Sprechweise:
@@ -718,28 +785,28 @@ und $||\cdot||_a$ auf $\R^n$ und $||\cdot||_b$ auf $\R^m$ eine Norm.
 \subsection{Lemma} \label{3.2.8}
 Falls $f$ diffenrenzierbar ist, gilt
 \begin{gather}
-	\kappa_{abs}(f,x) = ||Df(x)||_{a,b} \label{III.2.4}
+	\kappa_{abs}(f,x) = \|Df(x)\|_{a,b} \label{III.2.4}
 \end{gather}
 und für $f(x) \neq 0$
 \begin{gather}
-	\kappa_{rel}(f,x) = \frac{||x_a||}{||f(x)||_b} -||Df(x)||_{a,b} \label{III.2.5}
+	\kappa_{rel}(f,x) = \frac{\|x\|_a}{\|f(x)\|_b}\cdot \|Df(x)\|_{a,b} \label{III.2.5}
 \end{gather}
 wobei $Df(x)$ die Jakobi-Matrix bezeichnet.
 %
-\subsection{Beispiel: Kondition der Addition} \index{Kondition der Addition}
+\subsection{Beispiel: Kondition der Addition} \index{Kondition!Kondition der Addition}
 $f(x_1, x_2) \coloneqq x_1 +x_2 , \, f:\R^2 \rightarrow \R$. \\
 Wähle $l_1$-Norm auf $\R^2$ (und $\R$)
 \begin{align*}
-			Df(x_1, x_2) \, =(\triangledown f^T) \, &= (\frac{\partial}{\partial x_1}f, \frac{\partial}{\partial x_2}f )\\
+			Df(x_1, x_2) \, =(\nabla f^T) \, &= (\frac{\partial}{\partial x_1}f, \frac{\partial}{\partial x_2}f )\\
 				&= (1,1) && \text{(Matrix!)}
 \end{align*}
 damit
 \begin{align*}
-	\kappa_{abs} (f,x)&= ||Df(x)||_{1,1} && \text{(Matrix-Norm!!)}\\
-						 		&= ||Df(x)||_1 \\
+	\kappa_{abs} (f,x)&= \|Df(x)\|_{1,1} && \text{(Matrix-Norm!!)}\\
+						 		&= \|Df(x)\|_1 \\
 								&=1 \\
-	\kappa_{rel} (f,x) &= \frac{||x||_1}{||f(x)||_1}| \cdot ||Df(x)||_{1} \\
-								&= \frac{|x1| + |x_2|}{|x_1+x_2|}
+	\kappa_{rel} (f,x) &= \frac{\|x\|_1}{\|f(x)\|_1}| \cdot \|Df(x)\|_{1} \\
+								&= \frac{|x_1| + |x_2|}{|x_1+x_2|}
 \end{align*}
 Daraus folgt: Die Addition zweier Zahlen mit gleichem Vorzeichen ergibt
 \begin{gather*}
@@ -764,7 +831,7 @@ Zum Beispiel in \ref{3.1.8}: Es ist
 \intertext{also}
 	\frac{|f(\widetilde{x})-f(x)|}{|f(x)|}	&= \frac{0,9}{1,1} 
 															= 0,\overline{81} \\
-															&\leq \kappa_{rel}(f,x)\cdot \frac{||\widetilde{x}-x||_1}{||x||_1} \\
+															&\leq \kappa_{rel}(f,x)\cdot \frac{\|\widetilde{x}-x\|_1}{\|x\|_1} \\
 															&= \kappa_{rel}(f,x) \cdot 4,6\cdot 10^{-4}
 \end{align*}
 %
@@ -786,37 +853,37 @@ Die mögliche Lösungen in $A$ und in $b$ lassen sich folgendermaßen ermitteln:
 					A(x + \Delta x) &= b+\Delta b \\
 					f(b + \Delta b) - f(b) &= \Delta x \\
 													&= A^{-1} \cdot \Delta b && \text{da }x = A^{-1}b \\
-					\Rightarrow ||\Delta x||  &= ||A^{-1}\Delta b|| \\
-														&\leq ||A^{-1}||\cdot ||\Delta b|| && \forall b, \Delta b 
+					\Rightarrow \|\Delta x\|  &= \|A^{-1}\Delta b\| \\
+														&\leq \|A^{-1}\|\cdot \|\Delta b\| && \forall b, \Delta b 
 			\end{align*}
-			wobei $||\cdot|| $ auf $\R^{n\times n}||$ die zum $||\R^n||$ zugeordnete Matrix-Norm sei. \\
-			Die Abschätzung ist \textbf{scharf}, d.h. es gibt ein $\Delta b\in \R^n$, so dass \enquote{=} gilt, nach Definition \ref{3.2.4}. \\
+			wobei $\|\cdot\| $ auf $\Rnn$ die zum $\|\Rn\|$ zugeordnete Matrix-Norm sei. \\
+			Die Abschätzung ist \textbf{scharf}\index{scharf}, d.h. es gibt ein $\Delta b\in \R^n$, so dass \enquote{=} gilt, nach Definition \ref{3.2.4}. \\
 			Also gilt
 			\begin{gather}
-				\kappa_{absl}(f,b) = ||A^{-1}|| \label{II.2.4}
+				\kappa_{abs}(f,b) = \|A^{-1}\| \label{II.2.4}
 			\end{gather}
-			unabhängig von b $\left( x\mapsto Ax \quad \kappa_{abs}\right)$.
+			unabhängig von b.  $ \quad \left( x\mapsto Ax \quad \kappa_{abs}\right)$\\
 			Ebenso folgt die scharfe Abschätzung 
 			\begin{align}
 				\nonumber
-				\frac{||	f(b + \Delta b) - f(b) - f(b)||}{||f(b)||} &= \frac{||\Delta x||}{||x||}\\ \nonumber
-						& \leq  \frac{||A^{-1}||\cdot ||b||}{||x||} \cdot \frac{||\Delta b||}{||b||} \\
+				\frac{\|	f(b + \Delta b) - f(b) - f(b)\|}{\|f(b)\|} &= \frac{\|\Delta x\|}{\|x\|}\\ \nonumber
+						& \leq  \frac{\|A^{-1}\|\cdot \|b\|}{\|x\|} \cdot \frac{\|\Delta b\|}{\|b\|} \\
 				\intertext{Damit}
-				\kappa_{rel} (f,b) &= ||A^{-1} || \cdot \frac{||b||}{||A^{-1}\cdot b||} \label{III.2.7}
+				\kappa_{rel} (f,b) &= \|A^{-1} \| \cdot \frac{\|b\|}{\|A^{-1}\cdot b\|} \label{III.2.7}
 			\end{align}
-			Da $||b|| \leq ||A||\cdot||x|| = ||A||\cdot||x|| = ||A||\cdot ||A^{-1}b||$ folgt:
+			Da $\|b\| \leq \|A\|\cdot\|x\| = \|A\|\cdot\|x\| = \|A\|\cdot \|A^{-1}b\|$ folgt:
 			\begin{gather}
-				\kappa_{rel}(f,b) \leq ||A|| \cdot ||A^{-1}|| \label{III.2.8}
+				\kappa_{rel}(f,b) \leq \|A\| \cdot \|A^{-1}\| \label{III.2.8}
 			\end{gather}
 			für alle (möglichen rechten Seiten) $b $.
-			\ref{3.2.8} ist scharf in dem Sinne, dass es ein $\widehat{b}\in \R^n$ gibt 
+			\ref{3.2.8} ist scharf in dem Sinne, dass es ein $\widetilde{b}\in \R^n$ gibt 
 			mit 
 			\begin{gather*}
-				||\widehat{b}|| = ||A||\cdot ||\widehat{x}||
+				\|\widetilde{b}\| = \|A\|\cdot \|\widetilde{x}\|
 			\end{gather*}
 			und somit
 			\begin{gather}
-				\kappa_{rel}(f,\widehat{b}) = ||A||\cdot ||A^{-1}||
+				\kappa_{rel}(f,\widetilde{b}) = \|A\|\cdot \|A^{-1}\|
 			\end{gather} %
 			%
 	\item betrachte Störungen in $A$:\\
@@ -837,68 +904,306 @@ Die mögliche Lösungen in $A$ und in $b$ lassen sich folgendermaßen ermitteln:
 			\end{align*}
 			da
 			\begin{align*}
-				0&= \frac{d}{dt}MISSING \\
+				0&= \frac{d}{dt}I \\
 				  &= \frac{d}{dt}\left( (A+tC)(A+tC)^{-1}\right)\\
 				  &= C(A+tC)^{-1} +(A+tC)\cdot \frac{d}{dt}(A+tC)^{-1} \\
-				  &\Rightarrow \frac{d}{dt} (A+ tC)^{-1} \\
+				  &\Leftrightarrow \frac{d}{dt} (A+ tC)^{-1} \\
 				  &= -(A+tC)^{-1} \cdot C(A+tc)^{-1} \, ,
 			\end{align*}
-			falls $(A+tC)$ invertierbar ist. Für $t$ klein genug ist das gewährleistet, da $A$ invertierbar ist (s. Lemma \ref{3.2.12}) MISSING.
+			falls $(A+tC)$ invertierbar ist. Für $t$ klein genug ist das gewährleistet, da $A$ invertierbar ist (s. Lemma \ref{3.2.12}).
 			\begin{gather*}
 				\Rightarrow Df(A) C = -A^{-1}CA^{-1}b
 			\end{gather*}
 			Somit folgt
-			\begin{align*}
+			\begin{align}
 				\nonumber
-				\kappa_{abs} (f,A) &= ||Df(A)|| \\ \nonumber
+				\kappa_{abs} (f,A) &= \|Df(A)\| \\ \nonumber
 											  &= \sup_{\substack{
 																C\neq 0 \\ \nonumber
 																C \in \R^{n\times n}														  	
 														  	}}
-														  \frac{||A^{-1}CA^{-1}b||}{||C||} \\ \nonumber
+														  \frac{\|A^{-1}CA^{-1}b\|}{\|C\|} \\ \nonumber
 											  &= \sup_{\substack{
-															 	C\neq 0 \\
+															 	C\neq 0 \\ \nonumber
 															 	C \in \R^{n\times n}														  	
 															 }}
-												 \frac{||A^{-1}||\cdot||C||\cdot||A^{-1}b||}{||C||} \\
-											  &= ||A^{-1}|| \cdot||x||
-											  &\leq   ||A^{-1}||^2 \cdot||b||\\
-				 \kappa_{rel}(f,A)  &= \frac{||A||}{||f(A)||} \cdot ||Df(A)|| \\\nonumber
-											 &\leq ||A||\cdot ||A^{-1}|| \label{III.2.10}
-			\end{align*}
+												 \frac{\|A^{-1}\|\cdot\|C\|\cdot\|A^{-1}b\|}{\|C\|} \\ \nonumber
+											  &= \|A^{-1}\| \cdot\|x\| \\ \nonumber
+											  &\leq   \|A^{-1}\|^2 \cdot\|b\| \\ \nonumber
+				 \kappa_{rel}(f,A)  &= \frac{\|A\|}{\|f(A)\|} \cdot \|Df(A)\| \\
+											 &\leq \|A\|\cdot \|A^{-1}\| \label{III.2.10}
+			\end{align}
 	 \item betrachte Störungen in $A$ und $b$ :
 		 \begin{gather*}
 		 	(A+\Delta A)(x+\Delta x) = (b+\Delta b) 
 		 \end{gather*}
-		 Für $\kappa$ müsste $||(A,b)||$ festgelegt werden. Dies wird jedoch nichgt betrachtet. Es gilt jedoch folgende Abschätzung für invertierbare Matrizen $A\in \R{n\times n} $ und Störungen
-		 $\Delta A \in \R^{n\times n}$ mit $||A^{-1}||\cdot ||\Delta A|| < 1$:
-		 \begin{align*}
-			 \frac{||\Delta x||}{||x||} & \leq ||A|| \cdot ||A{-1}||\cdot (1- ||A^{-1}\cdot ||\Delta A||) 
-													 \cdot \underbrace{\neq  \frac{||(\Delta A, \Delta b)||}{||(A,b)||} }{\left(  \frac{||\Delta b||}{||b||} +  \frac{||\Delta A||}{||A||}  \right)}
+		 Für $\kappa$ müsste $\|(A,b)\|$ festgelegt werden. Dies wird jedoch nicht betrachtet. Es gilt jedoch folgende Abschätzung für invertierbare Matrizen $A\in \Rnn $ und Störungen
+		 $\Delta A \in \R^{n\times n}$ mit $\|A^{-1}\|\cdot \|\Delta A\| < 1$:
+		 \begin{align}
+			 \frac{\|\Delta x\|}{\|x\|} & \leq \|A\| \cdot \|A^{-1}\|\cdot (1- \|A^{-1}\|\cdot \|\Delta A\|) 
+													 \cdot
+													 \underbrace{\left(  \frac{\|\Delta b\|}{\|b\|} +  \frac{\|\Delta A\|}{\|A\|}  \right)}_{\neq  \frac{\|(\Delta A, \Delta b)\|}{\|(A,b)\|} }
 													 \label{III.2.11}
-		 \end{align*}
+		 \end{align}
 		 \textbf{Beweis:} s. Übungsblatt
 \end{enumerate}
 
-\subsection{Definition: Kondition einer Matrix} \index{MISSING}
-Sei $||\cdot||$ eine Norm auf $\R{n\times n} $ und $A\in \R{n\times n}$ eine reguläre Matrix.
+\subsection{Definition: Kondition einer Matrix} \index{Kondition!Matrix}
+Sei $\|\cdot\|$ eine Norm auf $\R^{n\times n} $ und $A\in \R^{n\times n}$ eine reguläre Matrix.
 Die Größe
 \begin{gather*}
-	\mathbb{\kappa_{||\cdot||}(A) }= cond_{||\cdot||} \coloneqq ||A|| \cdot ||A^{-1}||
+	\kappa_{\|\cdot\|}(A) = cond_{\|\cdot\|} \coloneqq \|A\| \cdot \|A^{-1}\|
 \end{gather*}
-heißt \textbf{Kondition der Matrix} bzgl. der Norm ${||\cdot||}$. \\
-Ist  ${||\cdot||}$ von einer Vektor-Norm ${||\cdot||}_p$ induziert, bezeichnet 
-	$\mathbb{cond_p(A)}$
-die $cond_{||\cdot||_p}(A)$. Wir schreiben $cond(A)$ für $cond_2(A)$. \\
-$cond_{||\cdot||}(A) $ schätzt die relative Kondition eines linearen GLS $Ax=b$ für alle möglichen Störungen in $b$ oder in $A$ ab und diese Abschatzung ist scharf. \\
+heißt \textbf{Kondition der Matrix} bzgl. der Norm ${\|\cdot\|}$. \\
+Ist  ${\|\cdot\|}$ von einer Vektor-Norm ${\|\cdot\|}_p$ induziert, bezeichnet 
+	$cond_p(A)$
+die $cond_{\|\cdot\|_p}(A)$. Wir schreiben $cond(A)$ für $cond_2(A)$. \\
+$cond_{\|\cdot\|}(A) $ schätzt die relative Kondition eines linearen GLS $Ax=b$ für alle möglichen Störungen in $b$ oder in $A$ ab und diese Abschatzung ist scharf. \\
 Es stellt sich nun die Frage: \\
 \textit{Wann existiert die Inverse der gestörten invertierbaren Matrix $A$?}
 \begin{align*}
 	A+\Delta A &= A (I+A^{-1}\Delta A)\\
-	||c|| < 1 \\
+	\|C\| < 1 \\
 	(I-C)^{-1} &= \sum_{k=0}^{\infty}C^k \\
-	||	(I-C)^{-1} || &\leq \frac{1}{1-||C||}
+	\|	(I-C)^{-1} \| &\leq \frac{1}{1-\|C\|}
 \end{align*}
+
+\marginpar{27.10.2014}
+\subsection{Lemma (Neumannsche Reihe)}\index{Neumannsche Reihe}\label{3.2.12}
+\addtocounter{equation}{1}
+Sei $C\in\Rnn$ mit $\|C\|<1$ und mit einer submultiplikativen Norm $\|\cdot\|$,
+so ist $(I-C)$ invertierbar und es gilt:
+\begin{gather*}
+	(I-C)^{-1}=\sum_{k=0}^{\infty}C^k
+\end{gather*}
+Weiterhin gilt:
+\begin{gather*}
+	\|(I-C)^ {-1}\| \leq \frac{1}{1-\|C\|}
+\end{gather*}
+
+\paragraph{Beweis}
+Es gilt zu zeigen, dass $\sum_{k=1}^{\infty}C^k$ existiert: \\
+Sei $q\coloneqq \|C\| < 1$, dann gilt: 
+\begin{align*}
+	\| \sum_{k=0}^{m} C^k \| &\leq \sum_{k=0}^{m} \| C^k \|  && \text{Dreiecksungleichung} \\
+								 &\leq \sum_{k=0}^{m}\|C\|^k && \text{da $\|\cdot\|$ submultiplikativ}\\
+								 &=\sum_{k=0}^{m}q^k  \\
+								 &= \frac{1-q^{m+1}}{1-q} \\
+								 &\leq \frac{1}{1-\|C\|} && \forall m, \text{ da } q<1 \text{ (geometr. Reihe)}
+\end{align*}
+Daraus folgt bereits, dass $\sum_{k=1}^{\infty}C^k$ existiert (nach Majorantenkriterium).
+Weiter gilt dann:
+\begin{align*}
+	(I-C) \sum_{k=1}^{\infty}C^k &= \lim\limits_{m\rightarrow \infty}(I-C)   \sum_{k=1}^{m}C^k \\
+													&= \lim\limits_{m\rightarrow \infty} (C^0-C^{m+1}) \\
+													&=I  &&\square
+\end{align*}
+\subsection{Bemerkung}
+\begin{enumerate}[a)]
+	\item Für symmetrische, positiv definite Matrix $A\in \Rnn$ gilt\footnote{Beweis: siehe Übungsblatt 3}: 
+	\begin{gather}
+		\kappa_2(A) = \frac{\lambda_{max}}{\lambda_{min}} \label{III.2.13}
+	\end{gather}
+	\item Eine andere Darstellung von $\kappa(A)$ ist
+	\begin{gather}
+		\kappa(A) \coloneqq 
+		\frac{\underset{\|x\|=1}{\max}\|Ax\|}{\underset{\|x\|=1}{\min}\|Ax\|} \in  \left[ 0, \infty \right]
+			 \label{III.2.14}
+	\end{gather}
+	Diese ist auch für nicht invertierbare und rechteckige Matrizen wohldefiniert. \\
+	Dann gilt offensichtlich:
+	\item $\kappa(A) \geq 1$
+	\item $\kappa(\alpha A)=\kappa(A) \quad \text{für } 0\neq\alpha\in\R$ (skalierungsinvariant)
+	\item $A\neq 0$ und $A\in\Rnn $ ist genau dann singulär, wenn $\kappa(A)=\infty$. \\
+			Wegen der Skalierungsinvarianz ist die Kondition zur Überprüfung der Regularität von $A$ 
+			besser geeignet als die Determinante.
+	\end{enumerate}
+	
+
+\subsection{Beispiel: Kondition eines nichtlinearen Gleichungssystems}
+Sei $f:\Rn\rightarrow\Rn$ stetig differenzierbar und $y\in\Rn$ gegeben. \\
+Löse
+\begin{gather*}
+	f(x) = y
+\end{gather*}
+Gesucht:
+\begin{gather*}
+	\kappa(f^{-1},y)
+\end{gather*}
+mit $f^{-1}$ Ausgabe und $y$ Eingabe. \\
+Sei $Df(x)$ invertierbar, dann existiert aufgrund des Satzes für implizite Funktionen die inverse Funktion $f^{-1}$ lokal in einer Umgebung von $y$ mit $f^{-1}(y)=x$, sowie
+\begin{gather*}
+	D(f^{-1})(y) = (Df(x))^{-1}
+\end{gather*}
+Hiermit folgt:
+\begin{align}
+	\nonumber
+	\kappa_{abs}(f^{-1},y) &= \|(Df(x))^{-1}\| \\
+	\kappa_{rel}(f^{-1},y) &= \frac{\|f(x)\|}{\|x\|}\cdot\|(Df(x))^{-1}\|  \label{III.2.15}
+\end{align}
+Für skalare Funktionen $f:\R\rightarrow\R$ folgt somit:
+\begin{gather*}
+	\kappa_{rel}(f^{-1},y) = \frac{|f(x)|}{|x|}\cdot \frac{1}{|f'(x)|}
+\end{gather*}
+Falls $|f'(x)|\rightarrow 0$ ist es eine schlechte absolute Kondition. \\
+Für $|f'(x)| \gg 0$ ist es eine gute absolute Kondition.\\
+
+IMAGE~MISSING\\
+
+Damit bedeutet eine kleine Störung in $y$ eine große Störung in $x$.
+
+
+\minisec{\Large3.2 a) Komponentenweise Konditionsanalyse} \label{3.2b}\vspace{1eM} \index{Konditionsanalyse!komponentenweise}
+
+\subsection{Beispiel}
+Falls $A$ Diagonalmatrix hat, sind die Gleichungen unabhängig voneinander (entkoppelt)\index{entkoppelt}.
+Die erwartete relative Kondition wäre dann -- wie bei skalaren Gleicungen -- stets gleich 1.
+Ebenso sind Störungen nur in der Diagonale zu erwarten. Jedoch:
+\begin{align*}
+	A  &=\begin{pmatrix}
+					1 & 0\\
+					0 & \epsilon
+				\end{pmatrix} \\
+	\Rightarrow 	A^{-1}&=\begin{pmatrix}
+													1 & 0\\
+													0 & \epsilon^{-1}
+												\end{pmatrix}\\
+	\Rightarrow \kappa_\infty& = \kappa_2 = \frac{1}{\epsilon} 
+													&& \text{für }0 < \epsilon \leq 1											
+\end{align*}
+
+\subsection{Definition: Komponentenweise Kondition}\index{Kondition!komponentenweise}
+Sei $(f, x) $ ein Problem mit $f(x)\neq 0$ und $x=(x_i)_{i=1,\cdots , n}$ mit $x_1\neq 0 $  für alle $i=1,\cdots, n$.
+Die \textbf{komponentenweise Kondition} von $(f,x) $ ist die kleinste Zahl $k_{rel}\geq 0$, so dass:
+\begin{align*}
+	\frac{\|f(\widetilde{x})-f(x)\|_\infty}{\|f(x)\|_\infty} 
+				&\leq \kappa_{rel} \cdot \underset{i}{\max}\frac{|\widetilde{x_i}-x_i|}{|x_i|}+ o\left(\underset{i}{\max}\frac{|\widetilde{x_i}-x_i|}{|x_i|}\right) 
+				&& \text{für }\widetilde{x}\rightarrow x
+\end{align*}
+Vorsicht:
+\begin{gather*}
+	\frac{\|\widetilde{x}-x\|_\infty}{\|x\|_\infty}\neq \underset{i}{\max}\frac{|\widetilde{x_i}-x_i|}{|x_i|}
+\end{gather*}
+
+\subsection{Lemma} \label{3.2.17}
+Sei $f$ differenzierbar und fasse $|\cdot|$ komponentenweise auf, d.h. $|x| = \begin{pmatrix}
+																																						|x_1| \\
+																																						\vdots \\
+																																						|x_n|
+																																					\end{pmatrix}$.
+Dann gilt:
+\begin{gather}
+	\kappa_{rel} = \frac{\|\, \|Df(x)|\cdot |x| \, \|_\infty}{\|f(x)\|_\infty} \label{III.2.16}
+\end{gather}
+
+\paragraph{Beweis}
+Vergleiche seien ebenfalls komponentenweise zu verstehen. \\
+Nach dem Satz von Taylor gilt: 
+\begin{align*}
+	f_i(\widetilde{x})-f_i(x) 
+						&= \left( \frac{\partial f_i}{\partial x_i}(x), \cdots ,\frac{\partial f_i}{\partial x_n}(x) \right)
+								\cdot \begin{pmatrix}
+									\widetilde{x}_1-x_1 \\
+									\vdots \\
+									\widetilde{x}_n-x_n
+								\end{pmatrix}
+							+ o\left(\|\widetilde{x}-x\|\right) \\
+	\Rightarrow |f_i(\widetilde{x})-f_i(x)|
+						&\leq |Df(x)|
+							\cdot \begin{pmatrix}
+									|x_1|\cdot \frac{\widetilde{x}_1-x_1 }{|x_1|}\\
+									\vdots \\
+									|x_n|\cdot \frac{\widetilde{x}_n-x_n }{|x_n|}
+								\end{pmatrix}
+									+ o\left(\underset{i}{\max}\frac{\widetilde{x}_i-x_i }{|x_i|}\right) 
+									&& \text{da $x_i$ fest und $\widetilde{x}_i\rightarrow x_i$} \\
+	&\leq |Df(x)| \cdot |x| \cdot \underset{i}{\max}\frac{\widetilde{x}_i-x_i }{|x_i|}
+									+o\left(\underset{i}{\max}\frac{\widetilde{x}_i-x_i }{|x_i|}\right) \\
+	\Rightarrow \frac{\|f(\widetilde{x})-f(x)\|_\infty}{\|f(x)\|_\infty}
+						&\leq  \frac{\|\, \|Df(x)|\cdot |x| \, \|_\infty}{\|f(x)\|_\infty}
+								\cdot \underset{i}{\max}\frac{\widetilde{x}_i-x_i }{|x_i|}
+								+ o\left( \underset{i}{\max}\frac{\widetilde{x}_i-x_i }{|x_i|} \right)
+\end{align*}
+Wähle $\widetilde{x}_i = x_j+h\cdot sign \frac{\partial f_i}{\partial x_j}(x)$ mit $h>0$,
+dann gilt:
+\begin{gather*}
+	|Df_i(x)(\widetilde{x}-x)| = Df_i(x)(\widetilde{x}-x)
+\end{gather*}
+und in obiger Rechnung gilt Gleichheit. \\
+Also folgt, dass
+\begin{align*}
+	 \frac{\|\, \|Df(x)|\cdot |x| \, \|_\infty}{\|f(x)\|_\infty} &= \kappa_{rel}  \\
+	 &&& \square
+\end{align*}
+
+\subsection{Beispiel}
+\begin{enumerate}[a)]
+	\item Komponentenweise Kondition der Multiplikation
+				\begin{align*}
+					f:&\R^2 \rightarrow \R, \, f(x,y) \coloneqq x\cdot y \\
+					   \Rightarrow Df(x,y) &= (y, x)  \\
+					   \Rightarrow \kappa_{rel}(x,y) &= \frac{\left\| (|y|, |x|)\cdot \begin{pmatrix}
+																																   	|x| \\
+																																   	|y|
+										-																					   	\end{pmatrix}\right\|_\infty}
+										{|x\cdot y|} \\
+						&= \frac{2\cdot|x|\cdot |y|}{|x\cdot y|} \\
+						&= 2
+				\end{align*}
+	\item Komponentenweise Kondition eines linearen Gleichungssystems:\\
+				Löse $Ax=b$ mit möglichen Störungen in $b$, also zu
+				\begin{align*}
+					f: & b\mapsto A^{-1}b \\
+					\kappa_{rel} & = \frac{\| \, |A^{-1}| \cdot |b|\, \|_\infty}{\|A^{-1}b\|_\infty}
+				\end{align*}
+				Falls A eine Diagonalmatrix ist, folgt:
+				\begin{gather*}
+					\kappa_{rel}=1
+				\end{gather*}
+	\item Komponentenweise Kondition des Skalarproduktes:
+				\begin{align*}
+					\langle x,y \rangle \coloneqq \sum_{i=1}^{n}x_i y_i& = x^Ty \\
+					f: \R^2 \rightarrow \R, \, f(x,y) &= \langle x,y \rangle \\
+					\Rightarrow Df(x,y) &= (y^T, x^T) \\
+					\kappa_{rel}  &= \frac{\left\| \,\left|(y^T, x^T)\right|\cdot\left|\begin{pmatrix}
+																											x \\
+																											y
+																								 	\end{pmatrix}\right|\right\|_\infty }
+																{\|\langle x,y\rangle\|_\infty}\\
+												&= \frac{2\cdot |y^T|\cdot |x|}{|\langle x,y\rangle|} \\
+												&= 2\cdot \frac{\langle |x|,|y|\rangle}{|\langle x,y\rangle|} \\
+												&= 2 \cdot \frac{\cos(|x|, |y|)}{\cos(x,y)}  \\
+	&&&				\text{	da  }\cos(x,y) = \frac{\langle y,x \rangle}{\|x\|_2 \cdot \|y\|_2} \, . 
+				\end{align*}
+				Falls $x$ und $y$ nahezu senkrecht aufeinander stehen, kann das Skalarprodukt sehr schlecht konditioniert sein. \\
+				Zum Beispiel für $x=\widetilde{x} = \begin{pmatrix} 1 \\1 \end{pmatrix}$
+					 und $y=\begin{pmatrix} 1+10^{-10} \\-1 \end{pmatrix},
+					  \, \widetilde{y}=\begin{pmatrix} 1 \\-1 \end{pmatrix}$. \\
+					  IMAGE~MISSING
+\end{enumerate}
+
+\section{Stabilität von Algorithmen} \index{Stabilität}
+Bislang: Kondition eines gegebenen Problems $(f,x)$. \\
+Nun stellt sich die Frage: \textit{Was passiert durch das Implementieren am Rechner? }\\
+Ein \enquote{stabiler} Algorithmus sollte ein gut konditioniertes Problem nicht \enquote{kaputt machen}.\\
+
+IMAGE~MISSING
+
+\minisec{\Large3.3 a) Vorwärtsanalyse} \label{3.3a}\vspace{1eM}
+
+Die Fehlerfortpflanzung durch die einzelnen Rechenschritte, aus denen die Implementierung aufgebaut ist, wird abgeschätzt.
+
+\subsection{Bemerkung}
+Für die Rechenoperationene $+,-,\, \cdot \, , \, /\,$, kurz $\nabla$, gilt:
+\begin{align}
+	\nonumber
+	fl(a\nabla b) &= (a\nabla b)\cdot (1+\epsilon) \\
+						   &= (a\nabla b) \cdot \frac{1}{1+\mu} \label{III.3.1}
+\end{align}
+mit $|\epsilon|, |\mu| < eps$.
+
+
+
 
 
 %
