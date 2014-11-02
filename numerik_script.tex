@@ -133,7 +133,10 @@
 \newcommand{\Q}{\mathds{Q}}
 \newcommand{\N}{\mathds{N}}
 \newcommand{\Z}{\mathds{Z}}
+\newcommand{\F}{\mathds{F}}
+\newcommand{\K}{\mathcal{K}}
 
+% for the three boxes to show float numbers
 \newcommand{\floatbox}[3]{ %
 	\begin{array}{|c|c|c|}
 		\cline{1-3} 	
@@ -142,7 +145,7 @@
 	\end{array}
 	}
 
-
+\newcommand{\nn}[1]{\left\| #1 \right\|}
 
 
 %STYLE SETTINGS
@@ -665,8 +668,8 @@ Sei $f: U \subseteq \R^n \mapsto \R^m$ mit $U$ offen und sei $x\in U$. Dann beze
 \subsection{Definition: absoluter und relativer Fehler} \label{3.2.2} \index{Fehler}
 Sei $x\in\R^n$ und $\widetilde{x} \in \R^n$ eine Näherung an $x$. Weiterhin sei $\|\cdot\|$ eine Norm auf $\R^n$.
 \begin{itemize}
-	\item[a)] $\|\widetilde{x} - x\|$ heißt \textbf{absoluter Fehler} \index{Fehler!absoluter}
-	\item[b)] $\frac{\|\widetilde{x} - x\|}{\|x\|}$ heißt \textbf{relativer Fehler}\index{Fehler!relativer}
+	\item[a)] $\nn{\widetilde{x} - x}$ heißt \textbf{absoluter Fehler} \index{Fehler!absoluter}
+	\item[b)] $\frac{\nn{\widetilde{x} - x}}{\nn{x}}$ heißt \textbf{relativer Fehler}\index{Fehler!relativer}
 \end{itemize}
 Da der relative Fehler skalierungsinvariant ist, d.h. unabhänging von der  Wahl von $x$ ist, ist dieser i.d.R. von größerem Interesse.
 Beide Fehler hängen von der Wahl der Norm ab!
@@ -679,71 +682,71 @@ Häufig werden Fehler auch komponentenweise gemessen:
 \subsection{Wiederholung: Normen} \label{3.2.3}\index{Norm}
 
 \begin{align*}
-	\text{Euklidische Norm ($l_2$-Norm):} &&	\|x\|_2 &\coloneqq \sqrt{\sum_{i=1}^{n}|x_i|^2}
+	\text{Euklidische Norm ($l_2$-Norm):} &&	\nn{x}_2 &\coloneqq \sqrt{\sum_{i=1}^{n}|x_i|^2}
 		\index{Norm!Euklidische Norm} \\
 			IMAGE~MISSING \\
-	\text{Maximumsnorm ($l_\infty$-Norm):} &&	\|x\|_\infty &\coloneqq \max\{|x_i| : i=1, \cdots n\} \\
+	\text{Maximumsnorm ($l_\infty$-Norm):} &&\nn{x}_\infty &\coloneqq \max\{|x_i| : i=1, \cdots n\} \\
 	  	\index{Norm!Maximumsnorm}
 		  	IMAGE~MISSING \\
-	\text{Summennorm ($l_1$-Norm):} &&	\|x\|_1 &\coloneqq \sum_{i=1}^{n}|x_i| 
+	\text{Summennorm ($l_1$-Norm):} &&	\nn{x}_1 &\coloneqq \sum_{i=1}^{n}|x_i| 
 		\index{Norm!Summennorm}\\
 			IMAGE~MISSING \\
-	\text{Hölder-Norm ($l_p$-Norm):} &&	\|x\|_p &\coloneqq 
+	\text{Hölder-Norm ($l_p$-Norm):} &&	\nn{x}_p &\coloneqq 
 		\left(\sum_{i=1}^{n}|x_i|^p\right)^{\frac{1}{p}} 
 		\index{Norm!Hölder-Norm}
 \end{align*}
 
 \subsection{Definition: Matrixnorm} \label{3.2.4}
-Auf dem $\R^n$  sei die Norm $\|\cdot\|_a$ und auf dem $\R^m$ die Norm $\|\cdot\|_b$ gegeben.
+Auf dem $\R^n$  sei die Norm $\nn{\,\cdot\,}_a$ und auf dem $\R^m$ die Norm $\nn{\,\cdot\,}_b$ gegeben.
 Dann ist die zugehörige \textbf{Matrixnorm} \index{Norm!Matrixnorm} gegeben durch:
 \begin{align}
-	\|A\|_{a,b} &\coloneqq \sup_{x\neq 0} \frac{\|Ax\|_b}{\|x\|_a} \\ \nonumber
-					 &= \sup_{\|x\|_a=1} \|Ax\|_b \label{Matrixnorm} 
+	\nn{A}_{a,b} &\coloneqq \sup_{x\neq 0} \frac{\nn{Ax}_b}{\nn{x}_a} \\ \nonumber
+					 &= \sup_{\nn{x}_a=1} \nn{Ax}_b \label{Matrixnorm} 
 \end{align}
-Also ist   $\|A\|_{a,b}$ die kleinste Zahl $c>0$ mit
+Also ist   $\nn{A}_{a,b}$ die kleinste Zahl $c>0$ mit
 \begin{gather*}
-	\|Ax\|_b  \leq c\|x\|_a \quad\quad \forall x\in \R^n
+	\nn{Ax}_b  \leq c\nn{x}_a \quad\quad \forall x\in \R^n
 \end{gather*}
 
 \subsection{Definition: Frobeniusnorm, p-Norm, Verträglichkeit} \label{3.2.5}
-Sei $A\in \R^{m\times m}$.
+Sei $A\in \R^{m\times n}$.
 \begin{enumerate}[a)]
 	\item \textbf{Frobeniusnorm} (Schurnorm):
-			 $ \quad \|A\|_F \coloneqq \sqrt{\sum_{i=1}^{m}\sum_{j=1}^{n}|a_{ij}^2|}
+			 $ \quad \nn{A}_F \coloneqq \sqrt{\sum_{i=1}^{m}\sum_{j=1}^{n}|a_{ij}^2|}
 				 \index{Norm!Frobeniusnorm}$
     \item \textbf{p-Norm}: 
-			 $\quad \|A\|_p \coloneqq \|A\|_{p,p}
+			 $\quad \nn{A}_p \coloneqq \nn{A}_{p,p}
 				 \index{p-Norm}$
     \item Eine Matrixnorm heißt \textbf{verträglich} \index{Norm!verträglich} mit den Vektornormen 
-			    $\|\cdot\|_a, \|\cdot\|_b$, falls gilt
-			    \footnote{ Beachte: $\|A\|_{a,b}$ ist die kleinste Norm im Gegensatz zu $\|A\|$, welche hier beliebig ist.}:
+			    $\nn{\,\cdot\,}_a, \nn{\,\cdot\,}_b$, falls gilt
+			    \footnote{ Beachte: $\nn{A}_{a,b}$ ist die kleinste Norm im Gegensatz zu $\nn{A}$, welche hier beliebig ist.}:
 				 \begin{gather*}
-					 	\|Ax\|_b \leq \|A\| \cdot \|x\|_a \quad \forall x\in \R^n
+					 	\nn{Ax}_b \leq \nn{A}\cdot \nn{x}_a \quad \forall x\in \R^n
 				 \end{gather*}
 \end{enumerate}
 
 \subsection{Bemerkungen} \label{3.2.6}
 \begin{enumerate}[a)]
-	\item Die Normen $\|\cdot\|_F$ und $\|\cdot\|_p$ sind \textbf{submultiplikativ} \index{Norm!submultiplikative}, d.h.
+	\item Die Normen $\nn{\,\cdot\,}_F$ und $\nn{\,\cdot\,}_p$ sind \textbf{submultiplikativ} \index{Norm!submultiplikative}, d.h.
 				\begin{gather*}
-					\|A\cdot B\| \leq \|A\| \cdot \|B\|
+					\nn{A\cdot B} \leq \nn{A}\cdot\nn{B}
 				\end{gather*}
-	\item Die Norm $\|\cdot\|_{1,1}$ wird auch \textbf{Spaltensummennorm}\index{Norm!Spaltensummennorm} genannt:
+	\item Die Norm $\nn{\,\cdot\,}_{1,1}$ wird auch \textbf{Spaltensummennorm}\index{Norm!Spaltensummennorm} genannt:
 				\begin{gather*}
-					\|A\|_1 = \max_{1\leq j \leq n}\sum_{i=1}^{m}|a_{ij}|
+					\nn{A}_1 = \max_{1\leq j \leq n}\sum_{i=1}^{m}|a_{ij}|
 				\end{gather*}
 			Sie ist das Maximum der Spaltensummen\footnote{Beweis: siehe Übungsblatt 3}.
-	\item Die Norm $\|\cdot\|_{\infty, \infty}$ wird auch \textbf{Zeilensummennorm} \index{Zeilensummennorm}
+	\item Die Norm $\nn{\,\cdot\,}_{\infty, \infty}$ wird auch \textbf{Zeilensummennorm} \index{Zeilensummennorm}
 	 genannt\footnote{Beweis: siehe Übungsblatt 3}:
 	%not sure, why \footref won't work here ...
 				\begin{gather*}
-					\|A\|_\infty = \max_{1\leq i \leq m}\sum_{j=1}^{n}|a_{ij}|
+					\nn{A}_\infty = \max_{1\leq i \leq m}\sum_{j=1}^{n}|a_{ij}|
 				\end{gather*}
-	\item Die Frobeniusnorm $\|\cdot\|_F$ ist verträglich mit der euklidischen Norm $\|\cdot\|_2$
+	\item Die Frobeniusnorm $\nn{\,\cdot\,}_F$ ist verträglich mit der euklidischen Norm $\nn{\,\cdot\,}_2$
 	\item Die Wurzeln aus den Eigenwerten von $A^TA$ heißen \textbf{Singulärwerte $\sigma_i$} \index{Singulärwert} von A.
-	Mit ihnen kann die $\|\cdot \|_{2,2}$ Norm dargestellt werden\footnote{Beweis: siehe Übungsblatt 3}:
+	Mit ihnen kann die $\nn{\,\cdot\,}_{2,2}$ Norm dargestellt werden\footnote{Beweis: siehe Übungsblatt 3}:
 				\begin{align*}
-					\|A\|_2 &= max \{\sqrt{\mu} : A^TA\cdot x = \mu x\text{ für ein }x\neq 0 \} \\
+					\nn{A}_2 &= max \{\sqrt{\mu} : A^TA\cdot x = \mu x\text{ für ein }x\neq 0 \} \\
 								& = \sigma_{max}
 				\end{align*}
 \end{enumerate}
@@ -751,17 +754,25 @@ Sei $A\in \R^{m\times m}$.
 %ultimate evil hack to go along with numeration
 \minisec{\Large3.2 a) Normweise Konditionsanalyse} \label{3.2a}\vspace{1eM}
 
-\subsection{Definition: absolute und relative Normweise Kondition}\index{normweise Kondition}
-Sei $(f,x)$ ein Problem mit $f:U\in\R^n \rightarrow \R^m$
-und $\|\cdot\|_a$ auf $\R^n$ und $\|\cdot\|_b$ auf $\R^m$ eine Norm.
+%%Alternative to add it to table of contents:
+%\renewcommand{\thesubsection}{\thesection.a)}
+%\setkomafont{subsection}{\Large}
+%\subsection{NORMWEISE KONDITIONSANALYSE}
+%\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+%\addtocounter{subsection}{-1}
+%\setkomafont{subsection}{\large}
+
+\subsection{Definition: absolute und relative normweise Kondition}\index{normweise Kondition}
+Sei $(f,x)$ ein Problem mit $f:U\subset \R^n \rightarrow \R^m$
+und $\nn{\,\cdot\,}_a$ auf $\R^n$ und $\nn{\,\cdot\,}_b$ auf $\R^m$ eine Norm.
 \begin{enumerate}[a)]
 	\item Die \textbf{absolute normweise Kondition}\index{Kondition!absolute normweise} eines Problems $(f,x)$ ist die kleinste Zahl 
 			 $\kappa _{abs} > 0 $ mit
 			 \begin{align}
-			 	\|f(\widetilde{x})-f(x)\|_b &\leq \kappa _{abs}(f,x) \|\widetilde{x}-x\|_a
-			 	+ o\left(\|\widetilde{x}-x\|_a\right) \label{III.2.2} \\\nonumber
+			 	\nn{f(\widetilde{x})-f(x)}_b &\leq \kappa _{abs}(f,x) \nn{\widetilde{x}-x}_a
+			 	+ o\left(\nn{\widetilde{x}-x}_a\right) \label{III.2.2} \\\nonumber
 			 	\Bigl(f(\widetilde{x})- f(x) 
-						 	&=\underbrace{ f'(x)(\widetilde{x}-x)+ o\left(\|\widetilde{x}-x\|\right)}_{Taylorentwicklung}
+						 	&=\underbrace{ f'(x)(\widetilde{x}-x)\pm o\left(\nn{\widetilde{x}-x}\right)}_{Taylorentwicklung}
 							 \quad \text{für }\widetilde{x}\rightarrow x 
 						 	\Bigr)
 			 \end{align}
@@ -769,10 +780,10 @@ und $\|\cdot\|_a$ auf $\R^n$ und $\|\cdot\|_b$ auf $\R^m$ eine Norm.
 			 	ist die kleinste Zahl 
 			 	$\kappa _{rel} > 0 $ mit
 			 	\begin{align}
-			 \frac{	\|f(\widetilde{x})-f(x)\|_b }{\|f(x)\|_b}
-				 &\leq \kappa _{abs}(f,x)\frac{ \|\widetilde{x}-x\|_a}{\|x\|_a}
+			 \frac{	\nn{f(\widetilde{x})-f(x)}_b }{\nn{f(x)}_b}
+				 &\leq \kappa _{rel}(f,x)\frac{ \nn{\widetilde{x}-x}_a}{\nn{x}_a}
 			 	+ 
-			 	o\left(\frac{\|\widetilde{x}-x\|_a}{\|x\|_a}\right) \label{III.2.3}
+			 	o\left(\frac{\nn{\widetilde{x}-x}_a}{\nn{x}_a}\right) \label{III.2.3}
 					 &&	\text{für } \widetilde{x} \rightarrow x
 			 	\end{align}
 	\item Sprechweise:
@@ -783,17 +794,17 @@ und $\|\cdot\|_a$ auf $\R^n$ und $\|\cdot\|_b$ auf $\R^m$ eine Norm.
 \end{enumerate}
 
 \subsection{Lemma} \label{3.2.8}
-Falls $f$ diffenrenzierbar ist, gilt
+Falls $f$ differenzierbar ist, gilt
 \begin{gather}
-	\kappa_{abs}(f,x) = \|Df(x)\|_{a,b} \label{III.2.4}
+	\kappa_{abs}(f,x) = \nn{Df(x)}_{a,b} \label{III.2.4}
 \end{gather}
 und für $f(x) \neq 0$
 \begin{gather}
-	\kappa_{rel}(f,x) = \frac{\|x\|_a}{\|f(x)\|_b}\cdot \|Df(x)\|_{a,b} \label{III.2.5}
+	\kappa_{rel}(f,x) = \frac{\nn{x}_a}{\nn{f(x)}_b}\cdot \|Df(x)\|_{a,b} \label{III.2.5}
 \end{gather}
 wobei $Df(x)$ die Jakobi-Matrix bezeichnet.
 %
-\subsection{Beispiel: Kondition der Addition} \index{Kondition!Kondition der Addition}
+\subsection{Beispiel: Kondition der Addition}\label{3.2.9} \index{Kondition!Kondition der Addition}
 $f(x_1, x_2) \coloneqq x_1 +x_2 , \, f:\R^2 \rightarrow \R$. \\
 Wähle $l_1$-Norm auf $\R^2$ (und $\R$)
 \begin{align*}
@@ -802,10 +813,10 @@ Wähle $l_1$-Norm auf $\R^2$ (und $\R$)
 \end{align*}
 damit
 \begin{align*}
-	\kappa_{abs} (f,x)&= \|Df(x)\|_{1,1} && \text{(Matrix-Norm!!)}\\
-						 		&= \|Df(x)\|_1 \\
+	\kappa_{abs} (f,x)&= \nn{Df(x)}_{1,1} && \text{(Matrix-Norm!!)}\\
+						 		&= \nn{Df(x)}_1 \\
 								&=1 \\
-	\kappa_{rel} (f,x) &= \frac{\|x\|_1}{\|f(x)\|_1}| \cdot \|Df(x)\|_{1} \\
+	\kappa_{rel} (f,x) &= \frac{\nn{x}_1}{\nn{f(x)}_1} \cdot \nn{Df(x)}_{1} \\
 								&= \frac{|x_1| + |x_2|}{|x_1+x_2|}
 \end{align*}
 Daraus folgt: Die Addition zweier Zahlen mit gleichem Vorzeichen ergibt
@@ -842,9 +853,10 @@ Sei $A\in \R^{n\times n}$ invertierbar und $b\in \R^n$. Es soll
 	Ax =b
 \end{gather*}
 gelöst werden.
-Die mögliche Lösungen in $A$ und in $b$ lassen sich folgendermaßen ermitteln:
+Die möglichen Lösungen in $A$ und in $b$ lassen sich folgendermaßen ermitteln:
 \begin{enumerate}[a)]
-	\item Betrachte die Störungen in $b$:
+	\item Betrachte die Störungen in $b$:\\
+			Sei hierzu
 			\begin{gather*}
 			f: b\mapsto x= A^{-1}b 
 			\end{gather*}
@@ -853,43 +865,47 @@ Die mögliche Lösungen in $A$ und in $b$ lassen sich folgendermaßen ermitteln:
 					A(x + \Delta x) &= b+\Delta b \\
 					f(b + \Delta b) - f(b) &= \Delta x \\
 													&= A^{-1} \cdot \Delta b && \text{da }x = A^{-1}b \\
-					\Rightarrow \|\Delta x\|  &= \|A^{-1}\Delta b\| \\
-														&\leq \|A^{-1}\|\cdot \|\Delta b\| && \forall b, \Delta b 
+					\Rightarrow \|\Delta x\|_{b}  &= \|A^{-1}\Delta b\|_{b} \\
+														&\leq \|A^{-1}\|_{a,b}\cdot \|\Delta b\|_{b} && \forall b, \Delta b 
 			\end{align*}
-			wobei $\|\cdot\| $ auf $\Rnn$ die zum $\|\Rn\|$ zugeordnete Matrix-Norm sei. \\
+			wobei $\|\cdot\| $ auf $\Rnn$ die dem $\Rn$ zugeordnete Matrix-Norm sei. \\
 			Die Abschätzung ist \textbf{scharf}\index{scharf}, d.h. es gibt ein $\Delta b\in \R^n$, so dass \enquote{=} gilt, nach Definition \ref{3.2.4}. \\
-			Also gilt
+			Also gilt\footnote{vgl. auch Lemma \ref{3.2.8}: $\kappa_{abs}(f,b)=\nn{Df(b)}_{a,b}=\nn{A^{-1}}_{a,b}$}:
 			\begin{gather}
-				\kappa_{abs}(f,b) = \|A^{-1}\| \label{II.2.4}
+				\kappa_{abs}(f,b) = \nn{A^{-1}}_{a,b} \label{II.2.4}
 			\end{gather}
 			unabhängig von b.  $ \quad \left( x\mapsto Ax \quad \kappa_{abs}\right)$\\
 			Ebenso folgt die scharfe Abschätzung 
 			\begin{align}
 				\nonumber
-				\frac{\|	f(b + \Delta b) - f(b) - f(b)\|}{\|f(b)\|} &= \frac{\|\Delta x\|}{\|x\|}\\ \nonumber
-						& \leq  \frac{\|A^{-1}\|\cdot \|b\|}{\|x\|} \cdot \frac{\|\Delta b\|}{\|b\|} \\
+				\frac{\|	f(b + \Delta b) - f(b)\|}{\|f(b)\|} &= \frac{\nn{\Delta x}}{\nn{x}}\\ \nonumber
+						& = \frac{\nn{A^{-1}\Delta b}}{\nn{x}} \\ \nonumber
+						& \leq  \frac{\|A^{-1}\|\cdot \|b\|}{\|x\|} \cdot \frac{\|\Delta b\|}{\|b\|} \\ \nonumber
 				\intertext{Damit}
 				\kappa_{rel} (f,b) &= \|A^{-1} \| \cdot \frac{\|b\|}{\|A^{-1}\cdot b\|} \label{III.2.7}
 			\end{align}
-			Da $\|b\| \leq \|A\|\cdot\|x\| = \|A\|\cdot\|x\| = \|A\|\cdot \|A^{-1}b\|$ folgt:
+			Da $\|b\| \leq \|A\|\cdot\|x\| = \|A\|\cdot \|A^{-1}b\|$ folgt:
 			\begin{gather}
 				\kappa_{rel}(f,b) \leq \|A\| \cdot \|A^{-1}\| \label{III.2.8}
 			\end{gather}
-			für alle (möglichen rechten Seiten) $b $.
-			\ref{3.2.8} ist scharf in dem Sinne, dass es ein $\widetilde{b}\in \R^n$ gibt 
+			für alle (möglichen rechten Seiten) $b $.\\
+			\ref{3.2.8} ist scharf in dem Sinne, dass es ein $\widehat{b}\in \R^n$ gibt 
 			mit 
 			\begin{gather*}
-				\|\widetilde{b}\| = \|A\|\cdot \|\widetilde{x}\|
+				\|\widehat{b}\| = \nn{A}\cdot \nn{\widehat{x}}
 			\end{gather*}
 			und somit
 			\begin{gather}
-				\kappa_{rel}(f,\widetilde{b}) = \|A\|\cdot \|A^{-1}\|
+				\kappa_{rel}(f,\widehat{b}) = \nn{A}\cdot \| A^{-1}\|
 			\end{gather} %
 			%
-	\item betrachte Störungen in $A$:\\
-			löse also 
+	\item Betrachte die Störungen in $A$:\\
+			Löse also 
+			\begin{gather*}
+				(A+\Delta A)(x+\Delta x) = b
+			\end{gather*}
+			Sei hierzu
 			\begin{align*}
-				(A+\Delta A)(x+\Delta x) &= b \\
 				f:A&\mapsto x= A^{-1}b \\
 				\R^{n\times n}&\rightarrow \R^n
 			\end{align*}
@@ -900,17 +916,17 @@ Die mögliche Lösungen in $A$ und in $b$ lassen sich folgendermaßen ermitteln:
 			\end{align*}			
 			Weiterhin gilt
 			\begin{align*}
-				\frac{d}{dt} \left((A+tC)^{-1}\right) \Big\vert_{t=0} &= -A^{-1}CA^{-1} \label{III.2.9}
+				\frac{d}{dt} \left((A+tC)^{-1}\right) \Big\vert_{t=0} &= -A^{-1}CA^{-1}, \label{III.2.9}
 			\end{align*}
 			da
 			\begin{align*}
 				0&= \frac{d}{dt}I \\
 				  &= \frac{d}{dt}\left( (A+tC)(A+tC)^{-1}\right)\\
 				  &= C(A+tC)^{-1} +(A+tC)\cdot \frac{d}{dt}(A+tC)^{-1} \\
-				  &\Leftrightarrow \frac{d}{dt} (A+ tC)^{-1} \\
-				  &= -(A+tC)^{-1} \cdot C(A+tc)^{-1} \, ,
+				  \Leftrightarrow \frac{d}{dt} (A+ tC)^{-1} 
+				  &= -(A+tC)^{-1} \cdot C(A+tC)^{-1} \, ,
 			\end{align*}
-			falls $(A+tC)$ invertierbar ist. Für $t$ klein genug ist das gewährleistet, da $A$ invertierbar ist (s. Lemma \ref{3.2.12}).
+			falls $(A+tC)$ invertierbar ist. Für ein genügend kleines $t$ ist das gewährleistet, da $A$ invertierbar ist (s. Lemma \ref{3.2.12}).
 			\begin{gather*}
 				\Rightarrow Df(A) C = -A^{-1}CA^{-1}b
 			\end{gather*}
@@ -919,12 +935,12 @@ Die mögliche Lösungen in $A$ und in $b$ lassen sich folgendermaßen ermitteln:
 				\nonumber
 				\kappa_{abs} (f,A) &= \|Df(A)\| \\ \nonumber
 											  &= \sup_{\substack{
-																C\neq 0 \\ \nonumber
-																C \in \R^{n\times n}														  	
+																C\neq 0 \\ 
+																C\in \R^{n\times n}											  	
 														  	}}
 														  \frac{\|A^{-1}CA^{-1}b\|}{\|C\|} \\ \nonumber
-											  &= \sup_{\substack{
-															 	C\neq 0 \\ \nonumber
+											  &\leq \sup_{\substack{
+															 	C\neq 0 \\ 
 															 	C \in \R^{n\times n}														  	
 															 }}
 												 \frac{\|A^{-1}\|\cdot\|C\|\cdot\|A^{-1}b\|}{\|C\|} \\ \nonumber
@@ -937,7 +953,7 @@ Die mögliche Lösungen in $A$ und in $b$ lassen sich folgendermaßen ermitteln:
 		 \begin{gather*}
 		 	(A+\Delta A)(x+\Delta x) = (b+\Delta b) 
 		 \end{gather*}
-		 Für $\kappa$ müsste $\|(A,b)\|$ festgelegt werden. Dies wird jedoch nicht betrachtet. Es gilt jedoch folgende Abschätzung für invertierbare Matrizen $A\in \Rnn $ und Störungen
+		 Für $\kappa$ müsste $\|(A,b)\|$ festgelegt werden. Dies wird jedoch nicht betrachtet. Es gilt aber folgende Abschätzung für invertierbare Matrizen $A\in \Rnn $ und Störungen
 		 $\Delta A \in \R^{n\times n}$ mit $\|A^{-1}\|\cdot \|\Delta A\| < 1$:
 		 \begin{align}
 			 \frac{\|\Delta x\|}{\|x\|} & \leq \|A\| \cdot \|A^{-1}\|\cdot (1- \|A^{-1}\|\cdot \|\Delta A\|) 
@@ -945,7 +961,7 @@ Die mögliche Lösungen in $A$ und in $b$ lassen sich folgendermaßen ermitteln:
 													 \underbrace{\left(  \frac{\|\Delta b\|}{\|b\|} +  \frac{\|\Delta A\|}{\|A\|}  \right)}_{\neq  \frac{\|(\Delta A, \Delta b)\|}{\|(A,b)\|} }
 													 \label{III.2.11}
 		 \end{align}
-		 \textbf{Beweis:} s. Übungsblatt
+		 \paragraph{Beweis:} s. Übungsblatt
 \end{enumerate}
 
 \subsection{Definition: Kondition einer Matrix} \index{Kondition!Matrix}
@@ -958,12 +974,15 @@ heißt \textbf{Kondition der Matrix} bzgl. der Norm ${\|\cdot\|}$. \\
 Ist  ${\|\cdot\|}$ von einer Vektor-Norm ${\|\cdot\|}_p$ induziert, bezeichnet 
 	$cond_p(A)$
 die $cond_{\|\cdot\|_p}(A)$. Wir schreiben $cond(A)$ für $cond_2(A)$. \\
-$cond_{\|\cdot\|}(A) $ schätzt die relative Kondition eines linearen GLS $Ax=b$ für alle möglichen Störungen in $b$ oder in $A$ ab und diese Abschatzung ist scharf. \\
+$cond_{\|\cdot\|}(A) $ schätzt die relative Kondition eines linearen GLS $Ax=b$ für alle möglichen 
+Störungen in $b$ oder in $A$ ab und diese Abschätzung ist scharf. \\
+
 Es stellt sich nun die Frage: \\
-\textit{Wann existiert die Inverse der gestörten invertierbaren Matrix $A$?}
+\textit{Wann existiert die Inverse der gestörten invertierbaren Matrix $A$?} \\
+Hierzu werden wir die Relationen benötigen:
 \begin{align*}
 	A+\Delta A &= A (I+A^{-1}\Delta A)\\
-	\|C\| < 1 \\
+\intertext{und mit $C \in \Rnn,\, \|C\| < 1$}
 	(I-C)^{-1} &= \sum_{k=0}^{\infty}C^k \\
 	\|	(I-C)^{-1} \| &\leq \frac{1}{1-\|C\|}
 \end{align*}
@@ -985,13 +1004,13 @@ Weiterhin gilt:
 Es gilt zu zeigen, dass $\sum_{k=1}^{\infty}C^k$ existiert: \\
 Sei $q\coloneqq \|C\| < 1$, dann gilt: 
 \begin{align*}
-	\| \sum_{k=0}^{m} C^k \| &\leq \sum_{k=0}^{m} \| C^k \|  && \text{Dreiecksungleichung} \\
-								 &\leq \sum_{k=0}^{m}\|C\|^k && \text{da $\|\cdot\|$ submultiplikativ}\\
+	\nn{ \sum_{k=0}^{m} C^k } &\leq \sum_{k=0}^{m} \nn{C^k }  && \text{Dreiecksungleichung} \\
+								 &\leq \sum_{k=0}^{m}\nn{C}^k && \text{da $\nn{\,\cdot\,}$ submultiplikativ}\\
 								 &=\sum_{k=0}^{m}q^k  \\
 								 &= \frac{1-q^{m+1}}{1-q} \\
-								 &\leq \frac{1}{1-\|C\|} && \forall m, \text{ da } q<1 \text{ (geometr. Reihe)}
+								 &\leq \frac{1}{1-\nn{C}} && \forall m\in \N, \text{ da } q<1 \text{ (geometr. Reihe)}
 \end{align*}
-Daraus folgt bereits, dass $\sum_{k=1}^{\infty}C^k$ existiert (nach Majorantenkriterium).
+Daraus folgt bereits, dass $\sum_{k=1}^{\infty}C^k$ existiert (nach Majorantenkriterium).\\
 Weiter gilt dann:
 \begin{align*}
 	(I-C) \sum_{k=1}^{\infty}C^k &= \lim\limits_{m\rightarrow \infty}(I-C)   \sum_{k=1}^{m}C^k \\
@@ -1200,11 +1219,231 @@ Für die Rechenoperationene $+,-,\, \cdot \, , \, /\,$, kurz $\nabla$, gilt:
 	fl(a\nabla b) &= (a\nabla b)\cdot (1+\epsilon) \\
 						   &= (a\nabla b) \cdot \frac{1}{1+\mu} \label{III.3.1}
 \end{align}
-mit $|\epsilon|, |\mu| < eps$.
+mit $|\epsilon|, |\mu| \leq eps$.
+
+
+\marginpar{29.10.2014}
+\subsection{Beispiel}
+Sei $f(x_1, x_2, x_3) \coloneqq \frac{x_1x_2}{x_3}$ mit Maschinenzahlen $x_i$ und $x_3\neq 0$ und sei der Algorithmus durch
+\begin{gather*}
+	f(x_1, x_2, x_3) = (f^{(2)} \circ f^{(1)})(x_1, x_2, x_3) 
+\end{gather*}
+gegeben mit 
+\begin{align*}
+	f^{(1)}(x_1, x_2, x_3) & = (x_1\cot x_2, x_3) && \text{und} \\
+	f^{(2)}(y,z) &= \frac{y}{z}
+\end{align*}
+Die Implementierung $\widetilde{f}$ von $f$  beinhaltet Rundungsfehler. \\
+
+Sei  $x=(x_1, x_2, x_3) $. Daraus folgt:
+\begin{align*}
+	\widetilde{f}^{(1)}(x) &= (fl(x_1\cdot x_2), x_3) \\
+										& = (x_1x_2 (1+\epsilon_1), x_3)
+\intertext{mit $|\epsilon_1|\leq eps$:}
+	\widetilde{f}(x) &= \widetilde{f}^{(2)}(\widetilde{f}^{(1)}(x)) \\
+							&= fl(f^{(2)}(x_1 x_2 (1+\epsilon_1), x_3)) \\
+							&= \frac{x_1x_2(1+\epsilon_1)}{x_3}\cdot (1+\epsilon_2)  \\
+							&= f(x)\cdot (1+\epsilon_1)(1+\epsilon_2)
+\intertext{mit $|\epsilon_2| \leq eps$:}
+	\frac{|\widetilde{f}(x) -f(x)|}{|f(x)|} &= |\epsilon_1+\epsilon_2 +\epsilon_1\cdot \epsilon_2| \\
+								&\leq 2eps + eps^2
+\end{align*}
+Dies ist eine \enquote{worst case} Analyse, da immer der maximale Fehler angenommen wird,
+und gibt i.d.R. eine starte Überschätzung des Fehlers an.
+Für qualitative Aussagen sind sie jedoch unnützlich. \\
+In Computersystemen stehen mehr Operationen wie $\nabla$ zur Verfügung,
+die mit einer relativen Genauigkeit $eps$ realisiert werden können. \\
+
+Daher:
+
+\subsection{Definition: }\index{MISSING}
+Eine Abbildung $\phi : U\subseteq \Rn \rightarrow \R^m$ heißt
+\textbf{elementar ausführbar}\index{elementar ausführbar}, falls es 
+eine elementare Operation $\widetilde{\phi}:\F^n \rightarrow \F^m$
+gibt, wobei $\F$ die Menge der Maschinenzahlen bezeichne mit
+\begin{gather}
+	|\widetilde{\phi}_i(x)-\phi_i(x) \leq eps|\phi_i(x) | 
+	\quad \forall x\in \F^n \text{ und } i=1,\cdots , m \label{III.3.2}\, .
+\end{gather}
+$\widetilde{\phi}$ heißt dann \textbf{Realisierung}\index{Realisierung} von $\phi$.
+
+\paragraph{Bemerkung:}
+aus \eqref{III.3.2} folgt für $1\leq p\leq \infty$:
+\begin{gather}
+	\nn{\widetilde{\phi}(x)-\phi(x)}_p \leq eps\nn{\phi(x)}_n 
+	\quad \forall x\in\F^n \label{III.3.3}
+\end{gather}
+
+
+\subsection{Definition: } \index{MISSING}
+Sei $f:E\subseteq \Rn \rightarrow \R^m$ gegeben.\\
+Ein Tupel $\left(f^{(1)},\cdots ,f^{(l)}\right)$ mit $l\in \N$ von elementar ausführbaren
+Abbildungen
+\begin{gather*}
+	f^{(i)}: U_1\subseteq \R^{k_i} \rightarrow U_{i+1}\subseteq \R^{k_{i+1}}
+\end{gather*}
+mit $k_1=n$ und $k_{l+1}=m$ heißt \textbf{Algorithmus}\index{Algorithmus} von $f$, falls
+\begin{gather*}
+	f=f	^{(l)}\circ \dotsc \circ f^{(1)}
+\end{gather*}
+Das Tupel $(\widetilde{f}1^{(1)},\cdots ,\widetilde{f}^{(l)})$ mit Abbildungen $\widehat{f}^{(i)}$, welche Realisierungen der $f^{(i)}$ sind,
+heißt \textbf{Implementation}\index{Implementation} von 
+$\left(f^{(1)},\dotsc ,f^{(l)}\right)$.
+Die Komposition 
+\begin{gather*}
+		\widetilde{f}=\widetilde{f}	^{(l)}\circ \dotsc \circ \widetilde{f}^{(1)}
+\end{gather*}
+heißt Implementation von f. \\
+Im Allgemeinen gibt es verschiedene Implementierungen einer Abbildung $f$.
+
+\subsection{Lemma (Fehlerfortpflanzung)}\label{3.3.5} \index{Fehler!Fortpflanzung}
+Sei $x\in \Rn$ und $\widetilde{x}\in \F^n$ mit $|\widetilde{x}_i-x_i|\leq eps|x_i|$ für alle 
+$i=1,\cdots , n$.
+Sei $\left(f^{(1)},\dotsc ,f^{(l)}\right)$ ein Algorithmus für $f$ und 
+$(\widetilde{f}^{(1)},\dotsc ,\widetilde{f}^{(l)})$ eine zugehörige Implementation. \\
+Mit den Abkürzungen
+\begin{align*}
+	x^{(j+1)} &\coloneqq f^{(j)}\circ \dotsc \circ f^{(1)} \\
+	x^{(1)} &\coloneqq x
+\end{align*}
+und entsprechend mit $\widetilde{x}^{(j+1)}$ gilt,
+falls $x^{(j+1)} \neq 0$ für alle $j=0,\dotsc , (l-1)$ und $\nn{\,\cdot\,}$ eine beliebige p-Norm ist:
+\begin{align}
+	\frac{\nn{\widetilde{x}^{(j+1)}-x^{(j+1)}}}{\nn{x^{(j+1)}}}
+	&\leq eps \cdot \K + o\left(eps\right)
+	\label{III.3.4} \\ \nonumber
+	\K^{(j)}&=(1+\kappa^{(j)}+\kappa^{(j)}\cdot \kappa^{(j-1)}+ \cdots + \kappa^{(j)}\cdot \dotsm \cdot \kappa^{(1)}) \\ \nonumber
+\end{align}
+wobei $	\K^{(j)} \coloneqq \kappa_{rel}(f^{(j)}, x^{(j)})$ die Kondition der elementar ausführbaren Operationen $f^{(j)}$ ist.
+
+\paragraph{Beweis}
+
+\begin{align*}
+	\frac{\nn{\widetilde{x}^{(j+1)}-x^{(j+1)}}}{\nn{x^{(j+1)}}}
+				&= \frac{\nn{\widetilde{f}^{(j)}(\widetilde{x})^{(j)}-f^{(j)}(x^{(j)})}}
+				{\nn{f^{(j)}(x^{(j)})}} \\
+				&\leq \frac{\nn{\widetilde{f}(\widetilde{x})-f(\widetilde{x}})}{\nn{f(\widetilde{x})}}
+						\cdot \frac{\nn{f(\widetilde{x})}}{\nn{f(x)}}
+						+ \frac{\nn{f(\widetilde{x})-f({x}})}{\nn{f(x)}} 
+						\quad\quad \text{(Index $j$ vernachlässigt)}\\
+				&\leq eps \left( 1+ \frac{\nn{f(\widetilde{x})-f({x}})}{\nn{f(x)}}\right)
+						+ \frac{\nn{f(\widetilde{x})-f({x}})}{\nn{f(x)}}\\
+				&\overset{\text{nach \ref{III.3.3}}}{=} eps + (eps+1) \cdot 						\left(\kappa{(j)}\cdot \frac{\nn{\widetilde{x}^{(j)}-x^{(j)}}}{\nn{x^{(j)}}}\right)
+						+ o\left( \frac{\nn{\widetilde{x}^{(j)}-x^{(j)}}}{\nn{x^{(j)}}}\right)
+\end{align*}
+Nach Voraussetzung gilt Gleichung \eqref{III.3.4}  mit $\K^{(0)}=1$ für $j=0$. \\
+Für $j=1$ folgt nach Voraussetzung mit Gleichung \eqref{III.3.3}
+\begin{align*}
+	\frac{\nn{\widetilde{x}^{(2)}-x^{(2)}}}{\nn{x^{(2)}}}
+	 & \leq eps +(eps+1) \cdot \left( \kappa^{(1)}eps+ o(eps)\right) \\
+	 &= eps(1+\kappa^{(1)}) + o(eps) \\
+	 &= eps\K^{(1)} + o(eps)
+\end{align*}
+Womit der Induktionsanfang gezeigt ist. \\
+Für den Induktionsschritt von $j-1$ zu $j$:
+\begin{align*}
+	\frac{\nn{\widetilde{x}^{(j+1)}-x^{(j+1)}}}{x^{(j+1)}}
+		& \leq eps + (1+eps)\kappa^{(j)} \left[ eps \K^{(j-1)}+ o(eps) \right] \\
+		&\phantom{\leq eps+} + (1+eps) \cdot o\left( eps\cdot \K^{(j-1)} +o(eps)\right) \\
+		&= eps\left(1+\kappa^{(j)}\cdot \K^{(j-1)}\right)+ o(eps)
+\end{align*}
+Mit $\K^{(j)} = 1+ \kappa^{(j)}\cdot \K^{(j-1)}$ folgt die Behauptung.
+\hfill $\square$
+\\
+
+Hiermit folgt:
+
+\subsection{Korollar}\label{3.3.6}
+Unter der Voraussetzung von Lemma \ref{3.3.5} gilt:
+\begin{gather}
+	\frac{\nn{\widetilde{f}(\widetilde{x}-f(x))}}{\nn{f(x)}} \leq 
+		eps\cdot \left( 1+\kappa{(l)}+ \kappa{(l)}\cdot \kappa{(l-1)}+ \dotsc
+			+ \kappa{(l)}\cdot \dotsc \cdot \kappa{(1)}\right) + o(eps) 
+			\label{III.3.5}
+\end{gather}
+
+\subsection{Bemerkung}
+Mit Korollar \ref{3.3.6} ist offensichtlich, dass schlecht konditionierte Probleme 
+zu elementar ausführbaren Abbildugnen so früh wie möglich ausgeführt werden sollten. \\
+Nach Beispiel \ref{3.2.9} ist die Substraktion zweier annähernd gleicher Zahlen schlecht konditioniert.
+Deshalb sollte man unvermeidbare Subtraktionen möglichst früh durchführen. \\
+Allerdings hängt $\kappa^{(j)}$ nicht nur von $f^{(j)}$, sondern auch vom Zwischenergebnis $x^{(j)}$ ab, welches a priori unbekannt ist.
+
+\subsection{Bemerkung zur Sprechweise} %\label{3.3.8}
+Der Quotient 
+\begin{gather}
+	\frac{\overbrace{\frac{\nn{\widetilde{f}(\widetilde{x})-f(x)}}{\nn{f(x)}}}^{
+				\text{Gesamtfehler}}}
+		{\underbrace{\frac{\nn{\widetilde{f}(\widetilde{x})}}{\nn{f(x)}}}_{
+				\scriptsize\substack{
+					\text{Fehler} \\
+					\text{durch} \\
+					\text{Problem}
+				}}
+			\cdot
+		 {\underbrace{\frac{\nn{\widetilde{x}-x}}{\nn{x}}}_{
+		 		\scriptsize\substack{\text{Eingabe-} \\ \text{fehler}}}}}
+	\label{III.3.6}
+\end{gather}
+gibt die \textbf{Güte des Algorithmus} \index{Güte!Algorithmus} an.
+Als Stabilitätsindikator kann also 
+\begin{gather}
+	o\left(f, \widetilde{f}, x\right) \coloneqq \frac{\K}{\kappa_{rel}(f, x)}
+	\label{III.3.7}
+\end{gather}
+ verwendet werden und es gilt
+ \begin{gather*}
+	\frac{\nn{\widetilde{f}(\widetilde{x})-f(x)}}{\nn{f(x)}}
+		< \underbrace{o\left( f,\widetilde{f}, x\right) }_{
+								\substack{\text{Beitrag}\\
+												 \text{des} \\
+												 \text{Algorithmus}}}
+		   \cdot \underbrace{\kappa_{rel}(f,x)}_{
+		   						\substack{\text{Beitrag} \\
+		   										 \text{des} \\
+		   										 \text{Problems}}}
+		   	\cdot \underbrace{eps}_{\substack{\text{Rundungs-}\\\text{fehler}}}
+		    + \quad o(eps)
+ \end{gather*}
+Falls $o( f,\widetilde{f}, x)  < 1$, dämpft der Algorithmus die Fehlerfortpflanzung der Eingabe- und Rundungsfehler und heißt \textbf{stabil}\index{Stabilität}. \\
+Für $o( f,\widetilde{f}, x)  \gg 1$ heißt der Algorithmus \textbf{instabil}.
 
 
 
+\subsection{Beispiel}
+Nach Gleichung \eqref{III.3.3} gilt für die Elementaroperationen $\K\leq 1$.
+Da für die Subtraktion zweier annähernd gleich großer Zahlen $\kappa_{rel}\gg 1$ gilt,
+ist der Stabilitätsfaktor zweier annähernd gleich großer
+Zahlen sehr klein und der Algorithmus also stabil, Falls es sich jedoch bei einer zusammengesetzten Abbildung $f=h\circ g$  bei der zweiten Abbildung $h$ um eine Subtaktion handelt, gilt
+\begin{gather*}
+	\K =(1+\kappa(sub)+\kappa(sub)\cdot\kappa(g))
+\end{gather*}
+und die Stabilität ist gefährdet.
+Genauere Abschätzungen und damit genauere Indikatoren können durch komponentenweise Betrachtungen erhalten werden.
 
+
+\subsection{Rückwärtsanalyse} \index{Rückwärtsanalyse}
+Die Fragestellung ist nun: \\
+\textit{Kann $\widetilde{f}(\widehat{x})$ als exaktes Ergebnis von einer gestörten Eingabe $\widehat{x}$ unter der exakten Abbildung $f$ aufgefasst werden?}\\
+Das würde heißen
+\begin{gather*}
+	\exists\, \widehat{x}\in \Rn: f(\widehat{x})= \widetilde{f}(\widetilde{x}) \, .
+\end{gather*}
+Dann schätze den Fehler 
+\begin{gather*} 
+	\nn{\widehat{x}-x}
+\end{gather*}
+ bzw. für nicht injektive $f$
+ \begin{gather*}
+	\min_{\widehat{x}\in \Rn}
+\left\{
+ 	\nn{\widehat{x}-x} 
+ 					\middle\vert f(\widehat{x}) = \widetilde{f}(\widetilde{x}) 
+ 					\right\}
+ \end{gather*} 
+  ab. \\
+  
+  IMAGE~MISSING
 
 %
 %\begin{gather*}
