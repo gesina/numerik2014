@@ -9,7 +9,7 @@
 %
 %
 %ESSENTIAL PACKAGES
-%-----------------------------------------------------------------------section-------------------------
+%------------------------------------------------------------------------------------------------
 %..................................................
 %%encodings
 \usepackage[T1]{fontenc}		%font-encoding WITH e.g. ö (default is OT1 with 7- instead of 8-bit)
@@ -130,6 +130,7 @@
 \newcommand{\R}{\mathds{R}}
 \newcommand{\Rn}{\mathds{R}^{n}}
 \newcommand{\Rnn}{\mathds{R}^{n\times n}}
+\newcommand{\Rnm}{\mathds{R}^{n\times m}}
 \newcommand{\Q}{\mathds{Q}}
 \newcommand{\N}{\mathds{N}}
 \newcommand{\Z}{\mathds{Z}}
@@ -146,6 +147,7 @@
 	}
 
 \newcommand{\nn}[1]{\left\| #1 \right\|}
+\newcommand{\sectione}[1]{\section{#1} \setcounter{equation}{0}}
 
 
 %STYLE SETTINGS
@@ -153,7 +155,7 @@
 %\pagestyle{scrplain}				%set pagestyle to scrheadings or scrplain (instead of headings or plain)
 %\clearscrplain						%clear old style (either scrplain odr scrheadings)
 %\cfoot[<text for scrplain>]{<text for scrheadings>}	%any new settings for foots/ headings
-\allowdisplaybreaks              %allow multipage for equations
+%\allowdisplaybreaks              %allow multipage for equations
 \renewcommand{\theequation}{\thesection.\arabic{equation}}
 
 
@@ -191,6 +193,63 @@
 %ACTUAL CONTENT
 %----------------------------------------------------------------------------------------------
 \mainmatter		%for book only, part for main content of document
+
+
+% VORWORT
+
+\chapter*{Vorwort}
+%---------------------------------------------------
+%\tableofcontents
+\subsubsection{Skriptfehler}
+An alle, die gedenken dieses Skript zur Numerikvorlesung im WS2014/15 zu 
+nutzen: \\
+Es wird keinerlei Anspruch auf Richtigkeit, Vollständigkeit und auch sicher nicht Schönheit
+(ich bin LaTeX-Anfänger) dieses Dokuments erhoben.
+
+Ihr würdet mir aber unglaublich weiterhelfen, wenn ihr jede Anmerkung 
+-- das kann alles, von groben inhaltlichen 
+Fehlern über Rechtschreibkorrekturen bis hin zu Wünschen/Anregungen/Tipps zur Typografie, sein --
+an mich weiterleitet!\\
+
+Jegliche Anmerkungen bitte gleich und jederzeit an: \\
+
+\framebox[0.8\linewidth]{ %
+	\bfseries \large
+	
+	gesina.schwalbe@stud.uni-regensburg.de}
+
+\hspace{1cm}
+
+ oder auch an \textbf{gesina.schwalbe@googlemail.com}
+
+
+\subsubsection{Bilder oder \enquote{IMAGE MISSING}}
+Leider habe ich mich bisher noch nicht in die (ordentliche) Grafikerstellung in 
+LaTeX-Dokumenten eingearbeitet, weshalb das Skript erstmal nicht mit 
+Grafiken dienen kann -- die Fehlstellen sind mit \enquote{IMAGE MISSING} markiert. \\
+Wenn ihr gerne Veranschaulichungen haben möchtet, könnt ihr jederzeit \textbf{die
+	entsprechenden Bilder an mich schicken}, bitte mit Kapitelangabe. (Oder mich explizit darum bitten, dass ich mich übergangsweise um das Einscannen, Bearbeiten etc. kümmere).
+Dann werden sie an die entsprechenden Stellen eingebunden.
+
+
+\subsubsection{Erscheinungsdatum}
+Ich werde mich bemühen, das Skript jeweils am Vorlesungstag zumindest in 
+unverbesserter Form online zu stellen, so dass v.a. diejenigen, die die Vorlesung
+nicht besuchen können, einen Überblick über den Stoff bekommen.
+
+Innerhalb einer Woche sollte das Skript aktuell sein.
+
+
+\subsubsection{Anfangsteil }
+Nachdem ich nicht seit Semesterbeginn mittexe, fehlt noch ein Großteil des
+ersten Kapitels. Ich hoffe, es bis Mitte des Semesters nachholen zu können, 
+aber keine Garantie. \\
+Ziel ist, dass es vor der Vorlesungszeit integriert ist.
+
+
+
+
+
 \chapter{Einführung}\marginpar{06.10.2014}
 
 \chapter{Lineare Gleichungssysteme: Direkte Methoden}
@@ -209,7 +268,7 @@ Bemerkung:
 	\item [$\Rightarrow$] Lösen des Linearen Gleichungssystems!!
 \end{itemize}
 
-\section{Gaußsches Eliminationsverfahren} \label{2.1} \index{Gaußsches Eliminationsverfahren}\index{Dreieckszerlegung}
+\sectione{Gaußsches Eliminationsverfahren} \label{2.1} \index{Gaußsches Eliminationsverfahren}\index{Dreieckszerlegung}
 Das Verfahren wurde 1809 von Friedrich Gauß, 1759 von Josepf Louis Lagrange beschrieben und war seit dem 1. Jhd. v. Chr. in China bekannt.
 
 \subsection{Vorwärtselimination} \label{2.1.1}\index{Vorwärtselimination}\index{Vorwärtssubstitution}
@@ -221,13 +280,13 @@ mit $A=(a_{ij})_{i,j \leq n} \in K^{n\times n}$ Matrix und $b=(b_i)_{i\leq n} \i
 Der zugehörige Algorithmus sieht folgendermaßen aus:
 \begin{gather*}
 	\begin{array}{ccccccccc}
-	a_{11}x_1 &+& a_{12}x_2 &+& \cdots &+& a_{1n}x_n & = & b_1 \\
+	a_{11}x_1 &+& a_{12}x_2 &+& \cdots &+& a_{1n}x_n & = & b_1 ~~\\
 	a_{21}x_1 &+& a_{22}x_2 &+& \cdots &+& a_{2n}x_n & = & b_2 \\
 	\vdots         &&        \vdots     &&              &&   \vdots       &    & \vdots \\
 	a_{n1}x_1 &+& a_{n2}x_2 &+& \cdots &+& a_{nn}x_n & = & b_n \\\\
-	&&&& \Arrowvert &&&& 
+	&&&& \Downarrow &&&& 
 	\end{array} \\
-\quad 	(\text{i-te Zeile}) - (\text{1. Zeile})\cdot \frac{a_{i1}}{a_11} \Rightarrow a_{i1}=0\\
+\quad 	(\text{i-te Zeile}) - (\text{1. Zeile})\cdot \frac{a_{i1}}{a_{11}} \Rightarrow a_{i1}=0\\
 \begin{array}{ccccccccc}
 &&&& \Downarrow &&&&  \\\\
 a_{11}x_1 &+& a_{12}x_2 &+& \cdots &+& a_{1n}x_n & = & b_1 \\
@@ -288,7 +347,7 @@ Dieser Prozess wird \textbf{Vorwärtselimination} genannt.
 \subsection{Rückwärtselimination}\label{2.1.2}
 Für die Lösung des Gleichungssystems ist dann noch die \textbf{Rückwärtssubstitution} \index{Rückwärtssubstitution} nötig:
 \begin{align}
-	x_1 &= \frac{b_1^{(n-1)}}{a_{nn}^{(n-1)}} \label{II.1.5} \\
+	x_n &= \frac{b_n^{(n-1)}}{a_{nn}^{(n-1)}} \label{II.1.5} \\
 	x_{n-1} &=  \frac{b_{n-1}^{(n-2)}-a_{n-1,n}^{(n-1)}\cdot x_n}{a_{(n-1)(n-1)}^{(n-2)}} \label{II.1.6} \\
 	x_k &= \frac{b_k^{(k-1)}-\sum_{j=k+1}^{n}a_{kj}^{(k-1)}x_j}{a_{kk}^{(k-1)}} \label{II.1.7}
 \end{align}
@@ -317,9 +376,9 @@ IMAGE~MISSING \\
 Die Dreieckszerlegung einer Matrix $A$ entspricht dem Verfahren aus \ref{2.1.1}, nur ohne die Zeile \eqref{II.1.4}.
 
 \subsection{Vorwärtssubstitution} \index{Vorwärtssubstitution}
-Die Vorwärtssubstitution entspricht der in \ref{2.1.4} bzw. dem Verfahren aus \ref{2.1.1} ohne die Bestimmung von $l_{ik}$ und $R$, also nur Schritt \ref{II.1.4}.
+Die Vorwärtssubstitution entspricht der in \ref{2.1.4} bzw. dem Verfahren aus \ref{2.1.1} ohne die Bestimmung von $l_{ik}$ und $R$, also nur Schritt \eqref{II.1.4}.
 
-\subsection{Gauß-Eleminator zur Lösung von $Ax=b$}\index{Gauß-Eleminator}
+\subsection{Gauß-Elemination zur Lösung von $Ax=b$}\index{Gauß-Eleminator}
 \begin{enumerate}[1]
 	\item Dreieckszerlegung
 	\item Vorwärtssubstitution        $\quad b_i^{(k)} = b_i^{(k-1)} -b_k^{(k-1)} \cdot   l_{ik} $
@@ -349,7 +408,7 @@ MISSING
 MISSING
 \index{Verfahren von Crout}
 
-\section{Gaußsches Eliminationsverfahren mit Pivotisierung}
+\sectione{Gaußsches Eliminationsverfahren mit Pivotisierung}
 MISSING
 \subsection{Spaltenpivotisierung (=partielle/ halbmaximale Pivotisierung)} \index{Pivotisierung!Spalten-}\index{Pivotisierung}\index{Pivotisierung!halbmaximale}\index{Pivotisierung!partielle}
 
@@ -373,16 +432,18 @@ MISSING
 	eine Permutation der Zahlen $\{i,\dots, n\}$, d.h. insbesondere gilt:
 	\begin{alignat*}{2}
 		\Pi_i(j)&=j  & \quad &\text{ für } j=1,\dots,(i-1) \\
-		\Pi_i(j)&\in \{i, \dots, n\} & &\text{~für~}j=i,\dots, n\,. \\
-		P _{\Pi_{i+1}}  &= (e_1, \dotsc e_i, e_{\Pi_{i+i}(i+1)}, \dotsc, e_{\Pi_{i+1}(n)}) && \\
-								&= \begin{pmatrix}
+		\Pi_i(j)&\in \{i, \dots, n\} & &\text{~für~}j=i,\dots, n\,. 
+	\end{alignat*}
+	\begin{align*}
+		P _{\Pi_{i+1}}  &= (e_1, \dotsc e_i, e_{\Pi_{i+1}(i+1)}, \dotsc, e_{\Pi_{i+1}(n)}) 
+								= \begin{pmatrix}
 										I_i & 0 \\
 										0 & P_{\sigma}
 								\end{pmatrix}
-	\end{alignat*}
+	\end{align*}
 	Damit folgt:
 	\begin{align*}
-	P_{\Pi_(i+1)}\cdot P_{\Pi_{i+1}}^{-1}  &= 
+	P_{\Pi_(i+1)}\cdot L_i\cdot P_{\Pi_{i+1}}^{-1}  &= 
 													P_{\Pi_{i+1}} \cdot \left(\begin{array}{ccc|ccc}
 																						& I_i & && 0 & \\
 																						\cline{1-6}
@@ -407,9 +468,9 @@ MISSING
 	 &= \left(\begin{array}{ccc|ccc}
 				 & I_i & && 0 & \\
 				 \cline{1-6}
-				 &     & -l_{\Pi{i+1}(i+1), i} & & & \\
+				 &     & -l_{\Pi_{i+1}(i+1), i} & & & \\
 				 &  0 &  \vdots      & & I_{n-i} &\\
-				 &     & -l_{\Pi{i+1}(n), i} & &  & 
+				 &     & -l_{\Pi_{i+1}(n), i} & &  & 
 		 \end{array}\right) \\
 	 &= I - (P_{\Pi_{i+1}} l_i)e_i^T\\
 	 &\eqqcolon \widehat{L}_i
@@ -444,7 +505,7 @@ gilt.
 
 
 
-\chapter{Fehleranalyse} \index{Fehler}
+\chapter{Fehleranalyse} \index{Fehler}\label{3}
 %
 \begin{align*}
 	\overset{x+\epsilon \text{ statt } x}{\framebox[3cm]{Eingabe}} \longrightarrow 
@@ -463,8 +524,8 @@ Bei der Fehleranalyse liegt das Hauptaugenmerk auf
 											Und wie verstärkt der Algorithmus Eingabefehler?
 \end{itemize}
 
-\index{Stabilität des Algorithmus}
-\section{Zahlendarstellung und Rundungsfehler} \label{3.1} \index{Fehler} \index{Rundungsfehler}\index{Zahlendarstellung}
+
+\sectione{Zahlendarstellung und Rundungsfehler} \label{3.1} \index{Fehler} \index{Rundungsfehler}\index{Zahlendarstellung}
 Auf (Digital-)Rechnern können nur endlich viele Zahlen realisiert werden. \\
 Die wichtigsten Typen sind: 
 \begin{itemize}
@@ -531,7 +592,7 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
 															\end{array} $
 		\item $b=\sum_{i=0}^{7}b_i\cdot2^i \in \{1, \cdots, 254\}$ speichert den Exponenten mit \\
 							$ \quad e = b-\underbrace{127}_\text{Basiswert}$ (kein Vorzeichen nötig) \\
-							Beachte: $b_0=\cdots=b_7=0$ sowie $b_0=\cdots=b_7=0$ sind bis auf Ausnahmen keine gültigen Exponenten
+							Beachte: $b_0=\cdots=b_7=1$ sowie $b_0=\cdots=b_7=0$ sind bis auf Ausnahmen keine gültigen Exponenten
 		\item $m=(a_1.a_2\cdots a_{24})=1+\sum_{\nu=2}^{24}a_{\nu}2^{1-\nu}$ stellt die Mantisse dar, $a_1=1$ wird nicht abgespeichert.
 		\item Besondere Zahlen per Konvention:
 		\begin{itemize}
@@ -622,7 +683,7 @@ Gesetze der arithmetischen Operationen gelten i.A. nicht, z.B.
 	\item 	$x$ Maschinenzahl $\quad \Rightarrow fl(x+\nu) = x \text{     für }|\nu| < \tau |x|$
 	\item Assoziativ- und Distributivgesetze gelten nicht, z.B. für $\beta = 10, \, t=3, \, a=0,1 ,\, b= 105 , \, c= -104$ gilt:
 					\begin{align*}
-						fl(a+fl(a+c)) &= 1,1 \\
+						fl(a+fl(b+c)) &= 1,1 \\
 						fl(fl(a+b)+c) &= fl(fl(105,1) + (-104) ) \\
 							                &= fl(105-104) \\
 							                &= 1 \quad \lightning
@@ -655,7 +716,7 @@ schlecht konditioniert ist.\\
 
 % 2.2
 %-----------------------------------------------------------------------------------------------------------------------------------------
-\section{Kondition eines Problems} \label{3.2}
+\sectione{Kondition eines Problems} \label{3.2}
 Es wird das Verhältnis 
 \begin{gather*}
 	\frac{\text{Ausgabefehler}}{\text{Eingabefehler}}
@@ -663,7 +724,7 @@ Es wird das Verhältnis
 untersucht.
 
 \subsection{Definition: Problem} \label{3.2.1} \index{Problem}
-Sei $f: U \subseteq \R^n \mapsto \R^m$ mit $U$ offen und sei $x\in U$. Dann bezeichne $(f, x)$ das Problem, zu einem gegebenen $x$ die Lösung $f(x)$ zu finden.
+Sei $f: U \subseteq \R^n \rightarrow \R^m$ mit $U$ offen und sei $x\in U$. Dann bezeichne $(f, x)$ das Problem, zu einem gegebenen $x$ die Lösung $f(x)$ zu finden.
 
 \subsection{Definition: absoluter und relativer Fehler} \label{3.2.2} \index{Fehler}
 Sei $x\in\R^n$ und $\widetilde{x} \in \R^n$ eine Näherung an $x$. Weiterhin sei $\|\cdot\|$ eine Norm auf $\R^n$.
@@ -701,7 +762,7 @@ Auf dem $\R^n$  sei die Norm $\nn{\,\cdot\,}_a$ und auf dem $\R^m$ die Norm $\nn
 Dann ist die zugehörige \textbf{Matrixnorm} \index{Norm!Matrixnorm} gegeben durch:
 \begin{align}
 	\nn{A}_{a,b} &\coloneqq \sup_{x\neq 0} \frac{\nn{Ax}_b}{\nn{x}_a} \\ \nonumber
-					 &= \sup_{\nn{x}_a=1} \nn{Ax}_b \label{Matrixnorm} 
+					 &= \sup_{\nn{x}_a=1} \nn{Ax}_b \label{III.2.1} 
 \end{align}
 Also ist   $\nn{A}_{a,b}$ die kleinste Zahl $c>0$ mit
 \begin{gather*}
@@ -766,7 +827,7 @@ Sei $A\in \R^{m\times n}$.
 Sei $(f,x)$ ein Problem mit $f:U\subset \R^n \rightarrow \R^m$
 und $\nn{\,\cdot\,}_a$ auf $\R^n$ und $\nn{\,\cdot\,}_b$ auf $\R^m$ eine Norm.
 \begin{enumerate}[a)]
-	\item Die \textbf{absolute normweise Kondition}\index{Kondition!absolute normweise} eines Problems $(f,x)$ ist die kleinste Zahl 
+	\item Die \textbf{absolute normweise Kondition}\index{Kondition!normweise, absolut} eines Problems $(f,x)$ ist die kleinste Zahl 
 			 $\kappa _{abs} > 0 $ mit
 			 \begin{align}
 			 	\nn{f(\widetilde{x})-f(x)}_b &\leq \kappa _{abs}(f,x) \nn{\widetilde{x}-x}_a
@@ -776,7 +837,7 @@ und $\nn{\,\cdot\,}_a$ auf $\R^n$ und $\nn{\,\cdot\,}_b$ auf $\R^m$ eine Norm.
 							 \quad \text{für }\widetilde{x}\rightarrow x 
 						 	\Bigr)
 			 \end{align}
-	\item Die \textbf{relative normweise Kondition}\index{Kondition!absolute normweise} eines Problems $(f,x)$  mit $x\neq 0, f(x) \neq 0$
+	\item Die \textbf{relative normweise Kondition}\index{Kondition!normweise. relativ} eines Problems $(f,x)$  mit $x\neq 0, f(x) \neq 0$
 			 	ist die kleinste Zahl 
 			 	$\kappa _{rel} > 0 $ mit
 			 	\begin{align}
@@ -804,7 +865,7 @@ und für $f(x) \neq 0$
 \end{gather}
 wobei $Df(x)$ die Jakobi-Matrix bezeichnet.
 %
-\subsection{Beispiel: Kondition der Addition}\label{3.2.9} \index{Kondition!Kondition der Addition}
+\subsection{Beispiel: Kondition der Addition}\label{3.2.9} \index{Kondition!Addition}
 $f(x_1, x_2) \coloneqq x_1 +x_2 , \, f:\R^2 \rightarrow \R$. \\
 Wähle $l_1$-Norm auf $\R^2$ (und $\R$)
 \begin{align*}
@@ -847,7 +908,7 @@ Zum Beispiel in \ref{3.1.8}: Es ist
 \end{align*}
 %
 
-\subsection{Beispiel: Lösen eines Gleichungssystems}
+\subsection{Beispiel: Lösen eines Gleichungssystems} \label{3.2.10}
 Sei $A\in \R^{n\times n}$ invertierbar und $b\in \R^n$. Es soll 
 \begin{gather*}
 	Ax =b
@@ -872,7 +933,7 @@ Die möglichen Lösungen in $A$ und in $b$ lassen sich folgendermaßen ermitteln
 			Die Abschätzung ist \textbf{scharf}\index{scharf}, d.h. es gibt ein $\Delta b\in \R^n$, so dass \enquote{=} gilt, nach Definition \ref{3.2.4}. \\
 			Also gilt\footnote{vgl. auch Lemma \ref{3.2.8}: $\kappa_{abs}(f,b)=\nn{Df(b)}_{a,b}=\nn{A^{-1}}_{a,b}$}:
 			\begin{gather}
-				\kappa_{abs}(f,b) = \nn{A^{-1}}_{a,b} \label{II.2.4}
+				\kappa_{abs}(f,b) = \nn{A^{-1}}_{a,b} \label{III.2.6}
 			\end{gather}
 			unabhängig von b.  $ \quad \left( x\mapsto Ax \quad \kappa_{abs}\right)$\\
 			Ebenso folgt die scharfe Abschätzung 
@@ -880,7 +941,7 @@ Die möglichen Lösungen in $A$ und in $b$ lassen sich folgendermaßen ermitteln
 				\nonumber
 				\frac{\|	f(b + \Delta b) - f(b)\|}{\|f(b)\|} &= \frac{\nn{\Delta x}}{\nn{x}}\\ \nonumber
 						& = \frac{\nn{A^{-1}\Delta b}}{\nn{x}} \\ \nonumber
-						& \leq  \frac{\|A^{-1}\|\cdot \|b\|}{\|x\|} \cdot \frac{\|\Delta b\|}{\|b\|} \\ \nonumber
+						& \leq  \frac{\|A^{-1}\|\cdot \|b\|}{\|x\|} \cdot \frac{\|\Delta b\|}{\|b\|} \\
 				\intertext{Damit}
 				\kappa_{rel} (f,b) &= \|A^{-1} \| \cdot \frac{\|b\|}{\|A^{-1}\cdot b\|} \label{III.2.7}
 			\end{align}
@@ -895,9 +956,9 @@ Die möglichen Lösungen in $A$ und in $b$ lassen sich folgendermaßen ermitteln
 				\|\widehat{b}\| = \nn{A}\cdot \nn{\widehat{x}}
 			\end{gather*}
 			und somit
-			\begin{gather}
+			\begin{gather*}
 				\kappa_{rel}(f,\widehat{b}) = \nn{A}\cdot \| A^{-1}\|
-			\end{gather} %
+			\end{gather*} %
 			%
 	\item Betrachte die Störungen in $A$:\\
 			Löse also 
@@ -915,9 +976,9 @@ Die möglichen Lösungen in $A$ und in $b$ lassen sich folgendermaßen ermitteln
 										  & = \frac{d}{dt}\left((A+tC)^{-1}\right)\Big\vert_{t=0}\cdot b
 			\end{align*}			
 			Weiterhin gilt
-			\begin{align*}
+			\begin{align}
 				\frac{d}{dt} \left((A+tC)^{-1}\right) \Big\vert_{t=0} &= -A^{-1}CA^{-1}, \label{III.2.9}
-			\end{align*}
+			\end{align}
 			da
 			\begin{align*}
 				0&= \frac{d}{dt}I \\
@@ -1072,7 +1133,7 @@ IMAGE~MISSING\\
 Damit bedeutet eine kleine Störung in $y$ eine große Störung in $x$.
 
 
-\minisec{\Large3.2 a) Komponentenweise Konditionsanalyse} \label{3.2b}\vspace{1eM} \index{Konditionsanalyse!komponentenweise}
+\minisec{\Large3.2 b) Komponentenweise Konditionsanalyse} \label{3.2b}\vspace{1eM}
 
 \subsection{Beispiel}
 Falls $A$ Diagonalmatrix hat, sind die Gleichungen unabhängig voneinander (entkoppelt)\index{entkoppelt}.
@@ -1092,8 +1153,8 @@ Ebenso sind Störungen nur in der Diagonale zu erwarten. Jedoch:
 \end{align*}
 
 \subsection{Definition: Komponentenweise Kondition}\index{Kondition!komponentenweise}
-Sei $(f, x) $ ein Problem mit $f(x)\neq 0$ und $x=(x_i)_{i=1,\cdots , n}$ mit $x_1\neq 0 $  für alle $i=1,\cdots, n$.
-Die \textbf{komponentenweise Kondition} von $(f,x) $ ist die kleinste Zahl $k_{rel}\geq 0$, so dass:
+Sei $(f, x) $ ein Problem mit $f(x)\neq 0$ und $x=(x_i)_{i=1,\cdots , n}$ mit $x_i\neq 0 $  für alle $i=1,\cdots, n$.
+Die \textbf{komponentenweise Kondition} von $(f,x) $ ist die kleinste Zahl $\kappa_{rel}\geq 0$, so dass:
 \begin{align*}
 	\frac{\|f(\widetilde{x})-f(x)\|_\infty}{\|f(x)\|_\infty} 
 				&\leq \kappa_{rel} \cdot \underset{i}{\max}\frac{|\widetilde{x_i}-x_i|}{|x_i|}+ o\left(\underset{i}{\max}\frac{|\widetilde{x_i}-x_i|}{|x_i|}\right) 
@@ -1112,7 +1173,7 @@ Sei $f$ differenzierbar und fasse $|\cdot|$ komponentenweise auf, d.h. $|x| = \b
 																																					\end{pmatrix}$.
 Dann gilt:
 \begin{gather}
-	\kappa_{rel} = \frac{\|\, \|Df(x)|\cdot |x| \, \|_\infty}{\|f(x)\|_\infty} \label{III.2.16}
+	\kappa_{rel} = \frac{\|\, |Df(x)|\cdot |x| \, \|_\infty}{\|f(x)\|_\infty} \label{III.2.16}
 \end{gather}
 
 \paragraph{Beweis}
@@ -1151,7 +1212,7 @@ dann gilt:
 und in obiger Rechnung gilt Gleichheit. \\
 Also folgt, dass
 \begin{align*}
-	 \frac{\|\, \|Df(x)|\cdot |x| \, \|_\infty}{\|f(x)\|_\infty} &= \kappa_{rel}  \\
+	 \frac{\|\,|Df(x)|\cdot |x| \, \|_\infty}{\|f(x)\|_\infty} &= \kappa_{rel}  \\
 	 &&& \square
 \end{align*}
 
@@ -1164,7 +1225,7 @@ Also folgt, dass
 					   \Rightarrow \kappa_{rel}(x,y) &= \frac{\left\| (|y|, |x|)\cdot \begin{pmatrix}
 																																   	|x| \\
 																																   	|y|
-										-																					   	\end{pmatrix}\right\|_\infty}
+																															   	\end{pmatrix}\right\|_\infty}
 										{|x\cdot y|} \\
 						&= \frac{2\cdot|x|\cdot |y|}{|x\cdot y|} \\
 						&= 2
@@ -1201,7 +1262,7 @@ Also folgt, dass
 					  IMAGE~MISSING
 \end{enumerate}
 
-\section{Stabilität von Algorithmen} \index{Stabilität}
+\sectione{Stabilität von Algorithmen}
 Bislang: Kondition eines gegebenen Problems $(f,x)$. \\
 Nun stellt sich die Frage: \textit{Was passiert durch das Implementieren am Rechner? }\\
 Ein \enquote{stabiler} Algorithmus sollte ein gut konditioniertes Problem nicht \enquote{kaputt machen}.\\
@@ -1230,7 +1291,7 @@ Sei $f(x_1, x_2, x_3) \coloneqq \frac{x_1x_2}{x_3}$ mit Maschinenzahlen $x_i$ un
 \end{gather*}
 gegeben mit 
 \begin{align*}
-	f^{(1)}(x_1, x_2, x_3) & = (x_1\cot x_2, x_3) && \text{und} \\
+	f^{(1)}(x_1, x_2, x_3) & = (x_1\cdot x_2, x_3) && \text{und} \\
 	f^{(2)}(y,z) &= \frac{y}{z}
 \end{align*}
 Die Implementierung $\widetilde{f}$ von $f$  beinhaltet Rundungsfehler. \\
@@ -1256,13 +1317,13 @@ die mit einer relativen Genauigkeit $eps$ realisiert werden können. \\
 
 Daher:
 
-\subsection{Definition: }\index{MISSING}
+\subsection{Definition: Elementar ausführbar}
 Eine Abbildung $\phi : U\subseteq \Rn \rightarrow \R^m$ heißt
 \textbf{elementar ausführbar}\index{elementar ausführbar}, falls es 
 eine elementare Operation $\widetilde{\phi}:\F^n \rightarrow \F^m$
 gibt, wobei $\F$ die Menge der Maschinenzahlen bezeichne mit
 \begin{gather}
-	|\widetilde{\phi}_i(x)-\phi_i(x) \leq eps|\phi_i(x) | 
+	|\widetilde{\phi}_i(x)-\phi_i(x)| \leq eps\cdot |\phi_i(x) | 
 	\quad \forall x\in \F^n \text{ und } i=1,\cdots , m \label{III.3.2}\, .
 \end{gather}
 $\widetilde{\phi}$ heißt dann \textbf{Realisierung}\index{Realisierung} von $\phi$.
@@ -1270,12 +1331,12 @@ $\widetilde{\phi}$ heißt dann \textbf{Realisierung}\index{Realisierung} von $\p
 \paragraph{Bemerkung:}
 aus \eqref{III.3.2} folgt für $1\leq p\leq \infty$:
 \begin{gather}
-	\nn{\widetilde{\phi}(x)-\phi(x)}_p \leq eps\nn{\phi(x)}_n 
+	\nn{\widetilde{\phi}(x)-\phi(x)}_p \leq eps\cdot\nn{\phi(x)}_n 
 	\quad \forall x\in\F^n \label{III.3.3}
 \end{gather}
 
 
-\subsection{Definition: } \index{MISSING}
+\subsection{Definition: Algorithmus, Implementation}
 Sei $f:E\subseteq \Rn \rightarrow \R^m$ gegeben.\\
 Ein Tupel $\left(f^{(1)},\cdots ,f^{(l)}\right)$ mit $l\in \N$ von elementar ausführbaren
 Abbildungen
@@ -1286,7 +1347,7 @@ mit $k_1=n$ und $k_{l+1}=m$ heißt \textbf{Algorithmus}\index{Algorithmus} von $
 \begin{gather*}
 	f=f	^{(l)}\circ \dotsc \circ f^{(1)}
 \end{gather*}
-Das Tupel $(\widetilde{f}1^{(1)},\cdots ,\widetilde{f}^{(l)})$ mit Abbildungen $\widehat{f}^{(i)}$, welche Realisierungen der $f^{(i)}$ sind,
+Das Tupel $(\widetilde{f}1^{(1)},\cdots ,\widetilde{f}^{(l)})$ mit Abbildungen $\widetilde{f}^{(i)}$, welche Realisierungen der $f^{(i)}$ sind,
 heißt \textbf{Implementation}\index{Implementation} von 
 $\left(f^{(1)},\dotsc ,f^{(l)}\right)$.
 Die Komposition 
@@ -1303,7 +1364,7 @@ Sei $\left(f^{(1)},\dotsc ,f^{(l)}\right)$ ein Algorithmus für $f$ und
 $(\widetilde{f}^{(1)},\dotsc ,\widetilde{f}^{(l)})$ eine zugehörige Implementation. \\
 Mit den Abkürzungen
 \begin{align*}
-	x^{(j+1)} &\coloneqq f^{(j)}\circ \dotsc \circ f^{(1)} \\
+	x^{(j+1)} &\coloneqq f^{(j)}\circ \dotsc \circ f^{(1)}(x) \\
 	x^{(1)} &\coloneqq x
 \end{align*}
 und entsprechend mit $\widetilde{x}^{(j+1)}$ gilt,
@@ -1311,22 +1372,23 @@ falls $x^{(j+1)} \neq 0$ für alle $j=0,\dotsc , (l-1)$ und $\nn{\,\cdot\,}$ ein
 \begin{align}
 	\frac{\nn{\widetilde{x}^{(j+1)}-x^{(j+1)}}}{\nn{x^{(j+1)}}}
 	&\leq eps \cdot \K + o\left(eps\right)
-	\label{III.3.4} \\ \nonumber
+	\label{III.3.4} 
+	\\ \nonumber
 	\K^{(j)}&=(1+\kappa^{(j)}+\kappa^{(j)}\cdot \kappa^{(j-1)}+ \cdots + \kappa^{(j)}\cdot \dotsm \cdot \kappa^{(1)}) \\ \nonumber
 \end{align}
-wobei $	\K^{(j)} \coloneqq \kappa_{rel}(f^{(j)}, x^{(j)})$ die Kondition der elementar ausführbaren Operationen $f^{(j)}$ ist.
+wobei $	\kappa^{(j)} \coloneqq \kappa_{rel}(f^{(j)}, x^{(j)})$ die Kondition der elementar ausführbaren Operationen $f^{(j)}$ ist.
 
 \paragraph{Beweis}
 
 \begin{align*}
 	\frac{\nn{\widetilde{x}^{(j+1)}-x^{(j+1)}}}{\nn{x^{(j+1)}}}
-				&= \frac{\nn{\widetilde{f}^{(j)}(\widetilde{x})^{(j)}-f^{(j)}(x^{(j)})}}
+				&= \frac{\nn{\widetilde{f}^{(j)}(\widetilde{x}^{(j)})-f^{(j)}(x^{(j)})}}
 				{\nn{f^{(j)}(x^{(j)})}} \\
-				&\leq \frac{\nn{\widetilde{f}(\widetilde{x})-f(\widetilde{x}})}{\nn{f(\widetilde{x})}}
+				&\leq \frac{\nn{\widetilde{f}(\widetilde{x})-f(\widetilde{x})}}{\nn{f(\widetilde{x})}}
 						\cdot \frac{\nn{f(\widetilde{x})}}{\nn{f(x)}}
-						+ \frac{\nn{f(\widetilde{x})-f({x}})}{\nn{f(x)}} 
+						+ \frac{\nn{f(\widetilde{x})-f({x})}}{\nn{f(x)}} 
 						\quad\quad \text{(Index $j$ vernachlässigt)}\\
-				&\leq eps \left( 1+ \frac{\nn{f(\widetilde{x})-f({x}})}{\nn{f(x)}}\right)
+				&\leq eps \left( 1+ \frac{\nn{f(\widetilde{x})-f({x})}}{\nn{f(x)}}\right)
 						+ \frac{\nn{f(\widetilde{x})-f({x}})}{\nn{f(x)}}\\
 				&\overset{\text{nach \ref{III.3.3}}}{=} eps + (eps+1) \cdot 						\left(\kappa{(j)}\cdot \frac{\nn{\widetilde{x}^{(j)}-x^{(j)}}}{\nn{x^{(j)}}}\right)
 						+ o\left( \frac{\nn{\widetilde{x}^{(j)}-x^{(j)}}}{\nn{x^{(j)}}}\right)
@@ -1356,15 +1418,15 @@ Hiermit folgt:
 \subsection{Korollar}\label{3.3.6}
 Unter der Voraussetzung von Lemma \ref{3.3.5} gilt:
 \begin{gather}
-	\frac{\nn{\widetilde{f}(\widetilde{x}-f(x))}}{\nn{f(x)}} \leq 
-		eps\cdot \left( 1+\kappa{(l)}+ \kappa{(l)}\cdot \kappa{(l-1)}+ \dotsc
-			+ \kappa{(l)}\cdot \dotsc \cdot \kappa{(1)}\right) + o(eps) 
+	\frac{\nn{\widetilde{f}(\widetilde{x})-f(x)}}{\nn{f(x)}} \leq 
+		eps\cdot \left( 1+\kappa^{(l)}+ \kappa^{(l)}\cdot \kappa^{(l-1)}+ \dotsc
+			+ \kappa^{(l)}\cdot \dotsc \cdot \kappa^{(1)}\right) + o(eps) 
 			\label{III.3.5}
 \end{gather}
 
 \subsection{Bemerkung}
 Mit Korollar \ref{3.3.6} ist offensichtlich, dass schlecht konditionierte Probleme 
-zu elementar ausführbaren Abbildugnen so früh wie möglich ausgeführt werden sollten. \\
+zu elementar ausführbaren Abbildungen so früh wie möglich ausgeführt werden sollten. \\
 Nach Beispiel \ref{3.2.9} ist die Substraktion zweier annähernd gleicher Zahlen schlecht konditioniert.
 Deshalb sollte man unvermeidbare Subtraktionen möglichst früh durchführen. \\
 Allerdings hängt $\kappa^{(j)}$ nicht nur von $f^{(j)}$, sondern auch vom Zwischenergebnis $x^{(j)}$ ab, welches a priori unbekannt ist.
@@ -1388,13 +1450,13 @@ Der Quotient
 gibt die \textbf{Güte des Algorithmus} \index{Güte!Algorithmus} an.
 Als Stabilitätsindikator kann also 
 \begin{gather}
-	o\left(f, \widetilde{f}, x\right) \coloneqq \frac{\K}{\kappa_{rel}(f, x)}
+	\sigma\left(f, \widetilde{f}, x\right) \coloneqq \frac{\K}{\kappa_{rel}(f, x)}
 	\label{III.3.7}
 \end{gather}
  verwendet werden und es gilt
  \begin{gather*}
 	\frac{\nn{\widetilde{f}(\widetilde{x})-f(x)}}{\nn{f(x)}}
-		< \underbrace{o\left( f,\widetilde{f}, x\right) }_{
+		< \underbrace{\sigma\left( f,\widetilde{f}, x\right) }_{
 								\substack{\text{Beitrag}\\
 												 \text{des} \\
 												 \text{Algorithmus}}}
@@ -1405,8 +1467,8 @@ Als Stabilitätsindikator kann also
 		   	\cdot \underbrace{eps}_{\substack{\text{Rundungs-}\\\text{fehler}}}
 		    + \quad o(eps)
  \end{gather*}
-Falls $o( f,\widetilde{f}, x)  < 1$, dämpft der Algorithmus die Fehlerfortpflanzung der Eingabe- und Rundungsfehler und heißt \textbf{stabil}\index{Stabilität}. \\
-Für $o( f,\widetilde{f}, x)  \gg 1$ heißt der Algorithmus \textbf{instabil}.
+Falls $\sigma( f,\widetilde{f}, x)  < 1$, dämpft der Algorithmus die Fehlerfortpflanzung der Eingabe- und Rundungsfehler und heißt \textbf{stabil}\index{Stabilität}. \\
+Für $\sigma( f,\widetilde{f}, x)  \gg 1$ heißt der Algorithmus \textbf{instabil}.
 
 
 
@@ -1444,15 +1506,291 @@ Dann schätze den Fehler
   ab. \\
   
   IMAGE~MISSING
+  
+  
+  \subsection{siehe Folien}
+  (siehe auch Folien) \\
+  
+  IMAGE~MISSING
+  
+  \sectione{MISSING}
+  Zu $Ax=b$ liege eine Näherungslösung $\widetilde{x}$ vor.
 
-%
-%\begin{gather*}
-%\int \dotsi \int \\
-%+ \dotsb + \\
-%, \dotsc , \\
-%\dotso
-%\end{gather*}
+  \begin{enumerate}[a)]
+  	\item Im Sinne der Vorwärtsanalyse und der Fehlerentwicklung	
+  			durch das Problem gilt:
+  				\begin{gather*}
+  					\frac{\nn{\widetilde{x}-x}}{\nn{x}} \leq cond(A) \cdot \frac{\nn{\Delta b}}{\nn{b}}
+  				\end{gather*}
+  			nach Beispiel \ref{3.2.10}, 
+  			mit dem Residuum 
+  			\begin{align}
+  				r(\widetilde{x})  & \coloneqq A\widetilde{x} - b \label{III.4.1} \\ \nonumber 
+  										  &	= \widetilde{b}-b \\ \nonumber
+  										  & = \Delta b
+  			\end{align}
+  			Wie der absolute Fehler ist das Residuum skalierungsabhängig.
+  			Daher ist $\nn{r(\widetilde{x})}$ \enquote{klein} ungeeignet, um
+  			Genauigkeitsaussagen zu treffen. \\
+  			Um den Fehler in $x$ abzuschätzen, ist die Betrachtung von 
+  			\begin{gather}
+  				\frac{\nn{r(\widetilde{x})}}{\nn{b}} \label{III.4.2}
+  			\end{gather}
+  			geeigneter. \\
+  			Für große $cond(A)$ ist dieser Quotient jedoch weiterhin ungeeignet.
+  			
+  			\item siehe Folien
+  \end{enumerate}
+  
+  
+  \chapter{Lineare Gleichungssysteme: Direkte Methoden (Fortsetzung)}
+  
+  \sectione{Gaußsches Eliminationsverfahren mit Aquilibrierung und Nachiteration}
+  
+  Mit Skalierung $D_zA$ (\textbf{Zeilenskalierung})\index{Skalierung!Zeilen-} oder
+  $D_sA$ (\textbf{Spaltenskalierung})\index{Skalierung!Spalten-}
+  mittels Diagonalmatrizen $D_z, D_s$ lässt sich eine Pivotstrategie beliebig abändern.
+  Jetzt ist die Frage: \\
+  \textit{Was ist eine \enquote{gute} Skalierung?}
+  
+  Skalierung ändert die Lönge der Basisvektoren des Bild- bzw. des Urbildvektorraumes.
+  Durch Normierung der Länge auf 1 wird die Pivotstrategie unabhängig von der 
+  gewählten Einheit.
+  
+    Sei $A\in\Rnm $ und $\nn{\,\cdot\,} $ eine Vektornorm.
+  
+  
+  \subsection{Äquilibrierung der Zeilen} \index{Äquilibrierung!Zeilen-}
+  Alle Zeilen von $D_zA$ haben die gleiche Norm, z.B. $\nn{\,\cdot\,} =1$, wofür 
+  \begin{gather}
+  	D_z = \begin{pmatrix}
+  	\sigma_1 & & 0 \\
+  	&\ddots & \\ 
+  	0 && \sigma_n
+  	\end{pmatrix}
+  	 \quad \text{ mit }\sigma_i\coloneqq \frac{1}{\nn{(a_{i1}, \dots , a_{im})}}
+  	 \label{IV.1.1}
+  \end{gather}
+  gesetzt wird.
 
+
+  \subsection{Äquilibrierung der Spalten} \index{Äquilibrierung!Spalten-}
+  Alle Spalten von $AD_s$ haben die gleiche Norm, z.B. $\nn{\,\cdot\,} =1$, wofür 
+  \begin{gather}
+  D_s = \begin{pmatrix}
+  \tau_1 & & 0 \\
+  &\ddots & \\ 
+  0 && \tau_m
+  \end{pmatrix}
+  \quad \text{ mit }\tau_j\coloneqq \nn{\begin{pmatrix}
+  		a_{1j} \\ \vdots \\ a_{nj}
+  		\end{pmatrix}}^{-1}
+  \label{IV.1.2}
+  \end{gather}
+  gesetzt wird.
+  
+  Äquilibrierung von Zeilen \textbf{und} Spalten führt zu einem nichtlinearen Gleichungssystem und ist i.d.R. aufwendig.
+  
+  
+  \subsection{Lemma} \label{4.3.1}
+  Sei $A$ zeilenäquilibriert bzgl. der $l_1$-Norm, dann gilt:
+  \begin{gather}
+  	cond_{\infty}(A) \leq cond_{\infty}(DA)  \label{IV.1.3}
+  \end{gather}
+  für alle regulären Diagonalmatrizen $D$.
+  
+  \paragraph{Beweis} siehe Übungsaufgabe
+
+Wie in Kapitel \ref{3} gesehen, kann die Näherungslösung $\widetilde{x}$ 
+trotz Pivotisierung und Äquilibrierung noch sehr ungenau sein.
+
+
+\subsection{Nachiteration} \index{Nachiteration}
+Die Näherung $\widetilde{x}$ kann durch Nachiteration verbessert werden. \\
+Falls $\widetilde{x}$ exakt ist, gilt:
+\begin{gather}
+	r(\widetilde{x}) \coloneqq b-A\widetilde{x} =0 \label{IV.1.4}
+\end{gather}
+ansonsten ist $A(x-\widetilde{x})=r(\widetilde{x}).$ \ \
+Also löse die Korrekturgleichung
+\begin{gather}
+	A\Delta x = r(\widetilde{x}) 	\label{IV.1.5}
+\end{gather}
+und setze
+\begin{gather*}
+	x^{(1)} \coloneqq \widetilde{x} +\Delta x
+\end{gather*}
+Wiederhole dies sooft, bis $x^{(i)}$ \enquote{genau genug} ist.
+Die Lösung $\widetilde{x}$ wird durch Nachiteration meist mit sehr gutem Erfolg verbessert
+(genaueres in Dahmen/Reusken MISSING (reference))
+\eqref{IV.1.5} wird mit der bereits vorhandenen LR-Zerlegung nur mit der neuen rechten Seite $r(\widetilde{x})$ gelöst, d.h. eine vorwärts und eine Rückwärtssubstitution
+mit $\mathcal{O}(n^2)$ flops.
+
+\subsection{Bemerkung (nach Skeel 1980)}
+Die Gauß-Elimination mit Spaltenpivotsuche
+
+MISSING
+
+\sectione{Cholesky-Verfahren}
+Im Folgenden sei $A$ eine symmetrische, positiv definite Matrix in $\Rnn $, d.h.
+$A=A^T$ und $\langle x, Ax \rangle = x^TAx > 0 \forall x\neq 0$. \\
+(kurs: spd Matrix)
+
+\subsection{Satz} \label{4.2.1}
+Für jede spd Matrix $A\in \Rnn $ gilt:
+\begin{enumerate}[i)]	
+	\item $A$ ist invertierbar
+	\item $a_{ii}>0$ für $i=1, \dots , n$
+	\item $\max_{ij}|a_{ij}| = \max_{i}a_{ii}$
+	\item Bei der Gauß-Elimination ohne Pivotsuche ist jede Restmatrix wieder eine spd Matrix.
+\end{enumerate}
+
+\paragraph{Beweis}
+\begin{enumerate}[i)]
+	\item folgt aus \eqref{IV.2.1}
+	\item Sei $e_i$ der i-te Einheitsvektor, so folgt $a_{ii} = e_{i}^TAe_i > 0$.
+	\item siehe Übungsaufgabe
+	\item Es gilt:
+			\begin{align*}
+				A^{(1)} &\coloneqq A = \begin{pmatrix}
+															a_{11} & z^T \\ 
+															z			& B^{(1)}
+														\end{pmatrix} \\
+				A^{(2)}	&\coloneqq L_1 A^{(1)} 
+								= \begin{pmatrix}
+											1 & 0 & \dotsm & 0 \\ \\
+											-\frac{z}{a_{ii}} && I \\ ~
+										\end{pmatrix} 
+								= \begin{pmatrix}
+											a_{11} &  & z^T & ~ \\ 
+											0 \\
+											\vdots && B^{(2)} \\ 
+											0
+										\end{pmatrix} \\
+				\Rightarrow L_1A^{(1)}L_1^T  
+				&= \begin{pmatrix}
+							a_{11} &  & z^T & ~ \\ 
+							0 \\
+							\vdots && B^{(2)} \\ 
+							0
+						\end{pmatrix} 
+						\cdot  \begin{pmatrix}
+										1 &  &	-\frac{z}{a_{11}} & ~ \\ 
+										0 \\
+										\vdots && I \\ 
+										0
+									\end{pmatrix}\\
+				&= \begin{pmatrix}
+							a_{11} & 0 & \cdots & 0\\ 
+							0 \\
+							\vdots && B^{(2)} \\ 
+							0
+						\end{pmatrix} 
+			\end{align*}
+			Weiterhin gilt:
+			\begin{gather*}
+				x\neq 0 \Leftrightarrow L_1 x\neq 0 \,
+			\end{gather*}
+			da $L_1$ invertierbar. Also gilt insgesamt:
+			\begin{align*}
+				\widetilde{x}^TB^{(2)} \widetilde{x} &= x^T L_1A^{(1)}L_1^Tx
+					 &&  \text{für } x\coloneqq \begin{pmatrix}	0 \\ \widetilde{x}\end{pmatrix}\\
+				&= (L_1^Tx)^TA(L_1^Tx) > 0
+					&& \forall \widetilde{x}\neq 0 
+			\end{align*}
+			und damit ist auch $B^{(2)}$ spd.
+			
+			Induktiv folgt hiermit iv).\hfill $\square$
+			Insbesondere ergibt sich: 
+			\begin{gather*}
+				(L_{n-1}\cdot \cdots\cdot L_1)A^{(1)}(L_1^T\cdot \cdots \cdot L_{n-1}^T) 
+					= \begin{pmatrix} d_1 & & 0 \\ &\vdots& \\ 0&& d_n\end{pmatrix} \, ,
+			\end{gather*}
+			wobei $d_i$ das i-te Diagonalelement von $A^{(i)}$ ist und somit $d_i>0$ für $ i= 1, \cdots , n$ gilt. \\
+			
+			Sei $L\coloneqq (L_1^{-1}\cdot \cdots \cdot L_{n-1}^{-1})$ wie in \eqref{II.1.8}, so ergibt sich:
+		\end{enumerate}
+		
+		
+		\subsection{Folgerung} \label{4.2.2}
+		Für jede spd Matrix $A$ existiert eine eindeutige Zerlegung der Form 
+			\begin{gather*}
+				A= LDL^T
+			\end{gather*}
+		wobei $L$ eine reelle unipotente (d.h. $l_{ii}=1$) \index{unipotent} (, normierte)  untere 
+		Dreiecksmatrix  und $D$ eine positive Diagonalmatrix ist. 
+		Diese Zerlegung heißt \textbf{rationale Cholesky-Zerlegung}\index{Choleskyzerlegung!rational}. Die Zerlegung
+		\begin{gather}
+			A= \bar{L}\bar{L}^T 
+%			= 
+%			\begin{pmatrix}
+%				&&0 \\
+%				\vdots & \ddots&\\
+%				\dotsm & \dotsm &
+%			\end{pmatrix}
+\label{IV.2.2}
+		\end{gather}
+		mit der reellen unteren Dreiecksmatrix
+		\begin{gather*}
+			\bar{L} = L \begin{pmatrix}
+			\sqrt{d_1} &&0 \\
+			& \ddots & \\
+			0&& \sqrt{d_n}
+			\end{pmatrix} = LD^{\frac{1}{2}}
+		\end{gather*}
+		heißt \textbf{Cholesky-Zerlegung.} \index{Cholesky-Zerlegung}.
+		
+		Wegen \eqref{IV.2.2} gilt: 
+		\begin{align}
+			a_{kk} &= \bar1{l}_{k1}^{2} + \cdots +  \bar{l}_{kk}^2  \label{IV.2.3} \\
+			a_{ik} &= \bar{l}_{i1} \bar{l}_{k1} + \cdots + \bar{l}_{ik} \bar{l}_{kk}  \label{IV.2.4} \\
+			IMAGE~MISSING
+		\end{align}
+		Demnach funktioniert spaltenweises und zeilenweises Berechnen. \\
+		
+		Es ergibt sich folgender Algorithmus:
+		
+		
+		\subsection{Cholesky-Zerlegung}\index{Cholesky-Zerlegung}
+		
+		\framebox{
+			\parbox{0.7\linewidth}{
+				\begin{tabbing}
+						for~~\=  for~~\= \kill 
+						for  $k=1, \cdots , n$\\
+									\> $l_{kk} = (a_{kk}-\sum_{j=1}^{k-1}l_{kj})^{\frac{1}{2}}$ \\
+									\> for $i= k+1, \cdots , n$ \\
+									\>\> $l_{ik} = ( a_{ik}- \sum_{j=1}^{k-1}l_{ij} l_{kj})/{l_{kk}}$  \\
+									\>end\\
+						end
+					\end{tabbing}
+				}
+			}
+			
+			
+			
+	\subsection{Rechenaufwand in flops}
+	Es sind je 
+		\begin{enumerate}
+			\item[] $\frac{1}{6}(n^2-n) $ Additionen sowie Multiplikationen und 
+			\item[]  $\frac{1}{6}(3n^2-3n) $ Divisionen 
+		\end{enumerate}
+		also ca. $\frac{1}{3}$ flops für große $n$ notwendig. \\
+		Im Vergleich zur LR-Zerlegung halbiert sich in etwa der Aufwand.
+		
+		\subsection{Bemerkung}
+		\begin{enumerate}[a)]
+			\item Wegen \eqref{IV.2.3} gilt $|\bar{l}_{kj}| \leq \sqrt{a_{kk}}$,
+						d.h. die Matrizeneinträge können nicht zu groß werden.
+			\item Für spd Matrizen ist der Cholesky-Algorithmus stabil nach \ref{MISSING}
+			\item Da $A$ symmetrisch ist, muss nur die untere Dreiecksmatrix gespeichert werden.
+				       In Algorithmen kann $\bar{L}$ in eine Kopie dieser Dreiecksmatrix geschrieben werden.
+			\item Fast singuläre Matrizen können durch die Diagonale erkannt werden.
+		\end{enumerate}
+		
+	
+
+		
 %----------------------------------------------------------------------------------------------
 %BACKMATTER
 %----------------------------------------------------------------------------------------------
