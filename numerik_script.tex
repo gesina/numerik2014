@@ -146,8 +146,12 @@
 	\end{array}
 	}
 
+% equation numeration
 \newcommand{\nn}[1]{\left\| #1 \right\|}
 \newcommand{\sectione}[1]{\section{#1} \setcounter{equation}{0}}
+
+% inserted sections a), b)
+\newcommand{\extrasection}[2]{\vspace{1.5eM}\minisec{\Large\itshape \thesection #1 #2}\vspace{1eM}}
 
 
 %STYLE SETTINGS
@@ -813,8 +817,8 @@ Sei $A\in \R^{m\times n}$.
 \end{enumerate}
 
 %ultimate evil hack to go along with numeration
-\minisec{\Large3.2 a) Normweise Konditionsanalyse} \label{3.2a}\vspace{1eM}
-
+%\minisec{\Large3.2 a) Normweise Konditionsanalyse} \label{3.2a}\vspace{1eM}
+\extrasection{a)}{Normweise Konditionsanalyse}
 %%Alternative to add it to table of contents:
 %\renewcommand{\thesubsection}{\thesection.a)}
 %\setkomafont{subsection}{\Large}
@@ -1133,10 +1137,11 @@ IMAGE~MISSING\\
 Damit bedeutet eine kleine Störung in $y$ eine große Störung in $x$.
 
 
-\minisec{\Large3.2 b) Komponentenweise Konditionsanalyse} \label{3.2b}\vspace{1eM}
+%\minisec{\Large3.2 b) Komponentenweise Konditionsanalyse} \label{3.2b}\vspace{1eM}
+\extrasection{b)}{Komponentenweise Konditionsanalyse}
 
 \subsection{Beispiel}
-Falls $A$ Diagonalmatrix hat, sind die Gleichungen unabhängig voneinander (entkoppelt)\index{entkoppelt}.
+Falls $A$ Diagonalgestalt hat, sind die Gleichungen unabhängig voneinander (entkoppelt)\index{entkoppelt}.
 Die erwartete relative Kondition wäre dann -- wie bei skalaren Gleicungen -- stets gleich 1.
 Ebenso sind Störungen nur in der Diagonale zu erwarten. Jedoch:
 \begin{align*}
@@ -1269,7 +1274,8 @@ Ein \enquote{stabiler} Algorithmus sollte ein gut konditioniertes Problem nicht 
 
 IMAGE~MISSING
 
-\minisec{\Large3.3 a) Vorwärtsanalyse} \label{3.3a}\vspace{1eM}
+%\minisec{\Large3.3 a) Vorwärtsanalyse} \label{3.3a}\vspace{1eM}
+\extrasection{a)}{Vorwärtsanalyse}
 
 Die Fehlerfortpflanzung durch die einzelnen Rechenschritte, aus denen die Implementierung aufgebaut ist, wird abgeschätzt.
 
@@ -1484,7 +1490,7 @@ und die Stabilität ist gefährdet.
 Genauere Abschätzungen und damit genauere Indikatoren können durch komponentenweise Betrachtungen erhalten werden.
 
 
-\subsection{Rückwärtsanalyse} \index{Rückwärtsanalyse}
+\extrasection{b)}{Rückwärtsanalyse} \index{Rückwärtsanalyse}
 Die Fragestellung ist nun: \\
 \textit{Kann $\widetilde{f}(\widehat{x})$ als exaktes Ergebnis von einer gestörten Eingabe $\widehat{x}$ unter der exakten Abbildung $f$ aufgefasst werden?}\\
 Das würde heißen
@@ -1513,7 +1519,7 @@ Dann schätze den Fehler
   
   IMAGE~MISSING
   
-  \sectione{MISSING}
+  \sectione{Beurteilung von Näherungslösungen linearer GLS}
   Zu $Ax=b$ liege eine Näherungslösung $\widetilde{x}$ vor.
 
   \begin{enumerate}[a)]
@@ -1633,10 +1639,10 @@ MISSING
 
 \sectione{Cholesky-Verfahren}
 Im Folgenden sei $A$ eine symmetrische, positiv definite Matrix in $\Rnn $, d.h.
-$A=A^T$ und $\langle x, Ax \rangle = x^TAx > 0 \forall x\neq 0$. \\
-(kurs: spd Matrix)
+$A=A^T$ und $\langle x, Ax \rangle = x^TAx > 0 \quad $ für alle $ x\neq 0$. \\
+(kurs: \textbf{spd Matrix}) \index{spd Matrix}
 
-\subsection{Satz} \label{4.2.1}
+\subsection{Satz (Eigenschaften von symm., pos. def. Matrizen)} \label{4.2.1}
 Für jede spd Matrix $A\in \Rnn $ gilt:
 \begin{enumerate}[i)]	
 	\item $A$ ist invertierbar
@@ -1782,7 +1788,7 @@ Für jede spd Matrix $A\in \Rnn $ gilt:
 		\begin{enumerate}[a)]
 			\item Wegen \eqref{IV.2.3} gilt $|\bar{l}_{kj}| \leq \sqrt{a_{kk}}$,
 						d.h. die Matrizeneinträge können nicht zu groß werden.
-			\item Für spd Matrizen ist der Cholesky-Algorithmus stabil nach \ref{MISSING}
+			\item Für spd Matrizen ist der Cholesky-Algorithmus stabil nach \eqref{III.3.13}
 			\item Da $A$ symmetrisch ist, muss nur die untere Dreiecksmatrix gespeichert werden.
 				       In Algorithmen kann $\bar{L}$ in eine Kopie dieser Dreiecksmatrix geschrieben werden.
 			\item Fast singuläre Matrizen können durch die Diagonale erkannt werden.
