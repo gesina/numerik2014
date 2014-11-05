@@ -284,8 +284,8 @@ Ziel ist, dass es vor der Vorlesungszeit integriert ist.
 
 
 
-
-\chapter{Einführung}\marginpar{06.10.2014}
+\marginpar{06.10.2014}
+\chapter{Einführung}
 
 \chapter{Lineare Gleichungssysteme: Direkte Methoden}
 \label{2.1}
@@ -337,6 +337,7 @@ mit
 	a_{ij}^{(1)} &= a_{ij}-a_{1j}\cdot \frac{a_{i1}}{a_{11}} & \text{für }i,j = 2, \cdots, n \\
 	b_i^{(1)}      &= b_i- b_1\cdot \frac{a_{i1}}{a_{11}}        & \text{für }i = 2, \cdots, n 
 \end{align*}
+\marginpar{08.10.2014}
 In jedem Schritt werden die Einträge der $k$-ten Spalte analog unterhalb der Diagonalen (also $k=1, \cdots, n-1$) eliminiert:
 \begin{align*}
 	(\text{$i$-te Zeile})- (\text{$k$-te Zeile})\cdot\frac{a_{ik}}{a_{kk}} && \text{für } i=k+1, \cdots ,n 
@@ -377,7 +378,21 @@ wobei für  $i=k+1, \cdots ,n$ die Einträge wie folgt aussehen:
 				 & \text{für } j=k+1, \cdots , n\\ %
 	b_i^{(k)} &= b_i^{(k-1)} -b_k^{(k-1)} \cdot   l_{ik}\label{II.1.4}\index{Vorwärtssubstitution}
 \end{align}
-Dieser Prozess wird \textbf{Vorwärtselimination} genannt.
+Dieser Prozess wird \textbf{Vorwärtselimination} genannt.\\
+
+Der zugehörige Algorithmus ist:
+
+\begin{pseudocode}{0.5\linewidth}
+	\textbf{for} $ k = 1, \dots , n-1$\\
+	|~	\> \textbf{for} $i = k + 1, \dots , n$ \\
+	|~	\> |~\> $l_{ik} = a_{ik} /a_{kk}$\\
+	|~	\> |~\> \textbf{for} $j = k + 1, \dots , n$ \\
+	|~	\> |~\>|~\> $a_{ij} = a_{ij} - l_{ik} a_{kj} $\\
+	|~	\> |~\> \textbf{end}\\
+	|~	\> |~\> $b_i = b_i -  l_{ik} b_k $\\
+	|~	\> \textbf{end} \\
+\textbf{end}
+\end{pseudocode}
 
 \subsection{Rückwärtselimination}\label{2.1.2}
 Für die Lösung des Gleichungssystems ist dann noch die \textbf{Rückwärtssubstitution} \index{Rückwärtssubstitution} nötig:
@@ -386,6 +401,18 @@ Für die Lösung des Gleichungssystems ist dann noch die \textbf{Rückwärtssubs
 	x_{n-1} &=  \frac{b_{n-1}^{(n-2)}-a_{n-1,n}^{(n-1)}\cdot x_n}{a_{(n-1)(n-1)}^{(n-2)}} \label{II.1.6} \\
 	x_k &= \frac{b_k^{(k-1)}-\sum_{j=k+1}^{n}a_{kj}^{(k-1)}x_j}{a_{kk}^{(k-1)}} \label{II.1.7}
 \end{align}
+
+Als Algorithmus:
+
+\begin{pseudocode}{0.5\linewidth}
+	\textbf{for} $k = n, n -1, \dots , 1$ \\
+	|~		\>$x_k = b_k$ \\
+	|~		\>\textbf{for} $j = k + 1, \dots , n$ \\
+	|~		\>|~	$x_k = x_k - a_{kj}x_j$ \\
+	|~		\>\textbf{end} \\
+	|~		\>$x_k = x_k /a_{kk}$ \\
+	\textbf{end}
+\end{pseudocode}
 
 \subsection{Vorsicht}
 	Algorithmen \ref{2.1.1} und \ref{2.1.2} sind nur ausführbar, falls für die sog. \textbf{Pivotelemente $\mathbf{a_{kk}^{(k-1)}}$ } \index{Pivotelement} gilt:
@@ -414,15 +441,55 @@ Die Dreieckszerlegung einer Matrix $A$ entspricht dem Verfahren aus \ref{2.1.1},
 Die Vorwärtssubstitution entspricht der in \ref{2.1.4} bzw. dem Verfahren aus \ref{2.1.1} ohne die Bestimmung von $l_{ik}$ und $R$, also nur Schritt \eqref{II.1.4}.
 
 \subsection{Gauß-Elemination zur Lösung von $Ax=b$}\index{Gauß-Eleminator}
-\begin{enumerate}[1]
-	\item Dreieckszerlegung
-	\item Vorwärtssubstitution        $\quad b_i^{(k)} = b_i^{(k-1)} -b_k^{(k-1)} \cdot   l_{ik} $
-	\item Rückwärtssubstitution      $\quad x_k = \frac{b_k^{(k-1)}-\sum_{j=k+1}^{n}a_{kj}^{(k-1)}x_j}{a_{kk}^{(k-1)}}$
-\end{enumerate}
+\begin{framed}
+	\begin{enumerate}[1]
+		\item Dreieckszerlegung
+		\item Vorwärtssubstitution        $\quad b_i^{(k)} = b_i^{(k-1)} -b_k^{(k-1)} \cdot   l_{ik} $
+		\item Rückwärtssubstitution      $\quad x_k = \frac{b_k^{(k-1)}-\sum_{j=k+1}^{n}a_{kj}^{(k-1)}x_j}{a_{kk}^{(k-1)}}$
+	\end{enumerate}
+\end{framed}
 
 \subsection{Rechenaufwand gezählt in \enquote{flops}} \index{flops}\index{floating point operations}\index{Rechenaufwand}
 \textbf{\enquote{flops} }= \textbf{f}loating \textbf{p}oint \textbf{op}eration\textbf{s} \\
-MISSING
+\begin{enumerate}
+	\item[\textbf{1.}] \textbf{Dreieckszerlegung} 
+			\begin{tabbing}
+				für $j=k+1, \dots, n\quad$ \= noch ein wenig text danach \kill
+				für $j=k+1, \dots, n$ \> 1 Addition, 1 Multiplikation für $a_{ij}$ \\
+				für $i=k+1, \dots, n$ \> 1 Division zusätzl. für $ l_{ik}$
+			\end{tabbing}
+			Dies ist je für $k=1, \dots, n-1$, also ist die Zahl an Additionen und Multiplikationen
+			\begin{align*}
+				\sum_{k=1}^{n-1}(n-k)^2 &= \sum_{k=1}^{n-1}k^2 \\
+				 											&= \frac{(n-1)n(2n-1)}{6} \\
+				 									        &= \frac{2n^3-3n^2+n}{6}\, .
+			\end{align*}
+			Für große $n$ sind das etwa $\frac{n^3}{3}$ Additionen und Multiplikationen und
+			\begin{gather*}
+				\sum_{k=1}^{n-1} (n-k) = \frac{n^2-n}{2} \approx \frac{n^2}{n}
+			\end{gather*}
+			Divisionen. \\
+			Damit ergibt sich eine Gesamtanzahl an flops von
+			\begin{gather*}
+				2\cdot\frac{2n^3-3n^2+n}{6} + \frac{n^2-n}{2} 
+					= \frac{2}{3} n^3 - \frac{1}{2}n^2 - \frac{1}{6} n
+					 \approx \frac{2}{3}n^2
+			\end{gather*}
+			für große $n$.
+			
+	\item[\textbf{2.}] \textbf{Vorwärts- bzw. Rückwärtssubstitution}  \\
+			Hier ergeben sich je
+			\begin{gather*}
+				\sum_{k=1}^{n-1} (n-k) = \frac{n^2-n}{2} \approx \frac{n^2}{2}
+			\end{gather*}
+			Multiplikationen und Additionen sowie 
+			$n$ Divisionen für die Rückwärtssubstitution und damit insgesamt \begin{gather*}n^2+n\end{gather*} flops.	
+\end{enumerate}
+\paragraph{Zusammenfassung}~ \\
+Die Dreieckszerlegung benötigt $\mathcal{O}(n^3)$ flops und 
+die Vorwärts- bzw. Rückwärtssubstitution $\mathcal{O}(n^2)$ flops.
+
+
 
 \subsection{Definition: Landau-Symbole} \index{Landau-Symbole}
 MISSING
@@ -430,30 +497,71 @@ MISSING
 \subsection{Allgemeines zur Aufwandsbetrachtung}\index{Rechenaufwand}
 MISSING
 
-\subsection{Formalisieren des Gauß-Algorithmus} \index{Gaußsches Eliminationsverfahren} \index{LR-Zerlegung}
 \marginpar{13.10.2014}
+\subsection{Formalisieren des Gauß-Algorithmus} \index{Gaußsches Eliminationsverfahren} \index{LR-Zerlegung}
+
 
 MISSING
 
 \subsection{Lemma (Eigenschaften der $L_k$-Matrizen)} \label{2.1.12} \index{Frobeniusmatrix}
-MISSING
-
+\begin{enumerate}[1.]
+	\item $L_k$ ist eine Frobeniusmatrix, d.h. sie unterscheidet sich höchstens
+			 in einer Spalte von der Einheitsmatrix $I$.
+	\item $L_k^{-1} = I + l_ke_{k}^T$
+	\item Es gilt:
+			\begin{align}
+				L &= L_1^{-1} \cdot \dotsc \cdot L_{n-1}^{-1}  
+				\label{II.1.13}
+				\\ \nonumber
+					& = I + \sum_{i=1}^{n-1} l_i e_i^T \\ \nonumber
+					&= \begin{pmatrix}
+						1 && 0 ~ \\
+						&\ddots& \\
+						~l_{ij} && ~1
+					\end{pmatrix} \\ \nonumber
+					&= I+ \widetilde{L}
+			\end{align}
+			
+			Hiermit folgt: 
+\end{enumerate}
 
 \subsection{Satz (LR- oder LU-Zerlegung)} \index{LR-Zerlegung}\index{LU-Zerlegung}
+Das obige Verfahren (\eqref{II.1.2} und \eqref{II.1.3}) erzeugt unter der Voraussetzung
+von nicht-nullwertigen Pivotelementen eine Faktorisierung
+\begin{align*}
+	A= L\cdot R && IMAGE~MISSING 
+\end{align*}
+wobei $R$ eine obere Dreiecksmatrix und $L$ eine untere, normierte Dreiecksmatrix ist,
+d.h. für $i=1, \cdots , n$ gilt $l_{ii}= 1$. \\
+Weiterhin existiert zu jeder regulären Matrix höchstens eine solche Zerlegung.
+
+\paragraph{Beweis} ~ \\
 MISSING
 \index{Verfahren von Crout}
 
 \sectione{Gaußsches Eliminationsverfahren mit Pivotisierung}
-MISSING
-\subsection{Spaltenpivotisierung (=partielle/ halbmaximale Pivotisierung)} \index{Pivotisierung!Spalten-}\index{Pivotisierung}\index{Pivotisierung!halbmaximale}\index{Pivotisierung!partielle}
+\paragraph{Beispiel} Die Matrix $A= \begin{pmatrix}0&1\\1&0\end{pmatrix} $
+ist invertierbar, aber die Gauß-Elimination versagt. Permutiere also die erste mit der
+zweiten Zeile und der Algorithmus wird anwendbar.
 
-\subsection{Bemerkungen}
+\paragraph{Allgemein} Vermeide die Division durch betragsmäßig kleine Zahlen! 
+
+
+\subsection{Spaltenpivotisierung (=partielle/ halbmaximale Pivotisierung)} \index{Pivotisierung!Spalten-}\index{Pivotisierung}\index{Pivotisierung!halbmaximale}\index{Pivotisierung!partielle}
+Im k-ten  Eliminationsschritt ist \\
+
+IMAGE~MISSING (s. Folien) \\
+
+MISSING
+
+\subsection{Bemerkung}
 \index{Pivotisierung!Zeilen-}
 \index{Pivotisierung!vollständige}
 \index{Permutationsmatrix}
+MISSING
 
 \subsection{Gauß-Elimination mit Spaltenpivotisierung}
-Der Algorithmus zur Spaltenpivotsuche ist folgendermaßen:\\
+Der zugehörige Algorithmus zur Spaltenpivotisierung ist: \\
 
 \begin{pseudocode}{0.9\linewidth}
 	$\pi(1 : n) = [1 : n] $  \\
@@ -474,16 +582,54 @@ Der Algorithmus zur Spaltenpivotsuche ist folgendermaßen:\\
 \end{pseudocode}
 
 \subsection{Satz: Dreieckszerlegung mit Permutationsmatrix} \label{2.2.4} 
-
-\paragraph{Beweis}~	\marginpar[15.10.2014 \\(Fortsetzung)]{15.10.2014 \\(Fortsetzung)}
+	Für jede invertierbare Matrix $A$ existiert eine Permutationsmatrix $P$,
+	so dass eine Dreieckszerlegung
+	\begin{gather*}
+		PA = LR
+	\end{gather*}
+	existiert.
+	$P$ kann so gewählt werden, dass alle Elemente von $L$ betragsmäßig kleiner oder gleich
+	1 sind, d.h.
+	\begin{gather*}
+		|l_{ij}| \leq 1\quad \forall i, j
+	\end{gather*}
+	
+	
+\paragraph{Beweis}~ \\
+	Da $\det A \neq 0$ ist, existiert eine Transposition $\tau_1$, s.d. 
+	\begin{gather*}a_{11}^{(1)}= a_{\tau_1, 1} \neq 0 \end{gather*}
+	und
+	\begin{gather*}
+		| a_{\tau_1, 1} | \geq |a_{i1}| 
+		\quad \forall i=1, \cdots, n \, . 
+	\end{gather*}
+	Wir erhalten damit
+	\begin{gather*}
+		L_1P_{\tau_1} \cdot A = A^{(1)} = \begin{pmatrix}
+																	a_{11}^{(1)} && \cdots ~&  ~\\
+																	0 \\
+																	\vdots && B^{(1)} \\
+																	0
+																\end{pmatrix}
+	\end{gather*}
+	und alle Elemente von $L_1 $ sind betragsmäßig kleiner oder gleich 1 sowie
+	$\det L_1 = 1 $. \\
+	Daraus folgt
 	\begin{align*}
-		PA &= LR  \\
-		R &= A^{(n-1)}\\& = L_{n-1}P_{\tau_{n-1}}\dots L_1P_{\tau_1}A
-		\end{align*}
-		\marginpar{15.10.2014}
+		\det B^(1) & = \frac{1}{\underbrace{a_{11}^{(1)}}_{\neq 0}} \cdot \det A^{(1)} \\
+						 & = \frac{1}{a_{\tau_1, 1}^{(1)}}\cdot \det (L_1) \cdot \det (A) \\
+						 & \neq 0 \, .
+	\end{align*}
+	Also ist $B^(1)$ invertierbar. \\
+	
+	Induktiv erhalten wir dann
+	\begin{gather*}
+		R = A^{(n-1)} = L_{n-1}P_{\tau_{n-1}} \cdot \dotsc \cdot L_1 P_{\tau_1} \cdot A
+	\end{gather*}\\
+\marginpar{15.10.2014}
 	Da $\tau_i$ nur zwei Zahlen $\geq i $ vertauscht, ist
 	\begin{align*}\index{Vorwärtselimination}
-		\Pi_i  &\coloneqq \tau_{n-1} \circ \dots \tau_i \quad\text{ für } i=1,\dots (n-1) 
+		\Pi_i  &\coloneqq \tau_{n-1} \circ \dots \circ \tau_i \quad\text{ für } i=1,\dots (n-1) 
 		\end{align*}
 	eine Permutation der Zahlen $\{i,\dots, n\}$, d.h. insbesondere gilt:
 	\begin{alignat*}{2}
@@ -560,7 +706,7 @@ gilt.
 \subsection{Beispiel zur Pivotisierung}
 
 
-
+\marginpar{15.10.2014}
 \chapter{Fehleranalyse} \index{Fehler}\label{3}
 %
 \begin{align*}
@@ -660,7 +806,7 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
 \end{itemize}
 
   
- \marginpar{20.10.2014}
+% \marginpar{20.10.2014}
 \begin{align*}
 \intertext{Betragsmäßig \textbf{größte Zahl}:}
 	\floatbox{0}{01\cdots 1}{ 1\cdots\cdots 1} && 
@@ -868,6 +1014,8 @@ Sei $A\in \R^{m\times n}$.
 				\end{align*}
 \end{enumerate}
 
+
+\marginpar{22.10.2014}
 %ultimate evil hack to go along with numeration
 %\minisec{\Large3.2 a) Normweise Konditionsanalyse} \label{3.2a}\vspace{1eM}
 \extrasection{a)}{Normweise Konditionsanalyse}
