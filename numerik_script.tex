@@ -69,8 +69,8 @@
 %%index/bibliography
 	\usepackage{makeidx}			%enables to create an index with \makeindex in head, creates *.idx file
 		\makeindex					%if index is required (after {makeidx})
-%	\usepackage[backend=biber]{biblatex}	%enables to print bibliography with \printbibliography, needs \bibliography{bib ﬁles}
-%		\bibliography{bib}					%loads .bib-file for biber-bibliography after {biblatex}
+	\usepackage[backend=biber]{biblatex}	%enables to print bibliography with \printbibliography, needs \bibliography{bib ﬁles}
+		\bibliography{numerik_script.bib}					%loads .bib-file for biber-bibliography after {biblatex}
 %
 %..................................................
 %%(nicer)tables
@@ -128,9 +128,9 @@
 %------------------------------------------------------------------------------------------------
 %\newcommand{\<new command>}{<what it shall do>}
 \newcommand{\R}{\mathds{R}}
-\newcommand{\Rn}{\mathds{R}^{n}}
-\newcommand{\Rnn}{\mathds{R}^{n\times n}}
-\newcommand{\Rnm}{\mathds{R}^{n\times m}}
+\newcommand{\Ren}{\mathds{R}^{n}}
+\newcommand{\Renn}{\mathds{R}^{n\times n}}
+\newcommand{\Renm}{\mathds{R}^{n\times m}}
 \newcommand{\Q}{\mathds{Q}}
 \newcommand{\N}{\mathds{N}}
 \newcommand{\Z}{\mathds{Z}}
@@ -153,6 +153,28 @@
 % inserted sections a), b)
 \newcommand{\extrasection}[2]{\vspace{1.5eM}\minisec{\Large\itshape \thesection #1 #2}\vspace{1eM}}
 
+\usepackage{framed}
+
+% Pseudocode
+
+\newenvironment{pseudocode}[1]{ %
+%	\FrameCommand{\framebox[#1]}
+%	\renewcommand{\FrameCommand}[1]{\framebox[#1]{}}
+		\begin{minipage}{#1}
+			\begin{framed}
+				\hspace*{1em}	
+				\begin{minipage}{#1}
+					\begin{tabbing}
+						for~~\= for~~\= for~~\= for~~\= \kill
+	}
+	{ %
+					\end{tabbing}
+				\end{minipage}
+				\hspace*{1em}
+			\end{framed}
+		\end{minipage}
+	}
+	
 
 %STYLE SETTINGS
 %------------------------------------------------------------------------------------------------
@@ -429,6 +451,27 @@ MISSING
 \index{Pivotisierung!Zeilen-}
 \index{Pivotisierung!vollständige}
 \index{Permutationsmatrix}
+
+\subsection{Gauß-Elimination mit Spaltenpivotisierung}
+Der Algorithmus zur Spaltenpivotsuche ist folgendermaßen:\\
+
+\begin{pseudocode}{0.9\linewidth}
+	$\pi(1 : n) = [1 : n] $  \\
+	\textbf{for} $k = 1, \dots, n-1$ \\
+	~|	  \> bestimme Pivotzeile $p$, so dass\\
+	~|	  \>\>	$|a_{pk} | = \max\{|a_{jk} | , j = k, . . . , n\}$ \\
+	~|	  \> $\pi(k) \leftrightarrows\footnotemark \pi(p)$ \\
+	~|	  \> $A(k, 1 : n) \leftrightarrows A(p, 1 : n)$ \\
+	~|	  \> \textbf{if} $a_{kk} \neq 0$ \\
+	~|	  	   \>~|\> $zeile = [k + 1 : n]$ \\
+	~|	  	   \>~|\> $A(zeile, k) = A(zeile, k)/a_{kk}$ \\
+	~|	  	   \>~|\> $A(zeile, zeile) = A(zeile, zeile) - A(zeile, k)A(k, zeile)$\\
+	~|	  \> \textbf{else} \\
+	~|	  	   \>~|\> \enquote{$A$ ist singulär}\\
+	~|	  \> \textbf{end}\\
+	\textbf{end}
+	\footnotetext{$\leftrightarrows$ bedeutet \enquote{vertausche mit}}
+\end{pseudocode}
 
 \subsection{Satz: Dreieckszerlegung mit Permutationsmatrix} \label{2.2.4} 
 
@@ -942,7 +985,7 @@ Die möglichen Lösungen in $A$ und in $b$ lassen sich folgendermaßen ermitteln
 					\Rightarrow \|\Delta x\|_{b}  &= \|A^{-1}\Delta b\|_{b} \\
 														&\leq \|A^{-1}\|_{a,b}\cdot \|\Delta b\|_{b} && \forall b, \Delta b 
 			\end{align*}
-			wobei $\|\cdot\| $ auf $\Rnn$ die dem $\Rn$ zugeordnete Matrix-Norm sei. \\
+			wobei $\|\cdot\| $ auf $\Renn$ die dem $\Ren$ zugeordnete Matrix-Norm sei. \\
 			Die Abschätzung ist \textbf{scharf}\index{scharf}, d.h. es gibt ein $\Delta b\in \R^n$, so dass \enquote{=} gilt, nach Definition \ref{3.2.4}. \\
 			Also gilt\footnote{vgl. auch Lemma \ref{3.2.8}: $\kappa_{abs}(f,b)=\nn{Df(b)}_{a,b}=\nn{A^{-1}}_{a,b}$}:
 			\begin{gather}
@@ -1027,7 +1070,7 @@ Die möglichen Lösungen in $A$ und in $b$ lassen sich folgendermaßen ermitteln
 		 \begin{gather*}
 		 	(A+\Delta A)(x+\Delta x) = (b+\Delta b) 
 		 \end{gather*}
-		 Für $\kappa$ müsste $\|(A,b)\|$ festgelegt werden. Dies wird jedoch nicht betrachtet. Es gilt aber folgende Abschätzung für invertierbare Matrizen $A\in \Rnn $ und Störungen
+		 Für $\kappa$ müsste $\|(A,b)\|$ festgelegt werden. Dies wird jedoch nicht betrachtet. Es gilt aber folgende Abschätzung für invertierbare Matrizen $A\in \Renn $ und Störungen
 		 $\Delta A \in \R^{n\times n}$ mit $\|A^{-1}\|\cdot \|\Delta A\| < 1$:
 		 \begin{align}
 			 \frac{\|\Delta x\|}{\|x\|} & \leq \|A\| \cdot \|A^{-1}\|\cdot (1- \|A^{-1}\|\cdot \|\Delta A\|) 
@@ -1056,7 +1099,7 @@ Es stellt sich nun die Frage: \\
 Hierzu werden wir die Relationen benötigen:
 \begin{align*}
 	A+\Delta A &= A (I+A^{-1}\Delta A)\\
-\intertext{und mit $C \in \Rnn,\, \|C\| < 1$}
+\intertext{und mit $C \in \Renn,\, \|C\| < 1$}
 	(I-C)^{-1} &= \sum_{k=0}^{\infty}C^k \\
 	\|	(I-C)^{-1} \| &\leq \frac{1}{1-\|C\|}
 \end{align*}
@@ -1064,7 +1107,7 @@ Hierzu werden wir die Relationen benötigen:
 \marginpar{27.10.2014}
 \subsection{Lemma (Neumannsche Reihe)}\index{Neumannsche Reihe}\label{3.2.12}
 \addtocounter{equation}{1}
-Sei $C\in\Rnn$ mit $\|C\|<1$ und mit einer submultiplikativen Norm $\|\cdot\|$,
+Sei $C\in\Renn$ mit $\|C\|<1$ und mit einer submultiplikativen Norm $\|\cdot\|$,
 so ist $(I-C)$ invertierbar und es gilt:
 \begin{gather*}
 	(I-C)^{-1}=\sum_{k=0}^{\infty}C^k
@@ -1093,7 +1136,7 @@ Weiter gilt dann:
 \end{align*}
 \subsection{Bemerkung}
 \begin{enumerate}[a)]
-	\item Für symmetrische, positiv definite Matrix $A\in \Rnn$ gilt\footnote{Beweis: siehe Übungsblatt 3}: 
+	\item Für symmetrische, positiv definite Matrix $A\in \Renn$ gilt\footnote{Beweis: siehe Übungsblatt 3}: 
 	\begin{gather}
 		\kappa_2(A) = \frac{\lambda_{max}}{\lambda_{min}} \label{III.2.13}
 	\end{gather}
@@ -1107,14 +1150,14 @@ Weiter gilt dann:
 	Dann gilt offensichtlich:
 	\item $\kappa(A) \geq 1$
 	\item $\kappa(\alpha A)=\kappa(A) \quad \text{für } 0\neq\alpha\in\R$ (skalierungsinvariant)
-	\item $A\neq 0$ und $A\in\Rnn $ ist genau dann singulär, wenn $\kappa(A)=\infty$. \\
+	\item $A\neq 0$ und $A\in\Renn $ ist genau dann singulär, wenn $\kappa(A)=\infty$. \\
 			Wegen der Skalierungsinvarianz ist die Kondition zur Überprüfung der Regularität von $A$ 
 			besser geeignet als die Determinante.
 	\end{enumerate}
 	
 
 \subsection{Beispiel: Kondition eines nichtlinearen Gleichungssystems}
-Sei $f:\Rn\rightarrow\Rn$ stetig differenzierbar und $y\in\Rn$ gegeben. \\
+Sei $f:\Ren\rightarrow\Ren$ stetig differenzierbar und $y\in\Ren$ gegeben. \\
 Löse
 \begin{gather*}
 	f(x) = y
@@ -1333,7 +1376,7 @@ die mit einer relativen Genauigkeit $eps$ realisiert werden können. \\
 Daher:
 
 \subsection{Definition: Elementar ausführbar}
-Eine Abbildung $\phi : U\subseteq \Rn \rightarrow \R^m$ heißt
+Eine Abbildung $\phi : U\subseteq \Ren \rightarrow \R^m$ heißt
 \textbf{elementar ausführbar}\index{elementar ausführbar}, falls es 
 eine elementare Operation $\widetilde{\phi}:\F^n \rightarrow \F^m$
 gibt, wobei $\F$ die Menge der Maschinenzahlen bezeichne mit
@@ -1352,7 +1395,7 @@ aus \eqref{III.3.2} folgt für $1\leq p\leq \infty$:
 
 
 \subsection{Definition: Algorithmus, Implementation}
-Sei $f:E\subseteq \Rn \rightarrow \R^m$ gegeben.\\
+Sei $f:E\subseteq \Ren \rightarrow \R^m$ gegeben.\\
 Ein Tupel $\left(f^{(1)},\cdots ,f^{(l)}\right)$ mit $l\in \N$ von elementar ausführbaren
 Abbildungen
 \begin{gather*}
@@ -1373,7 +1416,7 @@ heißt Implementation von f. \\
 Im Allgemeinen gibt es verschiedene Implementierungen einer Abbildung $f$.
 
 \subsection{Lemma (Fehlerfortpflanzung)}\label{3.3.5} \index{Fehler!Fortpflanzung}
-Sei $x\in \Rn$ und $\widetilde{x}\in \F^n$ mit $|\widetilde{x}_i-x_i|\leq eps|x_i|$ für alle 
+Sei $x\in \Ren$ und $\widetilde{x}\in \F^n$ mit $|\widetilde{x}_i-x_i|\leq eps|x_i|$ für alle 
 $i=1,\cdots , n$.
 Sei $\left(f^{(1)},\dotsc ,f^{(l)}\right)$ ein Algorithmus für $f$ und 
 $(\widetilde{f}^{(1)},\dotsc ,\widetilde{f}^{(l)})$ eine zugehörige Implementation. \\
@@ -1444,7 +1487,7 @@ Mit Korollar \ref{3.3.6} ist offensichtlich, dass schlecht konditionierte Proble
 zu elementar ausführbaren Abbildungen so früh wie möglich ausgeführt werden sollten. \\
 Nach Beispiel \ref{3.2.9} ist die Substraktion zweier annähernd gleicher Zahlen schlecht konditioniert.
 Deshalb sollte man unvermeidbare Subtraktionen möglichst früh durchführen. \\
-Allerdings hängt $\kappa^{(j)}$ nicht nur von $f^{(j)}$, sondern auch vom Zwischenergebnis $x^{(j)}$ ab, welches a priori unbekannt ist.
+Allerdings hängt $\kappa^{(j)}$ nicht nur von $f^{(j)}$, sondern auch vo\nocite{*}m Zwischenergebnis $x^{(j)}$ ab, welches a priori unbekannt ist.
 
 \subsection{Bemerkung zur Sprechweise} %\label{3.3.8}
 Der Quotient 
@@ -1504,7 +1547,7 @@ Die Fragestellung ist nun: \\
 \textit{Kann $\widetilde{f}(\widehat{x})$ als exaktes Ergebnis von einer gestörten Eingabe $\widehat{x}$ unter der exakten Abbildung $f$ aufgefasst werden?}\\
 Das würde heißen
 \begin{gather*}
-	\exists\, \widehat{x}\in \Rn: f(\widehat{x})= \widetilde{f}(\widetilde{x}) \, .
+	\exists\, \widehat{x}\in \Ren: f(\widehat{x})= \widetilde{f}(\widetilde{x}) \, .
 \end{gather*}
 Dann schätze den Fehler 
 \begin{gather*} 
@@ -1512,7 +1555,7 @@ Dann schätze den Fehler
 \end{gather*}
  bzw. für nicht injektive $f$
  \begin{gather*}
-	\min_{\widehat{x}\in \Rn}
+	\min_{\widehat{x}\in \Ren}
 \left\{
  	\nn{\widehat{x}-x} 
  					\middle\vert f(\widehat{x}) = \widetilde{f}(\widetilde{x}) 
@@ -1572,7 +1615,7 @@ Dann schätze den Fehler
   Durch Normierung der Länge auf 1 wird die Pivotstrategie unabhängig von der 
   gewählten Einheit.
   
-    Sei $A\in\Rnm $ und $\nn{\,\cdot\,} $ eine Vektornorm.
+    Sei $A\in\Renm $ und $\nn{\,\cdot\,} $ eine Vektornorm.
   
   
   \subsection{Äquilibrierung der Zeilen} \index{Äquilibrierung!Zeilen-}
@@ -1642,17 +1685,16 @@ Die Lösung $\widetilde{x}$ wird durch Nachiteration meist mit sehr gutem Erfolg
 mit $\mathcal{O}(n^2)$ flops.
 
 \subsection{Bemerkung (nach Skeel 1980)}
-Die Gauß-Elimination mit Spaltenpivotsuche
+Die Gauß-Elimination mit Spaltenpivotsuche und einer Nachiteration ist komponentenweise stabil.
 
-MISSING
 
 \sectione{Cholesky-Verfahren}
-Im Folgenden sei $A$ eine symmetrische, positiv definite Matrix in $\Rnn $, d.h.
+Im Folgenden sei $A$ eine symmetrische, positiv definite Matrix in $\Renn $, d.h.
 $A=A^T$ und $\langle x, Ax \rangle = x^TAx > 0 \quad $ für alle $ x\neq 0$. \\
 (kurs: \textbf{spd Matrix}) \index{spd Matrix}
 
 \subsection{Satz (Eigenschaften von symm., pos. def. Matrizen)} \label{4.2.1}
-Für jede spd Matrix $A\in \Rnn $ gilt:
+Für jede spd Matrix $A\in \Renn $ gilt:
 \begin{enumerate}[i)]	
 	\item $A$ ist invertierbar
 	\item $a_{ii}>0$ für $i=1, \dots , n$
@@ -1691,7 +1733,7 @@ Für jede spd Matrix $A\in \Rnn $ gilt:
 						\end{pmatrix} 
 						\cdot  \begin{pmatrix}
 										1 &  &	-\frac{z}{a_{11}} & ~ \\ 
-										0 \\
+										0 \\\nocite{*}
 										\vdots && I \\ 
 										0
 									\end{pmatrix}\\
@@ -1767,20 +1809,16 @@ Für jede spd Matrix $A\in \Rnn $ gilt:
 		
 		
 		\subsection{Cholesky-Zerlegung}\index{Cholesky-Zerlegung}
-		
-		\framebox{
-			\parbox{0.7\linewidth}{
-				\begin{tabbing}
-						for~~\=  for~~\= \kill 
+			Der Algorithmus der Cholesky-Zerlegung ist wie folgt:
+			
+				\begin{pseudocode}{0.55\linewidth}
 						for  $k=1, \cdots , n$\\
-									\> $l_{kk} = (a_{kk}-\sum_{j=1}^{k-1}l_{kj})^{\frac{1}{2}}$ \\
-									\> for $i= k+1, \cdots , n$ \\
-									\>\> $l_{ik} = ( a_{ik}- \sum_{j=1}^{k-1}l_{ij} l_{kj})/{l_{kk}}$  \\
-									\>end\\
+									~|\> $l_{kk} = (a_{kk}-\sum_{j=1}^{k-1}l_{kj})^{\frac{1}{2}}$ \\
+									~|\> for $i= k+1, \cdots , n$ \\
+									~|\>~|\> $l_{ik} = ( a_{ik}- \sum_{j=1}^{k-1}l_{ij} l_{kj})/{l_{kk}}$  \\
+									~|\>end\\
 						end
-					\end{tabbing}
-				}
-			}
+					\end{pseudocode}
 			
 			
 			
@@ -1803,7 +1841,7 @@ Für jede spd Matrix $A\in \Rnn $ gilt:
 			\item Fast singuläre Matrizen können durch die Diagonale erkannt werden.
 		\end{enumerate}
 		
-	
+	\nocite{*}
 
 		
 %----------------------------------------------------------------------------------------------
@@ -1815,7 +1853,8 @@ Für jede spd Matrix $A\in \Rnn $ gilt:
 \printindex		%only with package makeidx
 %\listoffigures		
 %\listoftables
-%\printbibliography	%only with package biblatex
+
+\printbibliography	%only with package biblatex
 
 
 \end{document}
