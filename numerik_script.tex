@@ -555,10 +555,61 @@ IMAGE~MISSING (s. Folien) \\
 MISSING
 
 \subsection{Bemerkung}
-\index{Pivotisierung!Zeilen-}
-\index{Pivotisierung!vollständige}
-\index{Permutationsmatrix}
-MISSING
+\begin{enumerate}[a)]
+	\item Hiermit gilt $|l_{jk} \ll 1$.
+	\item Anstelle von Spaltenpivotisierung kann eine \textbf{Zeilenpivotisierung}\index{Pivotisierung!Zeilen-}
+	durchgeführt werden.
+	Welche günstiger (in cpu-time) ist, hängt von der Rechnerarchitektur und
+	der damit zusammenhängenden Umsetzung des Gauß-Algorithmus ab.\\
+	(Beispielsweise greifen Vektorrechner entweder auf die gesamte Spalte
+	oder auf die gesamte Zeile einer Matrix zu und bevorzugen dementsprechend
+	Operationen spalten- bzw. zeilenweise.)
+	\item Der Aufwand enthält (bis auf $|\cdot |$) keine Rechenoperationen (flops),
+	aber $\mathcal{O}(n^2)$ Vergleiche und Vertauschungen.
+	\item Eine \textbf{vollständige Pivotsuche}\index{Pivotisierung!vollständige} sucht das betragsmäßig größte Element der gesamten Restmatrix und benötigt $\mathcal{O}(n^3) $ Vergleiche
+	(sie wird so gut wie nie angewendet).
+\end{enumerate}
+
+Damit die LR-Zerlegung unabhängig von der rechten Seite erstellt werden kann, müssen die Permutationen gespeichert werden.
+Hierfür verwendet man  einen sog. \textbf{Permutationsvektor} $\Pi$, wobei
+\begin{gather*}
+	\Pi^{(k-1)}(r) = s
+\end{gather*}
+bedeutet, dass nach dem $(k-1)$-ten Eliminationsschritt in der $r$-ten Zeile
+von $A^{(k-1)}$ die $s$-te bearbeitete Zeile von $A$ steht, also
+\begin{align*}
+	\Pi^{(k)}(k) &= \Pi^{(k-1)}(p) \\
+	\Pi^{(k)}(p) &= \Pi^{(k-1)}(k)  \quad \text{und entsprechend} \\
+	\scriptsize \Pi^{(k)} (i) &= \Pi^{(k)} (i) \quad \text{ für }  i\neq k,p 
+\end{align*}
+Für die \textbf{Permutationsmatrix}\index{Permutationsmatrix}  
+\begin{align*}
+	P_{\Pi}&=(e_{\Pi(1)}, \dots , e_{\Pi(n)}) 
+	 &&
+		 e_j\coloneqq \begin{pmatrix}
+		 						 0\\\vdots\\0\\
+		 						 1 \\
+		 						 0\\\vdots\\0 
+		 					  \end{pmatrix}
+		 					   \begin{array}{l}
+			 					   \\\\
+			 					   \shortleftarrow \text{j-te Stelle}\\
+			 					   \\\\
+		 					   \end{array} \\
+\text{mit }	\quad PA&= LR
+\end{align*}
+gilt
+\begin{gather*}
+	P^{-1} = P^T
+\end{gather*}
+und
+\begin{gather*}
+	\det P_{\Pi} = sign(\Pi) =  \begin{cases}
+		+1&  \text{falls }\Pi \text{ von gerader}\\
+		-1 &  \text{falls } \Pi \text{ von ungerader}
+	\end{cases} \text{ Anzahl an Transpositionen erzeugt wird}
+\end{gather*}
+
 
 \subsection{Gauß-Elimination mit Spaltenpivotisierung}
 Der zugehörige Algorithmus zur Spaltenpivotisierung ist: \\
@@ -579,7 +630,7 @@ Der zugehörige Algorithmus zur Spaltenpivotisierung ist: \\
 	~|	  \> \textbf{end}\\
 	\textbf{end}
 	\footnotetext{$\leftrightarrows$ bedeutet \enquote{vertausche mit}}
-\end{pseudocode}
+\end{pseudocode}\\
 
 \subsection{Satz: Dreieckszerlegung mit Permutationsmatrix} \label{2.2.4} 
 	Für jede invertierbare Matrix $A$ existiert eine Permutationsmatrix $P$,
