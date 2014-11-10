@@ -1,4 +1,4 @@
-\documentclass[ngerman,fontsize=11pt, paper=a4, parskip=false, titlepage=true, toc=bib]{scrbook}
+\documentclass[ngerman,fontsize=11pt, paper=a4, parskip=half, titlepage=true, toc=bib]{scrbook}
 %%options:
 %	ngerman:	provides german headers etc.; default english
 %	fontsize:	use 10-12pt
@@ -40,7 +40,7 @@
 %%maths
 \usepackage{amsmath}			%improves maths-sections
 \usepackage{mathtools}                  %provides tools like \DeclareParedDelimiter or \DefineMathOperator
-%\usepackage{amsthm}			%for proofs etc.
+\usepackage{amsthm}			%for proofs etc.
 \usepackage{amssymb}			%further maths symbols like \square for proofs
 \usepackage{dsfont}			%for \mathds{letter} to create e.g. the rational numbers symbol Q
 \usepackage{stmaryrd}			%for math symbols like lightning bold
@@ -146,8 +146,11 @@
 	\end{array}
 	}
 
-% equation numeration
+
 \newcommand{\nn}[1]{\left\| #1 \right\|}
+\newcommand{\scp}[2]{\langle #1, #2 \rangle}
+
+% equation numeration
 \newcommand{\sectione}[1]{\section{#1} \setcounter{equation}{0}}
 
 % inserted sections a), b)
@@ -535,9 +538,10 @@ wobei $R$ eine obere Dreiecksmatrix und $L$ eine untere, normierte Dreiecksmatri
 d.h. für $i=1, \cdots , n$ gilt $l_{ii}= 1$. \\
 Weiterhin existiert zu jeder regulären Matrix höchstens eine solche Zerlegung.
 
-\paragraph{Beweis} ~ \\
+\begin{proof}
 MISSING
 \index{Verfahren von Crout}
+\end{proof}
 
 \sectione{Gaußsches Eliminationsverfahren mit Pivotisierung}
 \paragraph{Beispiel} Die Matrix $A= \begin{pmatrix}0&1\\1&0\end{pmatrix} $
@@ -646,7 +650,7 @@ Der zugehörige Algorithmus zur Spaltenpivotisierung ist: \\
 	\end{gather*}
 	
 	
-\paragraph{Beweis}~ \\
+\begin{proof}
 	Da $\det A \neq 0$ ist, existiert eine Transposition $\tau_1$, s.d. 
 	\begin{gather*}a_{11}^{(1)}= a_{\tau_1, 1} \neq 0 \end{gather*}
 	und
@@ -667,11 +671,11 @@ Der zugehörige Algorithmus zur Spaltenpivotisierung ist: \\
 	$\det L_1 = 1 $. \\
 	Daraus folgt
 	\begin{align*}
-		\det B^(1) & = \frac{1}{\underbrace{a_{11}^{(1)}}_{\neq 0}} \cdot \det A^{(1)} \\
+		\det B^{(1)} & = \frac{1}{\underbrace{a_{11}^{(1)}}_{\neq 0}} \cdot \det A^{(1)} \\
 						 & = \frac{1}{a_{\tau_1, 1}^{(1)}}\cdot \det (L_1) \cdot \det (A) \\
 						 & \neq 0 \, .
 	\end{align*}
-	Also ist $B^(1)$ invertierbar. \\
+	Also ist $B^{(1)}$ invertierbar. \\
 	
 	Induktiv erhalten wir dann
 	\begin{gather*}
@@ -751,6 +755,7 @@ wobei $R$ obere Dreiecksgestalt hat und
 					& \text{mit } |l_{ij}| \leq 1 
 \end{align*}
 gilt.
+\end{proof}
 
 \subsection{Lösen eines Gleichungssystems $Ax=b$} \label{2.2.5}
 \subsection{Bemerkungen}
@@ -1277,7 +1282,7 @@ Die möglichen Lösungen in $A$ und in $b$ lassen sich folgendermaßen ermitteln
 													 \underbrace{\left(  \frac{\|\Delta b\|}{\|b\|} +  \frac{\|\Delta A\|}{\|A\|}  \right)}_{\neq  \frac{\|(\Delta A, \Delta b)\|}{\|(A,b)\|} }
 													 \label{III.2.11}
 		 \end{align}
-		 \paragraph{Beweis:} s. Übungsblatt
+		 \begin{proof} s. Übungsblatt \end{proof}
 \end{enumerate}
 
 \subsection{Definition: Kondition einer Matrix} \index{Kondition!Matrix}
@@ -1316,7 +1321,7 @@ Weiterhin gilt:
 	\|(I-C)^ {-1}\| \leq \frac{1}{1-\|C\|}
 \end{gather*}
 
-\paragraph{Beweis}
+\begin{proof}
 Es gilt zu zeigen, dass $\sum_{k=1}^{\infty}C^k$ existiert: \\
 Sei $q\coloneqq \|C\| < 1$, dann gilt: 
 \begin{align*}
@@ -1331,9 +1336,11 @@ Weiter gilt dann:
 \begin{align*}
 	(I-C) \sum_{k=1}^{\infty}C^k &= \lim\limits_{m\rightarrow \infty}(I-C)   \sum_{k=1}^{m}C^k \\
 													&= \lim\limits_{m\rightarrow \infty} (C^0-C^{m+1}) \\
-													&=I  &&\square
+													&=I 
 \end{align*}
-\subsection{Bemerkung}
+\end{proof}
+
+\subsection{Bemerkung}\label{3.2.13}
 \begin{enumerate}[a)]
 	\item Für symmetrische, positiv definite Matrix $A\in \Renn$ gilt\footnote{Beweis: siehe Übungsblatt 3}: 
 	\begin{gather}
@@ -1432,7 +1439,7 @@ Dann gilt:
 	\kappa_{rel} = \frac{\|\, |Df(x)|\cdot |x| \, \|_\infty}{\|f(x)\|_\infty} \label{III.2.16}
 \end{gather}
 
-\paragraph{Beweis}
+\begin{proof}
 Vergleiche seien ebenfalls komponentenweise zu verstehen. \\
 Nach dem Satz von Taylor gilt: 
 \begin{align*}
@@ -1468,9 +1475,9 @@ dann gilt:
 und in obiger Rechnung gilt Gleichheit. \\
 Also folgt, dass
 \begin{align*}
-	 \frac{\|\,|Df(x)|\cdot |x| \, \|_\infty}{\|f(x)\|_\infty} &= \kappa_{rel}  \\
-	 &&& \square
+	 \frac{\|\,|Df(x)|\cdot |x| \, \|_\infty}{\|f(x)\|_\infty} &= \kappa_{rel} 
 \end{align*}
+\end{proof}
 
 \subsection{Beispiel}
 \begin{enumerate}[a)]
@@ -1635,8 +1642,7 @@ falls $x^{(j+1)} \neq 0$ für alle $j=0,\dotsc , (l-1)$ und $\nn{\,\cdot\,}$ ein
 \end{align}
 wobei $	\kappa^{(j)} \coloneqq \kappa_{rel}(f^{(j)}, x^{(j)})$ die Kondition der elementar ausführbaren Operationen $f^{(j)}$ ist.
 
-\paragraph{Beweis}
-
+\begin{proof}
 \begin{align*}
 	\frac{\nn{\widetilde{x}^{(j+1)}-x^{(j+1)}}}{\nn{x^{(j+1)}}}
 				&= \frac{\nn{\widetilde{f}^{(j)}(\widetilde{x}^{(j)})-f^{(j)}(x^{(j)})}}
@@ -1667,8 +1673,7 @@ Für den Induktionsschritt von $j-1$ zu $j$:
 		&= eps\left(1+\kappa^{(j)}\cdot \K^{(j-1)}\right)+ o(eps)
 \end{align*}
 Mit $\K^{(j)} = 1+ \kappa^{(j)}\cdot \K^{(j-1)}$ folgt die Behauptung.
-\hfill $\square$
-\\
+\end{proof}
 
 Hiermit folgt:
 
@@ -1856,7 +1861,9 @@ Dann schätze den Fehler
   \end{gather}
   für alle regulären Diagonalmatrizen $D$.
   
-  \paragraph{Beweis} siehe Übungsaufgabe
+  \begin{proof}
+  	siehe Übungsaufgabe
+  \end{proof}
 
 Wie in Kapitel \ref{3} gesehen, kann die Näherungslösung $\widetilde{x}$ 
 trotz Pivotisierung und Äquilibrierung noch sehr ungenau sein.
@@ -1901,7 +1908,7 @@ Für jede spd Matrix $A\in \Renn $ gilt:
 	\item Bei der Gauß-Elimination ohne Pivotsuche ist jede Restmatrix wieder eine spd Matrix.
 \end{enumerate}
 
-\paragraph{Beweis}
+\begin{proof}
 \begin{enumerate}[i)]
 	\item folgt aus \eqref{IV.2.1}
 	\item Sei $e_i$ der i-te Einheitsvektor, so folgt $a_{ii} = e_{i}^TAe_i > 0$.
@@ -1966,8 +1973,8 @@ Für jede spd Matrix $A\in \Renn $ gilt:
 			
 			Sei $L\coloneqq (L_1^{-1}\cdot \cdots \cdot L_{n-1}^{-1})$ wie in \eqref{II.1.8}, so ergibt sich:
 		\end{enumerate}
-		
-		
+\end{proof}		
+
 		\subsection{Folgerung} \label{4.2.2}
 		Für jede spd Matrix $A$ existiert eine eindeutige Zerlegung der Form 
 			\begin{gather*}
@@ -2032,7 +2039,7 @@ Für jede spd Matrix $A\in \Renn $ gilt:
 		
 		\subsection{Bemerkung}
 		\begin{enumerate}[a)]
-			\item Wegen \eqref{IV.2.3} gilt $|\bar{l}_{kj}| \leq \sqrt{a_{kk}}$,
+			\item Wegen \eqref{IV.2.3} gilt $|\overline{l}_{kj}| \leq \sqrt{a_{kk}}$,
 						d.h. die Matrizeneinträge können nicht zu groß werden.
 			\item Für spd Matrizen ist der Cholesky-Algorithmus stabil nach \eqref{III.3.13}
 			\item Da $A$ symmetrisch ist, muss nur die untere Dreiecksmatrix gespeichert werden.
@@ -2040,7 +2047,290 @@ Für jede spd Matrix $A\in \Renn $ gilt:
 			\item Fast singuläre Matrizen können durch die Diagonale erkannt werden.
 		\end{enumerate}
 		
-	\nocite{*}
+		
+\marginpar{10.11.2014}
+	\sectione{Lineare Ausgleichsprobleme} \index{Ausgleichsproblem!linear}
+	
+	\subsection{Beispiel}
+	(s. Einführung)
+	
+	Seien $m$ Messungen $(I_i, U_i)$ für die Stromstärke $I$ und die Spannung $U$ gegeben. \\
+	
+	IMAGE~MISSING\\
+	
+	Das Ohmsche Gesetz liefert hierfür:
+	\begin{gather*}
+		U=R\cdot I
+	\end{gather*}
+	Gesucht ist der zugehörige Widerstand $R$.\\
+	
+	IMAGE~MISSING\\
+	
+	Wird jetzt davon ausgegangen dass die $I_i$ exakt sind, wird das $R$ gesucht, 
+	für das $RI_i$ im Mitttel den minimalen Abstand zu $U_i$ hat.
+	Genauer gesagt berechne
+	\begin{gather*}
+		\min_{r\in\R} \sum_{i=1}^{m}(U_i-rI_i)^2
+	\end{gather*}
+	\textbf{Vorsicht: } Es wird \textbf{nicht} die Gerade (bzw. der lineare Untervektorraum) mit 
+	minimalem euklidischem Abstand zu $(I_i,U_i)$ gesucht! \\
+	Dieses Problem ist nichtlinear und aufwendig zu lösen.\\
+	
+	IMAGE~MISSING\\
+	
+	\subsection{Lineares Ausgleichsproblem} \index{Ausgleichsproblem!linear}
+	Gegeben seien Messdaten $(t_i, b_i)$ mit $t_i, b_i\in \R$ für $i=1, \dots, m$ 
+	und die Abhängigkeit $b(t)$ werde beschrieben durch eine Modellfunktion,
+	 welche linear von den unbekannten Parametern $x_1, \cdots, x_n$ des Modells abhängt,
+	 d.h.
+	 \begin{gather*}
+	 	b(t) = a_1(t)x_1 + \dots + a_n(t) x_n
+	 \end{gather*}
+	Für exakte Messdaten $b_i$ würde 
+	\begin{gather*}
+		b(t_i) = b_i \quad \forall i\in\{1,\cdots , m\}
+	\end{gather*}
+	gelten.\\
+	Im Allgemeinen werden jedoch $m\geq n $ Messwerte $b_i$ bestimmt,
+	und hiermit die $n$ Parameter $x_i$ so gewählt, dass die kleinsten
+	\textbf{Fehlerquadrate auftreten}:
+	\begin{gather}
+		\min_{x_1, \dots x_n} \sum_{i=1}^{m} (b_i-b(t_i))^2 \label{IV.3.1}
+	\end{gather}
+	(Nach Gauß kann \eqref{IV.3.1} auch aus der Maximum-Likelihood-Methode\index{Maximum-Likelihood-Methode}
+	für einen stochastischen Ansatz hergeleitet werden.)\\
+		
+	Definiere:
+	\begin{align*}
+		b &= (b_i)_{i=1,\dots, m}\in \R^m \\
+		x &= (x_j)_{j=1,\dots, n}\in \R^n \\
+		A &= (a_j(t_i)) _{\substack{i=1,\dots, m \\ j= 1, \dots, n}} \in \R^{m\times n}
+	\end{align*}
+	Damit ist \eqref{IV.3.1} äquivalent zum \textbf{linearen Ausgleichsproblem}:\\
+	Zu gegebenem $b\in\R^m$ und $A\in\R^{m\times n}$ mit $m\geq n$
+	ist das $\overline{x} \in \R^n$ gesucht mit 
+	\begin{gather}
+		\nn{b-A\overline{x}}_2 = \min_{x\in\R^n} \nn{b-Ax}_2
+		\label{IV.3.2}
+	\end{gather}
+	Das entspricht der \enquote{Lösung} eines überbestimmten, i.A. nicht erfüllbaren
+	GLS $Ax=b$.\\
+	Aufgrund der $l_2$-Norm ist $\overline{x}$ gegeben durch die 
+	orthogonale Projektion von $b$ auf den Bildraum $R(A) $ \index{Bildraum}, wie gleich gezeigt wird. \\
+	
+	IMAGE~MISSING\\
+	
+	\subsection{Projektionssatz} \index{Projektionssatz} \label{4.3.3}
+	Sei $V$ ein reeller Vektorraum mit einem Skalarprodukt $\scp{\cdot}{\cdot}$
+	und der induzierten Norm $\nn{v}\coloneqq \sqrt{\scp{v}{v}}$.
+	Sei $U\subset V$ ein endlich dimensionaler Untervektorraum und sei
+	\begin{gather*}
+		U^\bot \coloneqq \left\{ v\in V  \, \middle\vert \, \scp{v}{u} = 0 ~~ \forall u\in U \right\}
+	\end{gather*}
+	Dann gilt:
+	\begin{enumerate}[1)]
+		\item Zu jedem $v\in V$ existiert genau ein $\overline{u}\in U$, 
+		so dass $v-\overline{u}\in U^\bot$, d.h.
+				\begin{gather*}
+					\scp{v-\overline{u}}{u} = 0 \quad \forall u \in U
+				\end{gather*}
+		Dies definiert die \textbf{orthogonale Projektion} \index{orthogonale Projektion}
+		\begin{gather*}
+			P:V\rightarrow U, \quad v\mapsto \overline{u}= Pv
+		\end{gather*}
+		\item Zu jedem $v\in V $ bestimmt $P\cdot v$ die eindeutige Lösung
+		\begin{gather*}
+			\nn{v-Pv}= \min_{u\in U} \nn{v-u}
+		\end{gather*}
+		Also gilt mit einem eindeutigen $\overline{u}= Pv$, dass 
+		\begin{gather}
+			\nn{v-\overline{u}} = \min_{u\in U} \nn{v-u} 
+			\Longleftrightarrow \scp{v-\overline{u}}{u} = 0 \quad \forall u\in U
+			\label{IV.3.3}
+		\end{gather}
+	\end{enumerate}
+	
+	\begin{proof}
+	\begin{enumerate}[1)]
+		\item Sei $\{u_1, \dots , u_n \}$ eine Orthonormalbasis von $U$ 
+		und $\overline{u}\in U $. \\
+		Daraus folgt:
+		\begin{gather*}
+			\exists ! \, (\alpha_i)_{i=1,\dotsc,n} \subset \R: \overline{u} = \sum_{i=1}^{n} \alpha_i u_i
+		\end{gather*}
+		Damit gilt:
+		\begin{alignat*}{3}
+			&&0 &= \scp{v-\overline{u}}{u} &\quad& \forall u \in U \\
+			&\Longleftrightarrow \quad& 0 &= \scp{v- \sum_{i=1}^{n} \alpha_i u_i}{u_i} &\quad &\forall j=1, \dots , n\\
+			&\Longleftrightarrow  & \scp{v}{u_j} &= \sum_{i=1}^{n} \alpha_i \scp{u_i}{u_j} = \alpha_j
+		\end{alignat*}
+		Setze also 
+		\begin{align}
+		\nonumber
+			P\cdot v &= \overline{u} \\
+						& = \sum_{i=1}^{n} \scp{v}{u_i} u_i \in U
+						\label{IV.3.4}
+		\end{align}
+		dann ist $\overline{u}$ die eindeutig bestimmte Lösung für $ v-\overline{u} \in U^\bot$
+		
+	 IMAGE~MISSING \\
+		
+			Sei  $u\in U$. Dann gilt:
+			\begin{align}
+			\nonumber
+				\nn{v-u}^2 &= \nn{v-\overline{u}+\overline{u} -u}^2 \\ \nonumber
+								   &= \nn{v-\overline{u}}^2 +
+								          \underbrace{\scp{v-\overline{u}}{\overbrace{\overline{u}-u}^{~~\in U}}}_{=0}
+								          + \nn{u-\overline{u}}^2 \\
+								   &= \nn{v-\overline{u}}^2 + \nn{u-\overline{u}}^2
+								   \label{IV.3.5}
+			\end{align}
+			(Dies ist anschaulich der Satz des Pythagoras.)
+	\end{enumerate}
+	\end{proof}
+	
+	\subsection{Satz} 
+	Der Vektor $\overline{x} \in\R^n$ ist genau dann Lösung des linearen Ausgleichsproblems
+	\begin{gather*}
+		\min_{x\in\Ren} \nn{b-Ax}_2 \, ,
+	\end{gather*}
+	falls er die Normalengleichung
+	\begin{gather}
+		A^TA\overline{x} = A^Tb
+		\label{IV.3.6}
+	\end{gather}
+	erfüllt. \\
+	Insbesondere ist $\overline{x}$ eindeutig,
+	falls $A\in \R^{m\times n}$ maximalen Rang $n\leq m$ hat.
+	
+	\begin{proof} Bezeichne
+	 $V= \R^m, U= R(A) = \left\{Ax \, \middle|  \, x \in\Ren \right\}, b \in \R^m$.\\
+	 Nach \eqref{IV.3.3} gilt:
+	 \begin{alignat*}{2}
+	 	&&\nn{b-A\overline{x}}_2 &= \min_{x\in\Ren} \nn{b-Ax}_2 \\
+	 	&\Leftrightarrow \quad & \scp{b-A \overline{x}}{Ax} &= 0 \quad \forall x\in \Ren \\
+	 	&\Leftrightarrow & \scp{A^T(b-A\overline{x})}{x} &= 0 \quad  \forall x\in\Ren \\
+	 	&\Leftrightarrow & A^T(b-A\overline{x}) &= 0 \\
+	 	&\Leftrightarrow & A^TA\overline{x} &= A^Tb
+	 \end{alignat*}
+	 Nach dem Projektionssatz \ref{4.3.3} existiert mindestens ein eindeutiges
+	 $\overline{y} = P b$.
+	 Für dieses $\overline{y}$ ist $\overline{x}\in \Ren $ mit $\overline{y} = A\overline{x}$
+	 eindeutig bestimmt, falls $A$ injektiv ist, d.h. falls $rang(A) = n$. \end{proof}
+	 
+	 
+	 Ähnlich zum Skalarprodukt ist die relative Kondition von $(P,b) $ schlecht, 
+	 falls $b$ fast senkrecht zu $U$ steht.
+	 Die relative Kondition des linearen Ausgleichsproblems hängt zusätzlich von $cond(A)$ ab.
+	 
+	 
+	 \subsection{Lösung der Normalgleichung}
+	 Falls $rang(A) = n$, ist $A^TA$ spd und das Cholesky-Verfahren ist anwendbar. \\
+	 Dafür ist
+	 \begin{enumerate}[1.]
+	 	\item $A^TA$ zu berechnen:
+		 	\begin{description}
+		 		\item[Aufwand] ca. $\frac{1}{2}n^2m$ Multiplikationen 
+		 		\item[Kondition] häufig schlecht, da $\frac{1}{2}n^2$ Skalarprodukte berechnet werden
+		 	\end{description}
+	 	\item die Cholesky-Zerlegung von $A^TA $ durchzuführen:
+		 	\begin{description}
+		 		\item[Aufwand] ca. $\frac{1}{6}n^3$ Multiplikationen 
+		 		\item[Kondition] Für $A\in\R^{m\times n}$ mit $m\geq n$ und $rang(A)=n$ gilt:
+		 								\begin{gather}
+		 									cond_2(A^TA) = cond_2(A)^2 \label{IV.3.7}
+		 								\end{gather}
+		 								(siehe Übungsaufgabe 19)
+		 	\end{description}
+	 \end{enumerate}
+	 			Also überwiegt für $m\gg n$ der Aufwand $A^tA$ zu berechnen.
+	 			Die auftretenden Konditionen entsprechen i.d.R. nicht dem des Ausgangsproblems.\\
+	 			Damit ist die 
+	 			\textbf{Cholesky-Zerlegung \index{Cholesky-Zerlegung} für Normalgleichungen ungeeignet}.
+	 
+	 
+	 \subsection{Satz}
+	 Sei $A\in \R^{m\times n} $ mit $m\geq n$ und $rang(A) = n$,
+	 sei $b\in\R^m$ und besitze $A$ eine Zerlegung
+	 \begin{gather*}
+	 	A= Q\begin{pmatrix}R\\0\end{pmatrix}
+	 \end{gather*}
+	 mit einer orthogonalen Matrix $Q\in R^{m\times m}$ und 
+	 einer oberen Dreiecksmatrix $R\in \R^{n\times n}$. \\
+	 Dann ist $R$ invertierbar. \\
+	 Bezeichne 
+	 \begin{gather}
+	 	\begin{pmatrix} \overline{b}_1 \\ \overline{b}_2\end{pmatrix}
+	 	\coloneqq Q^T\cdot b
+	 	\label{IV.3.9}
+	 \end{gather}
+	 dann ist
+	 \begin{gather}
+	 	\overline{x} = R^{-1} \overline{b}_1 
+	 	\label{IV.3.10}
+	 \end{gather}
+	 die Lösung des linearen Ausgleichsproblems und
+	 \begin{align*}
+	 	\nn{\overline{b}_2} &= \nn{b-A\overline{x}} \\
+	 									& = \min_{x\in \Ren }\nn{b-Ax}
+	 \end{align*}
+	 Zur Erinnerung:
+	 \begin{align*}
+	 	Q \text{ orthogonal} &:\Leftrightarrow QQ^T = I \\
+	 									&\, \Leftrightarrow Q^{-1} = Q^T
+	 \end{align*}
+	 Weiterhin ist $Q$ längenerhaltend\index{längenerhaltend}, d.h. $\nn{Qv}_2 = \nn{v}_2$ 
+	 und somit folgt
+	 \begin{gather}
+	 \nonumber
+	 	\nn{Q}_2 = \nn{Q^{-1}}_2 = 1 \quad \text{und} \\
+	 	cond_2(Q) = 1
+	 	\label{IV.3.11}
+	 \end{gather}
+	 
+	 \begin{proof} $R$ ist invertierbar, da 
+	 \begin{align*}
+	 	rang(R) &= rang(Q^{-1}\cdot A) \\	
+	 				& = rang(A) \\
+	 				&= n
+	 \end{align*}
+	 Außerdem gilt:
+	 \begin{align*}
+	 	\nn{b-Ax}_2^2 & = \nn{Q(Q^Tb-\begin{pmatrix}R\\0\end{pmatrix}x)}_2^2 \\
+	 							&=  \nn{Q^Tb-\begin{pmatrix}Rx\\0\end{pmatrix}}_2^2  \\
+	 							&\overset{\mathllap{\text{$Q$ längenerhaltend}}}{=}
+	 							   \nn{\overline{b}_1 - Rx}_2^2  + \nn{\overline{b}_2^2}
+	 \end{align*}
+	 wird minimal für $R\overline{x} = \overline{b}_1$
+	\end{proof}
+	 
+	 Da $Q$ längenerhaltend ist, folgt mit \ref{3.2.13} b)
+	 ($cond_A \coloneqq \frac{\max \nn{Ax}}{\min \nn{Ax}}$)
+	 sofort:
+	 \begin{gather*}
+	 	cond_2(A) = cond_2(R)
+	 \end{gather*}
+	Die auftretende Kondition entspricht also der des Ausgleichsproblems.
+	
+	
+	\subsection{Bemerkung}
+	Sei $A\in \Renn$ invertierbar und habe ein $QR$-Zerlegung, d.h. es existiert
+	eine orthogonale Matrix $Q$ und eine obere Dreiecksmatrix $R$, so dass:
+	\begin{gather*}
+		A= Q\cdot R
+	\end{gather*}
+	Dann kann das Gleichungssystem $Ax=b$ wie folgt gelöst werden:
+	\begin{enumerate}[1.]
+		\item Setze $z=Q^Tb$, was Kondition 1 hat.
+		\item Löse durch Rückwärtssubstitution $Rx=z$.
+	\end{enumerate}
+	
+		
+		
+		
+		
+		
+	\nocite{*} %include all books in numerik_script.bib into bibliography
 
 		
 %----------------------------------------------------------------------------------------------
