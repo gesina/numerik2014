@@ -44,6 +44,7 @@
 \usepackage{amssymb}			%further maths symbols like \square for proofs
 \usepackage{dsfont}			%for \mathds{letter} to create e.g. the rational numbers symbol Q
 \usepackage{stmaryrd}			%for math symbols like lightning bold
+\usepackage{MnSymbol}
 %\usepackage{mathrsfs}			%for calligraphic math symbols with \mathscr{letter}
 %\usepackage{esint}				%for different sorts of integral signs like \landupint
 %
@@ -1886,7 +1887,7 @@ und setze
 \end{gather*}
 Wiederhole dies sooft, bis $x^{(i)}$ \enquote{genau genug} ist.
 Die Lösung $\widetilde{x}$ wird durch Nachiteration meist mit sehr gutem Erfolg verbessert
-(genaueres in Dahmen/Reusken MISSING (reference))
+\cite[genaueres in ][]{dahmenreusken}\\
 \eqref{IV.1.5} wird mit der bereits vorhandenen LR-Zerlegung nur mit der neuen rechten Seite $r(\widetilde{x})$ gelöst, d.h. eine vorwärts und eine Rückwärtssubstitution
 mit $\mathcal{O}(n^2)$ flops.
 
@@ -2314,7 +2315,7 @@ Für jede spd Matrix $A\in \Renn $ gilt:
 	
 	
 	\subsection{Bemerkung}
-	Sei $A\in \Renn$ invertierbar und habe ein $QR$-Zerlegung, d.h. es existiert
+	Sei $A\in \Renn$ invertierbar und habe ein QR-Zerlegung, d.h. es existiert
 	eine orthogonale Matrix $Q$ und eine obere Dreiecksmatrix $R$, so dass:
 	\begin{gather*}
 		A= Q\cdot R
@@ -2326,7 +2327,391 @@ Für jede spd Matrix $A\in \Renn $ gilt:
 	\end{enumerate}
 	
 		
-		
+\marginpar{12.11.2014}
+
+\sectione{Orthogonalisierungsverfahren}		\index{Orthogonalisierung}
+Konsturiere eine QR-Zerlegung
+\begin{gather}
+	A= Q\cdot \begin{pmatrix} R\\0 \end{pmatrix}
+	\label{IV.4.1}
+\end{gather}
+	durch einen Eliminationsprozess:
+	\begin{gather}
+		A \rightarrow Q^{(1)}A \rightarrow Q^{(2)} Q^{(1)}A \rightarrow Q^{(p)}\cdot \dotsc \cdot Q^{(1)}A
+		= \begin{pmatrix} R\\0 \end{pmatrix}\, .
+		\label{IV.4.2}
+	\end{gather}
+	mit orthogonalen Matrizen $Q^{(i)}$.
+	Dann gilt
+	\begin{gather}
+		Q= Q^{(1)T}\cdot \dotsc \cdots {Q^{(p)T}}
+		\label{IV.4.3}
+	\end{gather}
+	Dies ist im Gegensatz zur $LR$-Zerlegung aufgrund von $cond(Q^{(i)})= 1$ immer stabil.\\
+	
+	Für $Q\in\R^{2\times 2}$ gibt es zwei mögliche Anschauungen, nämlich:
+	\begin{enumerate}[a)]
+		\item Drehung ~~~ IMAGE~MISSING
+		\item Spiegelung ~~~ IMAGE~MISSING
+	\end{enumerate}
+	
+	\extrasection{a)}{Givens-Rotation}
+	Es wird eine Drehung auf den 1. Einheitsvektor durchgeführt:\\
+	
+	IMAGE~MISSING\\
+	
+	\begin{gather*}
+		a=\begin{pmatrix}a_1 \\ a_2\end{pmatrix} \rightarrow \begin{pmatrix}\alpha \\ 0 \end{pmatrix}
+		= \alpha e_1
+	\end{gather*}
+	d.h. Elimination von $a_2$ mit
+	\begin{gather*}
+		\nn{\alpha e_1}_2 = \nn{a}_2
+	\end{gather*}
+	Also gilt für $\alpha$
+	\begin{gather*}
+		\alpha=\pm \nn{a}_2
+	\end{gather*}
+	Drehuungen werden beschrieben durch
+	\begin{gather*}
+		Q = \begin{pmatrix}
+					cos(\theta) & sin(\theta)\\
+					-sin(\theta) & cos(\theta)
+				\end{pmatrix}
+		\eqqcolon \begin{pmatrix}
+								c & s\\
+								-s & c
+						\end{pmatrix}\qquad \theta \in[0,2\pi)
+	\end{gather*}
+	und es muss gelten
+	\begin{gather*}
+		Qa = \begin{pmatrix}\alpha \\ 0 \end{pmatrix}
+	\end{gather*}
+	Hiermit folgt für $\nn{a}= 0$
+	\begin{align}
+	\nonumber
+		c&=1, s=0\\ \nonumber
+		c&=\frac{a_1}{\alpha},  s= \frac{a_2}{\alpha}\quad \text{mit}\\
+		\alpha & = \pm \sqrt{a_1^2+a_2^2}
+		\label{IV.4.4}
+	\end{align}
+	für $\nn{a}\neq 0$.\\
+	Im Folgenden wird dies kurz mit
+	\begin{gather*}
+		[c,s] = givens(a_1, a_2)
+	\end{gather*}
+	bezeichnet. \\
+	Als \textbf{Givens-Rotation}\index{Givens-Rotation} wird eine Matrix der Form
+	\begin{gather}
+		\Omega _{k,l} = \begin{pmatrix}
+										1 &&&&&&&&& \\
+										& \ddots\\
+										&& 1\\
+										&&& \mathbf{c} &&&& \mathbf{s} \\
+										&&&& 1\\
+										&&&&& \ddots \\
+										&&&&&& 1\\
+										&&& -\mathbf{s} &&&& \mathbf{c} \\
+										&&&&&&&& \ddots \\
+										&&&&&&&&& 1\\
+									\end{pmatrix}
+									 \begin{array}{l}
+									 \\   \leftarrow \text{$k$-te Zeile}
+									 \\ \\ \\ \\ \leftarrow \text{$l$-te Zeile}
+									 \end{array}
+									 \label{VI.4.5}
+	\end{gather}
+	mit $c^2+s^2=1$ und $k<l$ bezeichnet.\\
+	Es folgt:
+	\begin{align*}
+		\Omega_{kl} A &= \widetilde{A} \quad \text{mit} \\
+		\widetilde{a}_{ij}  &= a_{ij} \quad \text{ für } i\neq k,l \\
+		\widetilde{a}_{kj} & = ca_{kj}+sa_{lj} \\
+		\widetilde{a}_{lj} & = -sa_{kj} + ca_{lj}
+	\end{align*}
+	Demnach werden nur die $k$-te und $l$-te Zeile werden verändert. \\
+	Falls nun $[c,s] = givens(x_k, x_l)$ gilt
+	\begin{gather*}
+		\Omega_{k,l}\cdot x = \begin{pmatrix}
+		x_1 \\ \vdots \\x_{k-1} \\\alpha \\ x_{k+1}
+		\\\vdots \\
+		x_{l-1} \\ 0 \\x_{l+1} \\\vdots \\x_n
+		\end{pmatrix}
+		\qquad
+		\quad \text{mit~~}
+		\alpha = \pm \nn{  \begin{pmatrix} x_k \\ x_l\end{pmatrix}}_2
+	\end{gather*}
+	d.h. eine Givens-Rotation erzeugt eine Null.\\
+	Da nun
+	\begin{gather*}
+		\R^{m\times n}\ni \begin{pmatrix}
+		* & * &* & \dots   \\
+		0 & * &     \\
+		0 & 0 & \ddots \\
+		\vdots \\
+		0 & 0 & 0 & \dots & *		
+		\end{pmatrix}
+		= \begin{pmatrix} R\\0\end{pmatrix}
+	\end{gather*}
+	gilt, sind
+	\begin{gather*}
+		p=\sum_{j=1}^{n}(m-j)
+	\end{gather*}
+	Givens-Rotationen nötig, um eine QR-Zerlegung nach \eqref{IV.4.1} zu erzeugen.
+	Und eine Rotation, welche $a_{ij} $ auf 0 setzt, ist durch zugehörige 
+	$(c_{ij}, s_{ij}) $ gegeben.\\
+	
+	Für eine 3x4-Matrix sieht das Verfahren folgendermaßen aus:
+	
+	\begin{align*}
+		A= &
+		\left(\begin{array}{lccc}
+			*~ &&&\\
+			* &&* \\
+			* \rcurvearrownw \\ * \lcurvearrowsw
+		\end{array}\right)
+		\quad \overset{\Omega_{3,4}}{\longrightarrow} \quad
+		\left(\begin{array}{lccc}
+			*~ &&&\\
+			* \rcurvearrownw && *\\
+			* \lcurvearrowsw \\
+			0
+		\end{array}\right)
+		\quad \overset{\Omega_{1,2}}{\longrightarrow} \quad
+		\left(\begin{array}{lccc}
+		* \rcurvearrownw\\
+		* \lcurvearrowsw && *& \\
+		0 \\
+		0
+		\end{array}\right)\\
+		\quad \overset{\Omega_{2,3}}{\longrightarrow} \quad
+		&\left(\begin{array}{lccc}
+			*~~ \\
+			0 && *&~ \\
+			0 \\
+			0
+		\end{array}\right)
+		\quad \overset{\Omega_{3,4}}{\longrightarrow} \quad	
+		\left(\begin{array}{clcc}
+			* & *\\
+			0 & *  \rcurvearrownw  & *& \\
+			0 & * \lcurvearrowsw \\
+			0 & 0
+		\end{array}\right)
+		\quad \overset{\Omega_{2,3}}{\longrightarrow} \quad	
+		\left(\begin{array}{cccl}
+			* & *  & * \\
+			0 & *  & * \\ 
+			0 & 0 & * \rcurvearrownw\\
+			0 & 0 & *  \lcurvearrowsw 
+		\end{array}\right) \\
+		\quad \overset{\Omega_{3,4}}{\longrightarrow} \quad	
+		& \left(\begin{array}{cccc}
+		* & *  & *  \\
+		0 & *  & * \\ 
+		0 & 0 & * \\
+		0 & 0 & 0
+		\end{array}\right)
+		= \begin{pmatrix}
+			R \\ 0 
+		\end{pmatrix}
+	\end{align*}
+
+	
+	Es ergibt sich:
+	
+	\subsection{Givens-QR-Algorithmus} \index{Givens-QR-Algorithmus}
+	
+	\begin{pseudocode}{0.7\linewidth}
+		\textbf{for} $j=1, \dotsc , n$ \\
+		|~	\>	\textbf{for} $i=m, m-1, \dotsc , j+1$ \\
+		|~	\>		|~	\>\% \textit{setze $a_{ij}$ auf 0} \\
+		|~	\>		|~	\>$[c,s] = givens(a_{i-1,j}, \dotsc, a_{ij}) $\\
+		|~	\>		|~	\>speichere $c$ und $s$ für $a_{ij}$ \\
+		|~	\>		|~	\>$A(i-1:j, j:h) =\left( \begin{smallmatrix}c & s\\ -s & c	\end{smallmatrix}\right) * A(i-1:j, j:n)$ \\
+		|~	\> \textbf{end}\\
+		\textbf{end}							
+	\end{pseudocode}
+	
+	\subsection{s. Folien} %MISSING
+	
+	
+	\subsection{Aufand des Givens-QR-Algorithmus}
+	\begin{enumerate}[a)]
+		\item $m\approx n$\\ $\rightarrow $  ca. $\frac{4}{3}n^3$ Multiplikationen
+				und $\frac{1}{2}n^2$ Quadratwurzeln nötig \\
+				Die Givens-QR-Zerlegung ist somit ungefähr viermal so aufwändig
+				wie die Gauß-Elimination, dafür jedoch stabil.
+		\item $m\gg n$\\ $\rightarrow $ ca. $2n^2m$ Multiplikationen und 
+				$mn$ Quadratwurzeln nötig \\
+				Das Verfahren ist daher zwei- bis viermal so aufwändig wie das
+				Cholesky-Verfahren für die Normalgleichungen, aber stabil.
+		\item Bei Hessenberg-Matrizen, d.h. Matrizen mit der Gestalt
+				\begin{gather}
+					A= \begin{pmatrix}
+						* & \dots&& * \\
+						*&* \\
+					    &\ddots& \ddots \\
+					     \\
+					    0 &&& * 
+					\end{pmatrix}
+					\label{IV.4.7} \, ,
+				\end{gather}
+				also $a_{ik} = 0 \forall i<k+1$,
+				sind nur $(n-1)$ Givens-Rotationen auszuführen. \\
+				Diese Matrizen tauchen z.B. bei Eigenwertberechungen auf
+				 und sind dort ein wichtiger Bestandteil der Verfahren.
+	\end{enumerate}
+	
+	
+	\extrasection{b)}{Householder-Reflexion}
+	
+	Es sei $H$ eine Hyperebene im $\R^m$ und zusätzlich ein Vektor $a\in\R^m$ gegeben. \\
+	
+	IMAGE~MISSING \\
+	
+	Gesucht ist nun die Reflexion $Q$, so dass
+	\begin{gather*}
+		Qa = \alpha e_1 = \begin{pmatrix} \alpha \\ 0\\\vdots\\0\end{pmatrix}
+		\qquad \text{mit } \alpha = \pm \nn{a}
+	\end{gather*}
+	Mit \begin{gather}
+		v=a-\alpha e_1 
+		\label{IV.4.8}
+	\end{gather}
+	gegeben, welches senkrecht zu $H$ steht.\\
+	Damit Stellenauslöschungen in $v$, d.h. in $v_1$, vermieden werden,
+	wähle ein entsprechendes Vorzeichen für $\alpha$, also 
+	\begin{gather}
+		\alpha = -sign(a_1)\nn{a}_2 
+		\label{IV.4.9}
+	\end{gather}
+	Die zugehörige Reflexion $Q$ ist  gegeben durch \\
+	
+	IMAGE~MISSING \\
+	
+	wobei
+	\begin{align}
+	\nonumber
+		w &= \scp{\frac{v}{\nn{v}}}{x} \cdot \frac{v}{\nn{v}} \\ %\nonumber
+		Qx &= x-2w = x-2\frac{v^Tx}{v^Tv}v 
+			 = (I-2\frac{vv^T}{v^Tv})x 
+			 \label{VI.4.10}\\
+	    Q  &= I-2\frac{vv^T}{v^Tv}&& vv^T \in \Renn,\,\, v^Tv\in\R
+	    	\label{VI.4.11}
+	\end{align}
+	und heißt \textbf{Householder Reflexion} \index{Householder Reflexion}
+	 (wurde  1958 von Householder eingeführt).  \\
+	 Für die spezielle Wahl \eqref{IV.4.8} mit \eqref{IV.4.9} vom Vektor $v$ folgt
+	 \begin{align}\nonumber
+	 	vv^T = \nn{v}^2 &= \nn{a}^2 - 2\alpha\scp{a}{e_1} + \alpha^2 \\ \nonumber
+	 	&= -2\alpha(a_1-\alpha) \\
+	 	& = -2\alpha v
+	 	\label{IV.4.12}
+	 \end{align}
+	
+	
+	 \subsection{Bemerkung}\label{4.4.4}
+	 \begin{enumerate}[a)]
+	 	\item Q ist symmetrisch
+	 	\item Q ist orthogonal
+	 	\item Q ist involutorisch, d.h. $Q^2 = I$ ~~(bzw. gilt $Q^{-1}= Q^T=Q$)
+	 \end{enumerate}
+	 Die Householder Reflexion setzt nicht nur eine Null,
+	  sondern im Vektor gleich alle gewünschten Nullen
+	  \begin{align*}
+	  	\text{\textbf{Rotation: }}&
+	  	\quad \begin{pmatrix} * \\ * \\ *	\end{pmatrix}
+	  	\rightarrow \begin{pmatrix} * \\ * \\0	\end{pmatrix}
+	  	\rightarrow \begin{pmatrix} * \\0\\0	\end{pmatrix} \\
+	  	\text{\textbf{Reflexion: }}&
+	  	\quad \begin{pmatrix} * \\ * \\ *	\end{pmatrix}
+	  	\rightarrow \begin{pmatrix} *\\0\\0	\end{pmatrix}
+	  \end{align*}
+	  Um die erste Spalte in $A$ auf die gewünschte Gestalt zu bringen,
+	  bestimme $Q^{(1)}$ wie oben, indem die erste Spalte als $a$ gewählt wird:
+	  \begin{gather*}
+	  	A\rightarrow A^{(1)} = Q^{(1)} A =
+	  	\begin{pmatrix}
+	  		\alpha^{(1)} \\
+	  		0 &*&~~\\
+	  		\vdots \\
+	  		0
+	  	\end{pmatrix}
+	  \end{gather*}
+	  In der $k$-ten Spalte sollen nun die $(k-1)$-ten Zeilen und die $(k-1)$-ten Spalten
+	  bleiben und die Restmatrix verändert werden.\\
+	  
+	 \begin{align*}
+	 A^{(k-1)} &=
+	 \begin{pmatrix}
+	 *  &&&&&\\
+	 &\ddots &&&& * \\
+	 &&*&&\_&\_&\_ \\
+	 &&0&|&\\
+	 &0&\vdots&| &&T^{(k-1)}\\
+	 &&\vdots&  |\\
+	 &&0&  |
+	 \end{pmatrix}
+	 \begin{array}{l}
+	 \\
+	 \shortleftarrow (k-1) \text{-te Zeile} \\
+	 \\\\\\\\
+	 \end{array}\\
+	 &\phantom{= \, (} \begin{array}{ccl}
+	 	~&~&~ \uparrow (k-1)\text{-te Spalte}
+	 \end{array}
+	 \end{align*}
+	  
+	  Setze also
+	  \begin{gather}
+	  	Q^{(k)} = \begin{pmatrix}
+	  	 I_{k-1} & 0 \\
+	  	 0 & \overline{Q}^{(k)} \, ,
+	  	 \label{IV.4.13}
+	  	\end{pmatrix}
+	  \end{gather}
+	  wobei $\overline{Q}^{(k)} $ durch die erste Spalte von $T^{(k)}$, d.h.
+	  \begin{gather}
+	  	a= (a_{i,k}^{k-1})_{i=k,\dotsc, m} \subset \R^{m+1-k}
+	  	\label{IV.4.14}
+	  \end{gather}
+	  bestimmt wird. Dann gilt
+	  \begin{gather*}
+	  	Q^{(k)}A^{(k-1)} =
+	  	 \begin{pmatrix}
+	  	*  &&&&&\\
+	  	&\ddots &&&& * \\
+	  	&&*&&\_&\_&\_&\_ \\
+	  	&&0&|&* \\
+	  	&0&\vdots&|&0&* \\
+	  	&&\vdots&  |&\vdots &&\ddots\\
+	  	&&0&  |&0&&&*
+	  	\end{pmatrix}
+	  \end{gather*}
+	  Nach insgesamt 
+	  \begin{gather}
+	  	p=\min (m-1, n)
+	  	\label{IV.4.15}
+	  \end{gather}
+	  Schritten erhalten wir für $A\in \R^{m\times n}$
+	  \begin{gather}
+	  Q^TA = Q^{(p)}\cdot \dotsc \cdot Q^{(1)}A 
+	  			= \begin{pmatrix} R\\0\end{pmatrix}\, ,
+	  \end{gather}
+	  wobei Bemerkung \ref{4.4.4} auch für 
+	  $Q^T= Q^{(p)}\cdot \dotsc \cdot Q^{(1)} $ und somit auch für
+	  \begin{gather}
+	  	Q = Q^{(1)}\cdot \dotsc \cdot Q^{(p)}
+	  	\label{IV.4.16}
+	  \end{gather}
+	  gilt.
+	  
+	  
+	  
+	
+
+	
 		
 		
 		
