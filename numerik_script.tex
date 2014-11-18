@@ -763,7 +763,21 @@ die Vorwärts- bzw. Rückwärtssubstitution $\mathcal{O}(n^2)$ flops.
 
 
 \subsection{Definition: Landau-Symbole} \index{Landau-Symbole}
-MISSING
+Seien $f,g : D\longrightarrow \R, D\subset \R, -\infty\leq a\leq \infty$ und
+$(a_n)_{n\in\N}, (b_n)_{n\in\N}$ Folgen in $\R$.
+\begin{enumerate}[a)]
+	\item $f(x) = \mathcal{O}(g(x))$ für $x\longrightarrow a$, falls
+	\begin{gather*}
+		\exists U(a), c\in\R:\, \forall x\in U(a) : \quad |f(x)| \leq c\cdot |g(x)|
+	\end{gather*}
+	(bzw. falls $\lim\limits_{x\rightarrow a}\frac{|f(x)|}{|g(x)|} \leq c$)
+	\item $f(x) = o(g(x))$ für $x\longrightarrow a$, falls 
+	$\lim\limits_{x\rightarrow a}\frac{|f(x)|}{|g(x)|} = 0$
+	\item $a_n = \mathcal{O}(b_n)$ für $n\longrightarrow \infty$, falls
+	\begin{gather*}
+		\forall \varepsilon > 0 : \, \exists N\in\N : \, \forall n \geq N: \, |a_n| \leq \varepsilon |b_n|
+	\end{gather*}
+\end{enumerate}
 
 \subsection{Allgemeines zur Aufwandsbetrachtung}\index{Rechenaufwand}
 MISSING
@@ -1062,9 +1076,9 @@ gilt.
 \chapter{Fehleranalyse} \index{Fehler}\label{3}
 %
 \begin{align*}
-	\overset{x+\epsilon \text{ statt } x}{\framebox[3cm]{Eingabe}} \longrightarrow 
+	\overset{x+\varepsilon \text{ statt } x}{\framebox[3cm]{Eingabe}} \longrightarrow 
 	\overset{\underset{\text{\tiny (z.B. durch Rundung)}}{\widetilde{f} \text{ statt } f}}{\framebox[3cm]{Algorithmus}} \longrightarrow
-	\overset{\widetilde{f}(x+\epsilon) \text{ statt } f(x)}{\framebox[3cm]{Resultat\phantom{g}}}
+	\overset{\widetilde{f}(x+\varepsilon) \text{ statt } f(x)}{\framebox[3cm]{Resultat\phantom{g}}}
 \end{align*}\\
 
 Bei der Fehleranalyse liegt das Hauptaugenmerk auf
@@ -1718,14 +1732,14 @@ Ebenso sind Störungen nur in der Diagonale zu erwarten. Jedoch:
 \begin{align*}
 	A  &=\begin{pmatrix}
 					1 & 0\\
-					0 & \epsilon
+					0 & \varepsilon
 				\end{pmatrix} \\
 	\Rightarrow 	A^{-1}&=\begin{pmatrix}
 													1 & 0\\
-													0 & \epsilon^{-1}
+													0 & \varepsilon^{-1}
 												\end{pmatrix}\\
-	\Rightarrow \kappa_\infty& = \kappa_2 = \frac{1}{\epsilon} 
-													&& \text{für }0 < \epsilon \leq 1											
+	\Rightarrow \kappa_\infty& = \kappa_2 = \frac{1}{\varepsilon} 
+													&& \text{für }0 < \varepsilon \leq 1											
 \end{align*}
 
 \subsection{Definition: Komponentenweise Kondition}\index{Kondition!komponentenweise}
@@ -1866,10 +1880,10 @@ Die Fehlerfortpflanzung durch die einzelnen Rechenschritte, aus denen die Implem
 Für die Rechenoperationene $+,-,\, \cdot \, , \, /\,$, kurz $\nabla$, gilt:
 \begin{align}
 	\nonumber
-	fl(a\nabla b) &= (a\nabla b)\cdot (1+\epsilon) \\
+	fl(a\nabla b) &= (a\nabla b)\cdot (1+\varepsilon) \\
 						   &= (a\nabla b) \cdot \frac{1}{1+\mu} \label{III.3.1}
 \end{align}
-mit $|\epsilon|, |\mu| \leq eps$.
+mit $|\varepsilon|, |\mu| \leq eps$.
 
 
 \marginpar{29.10.2014}
@@ -1888,14 +1902,14 @@ Die Implementierung $\widetilde{f}$ von $f$  beinhaltet Rundungsfehler. \\
 Sei  $x=(x_1, x_2, x_3) $. Daraus folgt:
 \begin{align*}
 	\widetilde{f}^{(1)}(x) &= (fl(x_1\cdot x_2), x_3) \\
-										& = (x_1x_2 (1+\epsilon_1), x_3)
-\intertext{mit $|\epsilon_1|\leq eps$:}
+										& = (x_1x_2 (1+\varepsilon_1), x_3)
+\intertext{mit $|\varepsilon_1|\leq eps$:}
 	\widetilde{f}(x) &= \widetilde{f}^{(2)}(\widetilde{f}^{(1)}(x)) \\
-							&= fl(f^{(2)}(x_1 x_2 (1+\epsilon_1), x_3)) \\
-							&= \frac{x_1x_2(1+\epsilon_1)}{x_3}\cdot (1+\epsilon_2)  \\
-							&= f(x)\cdot (1+\epsilon_1)(1+\epsilon_2)
-\intertext{mit $|\epsilon_2| \leq eps$:}
-	\frac{|\widetilde{f}(x) -f(x)|}{|f(x)|} &= |\epsilon_1+\epsilon_2 +\epsilon_1\cdot \epsilon_2| \\
+							&= fl(f^{(2)}(x_1 x_2 (1+\varepsilon_1), x_3)) \\
+							&= \frac{x_1x_2(1+\varepsilon_1)}{x_3}\cdot (1+\varepsilon_2)  \\
+							&= f(x)\cdot (1+\varepsilon_1)(1+\varepsilon_2)
+\intertext{mit $|\varepsilon_2| \leq eps$:}
+	\frac{|\widetilde{f}(x) -f(x)|}{|f(x)|} &= |\varepsilon_1+\varepsilon_2 +\varepsilon_1\cdot \varepsilon_2| \\
 								&\leq 2eps + eps^2
 \end{align*}
 Dies ist eine \enquote{worst case} Analyse, da immer der maximale Fehler angenommen wird,
