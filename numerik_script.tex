@@ -780,7 +780,16 @@ $(a_n)_{n\in\N}, (b_n)_{n\in\N}$ Folgen in $\R$.
 \end{enumerate}
 
 \subsection{Allgemeines zur Aufwandsbetrachtung}\index{Rechenaufwand}
-MISSING
+Die Anzahl der Rechenoperationen ist nicht immer ausschalggebend für den Aufwand, da
+z.B.
+\begin{description}
+	\item[Parallelrechner:] In manchen Algorithmen sind Rechenschritte parallel ausführbar.
+	Damit entspricht die Zeit nicht der Anzahl an Operationen und es wird zusätzlich
+	\enquote{Kommunikationszeit} benötigt.
+	\item[Sortieralgorithmen:] Die Indexverwaltung benötigt Zeit, aber keine/kaum Rechenoperationen
+	\item[If-When-Abfragen:] entsprechend
+\end{description}
+Rechenoperationen liefern jedoch oft eine gute Schätzung.
 
 \marginpar{13.10.2014}
 \subsection{Formalisieren des Gauß-Algorithmus} \index{Gaußsches Eliminationsverfahren} \index{LR-Zerlegung}
@@ -2114,17 +2123,117 @@ Dann schätze den Fehler
   	  	\caption{Diagramm zur Rückwärtsanalyse}
   	  \end{figure}  
   
-  \subsection{siehe Folien}
-  (siehe auch Folien) \\
+  Ein Anwendungsbeispiel:\\
+  Die Eingangsdaten seien Messdaten $\tilde{x}$  mit 1 \% relativer Genauigkeit. 
+  Liefert die Rückwärtsanalyse, dass $\tilde{f} (\tilde{x})$ als exaktes Ergebnis 
+  $f(\hat x)$ mit Eingangsdaten $\hat x$, 
+  die höchstens um 0,5 \% schwanken, aufgefasst werden kann,
+  so ist das Verfahren \enquote{geeignet} . 
   
-  IMAGE~MISSING
+  Die Rückwärtsanalyse ist
+   \begin{itemize}
+   	\item in der Regel leichter durchführbar als die
+   	Vorwärtsanalyse  und 
+   	\item ebenfalls nur eine qualitative Schätzung der
+   	Genauigkeit der numerisch berechneten Werte.
+   \end{itemize}
+  
+  \subsection{Bemerkung}
+  (siehe auch Folien) \\
+   $$ \mbox{Vorw"artsfehler} \; \leq \; \mbox{Kondition des
+   	Problems } \cdot \mbox{R"uckw"artsfehler} .$$
+   
+   $$ ||\tilde f (\tilde x)  - f(x)|| \leq \kappa (f,x) \; || \hat x -x|| $$
+  
+  Beispiel: Rückwärtsanalyse der Gauß-Elimination
+  (geht auf Wilkinson zurück)
+  
+  
+  \subsection{Satz}
+  $A \in \R^{n\times n}$ besitze eine LR-Zerlegung. Dann berechnet die
+  Gauß-Elimination Matrizen $\hat{L}$ und $\hat{R}$,
+  so dass
+	\begin{gather*}\hat{L}\,\hat{R}\; = \;\hat{A}\end{gather*}
+  und
+  \begin{align*}
+  	\mid \hat{ A} -  A \mid & \leq & \frac{eps}{1 -n \;eps}
+  	\left( | \hat{ L} | \left( \begin{array}{cccc}
+  		1 && \multicolumn{2}{c}{0}\\[-2ex] & 2
+  		&&\\[-2ex]
+  		&&\ddots & \\[-2ex]  \multicolumn{2}{c}{0} && n
+  	\end{array} \right)
+  	| \hat{ R} | - |\hat{ R}| \right)
+  	\\[1ex]
+  	& \leq & \frac{n \; eps}{1- n \;eps}\, | \hat{ L} | \,
+  	|\hat{ R}| \; 
+  	= \; n \; eps  | \hat{ L} | \,  |\hat{ R}| +
+  	\mathcal{O}( n^2 eps^2)
+  \end{align*}
+  falls $n\;eps \leq 1/2$.
+  
+  \begin{proof}
+  	siehe Stoer\cite{stoerbulirsch}.
+  \end{proof}
+  
+  
+  \subsection{Satz (Sautter 1971)}
+  $ A \in \R^{n\times n}$ besitze eine LR-Zerlegung.  Dann berechnet das
+  Gaußsche Eliminationsverfahren für das Gleichungssystem
+  $\;  A  x =  b$ eine Lösung $\overline{ x}$ mit 
+  \begin{gather*} \overline{ A} \overline{ x}  =   b \vspace*{-2ex} \end{gather*}
+  mit
+  \begin{gather*} 
+	  | \overline{ A} - A |  \leq  2 \, n \, eps \,
+	  |\hat{L}| \, | \hat{R}| + \mathcal{O}( n^2 eps^2).
+  \end{gather*}
+  
+    \begin{proof}
+    	siehe Deuflhard/Hohmann \cite{deuflhardhohmann}.
+    \end{proof}
+    
+    Weitere Abschätzungen existieren für Gauß-Elimination mit 
+    Pivotisierung und für spezielle Klassen von Matrizen.
+    
+    \subsection{Allgemeine Faustregeln für die LR-Zerlegung}
+    \begin{itemize}
+    	\item Falls die Matrix $n | \hat{ L} | \,  |\hat{ R}|$ die
+    	selbe Größenordnung wie $| A|$ besitzt, ist der
+    	Algorithmus \enquote{gutartig};
+    	\item Für tridiagonale Matrizen  ist der Algorithmus mit
+    	Spaltenpivotisierung stabil.
+    	\item Falls $ A$ oder $ A^T$  \textbf{strikt diagonal
+    		dominant}\index{strikt diagonal dominant} ist, d.h. 
+    		\begin{gather*}
+    			| a_{ii} | > \sum\limits_{j=1 ,\, j \not = i}^{n} | a_{ij}| 
+    			\mbox{ für alle } i = 1, \ldots, n,
+    		\end{gather*}
+    		ist Spaltenpivotisierung überflüssig. Der Algorithmus ist stabil.
+    	\item Für symmetrische, positiv definite Matrizen sollte keine Pivotisierung
+    		durchgeführt werden, um die Symmetrie zu erhalten.
+    		Der Algorithmus ist stabil.
+    \end{itemize}
+    
+    \subsubsection{Vorsicht}
+    Selbst wenn die LR-Zerlegung stabil ist, in dem Sinne dass
+    $| \overline{ A} - A|$ klein ist für
+    $ \overline{ A}\overline{ x}  =  b $, 
+    kann die numerische Lösung $\overline{ x}$ sehr
+    ungenau sein, da der Vorwärtsfehler $| \overline{ x} - {  x}| $ auch von der
+    Kondition abhängt.
+
+    Ein Beispiel hierzu ist die Hilbertmatrix
+    \begin{gather*}
+    	H  =  \left( \frac{1}{i + j -1 } \right)_{i,j= 1,\ldots, n}\, ,
+    \end{gather*}
+    für die $cond ( H)$ exponentiell mit der Dimension $n$ wächst.
+
   
   \sectione{Beurteilung von Näherungslösungen linearer GLS}
   Zu $Ax=b$ liege eine Näherungslösung $\widetilde{x}$ vor.
 
-  \begin{enumerate}[a)]
-  	\item Im Sinne der Vorwärtsanalyse und der Fehlerentwicklung	
-  			durch das Problem gilt:
+  
+  	\extrasection{a)}{Im Sinne der Vorwärtsanalyse}
+  	Im Sinne der Vorwärtsanalyse und der Fehlerentwicklung durch das Problem gilt:
   				\begin{gather*}
   					\frac{\nn{\widetilde{x}-x}}{\nn{x}} \leq cond(A) \cdot \frac{\nn{\Delta b}}{\nn{b}}
   				\end{gather*}
@@ -2145,8 +2254,41 @@ Dann schätze den Fehler
   			geeigneter. \\
   			Für große $cond(A)$ ist dieser Quotient jedoch weiterhin ungeeignet.
   			
-  			\item siehe Folien
-  \end{enumerate}
+  	\extrasection{b)}{Im Sinne der Rückwärtsanalyse}
+  	\subsection{Satz (Prager und Oettli, 1964)} \label{3.4.1}
+  	  Sei $\tilde{ x}$ eine Näherungslösung für 
+  	  $  A  x =  b$. 
+  	  Falls
+  	  \begin{gather}\label{III.4.3}
+  	  |  r(\tilde { x})|  \; \leq \; \varepsilon ( | A| | \tilde { x} | + |  b|).
+  	  \end{gather}
+  	  dann existiert eine Matrix $\tilde{ A}$  und ein
+  	  Vektor $\tilde { b}$, so dass
+  	  \begin{gather*}
+  	  	\tilde{ A} \tilde { x}  =  \tilde{ b} 
+  	  \end{gather*}
+  	  und
+  	  \begin{equation}
+  	  |\tilde{ A} -  A |  \leq  \varepsilon | A|
+  	  \quad \textrm{und} \quad | \tilde{ b} -  b| \leq
+  	  \varepsilon | b|.
+  	  \label{III.4.4}
+  	  \end{equation}
+  	  
+  	  Aufgrund von \eqref{III.4.3} wird der komponentenweise relative
+  	  Rückwärtsfehler durch 
+  	  \begin{gather*}
+  	  	 \max_i \frac{|  A \tilde{ x} -  b|_i}
+  	  	 { (| A|\, |\tilde{ x}| + | b|)_i} 
+  	  \end{gather*}
+  	  abgeschätzt.
+  	  
+  	  Für den normweisen relativen Rückwärtsfehler gilt entsprechend
+  	  (Rigal und Gaches 1967)
+  	  \begin{gather*}
+  	  	\frac{\|  A \tilde{ x} -  b\|}
+  	  	{ \| A\| \|\tilde{ x} \| + \| b\| } .
+  	  \end{gather*}
   
   
   \chapter{Lineare Gleichungssysteme: Direkte Methoden (Fortsetzung)}
@@ -2884,7 +3026,19 @@ Konsturiere eine QR-Zerlegung
 		\textbf{end}							
 	\end{pseudocode}
 	
-	\subsection{s. Folien} %MISSING
+	\subsection{Bemerkungen} %MISSING
+	\begin{enumerate}[a)]
+		\item $A(i-1 : i, 1 : j-1) = 0$ und ist daher nicht zu berechnen oder
+					zu speichern. Der Speicherplatz kann für die Speicherung der
+					Givensrotationen benutzt werden.
+		\item  $R$ steht anschließend in $A$.
+		\item Die Bestimmung der Länge $|\alpha|$ wird so ausgeführt, dass over- ¨
+				oder underflow vermieden wird. Weiterhin wird das Vorzeichen
+				von $c$ oder $s$ festgelegt, so dass aufgrund von $c^2+s^2=1$ nur
+				ein Wert $\rho$ gespeichert werden muss. Hiermit wird auch das
+				Vorzeichen von $\alpha$ festgelegt:\\
+				MISSING
+	\end{enumerate}
 	
 	
 	\subsection{Aufand des Givens-QR-Algorithmus}
