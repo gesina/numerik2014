@@ -2394,7 +2394,7 @@ Für jede spd Matrix $A\in \Renn $ gilt:
 	\item Bei der Gauß-Elimination ohne Pivotsuche ist jede Restmatrix wieder eine spd Matrix.
 \end{enumerate}
 
-\begin{proof}
+\begin{proof}~\\
 \begin{enumerate}[i)]
 	\item folgt aus \eqref{IV.2.1}
 	\item Sei $e_i$ der i-te Einheitsvektor, so folgt $a_{ii} = e_{i}^TAe_i > 0$.
@@ -3026,7 +3026,7 @@ Konsturiere eine QR-Zerlegung
 		\textbf{end}							
 	\end{pseudocode}
 	
-	\subsection{Bemerkungen} %MISSING
+	\subsection{Bemerkungen} 
 	\begin{enumerate}[a)]
 		\item $A(i-1 : i, 1 : j-1) = 0$ und ist daher nicht zu berechnen oder
 					zu speichern. Der Speicherplatz kann für die Speicherung der
@@ -3037,8 +3037,21 @@ Konsturiere eine QR-Zerlegung
 				von $c$ oder $s$ festgelegt, so dass aufgrund von $c^2+s^2=1$ nur
 				ein Wert $\rho$ gespeichert werden muss. Hiermit wird auch das
 				Vorzeichen von $\alpha$ festgelegt:\\
-				MISSING
+				\begin{description}
+					\item[$a_2=0$:] Setze $c=1, s=0, \alpha = a_1$, merke $\rho=1$.
+					\item[$|a_2|>|a_1|$:] Setze $\tau= \frac{a_1}{a_2}, s=\frac{1}{\sqrt{1+\tau^2}}, c=s\cdot\tau, \alpha =a_2\sqrt{1+\tau^2}$, merke $\rho=\frac{c}{2}$.
+					\item[$|a_1|\geq|a_2|$:] Setze $\tau= \frac{a_2}{a_1}, c=\frac{1}{\sqrt{1+\tau^2}}, s=c\cdot\tau, \alpha =a_1\sqrt{1+\tau^2}$, merke $\rho=\frac{2}{s}$.
+				\end{description}
+		\item Aufgrund von c) muss nur $\rho$ gespeichert werden:
+		\begin{description}
+			\item[$\rho=1$:] Setze $c=1, s=0$.
+			\item[$|\rho|<1$:] Setze $c=2\rho , s= \sqrt{1-c^2}$.
+			\item[$|\rho|>1$:] Setze $s=\frac{2}{\rho}, c=\sqrt{1-s^2}$.
+		\end{description}
 	\end{enumerate}
+	Hiermit können alle notwendigen Givens-Rotationen als untere
+	Dreiecksmatrix zusammen mit $R$ in $A$ gespeichert werden.
+	
 	
 	
 	\subsection{Aufand des Givens-QR-Algorithmus}
@@ -3391,7 +3404,7 @@ Konsturiere eine QR-Zerlegung
 	
 	Offensichtlich ist jede auf $D$ kontrahierende Abbildung stetig.
 	
-	\subsection{Lemma} \label{5.2.3}\addtocounter{equation}{1}
+	\subsection{Lemma} \label{5.2.3}
 	Sei $D=\overline{\Omega} $ mit $\Omega \subseteq \R^n$ offen und konvex
 	und $\nn{\,\cdot\,}$ eine Norm auf dem $R^n$.\\
 	Falls $g:D\longrightarrow \R^n$ eine stetig differenzierbare Funktion ist und
@@ -3403,18 +3416,20 @@ Konsturiere eine QR-Zerlegung
 		Somit ist $h:[0,1]\rightarrow \R^n $ mit $h(t) \coloneqq g(u+t(v-u))$ wohldefiniert
 		und stetig differenzierbar. Mit dem Hauptsatz der Differenzial- und Integralrechnung
 		folgt:
-		\begin{align*}
-			\nn{g(u)-g(v)} & = \nn{h(1)-h(0)}  \\
-										& = \nn{\int_{0}^{1} h'(t) dt} \\
-										& = \nn{\int_{0}^{1} Dg(u+t(v-u))\cdot (v-u)dt} \\
+		\begin{align}\nonumber
+			\nn{g(u)-g(v)} & = \nn{h(1)-h(0)}  \\ \nonumber
+										& = \nn{\int_{0}^{1} h'(t) dt} \\ \nonumber
+										& = \nn{\int_{0}^{1} Dg(u+t(v-u))\cdot (v-u)dt} \\ \nonumber
 										& \leq \int_{0}^{1} \nn{Dg(u+t(v-u))}dt \cdot \nn{v-u} \\
 										& \leq \underbrace{\sup_{x\in\Omega}\nn{Dg(x)}}_{\eqqcolon \kappa} 
 										    \cdot \nn{v-u}
-		\end{align*}
+										    \label{V.2.4}
+		\end{align}
 	\end{proof}
 	
 	
 	\subsection{Banachscher Fixpunktsatz} \index{Banachscher Fixpunktsatz}
+	\label{5.2.4}
 	Sei $D\subset \R^n$ abgeschlossen und die Abbildung $g:D\longrightarrow \R^n$  eine Kontraktion. \\
 	Dann gilt:
 	\begin{enumerate}[1)]
@@ -3438,10 +3453,265 @@ Konsturiere eine QR-Zerlegung
 	\end{enumerate}
 	
 	
+\marginpar{19.11.2014}
+	\begin{proof}
+	\begin{description}
+		\item[zu 2)] Sei $x_0\in D$ beliebig. \eqref{V.2.5} ist wohldefiniert, da $g(D)\subset D$.
+		$(x^{(k)})_{k\in\N}$ bilden eine Cauchyfolge, da 
+		\begin{align*}
+			\nn{x^{(k+1)}-x^{(k)}} &= \nn{g(x^{(k)})-g(x^{(k-1)})} \\
+									&\leq \kappa \nn{x^{(k)}-x^{(k-1)}} \\
+									&\leq \kappa^k\nn{x^{(1)}-x^{(0)}} \\
+			\Longrightarrow~~ \nn{x^{(k+l)}-x^{(k)}} &\leq \sum_{i=0}^{l}\nn{x^{(k+i+1)}-x^{(k+i)}} \\
+									&\leq \sum_{i=0}^{l}\kappa^{k+1}\nn{x^{(1)}-x^{(0)}}\\
+									&\leq \frac{\kappa^k}{1-\kappa}\nn{x^{(1)}-x^{(0)}}
+										&&\forall l\in\N 
+		\end{align*}
+		Daraus folgt, dass $\lim\limits_{k\rightarrow \infty} x^{(k)}=x^{*} $ existiert 
+		und $x^{*}\in D$, da $D$ abgeschlossen ist und somit vollständig.
+		
+		\item[zu 1)] Da $g$ stetig ist, ist $g(x^{*})=x^{*}$ (siehe hierzu \eqref{V.2.3}). \\
+		$x^{*}	$ ist eindeutiger Fixpunkt, da für einen weiteren Fixpunkt $y^{*}$ gilt
+		\begin{gather*}
+			0\leq \nn{x^{*}-y^{*}} = \nn{g(x^{*})-g()y^{*})}\leq \kappa \nn{x^{*}-y^{*}}
+		\end{gather*}
+		Da $\kappa<1$, muss $ \nn{x^{*}-y^{*}}=0$ sein und damit $x^{*}=y^{*}$.
+		
+		\item[zu 3)] Betrachte 
+		\begin{align*}
+			\nn{x^{*}-x^{(k)}} &= \lim\limits_{l\rightarrow \infty} \nn{x^{(k+l)}-x^{(k)}} \\
+			\leq  \frac{\kappa^k}{1-\kappa} \nn{x^{(1)}- x^{(0)}}
+		\end{align*}
+		bzw.
+		\begin{align*}
+			\lim\limits_{l\rightarrow \infty} \nn{x^{(k+l)}-x^{(k)}}
+				 &\leq \lim\limits_{l\rightarrow \infty} \sum_{i=0}^{l-1}\nn{x^{(k+i+1)}-x^{(k+i)}} \\
+				 &\leq \lim\limits_{l\rightarrow \infty}\sum_{i=0}^{l-1}\kappa^{i+1} \nn{x^{(k)}-x^{(k-1)}} \\
+				 &\leq \frac{\kappa}{1-\kappa} \nn{x^{(k)}-x^{(k-1)}} 
+		\end{align*}
+	\end{description}
+	\end{proof}
 	
+		\subsection{Bemerkung}\label{5.2.5}
+		\begin{enumerate}[1)]
+			\item Als Voraussetzung wäre bereits ausreichend:\\
+			$D$ ist vollständiger metrischer Raum mit Metrik $d$. \\
+			Dann ersetze die Norm durch die Metrik $d$.
+			\item Im Allgemeinen ist der Nachweis $g(D)\subset D$ schwierig.
+		\end{enumerate}
+		
+		
+	
+	\subsection{Folgerungen}\label{5.2.6}
+	Sei $x^{*}\in \R^n$, so dass $g(x^{*})=x^{*}$ und sei $g$ in einer Umgebung von 
+	$\overline{B_\varepsilon(x^{*})}=\left\{ x\in \R^n \middle\vert \nn{x-x^{*}}\leq \varepsilon \right\}$ stetig differenzierbar und es gelte $\nn{g'(x)}<1$ für $x\in \overline{B_\varepsilon(x^{*})}$,
+	so ist Satz \ref{5.2.4} mit $D=\overline{B_\varepsilon(x^{*})}$ anwendbar.
+	
+	\begin{proof}
+		Nutze \eqref{V.2.4} und Lemma \ref{5.2.3}.
+	\end{proof}
+	
+	\sectione{Konvergenzordnung und Fehlerabschätzungen}
+	
+	\subsection{Definition: lineare Konvergenz}\label{5.3.1}
+	Eine Folge $(x^{(k)})_{k\in\N} $ mit $x^{(k)}\in\R^n$ \textbf{konvergiert} mit (mindestens)
+	der \textbf{Ordnung}\index{Konvergenz!Ordnung} $p\geq 1$ gegen $x^{*}$, falls
+	\begin{gather*}
+		\lim\limits_{k\rightarrow \infty}x^{(k)}=x^{*}
+	\end{gather*}
+	und falls es ein $C>0$ sowie $N\in\N$ gibt, so dass
+	\begin{gather*}
+		\nn{x^{(k+1)}-x^{*}} \leq C \nn{x^{(k)}-x^{*}}^p\qquad \forall k\geq N 
+	\end{gather*}
+	Im Fall $p=1$ ist zusätzlich $C<1$ und man spricht von \textbf{linearer Konvergenz}\index{Konvergen!linear}. \\
+	Für $p=2$ heißt es \textbf{quadratische Konvergenz}\index{Konvergenz!quadratisch}.
+	\\Gilt 
+	\begin{gather*} 
+		\lim\limits_{k\rightarrow \infty}\frac{\nn{x^{(k+1)}-x^{*}}}{\nn{x^{(k)}-x^{*}}} = 0\, ,
+	\end{gather*} so konvergiert die Folge \textbf{superlinear}\index{Konvergenz!superlinear}.
 
 	
+	\subsection{Bemerkung}
+	Die Fixpunktiteration konvergiert unter der Voraussetzung in \ref{5.2.4} mindestens linear.
+	
+	\subsection{Bemerkung}
+	\begin{enumerate}[a)]
+		\item  lineare Konvergenz hängt von der gewählten Norm ab.
+		\item Hat die Folge bzgl. einer Vektornorm auf dem $\R^n$ die Konvergenzordnung $p>1$,
+		hat sie diese bzgl. jeder Norm.
+	\end{enumerate}
+	
+	\subsection{Definition: lokale und globale Konvergenz} \label{5.3.4}
+	\begin{enumerate}[a)]
+		\item Ein iteratives Verfahren zur Bestimmung eines Wertes $x^{*}$ hat 
+		die Konvergenzordnung $p$, falls es eine Umgebung $U$ um $x^{*}$ gibt, 
+		so dass für alle Startwerte aus $U\backslash \{x^{*}\}$ die erzeugte Folge mit Ordnung $p$ konvergiert.
+		\item Das Verfahren heißt \textbf{lokal konvergent}\index{Konvergenz!lokal},
+		falls es für alle Startwerte in einer Umbegung von $x^{*}$ konvergiert.
+		\item Das Verfahren heißt \textbf{global konvergent}\index{Konvergenz!global},
+		falls es im gesamten Definitionsbereich des zugehörigen Problems konvergiert.
+	\end{enumerate}
+	
+	
+	\subsection{Lemma} \label{5.3.5}
+	Sei $(x^{(k)})_{k\in\N}$ eine konvergente Folge in $\R$ mit Grenzwert $x^{*}$.
+	\begin{enumerate}[a)]
+		\item Falls 
+		\begin{gather}
+			\lim\limits_{k\rightarrow \infty}\frac{\nn{x^{(k+1)}-x^{*}}}{\nn{x^{(k)}-x^{*}}}=
+			A\in (-1,1)\, ,~ A\neq 0
+			\label{V.3.1}
+		\end{gather}
+		hat die Folge genau die Konvergenzordnung 1.
+		Weiter gilt mit $A_k=\frac{x^{(k)}-x^{(k-1)}}{x^{(k-1)}-x^{(k-2)}}$
+				\begin{gather}
+					\lim\limits_{k\rightarrow \infty}\frac{A_k}{1-A_k}\cdot 
+					\frac{x^{(k)}-x^{(k-1)}}{x^{*}-x^{(k)}}=1 
+					\label{V.3.2}
+					\\ \nonumber
+					\lim\limits_{k\rightarrow\infty}A_k=A
+				\end{gather}
+		\item Falls die Folge Konvergenzordnung $p>1$ hat, gilt
+		\begin{gather}
+			\lim\limits_{k\rightarrow\infty}\frac{x^{(k)}-x^{(k-1)}}{x^{*}-x^{(k)}}=1
+			\label{V.3.3}
+		\end{gather}
+		\item[\textbf{zu}]\textbf{Def.} \ref{5.3.1}:  Im Fall $p=1$ ist zusätzlich $c<1 $ verlangt.
+	\end{enumerate}
+	
+	\begin{proof}
+		\textit{(skizzenhaft, siehe Übungsaufgaben)}\\
+		 Sei $e^{(k)}\coloneqq x^{*}-x^{(k)}$.\\
+		 Nutze $x^{(k+1)}-x^{(k)} = e^{(k)}-e^{(k+1)}$:
+		 \begin{enumerate}[a)]
+		 	\item Zeige 
+			 	\begin{gather*} 
+				 	\lim\limits_{k\rightarrow\infty}\frac{x^{(k)}-x^{(k-1)}}{e^{(k)}} = \frac{1-A}{A}\, ,
+				 \end{gather*}
+				 sowie
+				 \begin{gather*}
+				 	\lim\limits{k\rightarrow \infty}A_k = A \, ,
+				 \end{gather*}
+				 so folgt die Behauptung.
+			\item Folgt aus $\lim\limits_{k\rightarrow\infty} \frac{e^{(k+1)}}{e^{(k)}} =0$.
+		 \end{enumerate}
+	\end{proof}
+
+	\subsection{Folgerung: a posteriori Fehlerabschätzung}
+	\begin{enumerate}[a)]
+		\item Für $p=1$ gilt
+		\begin{gather}
+			x^{*}-x^{(k)} \approx \frac{a_k}{1-A_k}(x^{(k)}-x^{(k-1)})
+			\label{V.3.4}
+		\end{gather}
+		für große $k$ und $A_k$ in etwa konstant. \\
+		$|x^{(k)}-x^{(k-1)}|$ ist im Allgemeinen \textbf{keine} sinnvolle Schätzung
+		des Fehlers $|x^{*}-x^{(k)}|$!
+		\item Für $p>1$ gilt:
+		\begin{gather}
+			x^{*}-x^{(k)} \approx x^{(k+1)}-x^{(k)}
+			\label{V.3.5}
+		\end{gather}
+		für große $k$.
+	\end{enumerate}
 		
+	\subsection{Bemerkung}
+	Für Folgen im $\R^n$ gibt es für $p=1$ kein Analogon zu \eqref{V.3.4}.
+	Falls $p>1$, lässt sich \eqref{V.3.3} für die Normen der Differenzen zeigen,
+	d.h.
+	\begin{gather}
+		\nn{x^{*}-x^{(k)}} \approx \nn{x^{(k+1)}-x^{(k)}}
+		\label{V.3.6}
+	\end{gather}
+	
+	\begin{proof}
+		Nutze $\lim\limits_{k\rightarrow\infty} \frac{\nn{e^{(k+1)}}}{\nn{e^{(k)}}} =0$
+		und 
+		\begin{gather*}
+			\nn{e^{(k)}}-\nn{e^{(k+1)}}\leq \nn{x^{(k+1)}-x^{(k)}} \leq \nn{e^{(k)}}+\nn{e^{(k+1)}} \, .
+		\end{gather*}
+	\end{proof}
+	
+	\subsection{Folgerung}
+	Falls $p>1$ ist, kann $p$ folgendermaßen approximiert werden:
+	\begin{gather*}
+		p \approx \frac{\log(\nn{x^{(k+2)}-x^{(k+1)}})}{\log(\nn{x^{(k+1)}-x^{(k)}})}
+	\end{gather*}
+	
+	\begin{proof}
+		siehe Übungsaufgabe.
+	\end{proof}
+	
+	\sectione{Newton-Verfahren für skalare Gleichung} \index{Newton-Verfahren}
+	Sei $f:[a,b]\longrightarrow \R$ differenzierbar. Dann gilt
+	\begin{gather*}
+		f(x^{*}) = f(x) + f'(x)(x^{*}-x)+o(\nn{x-x^{*}}) \, ,
+	\end{gather*} 
+	d.h. $f$ kann lokal gut durch die Tangente approximiert werden. \\
+	Betrachte die Nullstellengleichung $f(x^{*}) = 0$ \\
+	\imagemissing{Veranschaulichung des Newton-Verfahrens an einem Funktionsgraphen}\\
+	und bestimme iterativ die Nullstelle der Tangentengleichung
+	\begin{gather*}
+		0=f(x) + f'(x)(\overline{x}-x) \Leftrightarrow \overline{x}= x-\frac{f(x)}{f'(x)}
+	\end{gather*}
+	Notwendig ist hier die Bedingung $f'(x) \neq 0$.
+	
+	
+	\subsection{Iterationsschritt des Newton(-Kantorowitsch)-Verfahrens}
+	\begin{gather}
+		x^{(k+1)} = x^{(k)} - \frac{f(x^{(k)})}{f'(x^{(k)})}
+		\label{V.4.1}
+	\end{gather}
+	wird auch Tangentenverfahren\index{Tangentenverfahren} genannt und stammt von
+	J. Raphson (1630). Newton hat eine ähnliche Technik früher angewendet.
+	
+	\subsection{Satz}\label{5.4.2}
+	Sei $f\in C^1(a,b)$ und $x^{*}\in (a,b)$ eine einfache Nullstelle von $f$, d.h. $f'(x^{*})\neq 0$. \\
+	Dann gibt es ein  $\varepsilon >0$, s.d. für jedes $x^{(0)}\in\overline{B_\varepsilon(x^{*})}$
+	das Newton-Verfahren \eqref{V.4.1} superlinear gegen $x^{*}$ konvergiert.\\
+	Falls $f\in C^2(a,b) $ tritt mindestens quadratische Konvergenz ein, d.h. das Verfahren
+	konvergiert lokal quadratisch.
+	
+	\begin{proof}
+	Gleichung \eqref{V.4.1} definiert eine Fixpunktiteration mit $g(x) = x-\frac{f(x)}{f'(x)}$.\\
+	Für $f\in C^2(a,b)$ gilt 
+	\begin{gather*}
+		g'(x) = 1- \frac{f'f'-ff''}{(f')^2}(x)= \frac{f(x)f''(x)}{(f'(x))^2}\, .
+	\end{gather*}
+	Da $f(x^{*})= 0$ und $f'(x^{*})\neq 0$ gilt $g'(x^{*})=0$ .\\
+	Weiterhin gibt es eine Umgebung $U_0$ von $x^{*}$, in der $f(x)\neq 0~\forall x\in U_0$,
+	da $f$ stetig ist.\\
+	In $U_0$ ist somit $g' $ stetig. Da $g'(x^{*})=0$ ist, existiert ein $\varepsilon>0$ mit
+	\begin{gather*}
+		g'(x)\leq \kappa<1 \quad \forall x\in \overline{B_\varepsilon(x^{*})}\, .
+	\end{gather*}
+	Da $g(x^{*})=x^{*}$ ist, ist die Folgerung \ref{5.2.6} anwendbar,
+	also ist $g$ eine Kontraktion. und $g(\overline{B_\varepsilon(x^{*})}) \subset \overline{B_\varepsilon(x^{*})}$.
+	Der Banachsche Fixpunktsatz liefert Konvergenz für alle $x^{(0)}\in\overline{B_\varepsilon(x^{*})}$. \\
+	
+	Die quadratische Konvergenz folgt aus 
+	\begin{align*}
+		|x^{(k-1)}-x^{*}| &= |x^{(k)}-\frac{f(x^{(k)})}{f'(x^{(k)})}-x^{*}+\frac{f(x^{*})}{f'(x^{*})}| \\
+		&= \frac{|f(x^{(*)})-f(x^{(k)})+f'(x^{(k)})(x^{(k)}-x^{*})|}{|f'(x^{(k)})|}\\
+		&\leq \sup_{x\in\overline{B_\varepsilon(x^{*})}}\frac{1}{|f'(x^{*}|)}
+		\cdot \sup_{x\in\overline{B_\varepsilon(x^{*})}}|f''(x)\cdot\frac{1}{2}|x^{(k)}-x^{*}|^2
+	\end{align*}
+	aufgrund der Taylorentwicklung und da
+	 $x^{(k-)}\in\overline{B_\varepsilon(x^{*})}~\forall k\in\N$ (da $g$ Kontraktion).
+	 
+	 Für $f\in C^1$ siehe Hämmerlin\cite{haemmerlinhoffmann}.
+	\end{proof}
+	
+	\subsection{Bemerkung}
+	\begin{enumerate}[a)]
+		\item Mehrfache Nullstellen könne im Allgemeinen
+				nicht mit \eqref{V.4.1} bestimmt werden.
+		\item Die Ableitung $f'$ muss analytisch (als Funktion) gegeben sein.
+		\item Die Lage und Größe des Konvergenzinterfalls ist a priori unbekannt.\\
+				(Hierfür könnte z.B. das Bisektionsverfahren Anwendung finden.)
+	\end{enumerate}
+		
+	
 		
 		
 	\nocite{*} %include all books in numerik_script.bib into bibliography
