@@ -60,7 +60,7 @@
 %
 %..................................................
 %%objects
-	\usepackage{graphicx}			%for inclusion of graphics with \includegraphics{name} command
+	\usepackage{wrapfig,graphicx}			%for inclusion of graphics with \includegraphics{name} command
 %	\usepackage{placeins}			%to set barriers for floating objects with \FloatBarrier, to add to commands, list them in as options, e.g. \usepackage[section]{placeins}
 %
 %..................................................
@@ -175,13 +175,11 @@
 	}
 	
 	\newcommand{\imagemissing}[1]{
-	\begin{figure}
-		\parbox{\linewidth}{
-			\centering
-			\includegraphics[width=2cm]{images/image_missing.jpg}
-		}
+	\begin{wrapfigure}{r}{0.5\linewidth}
+		\centering
+		\includegraphics[width=2cm]{images/image_missing.jpg}
 		\caption{#1}
-	\end{figure}
+	\end{wrapfigure}
 }	
 	
 
@@ -708,6 +706,7 @@ Wird eine neue rechte Seite $b$ betrachtet, muss \ref{II.1.1} nicht komplett neu
 \subsection{Dreieckszerlegung} \label{2.1.5} \index{Dreieckszerlegung}
 Die Dreieckszerlegung einer Matrix $A$ entspricht dem Verfahren aus \ref{2.1.1}, nur ohne die Zeile \eqref{II.1.4}.
 
+
 \subsection{Vorwärtssubstitution} \index{Vorwärtssubstitution}
 Die Vorwärtssubstitution entspricht der in \ref{2.1.4} bzw. dem Verfahren aus \ref{2.1.1} ohne die Bestimmung von $l_{ik}$ und $R$, also nur Schritt \eqref{II.1.4}.
 
@@ -793,9 +792,53 @@ Rechenoperationen liefern jedoch oft eine gute Schätzung.
 
 \marginpar{13.10.2014}
 \subsection{Formalisieren des Gauß-Algorithmus} \index{Gaußsches Eliminationsverfahren} \index{LR-Zerlegung}
+\begin{enumerate}[a)]
+	\item \textbf{Rückwärtssubstitution:} entspricht $Rx=b$
+	\item \textbf{Vorwärtssubstitution:} 
+		\begin{align*}
+			b_i&=b_i^{(k-1)}-l_{ik}b_k^{k-1} && i=k+1, \dotsc , n\\
+			b^{(k)} &= b^{(k-1)}-l_kb_k^{(k-1)} 
+				&& \text{mit }l_k\coloneqq 
+							\begin{pmatrix}0\\\vdots\\ 0\\ l_{k+1,k}\\\vdots \\l_{n,k}\end{pmatrix}
+		\end{align*}
+		Sei $l_k\in\R^n$ der k-te Einheitsvektor und 
+		\begin{gather}
+			L_k \coloneqq I- l_ke_k^T = \begin{pmatrix}
+				1&&&&&&\\
+				0&\ddots&&&0\\
+				\\
+				&&1\\
+				\vdots&&-l_{k+1,k}&1\\
+				&&\vdots&&\ddots \\
+				&&-l_{n,k}&&&1
+			\end{pmatrix}
+			\label{II.1.9}
+		\end{gather}
+		dann gilt $b^{(k)} =L_kb^{(k-1)}$, also
+		\begin{gather*}
+			z = L_{n-1}\cdot L_{n-2} \cdot \dots \cdot L_1b
+		\end{gather*}
+		Sei
+		\begin{gather}
+			L\coloneqq L_1^{-1} \cdot \dots \cdot L_{n-1}^{-1}
+			\label{II.1.10}
+		\end{gather}
+		Hiermit folgt dann, dass die Vorwärtssubstitution
+		\begin{gather}
+			Lz=b\label{II.1.11}
+		\end{gather}
+		enspricht.
+	\item \textbf{Dreieckszerlegung:} Wie für die Vorwärtssubstitution ergibt sich
+	\begin{gather*}
+		A^{(k)}=L_kA^{(k-1)}
+	\end{gather*}
+	und somit $R=L_{n-1}A^{(n-2)}= L_{n-1}\dots L_1A $ bzw.
+	\begin{gather} 
+		A=L\cdot R
+		\label{II.1.12}
+	\end{gather}
+\end{enumerate}
 
-
-MISSING
 
 \subsection{Lemma (Eigenschaften der $L_k$-Matrizen)} \label{2.1.12} \index{Frobeniusmatrix}
 \begin{enumerate}[1.]
@@ -830,32 +873,28 @@ d.h. für $i=1, \cdots , n$ gilt $l_{ii}= 1$. \\
 Weiterhin existiert zu jeder regulären Matrix höchstens eine solche Zerlegung.
 
 \begin{proof}
-MISSING
-\index{Verfahren von Crout}
-%\begin{figure}
-%	\parbox{\linewidth}{
-%		\centering
-%		\includegraphics[width=2cm]{images/image_missing.jpg}
-%	}
-%	\caption{Verfahren von Crout}
-%	\label{2.1.13.im1}
-%\end{figure}
-%\begin{figure}
-%	\parbox{\linewidth}{
-%		\centering
-%		\includegraphics[width=2cm]{images/image_missing.jpg}
-%	}
-%	\caption{Verfahren zur LR-Zerlegung}
-%	\label{2.1.13.im2}
-%\end{figure}
-%\begin{figure}
-%	\parbox{\linewidth}{
-%		\centering
-%		\includegraphics[width=2cm]{images/image_missing.jpg}
-%	}
-%	\caption{Zeilenweise LR-Zerlegung}
-%	\label{2.1.13.im3}
-%\end{figure}
+Zur Eindeutigkeit:
+\begin{gather*}
+	A=LR \Leftrightarrow a_{ij}=\sum_{k=1}^{\min{j,k}}l_{ik}r_{kj}
+\end{gather*}
+Da $l_{ii}=1$ gilt, folgt
+\begin{description}
+	\item[$i\leq j$:] $r_{ij}=a_{ij}-\sum_{k=1}^{i-1}l_{ik}r_{kj}$ und
+	\item[$i>j$:] $l_{ij}= \frac{1}{r_{ij}}\left( a_{ij}-\sum_{k=1}^{j-1}l_{ik}r{kj}\right)$,
+\end{description}
+da mit $A$ auch $R$ regulär (=invertierbar) ist, und somit $det(A)=\prod_{j=1}^{n}\neq 0$, also $ r_{jj}\neq 0$ gilt.\\
+Diese können rekursiv, also eindeutig, berechnet werden,
+ wenn auch die Reihenfolge der Berechnung nicht eindeutig ist.\\
+ Mögliche Verfahren sind z.B. das \textbf{Verfahren von Crout}\index{Verfahren von Crout}\\
+ \imagemissing{Verfahren von Crout}\\
+ 
+ oder eckweise\\
+ \imagemissing{Eckweises Verfahren zur LR-Zerlegung}
+  
+ oder zeilenweise\\
+ \imagemissing{Zeilenweises Verfahren zur LR-Zerlegung}
+
+ oder wie in \ref{2.1.1}.
 
 \end{proof}
 
@@ -875,7 +914,15 @@ Im k-ten  Eliminationsschritt ist\\
 	\label{2.2.1.im1}
 }
 
-MISSING
+\begin{enumerate}[1.]
+	\item Bestimme das Pivotelement $a_{pk}^{(k-1)}$ 
+		als betragsmäßig größtes der \enquote{Rest-Spalte}, d.h.
+		\begin{gather*}
+			|a_{pk}^{(k-1)}|\geq |a_{jk}^{(k-1)}| \qquad  \text{ für } j=k,\dots , n
+		\end{gather*}
+	\item Vertausche in $A^{(k-1)}$ die k-te mit der p-ten Zeile
+	\item Führe einen Gauß-Eliminationsschritt aus.
+\end{enumerate}
 
 \subsection{Bemerkung}
 \begin{enumerate}[a)]
@@ -1181,7 +1228,7 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
 \end{itemize}
 
   
-% \marginpar{20.10.2014}
+\marginpar{20.10.2014}
 \begin{align*}
 \intertext{Betragsmäßig \textbf{größte Zahl}:}
 	\floatbox{0}{01\cdots 1}{ 1\cdots\cdots 1} && 
@@ -1330,21 +1377,28 @@ Häufig werden Fehler auch komponentenweise gemessen:
 \end{align*}
 
 \subsection{Wiederholung: Normen} \label{3.2.3}\index{Norm}
+\begin{wrapfigure}{r}{5cm}
+	\centering
+	\includegraphics[width=1.5cm]{images/normen.png}
+	\caption{Sphären mit gleichem Normbetrag (Bildquelle: Wikipedia)}
+\end{wrapfigure}
 
 \begin{align*}
-	\text{Euklidische Norm ($l_2$-Norm):} &&	\nn{x}_2 &\coloneqq \sqrt{\sum_{i=1}^{n}|x_i|^2}
-		\index{Norm!Euklidische Norm} \\
-			IMAGE~MISSING \\
-	\text{Maximumsnorm ($l_\infty$-Norm):} &&\nn{x}_\infty &\coloneqq \max\{|x_i| : i=1, \cdots n\} \\
-	  	\index{Norm!Maximumsnorm}
-		  	IMAGE~MISSING \\
 	\text{Summennorm ($l_1$-Norm):} &&	\nn{x}_1 &\coloneqq \sum_{i=1}^{n}|x_i| 
-		\index{Norm!Summennorm}\\
-			IMAGE~MISSING \\
+	\index{Norm!Summennorm}\\
+			 \\
+	\text{Euklidische Norm ($l_2$-Norm):} &&	\nn{x}_2 &\coloneqq \sqrt{\sum_{i=1}^{n}|x_i|^2}
+	\index{Norm!Euklidische Norm} \\
+		  	 \\
+	\text{Maximumsnorm ($l_\infty$-Norm):} &&\nn{x}_\infty &\coloneqq \max\{|x_i| : i=1, \cdots n\} \\
+		\index{Norm!Maximumsnorm}
+			 \\
 	\text{Hölder-Norm ($l_p$-Norm):} &&	\nn{x}_p &\coloneqq 
 		\left(\sum_{i=1}^{n}|x_i|^p\right)^{\frac{1}{p}} 
 		\index{Norm!Hölder-Norm}
 \end{align*}
+
+
 
 \subsection{Definition: Matrixnorm} \label{3.2.4}
 Auf dem $\R^n$  sei die Norm $\nn{\,\cdot\,}_a$ und auf dem $\R^m$ die Norm $\nn{\,\cdot\,}_b$ gegeben.
@@ -2115,13 +2169,7 @@ Dann schätze den Fehler
  \end{gather*} 
   ab. \\
   
-  	  \begin{figure}
-  	  	\parbox{\linewidth}{
-  	  		\centering
-  	  		\includegraphics[width=2cm]{images/image_missing.jpg}
-  	  	}
-  	  	\caption{Diagramm zur Rückwärtsanalyse}
-  	  \end{figure}  
+  	  \imagemissing{Diagramm zur Rückwärtsanalyse}
   
   Ein Anwendungsbeispiel:\\
   Die Eingangsdaten seien Messdaten $\tilde{x}$  mit 1 \% relativer Genauigkeit. 
@@ -2487,8 +2535,8 @@ Für jede spd Matrix $A\in \Renn $ gilt:
 		\begin{align}
 			a_{kk} &= \bar{l}_{k1}^{2} + \cdots +  \bar{l}_{kk}^2  \label{IV.2.3} \\
 			a_{ik} &= \bar{l}_{i1} \bar{l}_{k1} + \cdots + \bar{l}_{ik} \bar{l}_{kk}  \label{IV.2.4} \\
-			IMAGE~MISSING
 		\end{align}
+		\imagemissing{Berechnung der Matrixeinträge der Cholesky-Zerlegung}
 		Demnach funktioniert spaltenweises und zeilenweises Berechnen. \\
 		
 		Es ergibt sich folgender Algorithmus:
@@ -3387,7 +3435,7 @@ Konsturiere eine QR-Zerlegung
 		\imagemissing{Konvergenz der Fixpunktiteration für $x=1+e^{-x}$}\\
 		$\longrightarrow$ Konvergenz
 		\item $e^{-x} = x-1   \Leftrightarrow x= -ln(x-1) \eqqcolon g_2(x)$
-		\imagemissing{Versagen der Fixpunktiteration für $x=-ln(x-1)$}\\
+		\imagemissing{Versagen der Fixpunktiteration für $x=-ln(x-1)$}
 		$\longrightarrow$ $g(x^{(2)}) $ nicht definiert!
 	\end{enumerate}
 	
