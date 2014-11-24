@@ -61,6 +61,10 @@
 %..................................................
 %%objects
 	\usepackage{wrapfig,graphicx}			%for inclusion of graphics with \includegraphics{name} command
+	\usepackage{tikz,pgf}
+	\usetikzlibrary{arrows}
+	\usetikzlibrary{matrix}
+	\usetikzlibrary{decorations.pathmorphing}
 %	\usepackage{placeins}			%to set barriers for floating objects with \FloatBarrier, to add to commands, list them in as options, e.g. \usepackage[section]{placeins}
 %
 %..................................................
@@ -691,14 +695,46 @@ Die $l_{ik}$ werden spaltenweise berechnet und können daher anstelle der entspr
 	\widetilde{L} \coloneqq (l_{ik})  \label{II.1.8}
 \end{gather}
 und $R$ werden sukzessive in A geschrieben. 
-\begin{figure}
-	\parbox{\linewidth}{
-		\centering
-		\includegraphics[width=2cm]{images/image_missing.jpg}
-		}
-	\caption{Veranschaulichung der LR-Zerlegung}
-	\label{2.1.3.im1}
-\end{figure}
+\begin{gather*}
+	\begin{pmatrix}
+	\hspace{0.15cm}
+	\begin{tikzpicture}[scale=5.7,line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+	\draw[color=black] (0,0) -- (0,0.9) -- (0.9,0) -- cycle;
+	\draw[color=black] (0.28,0.35) node {$l_{ij}$};
+	\draw[color=black] (1.05,0) -- (1.05,1.05) -- (0,1.05) -- cycle;
+	\draw[color=black] (0.72,0.65) node {$r_{ij}$};
+	\end{tikzpicture}
+	\hspace{0.15cm}
+	\end{pmatrix}\hspace{0.5cm}
+	\begin{pmatrix}
+	\hspace{0.15cm}
+	\begin{tikzpicture}[scale=3,line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+	\draw (0,1.8) rectangle (2,2);
+	\draw (1,1.9) node {1};
+%	
+	\draw (0.2,1.5) rectangle (0,1.7);
+	\draw (0.1,1.6) node {2};
+%	
+	\draw (0.3,1.5) rectangle (2,1.7);
+	\draw (1.15,1.6) node {3};
+%	
+	\draw (0,0) rectangle (0.2,1.4);
+	\draw (0.1,0.7) node {4};
+%	
+	\draw (0.3,1.2) rectangle (0.5,1.4);
+	\draw (0.4,1.3) node {5};
+%	
+	\draw (0.6,1.2) rectangle (2,1.4);
+	\draw (1.3,1.3) node {6};
+%	
+	\draw (0.3, 0) rectangle (0.5,1.1);
+	\draw (0.4,0.55) node {7};
+%	
+	\draw (0.6,0) rectangle (2,1.1);
+	\end{tikzpicture}
+	\hspace{0.15cm}
+	\end{pmatrix}
+\end{gather*}
 Der Vektor $z$ und anschließend der Lösungsvektor $x$ kann in (eine Kopie von) $b$ geschrieben werden.
 Wird eine neue rechte Seite $b$ betrachtet, muss \ref{II.1.1} nicht komplett neu ausgeführt werden, da sich $\widetilde{L}$ nicht ändert. Es reicht \ref{II.1.4} zu wiederholen. \\
 
@@ -885,15 +921,76 @@ Da $l_{ii}=1$ gilt, folgt
 da mit $A$ auch $R$ regulär (=invertierbar) ist, und somit $det(A)=\prod_{j=1}^{n}\neq 0$, also $ r_{jj}\neq 0$ gilt.\\
 Diese können rekursiv, also eindeutig, berechnet werden,
  wenn auch die Reihenfolge der Berechnung nicht eindeutig ist.\\
- Mögliche Verfahren sind z.B. das \textbf{Verfahren von Crout}\index{Verfahren von Crout}\\
- \imagemissing{Verfahren von Crout}\\
+ Mögliche Verfahren sind z.B. das \textbf{Verfahren von Crout}\index{Verfahren von Crout}
+\begin{gather*}
+	\begin{pmatrix}
+	\begin{tikzpicture}[scale=4,line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+	\draw (0,1.8) rectangle (2,2);
+	\draw (1,1.9) node {1};
+	%
+	\draw (0,0) rectangle (0.2,1.7);
+	\draw (0.1,0.85) node {2};
+	%
+	\draw (0.3,1.5) rectangle (2,1.7);
+	\draw (1.15,1.6) node {3};
+	%
+	\draw (0.3,0) rectangle (0.5,1.4);
+	\draw (0.4,0.7) node {4};
+	%
+	\draw (0.6,1.2) rectangle (2,1.4);
+	\draw (1.3,1.3) node {5};
+	%
+	\end{tikzpicture}
+	\end{pmatrix}
+\end{gather*}
  
- oder eckweise\\
- \imagemissing{Eckweises Verfahren zur LR-Zerlegung}
+ oder eckweise
+ \begin{gather*}
+		\begin{pmatrix}
+		\begin{tikzpicture}[scale=4,line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+		\draw (0,1.8) -- (0.2,1.8) -- (0.2,2);
+		\draw (0.1,1.9) node {1};
+		%
+		\draw (0,1.5) -- (0.5,1.5) -- (0.5,2);
+		\draw (0.35,1.65) node {2};
+		%
+		\draw (0,1.2) -- (0.8,1.2) -- (0.8,2);
+		\draw (0.65,1.35) node {3};
+		%		
+		\draw[color = white] (2,2) -- (2,0);
+		\end{tikzpicture}
+		\end{pmatrix}
+ \end{gather*}
   
- oder zeilenweise\\
- \imagemissing{Zeilenweises Verfahren zur LR-Zerlegung}
-
+ oder zeilenweise
+ \begin{gather*}
+ 	\begin{pmatrix}
+ 	\begin{tikzpicture}[scale=4,line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+ 	\draw (0,1.8) rectangle (2,2);
+ 	\draw (1,1.9) node {1};
+ 	%
+ 	\draw (0,1.5) rectangle (0.2,1.7);
+ 	\draw (0.1,1.6) node {2};
+ 	%
+ 	\draw (0.3,1.5) rectangle (2,1.7);
+ 	\draw (1.15,1.6) node {3};
+ 	%
+ 	\draw (0,1.2) rectangle (0.5,1.4);
+ 	\draw (0.25,1.3) node {4};
+ 	%
+ 	\draw (0.6,1.2) rectangle (2,1.4);
+ 	\draw (1.3,1.3) node {5};
+ 	%
+ 	\draw (0,0.9) rectangle (0.8,1.1);
+ 	\draw (0.4,1) node {6};
+ 	%
+ 	\draw (0.9,0.9) rectangle (2,1.1);
+ 	\draw (1.45,1) node {7};
+ 	%
+ 	\draw[color=white] (0,0) -- (2,0);
+ 	\end{tikzpicture}
+ 	\end{pmatrix}
+ \end{gather*}
  oder wie in \ref{2.1.1}.
 
 \end{proof}
@@ -1379,6 +1476,7 @@ Häufig werden Fehler auch komponentenweise gemessen:
 \subsection{Wiederholung: Normen} \label{3.2.3}\index{Norm}
 \begin{wrapfigure}{r}{5cm}
 	\centering
+	%source: http://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Vector_norms.svg/170px-Vector_norms.svg.png
 	\includegraphics[width=1.5cm]{images/normen.png}
 	\caption{Sphären mit gleichem Normbetrag (Bildquelle: Wikipedia)}
 \end{wrapfigure}
@@ -2169,7 +2267,22 @@ Dann schätze den Fehler
  \end{gather*} 
   ab. \\
   
-  	  \imagemissing{Diagramm zur Rückwärtsanalyse}
+  	\begin{tikzpicture}[scale=1,line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+  	\matrix (m) [matrix of math nodes,row sep=0.4cm,column sep=3cm,minimum width=3em]
+  	{
+  		A &L,R & \parbox{3cm}{$x=A^{-1}b$}\\
+  		\hat{A} &\hat{L},\hat{R} &\parbox{3cm}{$ \hat{x}=\left(\hat{L}\hat{R}\right)^{-1}b$}\\
+  		\overline{A}&&\parbox{3cm}{$\overline{x}=\left(\overline{A}\right)^{-1}b$}\\
+  	};
+  	\path
+  	(m-1-1) edge [->](m-1-2)
+  	edge [->,decorate,decoration=zigzag](m-2-2)
+  	(m-1-2) edge [->](m-1-3)
+  	(m-2-1) edge [<-] (m-2-2)
+  	(m-2-2) edge [->] (m-2-3)
+  	edge [->,decorate,decoration=zigzag](m-3-3)
+  	(m-3-1) edge [<-] (m-3-3);
+  	\end{tikzpicture}
   
   Ein Anwendungsbeispiel:\\
   Die Eingangsdaten seien Messdaten $\tilde{x}$  mit 1 \% relativer Genauigkeit. 
@@ -2660,7 +2773,23 @@ Für jede spd Matrix $A\in \Renn $ gilt:
 	Aufgrund der $l_2$-Norm ist $\overline{x}$ gegeben durch die 
 	orthogonale Projektion von $b$ auf den Bildraum $R(A) $ \index{Bildraum}, wie gleich gezeigt wird. \\
 	
-	IMAGE~MISSING\\
+	\begin{tikzpicture}[rotate=0,line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+		% Draw region settings
+		\clip(1.8,-3.2) rectangle (13.5,3);
+		% Right angle
+		\draw [shift={(8,0)}] (90:0.6) arc (90:180:0.6);
+		\fill (7.75,0.25) circle (1pt);
+		%Plane
+		\draw (2,2)-- (10,2)-- (13,-2)-- (5,-2)-- cycle;
+		\draw[<-] (9,1)-- (12,2) node [anchor=west] {$R(A)$};		
+		%vectors
+		\draw[->] (6,0) node[anchor=north east] {0} -- (8,0) node[anchor=north west] {$A\overline{x}$};
+		\draw[->] (6,0)--(8,2.46) node[anchor=south west] {$b$};
+		\draw[dashed] (8,0)-- (8,2.46);
+		\fill  (6,0) circle (2pt);
+		\fill  (8,0) circle (2pt);	
+		\fill  (8,2.46) circle (2pt);
+	\end{tikzpicture}
 	
 	\subsection{Projektionssatz} \index{Projektionssatz} \label{4.3.3}
 	Sei $V$ ein reeller Vektorraum mit einem Skalarprodukt $\scp{\cdot}{\cdot}$
@@ -3153,8 +3282,26 @@ Konsturiere eine QR-Zerlegung
 		\label{IV.4.9}
 	\end{gather}
 	Die zugehörige Reflexion $Q$ ist  gegeben durch \\
-	
-	IMAGE~MISSING \\
+	\begin{center}
+		\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+			\clip(0.7,1) rectangle (6,5);
+			\draw [shift={(4.32,3.49)}] (0,0) -- (36.87:0.6) arc 	(36.87:126.87:0.6) -- cycle;
+			\draw [shift={(1.53,2.76)}] (0,0) -- (-53.13:0.6) arc (-53.13:36.87:0.6) -- cycle;
+			\draw [domain=0.7:6] plot(\x,{(--1--3*\x)/4});
+			\draw (5.26,4.38) node[anchor=north west] {$$H$$};
+			\draw [->] (2.18,1.89) -- (0.84,3.68);
+			\draw [->] (2.18,1.89) -- (3.66,4.36);
+			\draw [->] (2.18,1.89) -- node[anchor=north east] {$w$} (1.53,2.76);
+			\draw [->,dash pattern=on 2pt off 2pt] (2.18,1.89) -- node[anchor=north] {$Qx$} (4.97,2.61);
+			\draw [->] (3.66,4.36) -- (4.97,2.61);
+			\fill(4.37,3.84) circle (0.02);
+			\draw [dash pattern=on 2pt off 2pt] (1.53,2.76)-- (3.66,4.36);
+			\fill(1.88,2.71) circle (0.02);
+			
+			\draw (1.26,3.46) node {$v$};
+			\draw (4.3,3.1) node {$2w$};
+		\end{tikzpicture}
+	\end{center}		
 	
 	wobei
 	\begin{align}
