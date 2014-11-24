@@ -179,11 +179,11 @@
 	}
 	
 	\newcommand{\imagemissing}[1]{
-	\begin{wrapfigure}{r}{0.5\linewidth}
-		\centering
-		\includegraphics[width=2cm]{images/image_missing.jpg}
-		\caption{#1}
-	\end{wrapfigure}
+	\begin{center}~\\
+		\centering 
+		\includegraphics[width=2cm]{images/image_missing.jpg}\\
+		\textit{#1} \\
+	\end{center}
 }	
 	
 
@@ -1096,8 +1096,8 @@ Der zugehörige Algorithmus zur Spaltenpivotisierung ist: \\
 	~|	  	   \>~|\> \enquote{$A$ ist singulär}\\
 	~|	  \> \textbf{end}\\
 	\textbf{end}
-	\footnotetext{$\leftrightarrows$ bedeutet \enquote{vertausche mit}}
-\end{pseudocode}\\
+\end{pseudocode}	\footnotetext{$\leftrightarrows$ bedeutet \enquote{vertausche mit}}
+\\
 
 \subsection{Satz: Dreieckszerlegung mit Permutationsmatrix} \label{2.2.4} 
 	Für jede invertierbare Matrix $A$ existiert eine Permutationsmatrix $P$,
@@ -3579,7 +3579,7 @@ Konsturiere eine QR-Zerlegung
 	Löse $x-e^{-x}-1 = 0$.
 	\begin{enumerate}[a)]
 		\item $x=1+e^{-x} \eqqcolon g_1(x)$
-		\imagemissing{Konvergenz der Fixpunktiteration für $x=1+e^{-x}$}\\
+		\imagemissing{Konvergenz der Fixpunktiteration für $x=1+e^{-x}$}
 		$\longrightarrow$ Konvergenz
 		\item $e^{-x} = x-1   \Leftrightarrow x= -ln(x-1) \eqqcolon g_2(x)$
 		\imagemissing{Versagen der Fixpunktiteration für $x=-ln(x-1)$}
@@ -3844,7 +3844,7 @@ Konsturiere eine QR-Zerlegung
 	\end{gather*} 
 	d.h. $f$ kann lokal gut durch die Tangente approximiert werden. \\
 	Betrachte die Nullstellengleichung $f(x^{*}) = 0$ \\
-	\imagemissing{Veranschaulichung des Newton-Verfahrens an einem Funktionsgraphen}\\
+	\imagemissing{Veranschaulichung des Newton-Verfahrens an einem Funktionsgraphen}
 	und bestimme iterativ die Nullstelle der Tangentengleichung
 	\begin{gather*}
 		0=f(x) + f'(x)(\overline{x}-x) \Leftrightarrow \overline{x}= x-\frac{f(x)}{f'(x)}
@@ -3906,7 +3906,173 @@ Konsturiere eine QR-Zerlegung
 				(Hierfür könnte z.B. das Bisektionsverfahren Anwendung finden.)
 	\end{enumerate}
 		
+
+\marginpar{24.11.2014}
+
+	\subsection{Beispiele: Newton-Verfahren ohne Konvergenz}
+	\begin{itemize}
+		\item $x^{(1)}$ nicht mehr im Definitionsbereich
+			\imagemissing{Fehlschlagen des Newton-Verfahren: außerhalb des Definitionsbereichs}
+		\item $|x^{*}-x^{(1)}| \nless |x^{*}-x^{(0)}| $
+			\imagemissing{Fehlschlagen des Newton-Verfahren: Konvergenz nicht gesichert}
+	\end{itemize}
 	
+	\subsection{Newton-Verfahren: Iterativer Linearisierungsprozess}
+	Die entscheidende Idee beim Newton-Verfahren ist der \textbf{iterative Linearisierungsprozess}
+	\index{iterativer Linearisierungsprozess}, d.h. die Lösung einer nichtlinearen Gleichung wird
+	durch eine Folge von Lösungen linearer Gelichungen ersetzt.
+	
+	\subsection{Beispiel}\label{5.4.6}
+	Es ist die Lösung von $x-e^{-\frac{1}{2}x}=0$ mit $x^{(0)}=0,8$ gesucht.
+	\begin{enumerate}[a)]
+		\item Mit der Banachschen Fixpunktiteration angewendet auf 
+				$x=e^{(-\frac{1}{2}x)}$ ergibt sich
+				\begin{gather*}
+					x^{(10)}=\text{\bfseries 0,7034}7017 
+					\qquad \text{auf 4 Stellen exakt}
+				\end{gather*}
+		\item Mit dem Newton-Verfahren
+		\begin{align*}
+			x^{(3)}&= 0,70346742 &&\text{bis auf 17 Stellen exakt}\\
+			x^{(4)} &&& \text{bis auf Maschinengenauigkeit exakt}
+		\end{align*}		
+	\end{enumerate}
+	Die Ableitung $f'(x)$ ist nicht immer explizit bekannt. \\
+	Eine Idee ist, sie zu approximieren mithilfe des Differenzenquotienten:
+	\begin{gather*}
+		f'(x^{(k)})  \approx \frac{f(x^{(k)})-f(x^{(k-1)})}{x^{(k)}-x^{(k-1)}}
+	\end{gather*}
+	Damit ergibt sich
+	\begin{gather*}
+		x^{(k+1)} = x^{(k)}-f(x^{(k)}) \frac{x^{(k)} - x^{(k-1)}}{f(x^{(k)})-f(x^{(k-1)})}
+	\end{gather*}\index{Sekantenverfahren}
+	d.h. $x^{(k+1)} $ ist die Nullstelle der Sekante durch $f(x^{k})$ und $f(x^{(k-1)})$.
+	
+	
+	\subsection{Iterationsschritt des Sekantenverfahrens}
+		\begin{gather}
+			x^{(k+1)} = \frac{x^{(k-1)}f(x^{(k)}) - x^{(k)}f(x^{k-1})}{f(x^{(k)})-f(x^{(k-1)})}
+		\end{gather}
+		
+		\imagemissing{Geometrische Veranschaulichung des Sekantenverfahrens}
+		
+		
+	\subsection{Satz (Konvergenz des Sekantenverfahrens)}
+	Sei $f\in C^2([a,b])$ und $x^{*}\in (a,b)$ eine einfache Nullstelle.\\
+	Dann konvergiert das Sekantenverfahren in einer Umbegung von $x^{*}$
+	superlinear mit Ordnung 
+	\begin{gather*}
+		p=\frac{1}{2}(1+\sqrt{5})= 1,618 \, .
+	\end{gather*}
+	
+	\begin{proof}
+		siehe z.B. Hämmerlin/Hoffmann\cite{haemmerlinhoffmann}
+		oder Stoer\cite{stoerbulirsch}\\
+		(Zwischenwertsatz, Fibonacci-Folge)
+	\end{proof}
+	
+	\textbf{zu Beispiel} \ref{5.4.6}: Das Sekantenverfahren benötigt
+		einen zweiten Startwert, z.B.
+		\begin{align*}
+			x^{(1)}&=0,7 \\
+			\Rightarrow ~ x^{(3)} &= 0,7034674 
+				&&\text{auf 7 Stellen exakt}\\
+			x^{(6)} &&& \text{bis auf Maschinengenauigkeit exakt}
+		\end{align*}
+		
+		
+	\subsection{Bemerkungen}
+	\begin{enumerate}[a)]
+		\item Das Verfahren ist keine Fixpunktiteration.
+			Es benötigt $x^{(k)}$ und $x^{(k-1)}$ für $x^{(k+1)}$
+			(\textbf{Mehrschrittverfahren})\index{Mehrschrittverfahren}
+		\item Die Berechnung von $f(x)$ und $f'(x)$ ist im Allgemeinen
+			sehr teuer. Das Sekanten-Verfahren benötigt pro Iteration
+			nur eine Funktionsauswertung, das Newton-Verfahren hingegen zwei.\\
+			Also sind zwei Iterationen des Sekanten-Verfahrens so teuer wie eine
+			des Newton-Verfahrens. \\
+			Bei gleichem Aufwand konvergiert das Sekanten-Verfahren daher lokal
+			schneller mit der Konvergenzordnung 
+			\begin{gather*}
+				p^2= 2,618\dotsc
+			\end{gather*}
+			für $x^{(k)}\rightarrow x^{(k+2)}$ als das Newton-Verfahren
+			(siehe auch Beispiel \ref{5.4.6}).\\
+			
+			\textit{Beispiel:} Sei $f:\R^n\rightarrow\R$ und $f(x)$ die erste Komponente von $ A^{-1}x$.
+			Diese n-dimensionale Funktionsauswertung benötigt $\mathcal{O}(n^3)$ flops.
+		\item Die Sekantenmethode ist i.A. nicht stabil, denn für $f(x^{(k)})\approx f(x^{(k+1)})$
+			können Stellenauslöschungen im Nenner auftreten. \\
+			Stabilere Varianten, wie z.B. \textbf{regula falsi}, haben eine geringere Konvergenzordnung.
+	\end{enumerate}
+	
+	
+	\section{Das Newton-Verfahren im Mehrdimensionalen} \index{Newton-Verfahren!mehrdimensional}
+	Wie im 1-dimensionalen wird $f:\Omega\subseteq \R^n \longrightarrow\R^n$
+	linearisiert 
+	\begin{gather}
+		f(\overline{x}) \approx f(x) +Df(x)(\overline{x}-x)
+		\label{V.5.1}
+	\end{gather}
+	mit
+	\begin{gather*}
+		Df(x) = \begin{pmatrix}
+			\frac{\partial f_1}{\partial x_1}(x) &\dots & \frac{\partial f_1}{\partial x_n}(x)\\
+			\vdots && \vdots\\
+			 \frac{\partial f_n}{\partial x_1}(x) &\dots & \frac{\partial f_n}{\partial x_n}(x)
+		\end{pmatrix}
+		\qquad \text{(genannt: die Jacobi-Matrix von f)}
+	\end{gather*}
+	Falls nun die Jacobi-Matrix $Df(x)$ invertierbar ist und $f(\overline{x})= 0$ gilt, folgt
+	\begin{gather}
+		\overline{x} = x-[Df(x)]^{-1}\cdot f(x)
+	\end{gather}
+	
+	\subsection{Iterationsschritt des Newton-Verfahrens}
+		\begin{gather}
+			x^{(k+1)} = x^{(k)} -[Df(x^{(k)})]^{-1}\cdot f(x^{(k)})
+			\label{V.5.2}
+		\end{gather}
+	
+	\subsection{Newton-Verfahren}
+	\begin{pseudocode}{0.5\linewidth}
+		setze Startwert $x$ \\
+		$i=0$ \\
+		$fx= f(x)$ \\
+		\textbf{while} \enquote{Abbruchkriterium} \\
+		|	\> $Dfx = Df(x)$ \\
+		|	\> Löse\footnotemark $Dfx\cdot d=-fx$ \\
+		|	\> $x=x+d$ \\
+		|	\> $fx=f(x)$\\
+		|	\> $i=i+1$\\
+		\textbf{end}
+	\end{pseudocode}
+	\footnotetext{entspricht $Ax=b$}
+	
+	\subsection{Bemerkung}
+	Ein Newton-Iterationsschritt \eqref{V.5.2} wird also aufgeteilt in Berechnung
+	der sogenannten \textbf{Newton-Korrektur}\index{Newton-Verfahren!Newton-Korrektur}
+	\begin{gather}
+		Df(x^{(k)})\Delta x^{(k)} = -f(x^{(k)}) \label{V.5.3}
+	\end{gather}
+	und dem \textbf{Korrekturschritt}\index{Newton-Verfahren!Korrekturschritt}
+	\begin{gather}
+		x^{(k+1)}= x^{(k)}+\Delta x^{(k)} \label{V.5.4}
+	\end{gather}
+	
+	\subsection{Aufwand pro Iteration}
+		\begin{itemize}
+			\item[\textbf{$n$}] eindimensionale Funtionsauswertungen für $f(x)$
+			\item[\textbf{$n^2$}] eindimensionale Funtionsauswertungen für $Df(x)$
+			\item[$\mathcal{O}(n^2)$] flops (i.d.R.) zum Lösen eines GLS
+		\end{itemize}
+		
+		
+		
+		
+		
+		
+		
 		
 		
 	\nocite{*} %include all books in numerik_script.bib into bibliography
