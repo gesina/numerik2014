@@ -3771,7 +3771,7 @@ Konsturiere eine QR-Zerlegung
 			\lim\limits_{k\rightarrow\infty}\frac{x^{(k)}-x^{(k-1)}}{x^{*}-x^{(k)}}=1
 			\label{V.3.3}
 		\end{gather}
-		\item[\textbf{zu}]\textbf{Def.} \ref{5.3.1}:  Im Fall $p=1$ ist zusätzlich $c<1 $ verlangt.
+		\item[\textbf{zu}]\textbf{Def.} \ref{5.3.1}:  Im Fall $p=1$ ist zusätzlich $C<1 $ verlangt.
 	\end{enumerate}
 	
 	\begin{proof}
@@ -3785,7 +3785,7 @@ Konsturiere eine QR-Zerlegung
 				 \end{gather*}
 				 sowie
 				 \begin{gather*}
-				 	\lim\limits{k\rightarrow \infty}A_k = A \, ,
+				 	\lim\limits_{k\rightarrow \infty}A_k = A \, ,
 				 \end{gather*}
 				 so folgt die Behauptung.
 			\item Folgt aus $\lim\limits_{k\rightarrow\infty} \frac{e^{(k+1)}}{e^{(k)}} =0$.
@@ -3796,7 +3796,7 @@ Konsturiere eine QR-Zerlegung
 	\begin{enumerate}[a)]
 		\item Für $p=1$ gilt
 		\begin{gather}
-			x^{*}-x^{(k)} \approx \frac{a_k}{1-A_k}(x^{(k)}-x^{(k-1)})
+			x^{*}-x^{(k)} \approx \frac{A_k}{1-A_k}(x^{(k)}-x^{(k-1)})
 			\label{V.3.4}
 		\end{gather}
 		für große $k$ und $A_k$ in etwa konstant. \\
@@ -4007,7 +4007,7 @@ Konsturiere eine QR-Zerlegung
 	\end{enumerate}
 	
 	
-	\section{Das Newton-Verfahren im Mehrdimensionalen} \index{Newton-Verfahren!mehrdimensional}
+	\sectione{Das Newton-Verfahren im Mehrdimensionalen} \index{Newton-Verfahren!mehrdimensional}
 	Wie im 1-dimensionalen wird $f:\Omega\subseteq \R^n \longrightarrow\R^n$
 	linearisiert 
 	\begin{gather}
@@ -4024,9 +4024,9 @@ Konsturiere eine QR-Zerlegung
 		\qquad \text{(genannt: die Jacobi-Matrix von f)}
 	\end{gather*}
 	Falls nun die Jacobi-Matrix $Df(x)$ invertierbar ist und $f(\overline{x})= 0$ gilt, folgt
-	\begin{gather}
+	\begin{gather*}
 		\overline{x} = x-[Df(x)]^{-1}\cdot f(x)
-	\end{gather}
+	\end{gather*}
 	
 	\subsection{Iterationsschritt des Newton-Verfahrens}
 		\begin{gather}
@@ -4068,9 +4068,206 @@ Konsturiere eine QR-Zerlegung
 		\end{itemize}
 		
 		
-		
-		
-		
+ \marginpar{26.11.2014}
+ 	\subsection{Bemerkung}\label{5.5.5}
+ 	Das Newton-Verfahren ist \textbf{affin-invariant}\index{affin-invariant},
+ 	d.h. die Folge $(x^{(k)})$ ist zu gegebenem $x^{(0)}$ unabhängig davon,
+ 	ob $f(x)=0$ oder $\widetilde{f}(x)\coloneqq A\cdot f(x) =0$
+ 	mit regulärem $A\in \Renn $ gelöst wird.
+ 	Dies gilt, da 
+ 	\begin{align*}
+ 		[D\widetilde{f}(x)]^{-1} \cdot \widetilde{f}(x)
+ 			&= [A\cdot Df(x)]^{-1} \cdot (A\cdot f(x))\\
+ 			&= [Df(x)]^{-1} \cdot f(x)
+ 	\end{align*}
+ 	und damit ist die Newton-Korrektur $\Delta x^{(k)}$ affin-invariant.
+ 	
+ 	\subsection{Satz}
+ 		Sei $\Omega\in\R^n$ offen und $f:\Omega\rightarrow\Ren$ in $C^2(\Omega)$.
+ 		Sei $x^{*}\in\Omega $ eine Nullstelle $f$ mit einer invertierbaren Jacobi-Matrix $Df(x^{*})$.
+ 		Dann existiert eine Umgebung von $x^{*}$, so dass das Newton-Verfahren 
+ 		für jeden Startwert $x^{(0)}$ in dieser Umgebung
+ 		quadratisch gegen $x^{*}$ konvergiert.
+ 		
+ 		\begin{proof}
+ 			Kann wie im eindimensionalen durchgeführt werden.\\
+ 			Aber Vorsicht: $D^2f(x)$ ist eine \textbf{bilineare Abbildung} in 
+ 			$\mathcal{L}(\Ren, \mathcal{L}(\Ren, \Ren))$. \\
+ 			
+ 			Wir zeigen die Behauptung induktiv über die quadratische Konvergenz.\\
+ 			Da $Df(x^{*})$ invertierbar ist und $f\in C^2(\Omega) $,
+ 			existiert nach dem Satz über implizite Funktionen
+ 			eine Umgebung $\overline{B_\varepsilon(x^{*})}\subset \Omega$,
+ 			auf der $Df(x)$ invertierbar und stetig ist.\\
+ 			Sei 
+ 			\begin{gather*}
+ 				c\coloneqq \sup_{x\in B_\varepsilon(x^{*})} \nn{[Df(x)]^{-1}}
+ 			\end{gather*}
+ 			und 
+ 			\begin{gather*}
+ 				w\coloneqq \sup_{x\in B_\varepsilon(x^{*})}\nn{D^2f(x)}
+ 			\end{gather*}
+ 			Für $x^{(k)}\in B_\varepsilon(x^{*}) $ ist $x^{(k)}+t(x^{*}-x^{(k)})\in B_\varepsilon(x^{*})$
+ 			für $t\in [0,1]$ und 
+ 			\begin{gather*}
+ 				h^{(k)}(t) \coloneqq f(x^{(k)}+ t(x^{*}-x^{(k)}))\qquad \forall t\in [0,1]
+ 			\end{gather*}
+ 			ist wohldefiniert und in $C^2([0,1], \Ren)$.\\
+ 			Wie in \ref{5.4.2} folgt 
+ 			\begin{align*}
+ 				x^{(k+1)}-x^{*} &= [Df(x^{(k)})]^{-1}\left(f(x^{*})-f(x^{(k)})-Df(x^{(k)})(x^{*}-x^{(k)})\right)\\
+ 				&= [Df(x^{(k)})]^{-1}\left( h^{(k)}(1)-h^{(k)}(0)-Dh^{(k)}(0)\cdot 1\right)\\
+ 				&= [Df(x^{(k)})]^{-1} \int_{0}^{1}D^2h^{(k)}(1-t)dt &&\text{()Restglieddarst. der Taylorentw.)}
+ 			\end{align*}
+ 			Das Ziel ist nun zu zeigen, dass $\nn{x^{(k+1)}-x^{*}} \leq c\cdot \nn{x^{(k)}-x^{*}}^2$.
+ 			Mit den Definitionen von oben wird die Ungleichung zu
+ 			\begin{align}\nonumber
+ 				\nn{x^{(k+1)}-x^{*}} &\leq c\cdot \frac{1}{2} \sup_{t\in[0,2]} \nn{D^2h^{(k)}(t)} \\
+ 						& \leq c\cdot \frac{1}{2} w\nn{x^{(k)}-x^{*}}^2
+ 						\label{V.5.5}
+ 			\end{align}
+ 			und zwar für alle $x^{(k)}\in B_\varepsilon(x^{*})$, wie noch gezeigt wird.\\
+ 			Sei nun $\delta \leq \varepsilon$, so dass $\frac{1}{2} \cdot c\cdot w <1$ gilt,
+ 			so folgt induktiv für $x^{(0)}\in B_\delta(x^{*})$ mit \eqref{V.5.5}
+ 			\begin{align*}
+ 				\nn{x^{(k+1)}-x^{*}} &\leq \frac{1}{2}w\delta^2 < \delta\\
+ 				\Rightarrow x^{(k+1)}&\in B_\delta(x^{*})\subseteq B_\varepsilon(x^{*})
+ 			\end{align*}
+ 			Auf $x^{(k+1)} $ ist der nächste Iterationsschritt anwendbar
+ 			und mit \eqref{V.5.5} folgt quadratische Konvergenz.\\
+ 			Es bleibt zu zeigen:
+ 			\begin{gather*}
+ 				\nn{D^2h(t)} \leq w\nn{x^{(k)}-x^{*}}^2 \qquad \forall t\in [0,1],~
+ 				h:[0,1]\rightarrow\Ren,~ h=\begin{pmatrix} h_1 \\ \vdots \\ h_n \end{pmatrix}
+ 			\end{gather*}
+ 			Hierfür betrachte
+ 			\begin{align*}
+ 				Dh_i^{(k)}(t)&=\underbrace{Df_i\left( x^{(k)}+t(x^{*}-x^{(k)})\right)}_{\in \R^{1\times n}}
+ 							\cdot (x^{*}-x^{(k)})\in\R\\
+ 				D^2h_i^{(k)}(t)&=(x^{*}-x^{(k)})^T\cdot
+ 							\underbrace{D^2f_i\left( x^{(k)}+t(x^{*}-x^{(k)})\right)}_{\in \R^{n\times n}}
+ 							\cdot (x^{*}-x^{(k)})\in\R\\
+ 			\end{align*}
+ 		\end{proof}
+ 		
+ 		Unter genaueren Voraussetzungen kann die Existenz von $x^{*}$ gezeigt 
+ 		und eine Umgebung $B_r(x^{*})$ explizit angegeben werden.
+ 		
+ 		Dies liefert der \textbf{Satz von Kantorowitsch}:\\
+ 		Sei $f:\Omega\rightarrow \Ren$, $\Omega_0 \subset \Ren$ konvex,
+ 		 $f$ stetig differenzierbar auf $\Omega_0$ und 
+ 		 erfülle für ein $x^{(0)}\in \Omega_0$ folgendes:
+ 		 \begin{enumerate}[a)]
+ 		 	\item $\nn{Df(x) -Df(y)}\leq \gamma \nn{x-y}$ für alle $x,y\in \Omega_0$
+ 		 	\item $\nn{[Df(x^{(0)})]^{_1}} \leq \beta$
+ 		 	\item $\nn{[Df(x^{(0)})]^{_1}f(x^{(0)})} \leq \alpha$
+ 		 \end{enumerate}
+ 		 mit $h=\alpha\beta\gamma$, $r_\pm = \frac{1\pm \sqrt{1-2h}}{h}\alpha$.\\
+ 		 Dann hat, falls $h\leq \frac{1}{2}$ und $\overline{B_r(x^{(0)})}\subset \Omega$,
+ 		 $f$ genau eine Nullstelle $x^{*}$ in $\Omega_0\cap B_{r_+}(x^{(0)})$.\\
+ 		 Weiterhin bleibt die Folge der Nachiterierten in $B_r(x^{(0)})$
+ 		 und ist konvergent gegen $x^{*}$.
+ 		\begin{proof}
+ 			z.B. in Ortega/Rheinhold (2000)
+ 		\end{proof}
+ 		
+ 		
+ 		\sectione{Abbruchkriterien beim Newton-Verfahren}
+ 		\begin{enumerate}[1)]
+ 			\item Limitiere die Anzahl der Iterationen, u.a. um 
+ 			Endlosschleifen durch fehlerhafte Programme auszuschließen.
+ 			\item Breche ab, wenn das Verfahren nicht konvergiert, d.h.
+ 			wenn $x^{(k)}$ nicht im Konvergenzbereich bleibt.
+ 			\item Breche ab, wenn das Ergebnis genau genug ist, d.h. der
+ 			Fehler $e^{(k)}\coloneqq \nn{x^{*}-x^{(k)}}$ klein genug ist.
+ 		\end{enumerate}
+ 		
+ 		
+ 		\subsection{Der Monotonietest}
+ 		Beim Newton-Verfahren sollte die Funktion $g$ der zugehörigen
+ 		Fixpunktiteration eine Kontraktion sein, d.h. es muss ein 
+ 		$\kappa \in (0,1)$ für alle $k$ geben mit
+ 		\begin{align}\nonumber
+ 			\nn{\Delta x^{(k)}}&=\nn{x^{(k+1)}-x^{(k)}} \\ \nonumber
+ 				 &= \nn{g(x^{(k)})-g(x^{(k-1)})}\\
+ 				&\leq \kappa\nn{x^{(k)}-x^{(k-1)}} = \kappa \nn{\Delta x^{(k-1)}}
+ 				\label{V.6.1}
+ 		\end{align}
+ 		Als Abbruchkriterium für eine (mögliche) Divergenz des Verfahrens wähle z.B.
+ 		$\kappa=\frac{1}{2}$ und breche ab, falls 
+ 		\begin{gather}
+ 			\nn{\Delta x^{(k)}}>\frac{1}{2}\nn{\Delta x^{(k-1)}}
+ 			\label{V.6.2}
+ 		\end{gather}
+ 		Um im Mehrdimensionalen eine vielleicht unnötig (teure) Berechnung
+ 		von $Df(x^{(k)})$ bzw. von $\Delta x^{(k)}$ zu vermeiden, kann 
+ 		$\Delta x^{(k)}$ durch 
+ 		\begin{gather}
+ 			\overline{\Delta x}^{(k)} = -[Df(x^{(k-1)})]^{-1}\cdot f(x^{(k)})
+ 			\label{V.6.3}
+ 		\end{gather}
+ 		approximiert werden.
+ 		$Df(x^{(k-1)})$ und eine Zerlegung liegt bereits aus der Berechnung von $\Delta x^{(k-1)}$ vor.
+ 		Ebenso ist $f(x^{(k)})$ bekannt.
+ 		Die Lösung von \eqref{V.6.3} benötigt daher nur $\mathcal{O}(n^2)$ flops.
+ 		Statt \eqref{V.6.2} kann dann auch auf 
+ 		\begin{gather}
+ 			\nn{\overline{\Delta x}^{(k)}} \geq \frac{1}{2} \nn{\Delta x^{(k-1)}}
+ 			\label{V.6.4}
+ 		\end{gather}
+ 		getestet werden.
+ 		
+ 		
+ 		\subsection{Kriterium für erreichte Konvergenz}
+ 		Es ist $f(x^{*})$ gesucht, also teste hierauf. Das residuumbasierte Kriterium
+ 		\begin{gather}
+ 			\nn{f(x^{(k)})}\leq Tol
+ 			\label{V.6.5}
+ 		\end{gather}
+ 		ist nur bedingt anwendbar, denn nach \ref{5.5.5} ist das Verfahren affin-invariant.
+ 		Demnach bleibt $(x^{(k)})_{k\in\N}$ gleich,
+ 		ob nun $f(x)$ oder $\widetilde{f}(x) =\alpha f(x) $ betrachtet wird.\\
+ 		Aber für $\widetilde{f}$ bricht \eqref{V.6.5} das Verfahren ab, 
+ 		falls $|\alpha|\cdot \nn{f(x^{(k)})} \leq Tol$. \\
+ 		Affin-invariant ist dagegen der Ansatz
+ 		\begin{gather}
+ 			\nn{\Delta x^{(k)}}= \nn{x^{(k+1)}-x^{(k)}} 
+ 					= \nn{[Df(x^{(k)})]^{-1}f(x^{(k)})} 
+ 					\leq Tol \, .
+ 					\label{V.6.6}
+ 		\end{gather}
+ 		\eqref{V.6.6} kann aufgrund der quadratischen Konvergenz (nur) für 
+ 		große $k$ auch mit \eqref{V.3.5} der Approximation des Fehlers 
+ 		$\nn{x^{*}-x^{(k)}} $ motiviert werden.
+ 		
+ 		
+ 		\sectione{Varianten des Newton-Verfahrens}
+ 		$Df(x^{(k)})$ steht nicht immer analytisch zur Verfügung.
+ 		Die exakte Jacobi-Matrix wird häufig durch eine andere Matrix $B$ approximiert, 
+ 		z.B. durch Differenzenquotienten oder sogenanntes
+ 		\enquote{automatisches Differenzieren}.
+ 		Der Iterationsschritt lautet dann
+ 		\begin{align}
+ 			\text{löse}\quad B^{(k)}d^{(k)} &= -f(x^{(k)}) 
+ 			\label{V.7.1} \\\nonumber
+ 			x^{(k+1)} &=x^{(k)} + d^{(k)}
+ 		\end{align}
+ 		Um den Aufwand zu verringern kann $Df(x^{(k)})$ durch
+ 		$Df(x^{(0)})$ approximiert werden.
+ 		
+ 		
+ 		\subsection{Iterationsschritt des vereinfachten Newton-Verfahrens}
+ 		\index{Newton-Verfahren!vereinfacht}
+ 		\begin{gather}
+ 			x^{(k+1)} = x^{(k)} -[Df(x^{(0)})]^{-1} f(x^{(k)})
+ 			\label{V.7.2}
+ 		\end{gather}
+ 		Das Verfahren konvergiert nur noch lokal linear.
+ 		Der Aufwand je Iteration ist jedoch erheblich geringer.
+ 		
+ 		
+ 		
+ 		
 		
 		
 		
