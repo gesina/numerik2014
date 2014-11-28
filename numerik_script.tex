@@ -1078,7 +1078,7 @@ und
 \end{gather*}
 
 
-\subsection{Gauß-Elimination mit Spaltenpivotisierung}
+\subsection{Gauß-Elimination mit Spaltenpivotisierung}\label{2.2.3}
 Der zugehörige Algorithmus zur Spaltenpivotisierung ist: \\
 
 \begin{pseudocode}{0.9\linewidth}
@@ -1220,9 +1220,56 @@ wobei $R$ obere Dreiecksgestalt hat und
 gilt.
 \end{proof}
 
-\subsection{Lösen eines Gleichungssystems $Ax=b$} \label{2.2.5}
+\subsection{Lösen eines Gleichungssystems $Ax=b$} 
+Das Lösen eines linearen Gleichungssystems der Form $Ax=b$ wird mittels
+Elimination durch folgende drei Schritte durchgeführt:
+\begin{enumerate}[1)]
+	\item Zerlege $A$ durch $PA=LR$
+	\item Löse durch Vorwärtssubstitution $Lz=Pb$
+	\item Löse durch Rückwärtssubstitution $Rx=z$
+\end{enumerate}
+
 \subsection{Bemerkungen}
+\begin{enumerate}[a)]
+	\item $P_\Pi A=LR$ kann zur Berechnung von $\det(A)$ genutzt werden
+	(allgemeine Formel: $\det(A)=sign(\Pi)\cdot r_{11}\cdot \dots \cdot r_{nn}$).
+	\item Algorithmus \ref{2.2.3}  testet, ob die Matrix singulär ist,
+	bis auf den Fall $r_{nn}=a_{nn}^{(n-1)}=0$.
+	\item $\det(A)=0$ sollte nicht als (numerischer) Nachweis für die
+	Singularität von $A$ genutzt werden.\\
+	Z.B. ist $10^{-8}I$ regulär, aber $\det(10^{-8}I) = 10^{-8n}$ ist fast 0
+	für große $n$, also ist $A$ numerisch singulär.
+\end{enumerate}
+
 \subsection{Beispiel zur Pivotisierung}
+Wir betrachten die Pivotisierung mit betragsmäßig größtem Spaltenelement
+ und Rundungsfehlern zu
+ \begin{gather*}
+ 	A=\begin{pmatrix}
+	 	10^{-4} & 1 \\ 1 & 1
+ 	\end{pmatrix}, ~
+ 	b= \begin{pmatrix*}
+ 		1 \\ 2
+ 	\end{pmatrix*}\, .
+ \end{gather*}
+ Die der Gauß-Elimination mit Rundung auf 3 Dezimalstellen ergibt
+ $l_{21}=10^4$, denn kleines Pivotelement bedeutet großer Multiplikator. \\
+ \begin{align*}
+ 	r_{22}&=a_{22}-l_{21}a_{12} = 1-10^4\cdot 1 = -999 \approx -10^4 \eqqcolon \widetilde{r}_{22}\\
+ 	b_2^{(1)} & = b_2-l_{21}b_1 = 2-10^4 = -9998 \approx -10^4 \eqqcolon \widetilde{b}_2^{(1)} 
+ \end{align*}
+ Die Rückwärtssubstitution ergibt
+ \begin{align*}
+ 	x_2 &= \frac{-b_2^{(1)}}{r_{22}} = \frac{9998}{9999} \approx 1\\
+ 	\widetilde{x}_	2 &= \frac{\widetilde{b}_2}{\widetilde{r}_{22}} = \frac{-10^4}{-10^4} = 1 \\\\
+ 	x_1 &= \frac{1}{r_{11}}(b_1-r_{12}x_2)= 10^4 (1-1x_2) = \frac{10^4}{9999}\approx 1\\
+	\widetilde{	x}_1 &= \frac{1}{\widetilde{r}_{11}}(1-1\widetilde{x}_2)= 10^4 (1-1\cdot 1) = 0 
+ \end{align*}
+ Dies führt zu einem starken Fehler.\\
+ 
+ Mit Spaltenpivotisierung ist $l_{21}=10^{-4}<1$ und 
+ $\widetilde{r}_{22}=1$, $b_2^{(2)} = 1$, $\widetilde{x}_2=1$, $\widetilde{x}_1=1$.\\
+ Diese Werte führen auch bei Rundungsfehlern zu besseren Ergebnissen.
 
 
 \marginpar{15.10.2014}
