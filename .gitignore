@@ -1,0 +1,12 @@
+## Project-specific ignore-file for LaTeX
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.idx
+*.ilg
+*.ind
+*.run.xml
+*.synctex.gz
+*.toc
+*.xml
