@@ -73,7 +73,7 @@
 \usepackage{makeidx}		%create an index with \makeindex in head
 % (creates *.idx file)
 \makeindex			%if index is required (after {makeidx})
-\usepackage[backend=biber]{biblatex}	%enables to print bibliography with \printbibliography, needs \bibliography{bib ﬁles}
+\usepackage[backend=biber,style=alphabetic]{biblatex}	%enables to print bibliography with \printbibliography, needs \bibliography{bib ﬁles}
 \bibliography{numerik_script.bib} %loads .bib-file for
 % biber-bibliography; after {biblatex}
 % ..................................................
@@ -114,13 +114,23 @@
 % ------------------------------------------------------------------------------------------------
 % ..................................................
 % math (theorems)
-% \theoremstyle{definition}
-% \newtheorem{Def}{Definition}		%definition with \begin{Def}
-% \newtheorem{Ax}[Def]{Axiom}		%axiom with \begin{Ax}
-% \newtheorem{Satz}[Def]{Satz}		%theorem with \begin{Satz}
-% \newtheorem{Prop}[Def]{Proposition}%proposition with \begin{Prop}
-% \newtheorem{Lem}[Def]{Lemma}		%lemma with \begin{Lem}
-% \newtheorem{Korr}[Def]{Korrolar}	%corollary with \begin{Korr}
+%..................................................
+%math (theorems)
+\theoremstyle{definition}
+\newtheorem{Def}{Definition}[section]		%definition with \begin{Def}
+\newtheorem{Bsp}[Def]{Beispiel}
+%\theoremstyle{remark}
+\newtheorem{Bem}[Def]{Bemerkung}	%corollary with \begin{Korr}
+\newtheorem{Wdh}[Def]{Wiederholung}
+\theoremstyle{plain}
+\newtheorem{Satz}[Def]{Satz}		%theorem with \begin{Satz}
+\newtheorem{Lem}[Def]{Lemma}		%lemma with \begin{Lem}
+\newtheorem{Kor}[Def]{Korollar}		%theorem with \begin{Satz}
+%\newtheorem{Ax}[Def]{Axiom}		%axiom with \begin{Ax}
+%\newtheorem{empt}[Def]
+%\newtheorem{Prop}[Def]{Proposition}%proposition with \begin{Prop}
+%\newtheorem{Korr}[Def]{Korrolar}	%corollary with \begin{Korr}
+
 
 % colors
 % \definecolor{ashgrey}{rgb}{0.7, 0.75, 0.71}
@@ -154,16 +164,71 @@
 \newcommand{\nn}[1]{\left\| #1 \right\|}
 \newcommand{\scp}[2]{\langle #1, #2 \rangle}
 
-% equation numeration
+% EVIL HACK to go along with equation numeration
 \newcommand{\sectione}[1]{\section{#1} \setcounter{equation}{0}}
+
+% EVIL HACK to go along with theorem numeration
+\newcommand{\subsectione}[1]{\subsection{#1} \addtocounter{Def}{1}}
 
 % inserted sections a), b)
 \newcommand{\extrasection}[2]{\vspace{1.5eM}\minisec{\Large\itshape \thesection #1 #2}\vspace{1eM}}
 
 \usepackage{framed}
 
-% Pseudocode
+% EVIL HACK: Satz redefinition to go along with numeration
+\newenvironment{Satze}[1][]{ %
+	\begin{Satz}[#1]
+}
+{
+	\end{Satz}
+	\addtocounter{subsection}{1}
+}
+\newenvironment{Leme}[1][]{ %
+	\begin{Lem}[#1]
+	}
+	{
+	\end{Lem}
+	\addtocounter{subsection}{1}
+}
+\newenvironment{Kore}[1][]{ %
+	\begin{Kor}[#1]
+	}
+	{
+	\end{Kor}
+	\addtocounter{subsection}{1}
+}
 
+\newenvironment{Bspe}[1][]{ %
+	\begin{Bsp}[#1]
+	}
+	{
+	\end{Bsp}
+	\addtocounter{subsection}{1}
+}
+\newenvironment{Beme}[1][]{ %
+	\begin{Bem}[#1]
+	}
+	{
+	\end{Bem}
+	\addtocounter{subsection}{1}
+}
+\newenvironment{Defe}[1][]{ %
+	\begin{Def}[#1]
+	}
+	{
+	\end{Def}
+	\addtocounter{subsection}{1}
+}
+\newenvironment{Wdhe}[1][]{ %
+	\begin{Wdh}[#1]
+	}
+	{
+	\end{Wdh}
+	\addtocounter{subsection}{1}
+}
+
+
+% Pseudocode
 \newenvironment{pseudocode}[1]{ %
   \begin{minipage}{#1}
     \begin{framed}
@@ -337,7 +402,7 @@ existierenden Computer-Hardware. \\
 Differentialgleichungen,  es stehen Parallelrechner,  Vektorrechner, 
 größere Speicher zur Verfügung, etc.)\\
 
-\section{Anwendungen}
+\section*{Anwendungen}
 \begin{itemize}
 \item Herd, Waschmaschine, Heizungsanlage
 \item Handy (über welchen Satelliten wird übertragen),
@@ -362,12 +427,13 @@ größere Speicher zur Verfügung, etc.)\\
 \item u.s.w.
 \end{itemize}
 
-\section*{Fragestellungen}
-\subsection*{Rechengeschwindigkeit, Rechenaufwand (Anzahl der
-  Rechenoperationen, Rechenzeit auf welchem Rechner$\dots$),
-  Komplexität des Algorithmus}
+\section*{Fragestellungen der Numerik}
+\subsection*{Rechengeschwindigkeit \& -aufwand}
+Interessant sind Rechengeschwindigkeit, Rechenaufwand 
+(Anzahl der Rechenoperationen, Rechenzeit auf welchem Rechner…)
+sowie Komplexität des Algorithmus.
 
-\subsubsection{Beispiel 1}
+\subsubsection{Beispiel}
 Berechnung der Lösung eines Gleichungssystems 
 \\ $\; \boldsymbol A \boldsymbol x
 \, = \, \boldsymbol b \;$ mit einer $n \times n$-Matrix $\boldsymbol A$
@@ -386,9 +452,9 @@ Berechnung der Lösung eines Gleichungssystems
   eine Mikrosekunde) benötigt, ist eine Rechenzeit
   von mehr als \textbf{eine Millionen Jahre} nötig!
 \item Gaußsches Eliminationsverfahren\\
-  Benötigt etwa $n^3$ Operationen, also ungefähr
-  8000 Operationen und weniger als \textbf{0,005 Sekunden}
-  (Golub, Ortega: Scientific Computing).
+  Benötigt etwa $n^3$ Operationen, also bei einer Matrix wie oben
+  ungefähr 8000 Operationen und weniger als \textbf{0,005 Sekunden}
+  \cite[siehe auch][]{golubortega}.
 \item Verhalten bei Störungen, Stabilität des Verfahrens
   (Eingabefehler, Rundungsfehler, Diskretisierungsfehler)\\
 \end{enumerate}
@@ -565,8 +631,8 @@ Sei $ A \in \R^{n\times n}$, $b \in \R^n$. Gesucht ist $x\in \R^n$ mit
 \begin{gather*}
   A\cdot x = b
 \end{gather*}
-Weitere Voraussetzungen sind die Existenz und Eindeutigkeit einer Lösung.
-Bemerkung:
+Weitere Voraussetzungen sind die Existenz und Eindeutigkeit einer Lösung.\\
+Bemerkungen hierzu:
 \begin{itemize}
 \item Ein verlässlicher Lösungsalgorithmus überprüft dies und behandelt alle Fälle. 
 \item Die Cramersche Regel ist ineffizient (s. Einführung).
@@ -583,7 +649,7 @@ Das Verfahren wurde 1809 von Friedrich Gauß,
 1759 von Josepf Louis Lagrange beschrieben
 und war seit dem 1. Jhd. v. Chr. in China bekannt.
 
-\subsection{Vorwärtselimination} \label{2.1.1}
+\subsectione{Vorwärtselimination} \label{2.1.1}
 \index{Vorwärtselimination}\index{Vorwärtssubstitution}
 Das Gaußverfahren gilt der Lösung eines linearen Gleichungssystems der Form
 \begin{align*}
@@ -677,7 +743,7 @@ Der zugehörige Algorithmus ist:
   \textbf{end}
 \end{pseudocode}
 
-\subsection{Rückwärtselimination}\label{2.1.2}
+\subsectione{Rückwärtselimination}\label{2.1.2}
 Für die Lösung des Gleichungssystems ist dann noch die
  \textbf{Rückwärtssubstitution} \index{Rückwärtssubstitution} nötig:
 \begin{align}
@@ -700,7 +766,7 @@ Als Algorithmus:
   \textbf{end}
 \end{pseudocode}
 
-\subsection{Vorsicht}
+\subsectione{Vorsicht}
 Algorithmen \ref{2.1.1} und \ref{2.1.2} sind nur ausführbar,
  falls für die sog. \textbf{Pivotelemente $\mathbf{a_{kk}^{(k-1)}}$ } \index{Pivotelement} gilt:
 \begin{gather*}
@@ -708,7 +774,7 @@ Algorithmen \ref{2.1.1} und \ref{2.1.2} sind nur ausführbar,
 \end{gather*}
 Dies ist auch für invertierbare Matrizen nicht immer gewährleistet.
 
-\subsection{Weitere algorithmische Anmerkungen}	\label{2.1.4}
+\subsectione{Weitere algorithmische Anmerkungen}	\label{2.1.4}
 Matrix $A$ und Vektor $b$ sollten möglichst \textbf{nie} überschrieben werden!
  (Stattdessen kann eine Kopie überschrieben werden.) \\
 Das Aufstellen von $A$ und $b$ ist bei manchen Anwendungen das teuerste,
@@ -770,18 +836,18 @@ muss \ref{II.1.1} nicht komplett neu ausgeführt werden,
 da sich $\widetilde{L}$ nicht ändert. Es reicht \ref{II.1.4} zu wiederholen. \\
 
 
-\subsection{Dreieckszerlegung} \label{2.1.5}
+\subsectione{Dreieckszerlegung} \label{2.1.5}
 \index{Dreieckszerlegung}
 Die Dreieckszerlegung einer Matrix $A$
 entspricht dem Verfahren aus \ref{2.1.1}, nur ohne die Zeile \eqref{II.1.4}.
 
 
-\subsection{Vorwärtssubstitution} \index{Vorwärtssubstitution}
+\subsectione{Vorwärtssubstitution} \index{Vorwärtssubstitution}
 Die Vorwärtssubstitution entspricht der in \ref{2.1.4}
 bzw. dem Verfahren aus \ref{2.1.1} 
 ohne die Bestimmung von $l_{ik}$ und $R$, also nur Schritt \eqref{II.1.4}.
 
-\subsection{Gauß-Elemination zur Lösung von $Ax=b$}\index{Gauß-Eleminator}
+\subsectione{Gauß-Elemination zur Lösung von $Ax=b$}\index{Gauß-Eleminator}
 \begin{framed}
   \begin{enumerate}[1]
   \item Dreieckszerlegung
@@ -790,7 +856,7 @@ ohne die Bestimmung von $l_{ik}$ und $R$, also nur Schritt \eqref{II.1.4}.
   \end{enumerate}
 \end{framed}
 
-\subsection{Rechenaufwand gezählt in \enquote{flops}} 
+\subsectione{Rechenaufwand gezählt in \enquote{flops}} 
 \index{flops}\index{floating point operations}\index{Rechenaufwand}
 \textbf{\enquote{flops} }= \textbf{f}loating \textbf{p}oint \textbf{op}eration\textbf{s} \\
 \begin{enumerate}
@@ -833,24 +899,27 @@ die Vorwärts- bzw. Rückwärtssubstitution $\mathcal{O}(n^2)$ flops.
 
 
 
-\subsection{Definition: Landau-Symbole} \index{Landau-Symbole}
-Seien $f,g : D\longrightarrow \R, D\subset \R, -\infty\leq a\leq \infty$ und
-$(a_n)_{n\in\N}, (b_n)_{n\in\N}$ Folgen in $\R$.
-\begin{enumerate}[a)]
-\item $f(x) = \mathcal{O}(g(x))$ für $x\longrightarrow a$, falls
-  \begin{gather*}
-    \exists U(a), c\in\R:\, \forall x\in U(a) : \quad |f(x)| \leq c\cdot |g(x)|
-  \end{gather*}
-  (bzw. falls $\lim\limits_{x\rightarrow a}\frac{|f(x)|}{|g(x)|} \leq c$)
-\item $f(x) = o(g(x))$ für $x\longrightarrow a$, falls 
-  $\lim\limits_{x\rightarrow a}\frac{|f(x)|}{|g(x)|} = 0$
-\item $a_n = \mathcal{O}(b_n)$ für $n\longrightarrow \infty$, falls
-  \begin{gather*}
-    \forall \varepsilon > 0 : \, \exists N\in\N : \, \forall n \geq N: \, |a_n| \leq \varepsilon |b_n|
-  \end{gather*}
-\end{enumerate}
+%\subsectione{Definition: Landau-Symbole} 
+\begin{Defe}[Landau-Symbole]
+	\index{Landau-Symbole}
+	Seien $f,g : D\longrightarrow \R, D\subset \R, -\infty\leq a\leq \infty$ und
+	$(a_n)_{n\in\N}, (b_n)_{n\in\N}$ Folgen in $\R$.
+	\begin{enumerate}[a)]
+		\item $f(x) = \mathcal{O}(g(x))$ für $x\longrightarrow a$, falls
+		\begin{gather*}
+		\exists U(a), c\in\R:\, \forall x\in U(a) : \quad |f(x)| \leq c\cdot |g(x)|
+		\end{gather*}
+		(bzw. falls $\lim\limits_{x\rightarrow a}\frac{|f(x)|}{|g(x)|} \leq c$)
+		\item $f(x) = o(g(x))$ für $x\longrightarrow a$, falls 
+		$\lim\limits_{x\rightarrow a}\frac{|f(x)|}{|g(x)|} = 0$
+		\item $a_n = \mathcal{O}(b_n)$ für $n\longrightarrow \infty$, falls
+		\begin{gather*}
+		\forall \varepsilon > 0 : \, \exists N\in\N : \, \forall n \geq N: \, |a_n| \leq \varepsilon |b_n|
+		\end{gather*}
+	\end{enumerate}
+\end{Defe}
 
-\subsection{Allgemeines zur Aufwandsbetrachtung}\index{Rechenaufwand}
+\subsectione{Allgemeines zur Aufwandsbetrachtung}\index{Rechenaufwand}
 Die Anzahl der Rechenoperationen ist nicht immer ausschalggebend für den Aufwand, da
 z.B.
 \begin{description}
@@ -863,7 +932,7 @@ z.B.
 Rechenoperationen liefern jedoch oft eine gute Schätzung.
 
 \marginpar{13.10.2014}
-\subsection{Formalisieren des Gauß-Algorithmus} \index{Gaußsches Eliminationsverfahren} \index{LR-Zerlegung}
+\subsectione{Formalisieren des Gauß-Algorithmus} \index{Gaußsches Eliminationsverfahren} \index{LR-Zerlegung}
 \begin{enumerate}[a)]
 \item \textbf{Rückwärtssubstitution:} entspricht $Rx=b$
 \item \textbf{Vorwärtssubstitution:} 
@@ -912,124 +981,128 @@ Rechenoperationen liefern jedoch oft eine gute Schätzung.
 \end{enumerate}
 
 
-\subsection{Lemma (Eigenschaften der $L_k$-Matrizen)} \label{2.1.12} \index{Frobeniusmatrix}
-\begin{enumerate}[1.]
-\item $L_k$ ist eine Frobeniusmatrix, d.h. sie unterscheidet sich höchstens
-  in einer Spalte von der Einheitsmatrix $I$.
-\item $L_k^{-1} = I + l_ke_{k}^T$
-\item Es gilt:
-  \begin{align}
-    L &= L_1^{-1} \cdot \dotsc \cdot L_{n-1}^{-1}  
-        \label{II.1.13}
-    \\ \nonumber
-      & = I + \sum_{i=1}^{n-1} l_i e_i^T \\ \nonumber
-      &= \begin{pmatrix}
-        1 && 0 ~ \\
-        &\ddots& \\
-        ~l_{ij} && ~1
-      \end{pmatrix} \\ \nonumber
-      &= I+ \widetilde{L}
-  \end{align}
-  
-  Hiermit folgt: 
-\end{enumerate}
+%\subsectione{Lemma (Eigenschaften der $L_k$-Matrizen)}
+\begin{Leme}\label{2.1.12}\index{Frobeniusmatrix}~
+	\begin{enumerate}[1.]
+		\item $L_k$ ist eine Frobeniusmatrix, d.h. sie unterscheidet sich höchstens
+		in einer Spalte von der Einheitsmatrix $I$.
+		\item $L_k^{-1} = I + l_ke_{k}^T$
+		\item Es gilt:
+		\begin{align}
+		L &= L_1^{-1} \cdot \dotsc \cdot L_{n-1}^{-1}  
+		\label{II.1.13}
+		\\ \nonumber
+		& = I + \sum_{i=1}^{n-1} l_i e_i^T \\ \nonumber
+		&= \begin{pmatrix}
+		1 && 0 ~ \\
+		&\ddots& \\
+		~l_{ij} && ~1
+		\end{pmatrix} \\ \nonumber
+		&= I+ \widetilde{L}
+		\end{align}
+	\end{enumerate}
+\end{Leme}
+Hiermit ergibt sich der folgende Satz: 
 
-\subsection{Satz (LR- oder LU-Zerlegung)} \index{LR-Zerlegung}\index{LU-Zerlegung}
-Das obige Verfahren (\eqref{II.1.2} und \eqref{II.1.3}) erzeugt unter der Voraussetzung
-von nicht-nullwertigen Pivotelementen eine Faktorisierung
-\begin{align*}
-  A= L\cdot R 
-\end{align*}
-wobei $R$ eine obere Dreiecksmatrix und $L$ eine untere, normierte Dreiecksmatrix ist,
-d.h. für $i=1, \cdots , n$ gilt $l_{ii}= 1$. \\
-Weiterhin existiert zu jeder regulären Matrix höchstens eine solche Zerlegung.
+%\subsectione{Satz (LR- oder LU-Zerlegung)} \index{LR-Zerlegung}\index{LU-Zerlegung}
+\begin{Satze}[LR- oder LU-Zerlegung]
+	Das obige Verfahren (\eqref{II.1.2} und \eqref{II.1.3}) erzeugt unter der Voraussetzung
+	von nicht-nullwertigen Pivotelementen eine Faktorisierung
+	\begin{align*}
+	A= L\cdot R 
+	\end{align*}
+	wobei $R$ eine obere Dreiecksmatrix und $L$ eine untere, normierte Dreiecksmatrix ist,
+	d.h. für $i=1, \cdots , n$ gilt $l_{ii}= 1$. \\
+	Weiterhin existiert zu jeder regulären Matrix höchstens eine solche Zerlegung.
+\end{Satze}
+	
+	\begin{proof}
+		Zur Eindeutigkeit:
+		\begin{gather*}
+		A=LR \Leftrightarrow a_{ij}=\sum_{k=1}^{\min{j,k}}l_{ik}r_{kj}
+		\end{gather*}
+		Da $l_{ii}=1$ gilt, folgt
+		\begin{description}
+			\item[$i\leq j$:] $r_{ij}=a_{ij}-\sum_{k=1}^{i-1}l_{ik}r_{kj}$ und
+			\item[$i>j$:] $l_{ij}= \frac{1}{r_{ij}}\left( a_{ij}-\sum_{k=1}^{j-1}l_{ik}r{kj}\right)$,
+		\end{description}
+		da mit $A$ auch $R$ regulär (=invertierbar) ist, und somit $det(A)=\prod_{j=1}^{n}\neq 0$, also $ r_{jj}\neq 0$ gilt.\\
+		Diese können rekursiv, also eindeutig, berechnet werden,
+		wenn auch die Reihenfolge der Berechnung nicht eindeutig ist.\\
+		Mögliche Verfahren sind z.B. das \textbf{Verfahren von Crout}\index{Verfahren von Crout}
+		\begin{gather*}
+		\begin{pmatrix}
+		\begin{tikzpicture}[scale=4,line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+		\draw (0,1.8) rectangle (2,2);
+		\draw (1,1.9) node {1};
+		% 
+		\draw (0,0) rectangle (0.2,1.7);
+		\draw (0.1,0.85) node {2};
+		% 
+		\draw (0.3,1.5) rectangle (2,1.7);
+		\draw (1.15,1.6) node {3};
+		% 
+		\draw (0.3,0) rectangle (0.5,1.4);
+		\draw (0.4,0.7) node {4};
+		% 
+		\draw (0.6,1.2) rectangle (2,1.4);
+		\draw (1.3,1.3) node {5};
+		% 
+		\end{tikzpicture}
+		\end{pmatrix}
+		\end{gather*}
+		
+		oder eckweise
+		\begin{gather*}
+		\begin{pmatrix}
+		\begin{tikzpicture}[scale=4,line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+		\draw (0,1.8) -- (0.2,1.8) -- (0.2,2);
+		\draw (0.1,1.9) node {1};
+		% 
+		\draw (0,1.5) -- (0.5,1.5) -- (0.5,2);
+		\draw (0.35,1.65) node {2};
+		% 
+		\draw (0,1.2) -- (0.8,1.2) -- (0.8,2);
+		\draw (0.65,1.35) node {3};
+		% 
+		\draw[color = white] (2,2) -- (2,0);
+		\end{tikzpicture}
+		\end{pmatrix}
+		\end{gather*}
+		
+		oder zeilenweise
+		\begin{gather*}
+		\begin{pmatrix}
+		\begin{tikzpicture}[scale=4,line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+		\draw (0,1.8) rectangle (2,2);
+		\draw (1,1.9) node {1};
+		% 
+		\draw (0,1.5) rectangle (0.2,1.7);
+		\draw (0.1,1.6) node {2};
+		% 
+		\draw (0.3,1.5) rectangle (2,1.7);
+		\draw (1.15,1.6) node {3};
+		% 
+		\draw (0,1.2) rectangle (0.5,1.4);
+		\draw (0.25,1.3) node {4};
+		% 
+		\draw (0.6,1.2) rectangle (2,1.4);
+		\draw (1.3,1.3) node {5};
+		% 
+		\draw (0,0.9) rectangle (0.8,1.1);
+		\draw (0.4,1) node {6};
+		% 
+		\draw (0.9,0.9) rectangle (2,1.1);
+		\draw (1.45,1) node {7};
+		% 
+		\draw[color=white] (0,0) -- (2,0);
+		\end{tikzpicture}
+		\end{pmatrix}
+		\end{gather*}
+		oder wie in \ref{2.1.1}.
+		
+	\end{proof}
 
-\begin{proof}
-  Zur Eindeutigkeit:
-  \begin{gather*}
-    A=LR \Leftrightarrow a_{ij}=\sum_{k=1}^{\min{j,k}}l_{ik}r_{kj}
-  \end{gather*}
-  Da $l_{ii}=1$ gilt, folgt
-  \begin{description}
-  \item[$i\leq j$:] $r_{ij}=a_{ij}-\sum_{k=1}^{i-1}l_{ik}r_{kj}$ und
-  \item[$i>j$:] $l_{ij}= \frac{1}{r_{ij}}\left( a_{ij}-\sum_{k=1}^{j-1}l_{ik}r{kj}\right)$,
-  \end{description}
-  da mit $A$ auch $R$ regulär (=invertierbar) ist, und somit $det(A)=\prod_{j=1}^{n}\neq 0$, also $ r_{jj}\neq 0$ gilt.\\
-  Diese können rekursiv, also eindeutig, berechnet werden,
-  wenn auch die Reihenfolge der Berechnung nicht eindeutig ist.\\
-  Mögliche Verfahren sind z.B. das \textbf{Verfahren von Crout}\index{Verfahren von Crout}
-  \begin{gather*}
-    \begin{pmatrix}
-      \begin{tikzpicture}[scale=4,line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
-	\draw (0,1.8) rectangle (2,2);
-	\draw (1,1.9) node {1};
-	% 
-	\draw (0,0) rectangle (0.2,1.7);
-	\draw (0.1,0.85) node {2};
-	% 
-	\draw (0.3,1.5) rectangle (2,1.7);
-	\draw (1.15,1.6) node {3};
-	% 
-	\draw (0.3,0) rectangle (0.5,1.4);
-	\draw (0.4,0.7) node {4};
-	% 
-	\draw (0.6,1.2) rectangle (2,1.4);
-	\draw (1.3,1.3) node {5};
-	% 
-      \end{tikzpicture}
-    \end{pmatrix}
-  \end{gather*}
-  
-  oder eckweise
-  \begin{gather*}
-    \begin{pmatrix}
-      \begin{tikzpicture}[scale=4,line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
-        \draw (0,1.8) -- (0.2,1.8) -- (0.2,2);
-        \draw (0.1,1.9) node {1};
-        % 
-        \draw (0,1.5) -- (0.5,1.5) -- (0.5,2);
-        \draw (0.35,1.65) node {2};
-        % 
-        \draw (0,1.2) -- (0.8,1.2) -- (0.8,2);
-        \draw (0.65,1.35) node {3};
-        % 
-        \draw[color = white] (2,2) -- (2,0);
-      \end{tikzpicture}
-    \end{pmatrix}
-  \end{gather*}
-  
-  oder zeilenweise
-  \begin{gather*}
-    \begin{pmatrix}
-      \begin{tikzpicture}[scale=4,line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
- 	\draw (0,1.8) rectangle (2,2);
- 	\draw (1,1.9) node {1};
- 	% 
- 	\draw (0,1.5) rectangle (0.2,1.7);
- 	\draw (0.1,1.6) node {2};
- 	% 
- 	\draw (0.3,1.5) rectangle (2,1.7);
- 	\draw (1.15,1.6) node {3};
- 	% 
- 	\draw (0,1.2) rectangle (0.5,1.4);
- 	\draw (0.25,1.3) node {4};
- 	% 
- 	\draw (0.6,1.2) rectangle (2,1.4);
- 	\draw (1.3,1.3) node {5};
- 	% 
- 	\draw (0,0.9) rectangle (0.8,1.1);
- 	\draw (0.4,1) node {6};
- 	% 
- 	\draw (0.9,0.9) rectangle (2,1.1);
- 	\draw (1.45,1) node {7};
- 	% 
- 	\draw[color=white] (0,0) -- (2,0);
-      \end{tikzpicture}
-    \end{pmatrix}
-  \end{gather*}
-  oder wie in \ref{2.1.1}.
-
-\end{proof}
 
 \sectione{Gaußsches Eliminationsverfahren mit Pivotisierung}
 \paragraph{Beispiel} Die Matrix $A= \begin{pmatrix}0&1\\1&0\end{pmatrix} $
@@ -1039,7 +1112,7 @@ zweiten Zeile und der Algorithmus wird anwendbar.
 \paragraph{Allgemein} Vermeide die Division durch betragsmäßig kleine Zahlen! 
 
 
-\subsection{Spaltenpivotisierung (=partielle/ halbmaximale Pivotisierung)} \index{Pivotisierung!Spalten-}\index{Pivotisierung}\index{Pivotisierung!halbmaximale}\index{Pivotisierung!partielle}
+\subsectione{Spaltenpivotisierung (=partielle/ halbmaximale Pivotisierung)} \index{Pivotisierung!Spalten-}\index{Pivotisierung}\index{Pivotisierung!halbmaximale}\index{Pivotisierung!partielle}
 Im k-ten  Eliminationsschritt ist\\
 \parbox{\linewidth}{
   \centering
@@ -1057,21 +1130,23 @@ Im k-ten  Eliminationsschritt ist\\
 \item Führe einen Gauß-Eliminationsschritt aus.
 \end{enumerate}
 
-\subsection{Bemerkung}
-\begin{enumerate}[a)]
-\item Hiermit gilt $|l_{jk} \ll 1$.
-\item Anstelle von Spaltenpivotisierung kann eine \textbf{Zeilenpivotisierung}\index{Pivotisierung!Zeilen-}
-  durchgeführt werden.
-  Welche günstiger (in cpu-time) ist, hängt von der Rechnerarchitektur und
-  der damit zusammenhängenden Umsetzung des Gauß-Algorithmus ab.\\
-  (Beispielsweise greifen Vektorrechner entweder auf die gesamte Spalte
-  oder auf die gesamte Zeile einer Matrix zu und bevorzugen dementsprechend
-  Operationen spalten- bzw. zeilenweise.)
-\item Der Aufwand enthält (bis auf $|\cdot |$) keine Rechenoperationen (flops),
-  aber $\mathcal{O}(n^2)$ Vergleiche und Vertauschungen.
-\item Eine \textbf{vollständige Pivotsuche}\index{Pivotisierung!vollständige} sucht das betragsmäßig größte Element der gesamten Restmatrix und benötigt $\mathcal{O}(n^3) $ Vergleiche
-  (sie wird so gut wie nie angewendet).
-\end{enumerate}
+%\subsectione{Bemerkung}
+\begin{Beme}~
+	\begin{enumerate}[a)]
+		\item Hiermit gilt $|l_{jk}| \ll 1$.
+		\item Anstelle von Spaltenpivotisierung kann eine \textbf{Zeilenpivotisierung}\index{Pivotisierung!Zeilen-}
+		durchgeführt werden.
+		Welche günstiger (in cpu-time) ist, hängt von der Rechnerarchitektur und
+		der damit zusammenhängenden Umsetzung des Gauß-Algorithmus ab.\\
+		(Beispielsweise greifen Vektorrechner entweder auf die gesamte Spalte
+		oder auf die gesamte Zeile einer Matrix zu und bevorzugen dementsprechend
+		Operationen spalten- bzw. zeilenweise.)
+		\item Der Aufwand enthält (bis auf $|\cdot |$) keine Rechenoperationen (flops),
+		aber $\mathcal{O}(n^2)$ Vergleiche und Vertauschungen.
+		\item Eine \textbf{vollständige Pivotsuche}\index{Pivotisierung!vollständige} sucht das betragsmäßig größte Element der gesamten Restmatrix und benötigt $\mathcal{O}(n^3) $ Vergleiche
+		(sie wird so gut wie nie angewendet).
+	\end{enumerate}
+\end{Beme}
 
 Damit die LR-Zerlegung unabhängig von der rechten Seite erstellt werden kann, müssen die Permutationen gespeichert werden.
 Hierfür verwendet man  einen sog. \textbf{Permutationsvektor} $\Pi$, wobei
@@ -1114,7 +1189,7 @@ und
 \end{gather*}
 
 
-\subsection{Gauß-Elimination mit Spaltenpivotisierung}\label{2.2.3}
+\subsectione{Gauß-Elimination mit Spaltenpivotisierung}\label{2.2.3}
 Der zugehörige Algorithmus zur Spaltenpivotisierung ist: \\
 
 \begin{pseudocode}{0.9\linewidth}
@@ -1135,131 +1210,133 @@ Der zugehörige Algorithmus zur Spaltenpivotisierung ist: \\
 \end{pseudocode}	\footnotetext{$\leftrightarrows$ bedeutet \enquote{vertausche mit}}
 \\
 
-\subsection{Satz: Dreieckszerlegung mit Permutationsmatrix} \label{2.2.4} 
-Für jede invertierbare Matrix $A$ existiert eine Permutationsmatrix $P$,
-so dass eine Dreieckszerlegung
-\begin{gather*}
-  PA = LR
-\end{gather*}
-existiert.
-$P$ kann so gewählt werden, dass alle Elemente von $L$ betragsmäßig kleiner oder gleich
-1 sind, d.h.
-\begin{gather*}
-  |l_{ij}| \leq 1\quad \forall i, j
-\end{gather*}
+%\subsectione{Satz: Dreieckszerlegung mit Permutationsmatrix} 
+\begin{Satze}[Dreieckszerlegung mit Permutationsmatri] \label{2.2.4} 
+	Für jede invertierbare Matrix $A$ existiert eine Permutationsmatrix $P$,
+	so dass eine Dreieckszerlegung
+	\begin{gather*}
+	PA = LR
+	\end{gather*}
+	existiert.
+	$P$ kann so gewählt werden, dass alle Elemente von $L$ betragsmäßig kleiner oder gleich
+	1 sind, d.h.
+	\begin{gather*}
+	|l_{ij}| \leq 1\quad \forall i, j
+	\end{gather*}
+\end{Satze}
+	
+	
+	\begin{proof}
+		Da $\det A \neq 0$ ist, existiert eine Transposition $\tau_1$, s.d. 
+		\begin{gather*}a_{11}^{(1)}= a_{\tau_1, 1} \neq 0 \end{gather*}
+		und
+		\begin{gather*}
+		| a_{\tau_1, 1} | \geq |a_{i1}| 
+		\quad \forall i=1, \cdots, n \, . 
+		\end{gather*}
+		Wir erhalten damit
+		\begin{gather*}
+		L_1P_{\tau_1} \cdot A = A^{(1)} = \begin{pmatrix}
+		a_{11}^{(1)} && \cdots ~&  ~\\
+		0 \\
+		\vdots && B^{(1)} \\
+		0
+		\end{pmatrix}
+		\end{gather*}
+		und alle Elemente von $L_1 $ sind betragsmäßig kleiner oder gleich 1 sowie
+		$\det L_1 = 1 $. \\
+		Daraus folgt
+		\begin{align*}
+		\det B^{(1)} & = \frac{1}{\underbrace{a_{11}^{(1)}}_{\neq 0}} \cdot \det A^{(1)} \\
+		& = \frac{1}{a_{\tau_1, 1}^{(1)}}\cdot \det (L_1) \cdot \det (A) \\
+		& \neq 0 \, .
+		\end{align*}
+		Also ist $B^{(1)}$ invertierbar. \\
+		
+		Induktiv erhalten wir dann
+		\begin{gather*}
+		R = A^{(n-1)} = L_{n-1}P_{\tau_{n-1}} \cdot \dotsc \cdot L_1 P_{\tau_1} \cdot A
+		\end{gather*}\\
+		\marginpar{15.10.2014}
+		Da $\tau_i$ nur zwei Zahlen $\geq i $ vertauscht, ist
+		\begin{align*}\index{Vorwärtselimination}
+		\Pi_i  &\coloneqq \tau_{n-1} \circ \dots \circ \tau_i \quad\text{ für } i=1,\dots (n-1) 
+		\end{align*}
+		eine Permutation der Zahlen $\{i,\dots, n\}$, d.h. insbesondere gilt:
+		\begin{alignat*}{2}
+		\Pi_i(j)&=j  & \quad &\text{ für } j=1,\dots,(i-1) \\
+		\Pi_i(j)&\in \{i, \dots, n\} & &\text{~für~}j=i,\dots, n\,. 
+		\end{alignat*}
+		\begin{align*}
+		P _{\Pi_{i+1}}  &= (e_1, \dotsc e_i, e_{\Pi_{i+1}(i+1)}, \dotsc, e_{\Pi_{i+1}(n)}) 
+		= \begin{pmatrix}
+		I_i & 0 \\
+		0 & P_{\sigma}
+		\end{pmatrix}
+		\end{align*}
+		Damit folgt:
+		\begin{align*}
+		P_{\Pi_(i+1)}\cdot L_i\cdot P_{\Pi_{i+1}}^{-1}
+		&= P_{\Pi_{i+1}} \cdot 
+		\left(\begin{array}{ccc|ccc}
+		& I_i & && 0 & \\
+		\cline{1-6}
+		& & -l_{i+1, i} & & & \\
+		&  0 &  \vdots  & & I_{n-i} &\\
+		&    & -l_{n, i} & &  & 
+		\end{array}\right)
+		\cdot\begin{pmatrix}
+		I_i & 0 \\
+		0 & P_{\sigma}^{-1}
+		\end{pmatrix}\\
+		&= \begin{pmatrix}
+		I_i & 0 \\
+		0 & P_{\sigma}
+		\end{pmatrix}
+		\cdot   \l\cdot  \cdot
+		\left(\begin{array}{ccc|ccc}
+		& I_i & && 0 & \\
+		\cline{1-6}
+		\cdot & & -l_{i+1, i} & & & \\
+		&  0 &  \vdots      & & P_{\sigma}^{-1} &\\
+		&     & -l_{n, i} & &  & 
+		\end{array}\right) \\
+		&= \left(\begin{array}{ccc|ccc}
+		& I_i & && 0 & \\
+		\cline{1-6}
+		&     & -l_{\Pi_{i+1}(i+1), i} & & & \\
+		&  0 &  \vdots      & & I_{n-i} &\\
+		&     & -l_{\Pi_{i+1}(n), i} & &  & 
+		\end{array}\right) \\
+		&= I - (P_{\Pi_{i+1}} l_i)e_i^T\\
+		&\eqqcolon \widehat{L}_i
+		\end{align*}
+		und
+		\begin{align*}		R =&\, L_{n-1}\\
+		&\cdot (P_{\tau_{n-1}}L_{n-2}P_{\tau_{n-1}}^{-1})\\
+		&				\cdot (P_{\tau_{n-1}}P_{\tau_{n-2}}L_{n-2}P_{\tau_{n-2}}^{-1}P_{\tau_{n-1}}^{-1})\\
+		&\; \vdots \\
+		&		 \cdot (P_{\tau_{n-1}}\dotsm P_{\tau_{1}}L_{1}P_{\tau_{1}}\dotsm P_{\tau_{n-1}}) \cdot A\\
+		=&\,L_{n-1}\widehat{L}_{n-2}\dotsm\widehat{L}_1P_{\Pi_{1}}\cdot A
+		\end{align*}
+		Nach Lemma \autoref{2.1.12} gilt daher, es existiert eine Permutation $\Pi_{1}$ mit
+		\begin{gather*}
+		P_{\Pi_1}\cdot A = LR ,
+		\end{gather*}
+		wobei $R$ obere Dreiecksgestalt hat und
+		\begin{align*}
+		L  &=  \begin{pmatrix}
+		1 && & 0\\
+		l_{\Pi_2(2),1} & \ddots & \\
+		\vdots &            \ddots &  1\\
+		l_{\Pi_n(n),1}& \dotsm &  l_{\Pi_n(n),n-1} & 1 
+		\end{pmatrix} 
+		& \text{mit } |l_{ij}| \leq 1 
+		\end{align*}
+		gilt.
+	\end{proof}
 
-
-\begin{proof}
-  Da $\det A \neq 0$ ist, existiert eine Transposition $\tau_1$, s.d. 
-  \begin{gather*}a_{11}^{(1)}= a_{\tau_1, 1} \neq 0 \end{gather*}
-  und
-  \begin{gather*}
-    | a_{\tau_1, 1} | \geq |a_{i1}| 
-    \quad \forall i=1, \cdots, n \, . 
-  \end{gather*}
-  Wir erhalten damit
-  \begin{gather*}
-    L_1P_{\tau_1} \cdot A = A^{(1)} = \begin{pmatrix}
-      a_{11}^{(1)} && \cdots ~&  ~\\
-      0 \\
-      \vdots && B^{(1)} \\
-      0
-    \end{pmatrix}
-  \end{gather*}
-  und alle Elemente von $L_1 $ sind betragsmäßig kleiner oder gleich 1 sowie
-  $\det L_1 = 1 $. \\
-  Daraus folgt
-  \begin{align*}
-    \det B^{(1)} & = \frac{1}{\underbrace{a_{11}^{(1)}}_{\neq 0}} \cdot \det A^{(1)} \\
-                 & = \frac{1}{a_{\tau_1, 1}^{(1)}}\cdot \det (L_1) \cdot \det (A) \\
-                 & \neq 0 \, .
-  \end{align*}
-  Also ist $B^{(1)}$ invertierbar. \\
-  
-  Induktiv erhalten wir dann
-  \begin{gather*}
-    R = A^{(n-1)} = L_{n-1}P_{\tau_{n-1}} \cdot \dotsc \cdot L_1 P_{\tau_1} \cdot A
-  \end{gather*}\\
-  \marginpar{15.10.2014}
-  Da $\tau_i$ nur zwei Zahlen $\geq i $ vertauscht, ist
-  \begin{align*}\index{Vorwärtselimination}
-    \Pi_i  &\coloneqq \tau_{n-1} \circ \dots \circ \tau_i \quad\text{ für } i=1,\dots (n-1) 
-  \end{align*}
-  eine Permutation der Zahlen $\{i,\dots, n\}$, d.h. insbesondere gilt:
-  \begin{alignat*}{2}
-    \Pi_i(j)&=j  & \quad &\text{ für } j=1,\dots,(i-1) \\
-    \Pi_i(j)&\in \{i, \dots, n\} & &\text{~für~}j=i,\dots, n\,. 
-  \end{alignat*}
-  \begin{align*}
-    P _{\Pi_{i+1}}  &= (e_1, \dotsc e_i, e_{\Pi_{i+1}(i+1)}, \dotsc, e_{\Pi_{i+1}(n)}) 
-                      = \begin{pmatrix}
-                        I_i & 0 \\
-                        0 & P_{\sigma}
-                      \end{pmatrix}
-  \end{align*}
-  Damit folgt:
-  \begin{align*}
-    P_{\Pi_(i+1)}\cdot L_i\cdot P_{\Pi_{i+1}}^{-1}
-         &= P_{\Pi_{i+1}} \cdot 
-            \left(\begin{array}{ccc|ccc}
-                     & I_i & && 0 & \\
-                     \cline{1-6}
-                     & & -l_{i+1, i} & & & \\
-                     &  0 &  \vdots  & & I_{n-i} &\\
-                     &    & -l_{n, i} & &  & 
-                  \end{array}\right)
-              \cdot\begin{pmatrix}
-                      I_i & 0 \\
-                      0 & P_{\sigma}^{-1}
-                   \end{pmatrix}\\
-         &= \begin{pmatrix}
-               I_i & 0 \\
-               0 & P_{\sigma}
-            \end{pmatrix}
-            \cdot   \l\cdot  \cdot
-            \left(\begin{array}{ccc|ccc}
-                     & I_i & && 0 & \\
-                     \cline{1-6}
-                     \cdot & & -l_{i+1, i} & & & \\
-                     &  0 &  \vdots      & & P_{\sigma}^{-1} &\\
-                     &     & -l_{n, i} & &  & 
-                  \end{array}\right) \\
-         &= \left(\begin{array}{ccc|ccc}
-                    & I_i & && 0 & \\
-                    \cline{1-6}
-                    &     & -l_{\Pi_{i+1}(i+1), i} & & & \\
-                    &  0 &  \vdots      & & I_{n-i} &\\
-                    &     & -l_{\Pi_{i+1}(n), i} & &  & 
-                  \end{array}\right) \\
-         &= I - (P_{\Pi_{i+1}} l_i)e_i^T\\
-         &\eqqcolon \widehat{L}_i
-  \end{align*}
-  und
-  \begin{align*}		R =&\, L_{n-1}\\
-                                   &\cdot (P_{\tau_{n-1}}L_{n-2}P_{\tau_{n-1}}^{-1})\\
-                                   &				\cdot (P_{\tau_{n-1}}P_{\tau_{n-2}}L_{n-2}P_{\tau_{n-2}}^{-1}P_{\tau_{n-1}}^{-1})\\
-                                   &\; \vdots \\
-                                   &		 \cdot (P_{\tau_{n-1}}\dotsm P_{\tau_{1}}L_{1}P_{\tau_{1}}\dotsm P_{\tau_{n-1}}) \cdot A\\
-    =&\,L_{n-1}\widehat{L}_{n-2}\dotsm\widehat{L}_1P_{\Pi_{1}}\cdot A
-  \end{align*}
-  Nach Lemma \ref{2.1.12} gilt daher, es existiert eine Permutation $\Pi_{1}$ mit
-  \begin{gather*}
-    P_{\Pi_1}\cdot A = LR ,
-  \end{gather*}
-  wobei $R$ obere Dreiecksgestalt hat und
-  \begin{align*}
-    L  &=  \begin{pmatrix}
-      1 && & 0\\
-      l_{\Pi_2(2),1} & \ddots & \\
-      \vdots &            \ddots &  1\\
-      l_{\Pi_n(n),1}& \dotsm &  l_{\Pi_n(n),n-1} & 1 
-    \end{pmatrix} 
-                     & \text{mit } |l_{ij}| \leq 1 
-  \end{align*}
-  gilt.
-\end{proof}
-
-\subsection{Lösen eines Gleichungssystems $Ax=b$} 
+\subsectione{Lösen eines Gleichungssystems $Ax=b$} 
 Das Lösen eines linearen Gleichungssystems der Form $Ax=b$ wird mittels
 Elimination durch folgende drei Schritte durchgeführt:
 \begin{enumerate}[1)]
@@ -1268,47 +1345,51 @@ Elimination durch folgende drei Schritte durchgeführt:
 \item Löse durch Rückwärtssubstitution $Rx=z$
 \end{enumerate}
 
-\subsection{Bemerkungen}
-\begin{enumerate}[a)]
-\item $P_\Pi A=LR$ kann zur Berechnung von $\det(A)$ genutzt werden
-  (allgemeine Formel: $\det(A)=sign(\Pi)\cdot r_{11}\cdot \dots \cdot r_{nn}$).
-\item Algorithmus \ref{2.2.3}  testet, ob die Matrix singulär ist,
-  bis auf den Fall $r_{nn}=a_{nn}^{(n-1)}=0$.
-\item $\det(A)=0$ sollte nicht als (numerischer) Nachweis für die
-  Singularität von $A$ genutzt werden.\\
-  Z.B. ist $10^{-8}I$ regulär, aber $\det(10^{-8}I) = 10^{-8n}$ ist fast 0
-  für große $n$, also ist $A$ numerisch singulär.
-\end{enumerate}
+%\subsectione{Bemerkungen}
+\begin{Beme}~
+	\begin{enumerate}[a)]
+		\item $P_\Pi A=LR$ kann zur Berechnung von $\det(A)$ genutzt werden
+		(allgemeine Formel: $\det(A)=sign(\Pi)\cdot r_{11}\cdot \dots \cdot r_{nn}$).
+		\item Algorithmus \ref{2.2.3}  testet, ob die Matrix singulär ist,
+		bis auf den Fall $r_{nn}=a_{nn}^{(n-1)}=0$.
+		\item $\det(A)=0$ sollte nicht als (numerischer) Nachweis für die
+		Singularität von $A$ genutzt werden.\\
+		Z.B. ist $10^{-8}I$ regulär, aber $\det(10^{-8}I) = 10^{-8n}$ ist fast 0
+		für große $n$, also ist $A$ numerisch singulär.
+	\end{enumerate}
+\end{Beme}
 
-\subsection{Beispiel zur Pivotisierung}
-Wir betrachten die Pivotisierung mit betragsmäßig größtem Spaltenelement
-und Rundungsfehlern zu
-\begin{gather*}
-  A=\begin{pmatrix}
-    10^{-4} & 1 \\ 1 & 1
-  \end{pmatrix}, ~
-  b= \begin{pmatrix*}
-    1 \\ 2
-  \end{pmatrix*}\, .
-\end{gather*}
-Die der Gauß-Elimination mit Rundung auf 3 Dezimalstellen ergibt
-$l_{21}=10^4$, denn kleines Pivotelement bedeutet großer Multiplikator. \\
-\begin{align*}
-  r_{22}&=a_{22}-l_{21}a_{12} = 1-10^4\cdot 1 = -999 \approx -10^4 \eqqcolon \widetilde{r}_{22}\\
-  b_2^{(1)} & = b_2-l_{21}b_1 = 2-10^4 = -9998 \approx -10^4 \eqqcolon \widetilde{b}_2^{(1)} 
-\end{align*}
-Die Rückwärtssubstitution ergibt
-\begin{align*}
-  x_2 &= \frac{-b_2^{(1)}}{r_{22}} = \frac{9998}{9999} \approx 1\\
-  \widetilde{x}_	2 &= \frac{\widetilde{b}_2}{\widetilde{r}_{22}} = \frac{-10^4}{-10^4} = 1 \\\\
-  x_1 &= \frac{1}{r_{11}}(b_1-r_{12}x_2)= 10^4 (1-1x_2) = \frac{10^4}{9999}\approx 1\\
-  \widetilde{	x}_1 &= \frac{1}{\widetilde{r}_{11}}(1-1\widetilde{x}_2)= 10^4 (1-1\cdot 1) = 0 
-\end{align*}
-Dies führt zu einem starken Fehler.\\
-
-Mit Spaltenpivotisierung ist $l_{21}=10^{-4}<1$ und 
-$\widetilde{r}_{22}=1$, $b_2^{(2)} = 1$, $\widetilde{x}_2=1$, $\widetilde{x}_1=1$.\\
-Diese Werte führen auch bei Rundungsfehlern zu besseren Ergebnissen.
+%\subsectione{Beispiel zur Pivotisierung}
+\begin{Bspe}
+	Wir betrachten die Pivotisierung mit betragsmäßig größtem Spaltenelement
+	und Rundungsfehlern zu
+	\begin{gather*}
+	A=\begin{pmatrix}
+	10^{-4} & 1 \\ 1 & 1
+	\end{pmatrix}, ~
+	b= \begin{pmatrix*}
+	1 \\ 2
+	\end{pmatrix*}\, .
+	\end{gather*}
+	Die der Gauß-Elimination mit Rundung auf 3 Dezimalstellen ergibt
+	$l_{21}=10^4$, denn kleines Pivotelement bedeutet großer Multiplikator. \\
+	\begin{align*}
+	r_{22}&=a_{22}-l_{21}a_{12} = 1-10^4\cdot 1 = -999 \approx -10^4 \eqqcolon \widetilde{r}_{22}\\
+	b_2^{(1)} & = b_2-l_{21}b_1 = 2-10^4 = -9998 \approx -10^4 \eqqcolon \widetilde{b}_2^{(1)} 
+	\end{align*}
+	Die Rückwärtssubstitution ergibt
+	\begin{align*}
+	x_2 &= \frac{-b_2^{(1)}}{r_{22}} = \frac{9998}{9999} \approx 1\\
+	\widetilde{x}_	2 &= \frac{\widetilde{b}_2}{\widetilde{r}_{22}} = \frac{-10^4}{-10^4} = 1 \\\\
+	x_1 &= \frac{1}{r_{11}}(b_1-r_{12}x_2)= 10^4 (1-1x_2) = \frac{10^4}{9999}\approx 1\\
+	\widetilde{	x}_1 &= \frac{1}{\widetilde{r}_{11}}(1-1\widetilde{x}_2)= 10^4 (1-1\cdot 1) = 0 
+	\end{align*}
+	Dies führt zu einem starken Fehler.\\
+	
+	Mit Spaltenpivotisierung ist $l_{21}=10^{-4}<1$ und 
+	$\widetilde{r}_{22}=1$, $b_2^{(2)} = 1$, $\widetilde{x}_2=1$, $\widetilde{x}_1=1$.\\
+	Diese Werte führen auch bei Rundungsfehlern zu besseren Ergebnissen.
+\end{Bspe}
 
 
 \marginpar{15.10.2014}
@@ -1347,34 +1428,41 @@ Die wichtigsten Typen sind:
 \item \textbf{Gleitpunktzahlen} (floating point) \index{floating point}
 \end{itemize}
 
-\subsection{Definition: Gleitkommazahl} \label{3.1.1} \index{Gleitkommazahl}
-Eine Zahl $x\in\Q$ mit einer Darstellung
-\begin{align*}
-  x&=\sigma \cdot(a_1 . a_2 \cdots a_t)_{\beta}\cdot \beta^e 
-     = \sigma\beta^e \cdot \sum_{\nu=1}^{t}a_\nu \beta^{-\nu+1}\\\\
-   &\quad\begin{array}{ll}
-           \beta\in\N & \text{Basis des Zahlensystems}\index{Basis}\\
-           \sigma \in\{\pm 1\} &\text{Vorzeichen} \\
-           m = (a_1 . a_2 \cdots a_t)_{\beta} &\text{Mantisse}\index{Mantisse}\\
-           \phantom{m}= \sum_{\nu=1}^{t}a_\nu \beta^{-\nu+1} \\
-           a_i \in\{0,\cdots , \beta-1\}&\text{Ziffern der Mantisse}\\
-           t\in\N&\text{Mantissenlänge} \\
-           e\in\Z &\text{mit }e_{min}\leq e \leq e_{max} \text{ Exponent}
-         \end{array}
-\end{align*}
-heißt \textbf{Gleitkommazahl} mit $t$ Stellen und Exponent $e$ zur Basis $b$. \\
-Ist $a_1\neq 0$, so heißt $x$ \textbf{normalisierte Gleitkommazahl}\index{normalisierte Gleitkommazahl}
+%\subsectione{Definition: Gleitkommazahl} 
+\begin{Defe}
+	\label{3.1.1} \index{Gleitkommazahl}
+	Eine Zahl $x\in\Q$ mit einer Darstellung
+	\begin{align*}
+	x&=\sigma \cdot(a_1 . a_2 \cdots a_t)_{\beta}\cdot \beta^e 
+	= \sigma\beta^e \cdot \sum_{\nu=1}^{t}a_\nu \beta^{-\nu+1}\\\\
+	&\quad\begin{array}{ll}
+	\beta\in\N & \text{Basis des Zahlensystems}\index{Basis}\\
+	\sigma \in\{\pm 1\} &\text{Vorzeichen} \\
+	m = (a_1 . a_2 \cdots a_t)_{\beta} &\text{Mantisse}\index{Mantisse}\\
+	\phantom{m}= \sum_{\nu=1}^{t}a_\nu \beta^{-\nu+1} \\
+	a_i \in\{0,\cdots , \beta-1\}&\text{Ziffern der Mantisse}\\
+	t\in\N&\text{Mantissenlänge} \\
+	e\in\Z &\text{mit }e_{min}\leq e \leq e_{max} \text{ Exponent}
+	\end{array}
+	\end{align*}
+	heißt \textbf{Gleitkommazahl} mit $t$ Stellen und Exponent $e$ zur Basis $b$. \\
+	Ist $a_1\neq 0$, so heißt $x$ \textbf{normalisierte Gleitkommazahl}\index{normalisierte Gleitkommazahl}.
+\end{Defe}
 
-\subsection{Bemerkung} \label{3.1.2}
-\begin{enumerate}[a)]
-\item 0 ist keine normalisierte Gleitkommazahl, da $a_1 =  0$ ist.
-\item $a_1\neq 0$ stellt sicher, dass die Gleitkommadarstellung eindeutig ist.
-\item In der Praxis werden auch nicht-normalisierte Darstellungen verwendet.
-\item Heutige Rechner verwenden meist $\beta =2$, aber auch $\beta=8, \beta=16$.
-\end{enumerate}
+%\subsectione{Bemerkung} 
+\begin{Beme}
+	\label{3.1.2}~
+	\begin{enumerate}[a)]
+		\item 0 ist keine normalisierte Gleitkommazahl, da $a_1 =  0$ ist.
+		\item $a_1\neq 0$ stellt sicher, dass die Gleitkommadarstellung eindeutig ist.
+		\item In der Praxis werden auch nicht-normalisierte Darstellungen verwendet.
+		\item Heutige Rechner verwenden meist $\beta =2$, aber auch $\beta=8, \beta=16$.
+	\end{enumerate}
+\end{Beme}
 
-\subsection{Beispiel} \label{3.1.3}
-bit-Darstellung nach IEEE-Standard 754 von floating point numbers \\
+\subsectione{Bit-Darstellung zur Basis 2}
+ \label{3.1.3}
+Bit-Darstellung nach IEEE-Standard 754 von floating point numbers \\
 Sei die Basis $\beta=2$.
 
 \begin{tabular}{l@{}cccc@{}}
@@ -1435,7 +1523,7 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   \end{figure}
   ist im Dualsystem gleichmäßig verteilt.
 
-  \subsection{Bezeichnungen} \label{3.1.5}
+  \subsection{Bezeichnungen}\label{3.1.5}
   \begin{itemize}
   \item[\textbf{overflow}] es ergibt sich eine Zahl, die betragsmäßig größer ist als die größte maschinendarstellbare Zahl
   \item[\textbf{underflow}] entsprechend, betragsmäßig kleiner als die kleinste positive Zahl
@@ -1451,7 +1539,7 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   \end{align*}
 
 
-  \subsection{Rundungsfehler} \label{3.1.6}
+  \subsectione{Rundungsfehler} \label{3.1.6}
   Habe $x\in \R $ die normalisierte Darstellung
   \begin{align*}
     x &= \sigma \cdot \beta^e (\sum_{\nu=1}^{t}a_{\nu}\beta^{1-\nu} + \sum_{\nu=t+1}^{\infty}a_{\nu}\beta^{1-\nu} ) \\
@@ -1496,22 +1584,25 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
     \end{figure}
   \end{enumerate}
 
-  \subsection{Bemerkung} \label{3.1.7}
-  Gesetze der arithmetischen Operationen gelten i.A. nicht, z.B.
-  \begin{itemize}
-  \item 	$x$ Maschinenzahl $\quad \Rightarrow fl(x+\nu) = x \text{     für }|\nu| < \tau |x|$
-  \item Assoziativ- und Distributivgesetze gelten nicht, z.B. für $\beta = 10, \, t=3, \, a=0,1 ,\, b= 105 , \, c= -104$ gilt:
-    \begin{align*}
-      fl(a+fl(b+c)) &= 1,1 \\
-      fl(fl(a+b)+c) &= fl(fl(105,1) + (-104) ) \\
-                    &= fl(105-104) \\
-                    &= 1 \quad \lightning
-    \end{align*}
-  \item[ $\Rightarrow$] Für einen Algorithmus ist die Reihenfolge der Operationen wesentlich!
-    Mathematisch äquivalente Formulierungen können zu verschiedenen Ergebnissen führen.
-  \end{itemize}
+%  \subsection{Bemerkung} 
+  \begin{Beme}
+  	\label{3.1.7}
+  	Gesetze der arithmetischen Operationen gelten i.A. nicht, z.B.
+  	\begin{itemize}
+  		\item 	$x$ Maschinenzahl $\quad \Rightarrow fl(x+\nu) = x \text{     für }|\nu| < \tau |x|$
+  		\item Assoziativ- und Distributivgesetze gelten nicht, z.B. für $\beta = 10, \, t=3, \, a=0,1 ,\, b= 105 , \, c= -104$ gilt:
+  		\begin{align*}
+  		fl(a+fl(b+c)) &= 1,1 \\
+  		fl(fl(a+b)+c) &= fl(fl(105,1) + (-104) ) \\
+  		&= fl(105-104) \\
+  		&= 1 \quad \lightning
+  		\end{align*}
+  		\item[ $\Rightarrow$] Für einen Algorithmus ist die Reihenfolge der Operationen wesentlich!
+  		Mathematisch äquivalente Formulierungen können zu verschiedenen Ergebnissen führen.
+  	\end{itemize}
+  \end{Beme}
 
-  \subsection{Auslöschung von signifikanten Stellen} \label{3.1.8}
+  \subsectione{Auslöschung von signifikanten Stellen} \label{3.1.8}
   Sei $x=9,995\cdot 10^{-1}, y=9,984 \cdot 10^{-1}$. Runde auf drei signifikante Stellen und berechne $x-y$:
   \begin{align*}
     \widetilde{f}(x,y) &\coloneqq fl(fl(x)- fl(y)) = fl(1,00\cdot 10^0 - 9,98\cdot 10^{-1}) \\
@@ -1542,103 +1633,123 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   \end{gather*}
   untersucht.
 
-  \subsection{Definition: Problem} \label{3.2.1} \index{Problem}
-  Sei $f: U \subseteq \R^n \rightarrow \R^m$ mit $U$ offen und sei $x\in U$. Dann bezeichne $(f, x)$ das Problem, zu einem gegebenen $x$ die Lösung $f(x)$ zu finden.
+%  \subsectione{Definition: Problem} 
+  \begin{Defe}
+  	\label{3.2.1} \index{Problem}
+  	Sei $f: U \subseteq \R^n \rightarrow \R^m$ mit $U$ offen und sei $x\in U$.
+  	Dann bezeichne $(f, x)$ das Problem, zu einem gegebenen $x$ die Lösung $f(x)$ zu finden.
+  \end{Defe}
 
-  \subsection{Definition: absoluter und relativer Fehler} \label{3.2.2} \index{Fehler}
-  Sei $x\in\R^n$ und $\widetilde{x} \in \R^n$ eine Näherung an $x$. Weiterhin sei $\|\cdot\|$ eine Norm auf $\R^n$.
-  \begin{itemize}
-  \item[a)] $\nn{\widetilde{x} - x}$ heißt \textbf{absoluter Fehler} \index{Fehler!absoluter}
-  \item[b)] $\frac{\nn{\widetilde{x} - x}}{\nn{x}}$ heißt \textbf{relativer Fehler}\index{Fehler!relativer}
-  \end{itemize}
-  Da der relative Fehler skalierungsinvariant ist, d.h. unabhänging von der  Wahl von $x$ ist, ist dieser i.d.R. von größerem Interesse.
-  Beide Fehler hängen von der Wahl der Norm ab!
-  Häufig werden Fehler auch komponentenweise gemessen:
-  \begin{align*}
-    \text{Für } i=1,\cdots , n : && |\widetilde{x}_i - x_i | & \leq \delta & \text{ (absolut)} \\
-                                 && |\widetilde{x}_i - x_i | &\leq \delta |x_i| & \text{ (relativ)}
-  \end{align*}
-
-  \subsection{Wiederholung: Normen} \label{3.2.3}\index{Norm}
-  \begin{wrapfigure}{r}{5cm}
-    \centering
-    % source: http://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Vector_norms.svg/170px-Vector_norms.svg.png
-    \includegraphics[width=1.5cm]{images/normen.png}
-    \caption{Sphären mit gleichem Normbetrag (Bildquelle: Wikipedia)}
-  \end{wrapfigure}
-
-  \begin{align*}
-    \text{Summennorm ($l_1$-Norm):} &&	\nn{x}_1 &\coloneqq \sum_{i=1}^{n}|x_i| 
-                                                   \index{Norm!Summennorm}\\
-    \\
-    \text{Euklidische Norm ($l_2$-Norm):} &&	\nn{x}_2 &\coloneqq \sqrt{\sum_{i=1}^{n}|x_i|^2}
-                                                           \index{Norm!Euklidische Norm} \\
-    \\
-    \text{Maximumsnorm ($l_\infty$-Norm):} &&\nn{x}_\infty &\coloneqq \max\{|x_i| : i=1, \cdots n\} \\
-    \index{Norm!Maximumsnorm}
-    \\
-    \text{Hölder-Norm ($l_p$-Norm):} &&	\nn{x}_p &\coloneqq 
-                                                   \left(\sum_{i=1}^{n}|x_i|^p\right)^{\frac{1}{p}} 
-                                                   \index{Norm!Hölder-Norm}
-  \end{align*}
+%  \subsectione{Definition: absoluter und relativer Fehler} 
+\begin{Defe}
+	\label{3.2.2} \index{Fehler}
+	Sei $x\in\R^n$ und $\widetilde{x} \in \R^n$ eine Näherung an $x$. Weiterhin sei $\|\cdot\|$ eine Norm auf $\R^n$.
+	\begin{itemize}
+		\item[a)] $\nn{\widetilde{x} - x}$ heißt \textbf{absoluter Fehler} \index{Fehler!absoluter}
+		\item[b)] $\frac{\nn{\widetilde{x} - x}}{\nn{x}}$ heißt \textbf{relativer Fehler}\index{Fehler!relativer}
+	\end{itemize}
+	Da der relative Fehler skalierungsinvariant ist, d.h. unabhänging von der  Wahl von $x$ ist, ist dieser i.d.R. von größerem Interesse.
+	Beide Fehler hängen von der Wahl der Norm ab!
+	Häufig werden Fehler auch komponentenweise gemessen:
+	\begin{align*}
+	\text{Für } i=1,\cdots , n : && |\widetilde{x}_i - x_i | & \leq \delta & \text{ (absolut)} \\
+	&& |\widetilde{x}_i - x_i | &\leq \delta |x_i| & \text{ (relativ)}
+	\end{align*}
+\end{Defe}
 
 
+%  \subsectione{Wiederholung: Normen} 
+  \begin{Wdhe}[Normen]
+  	\label{3.2.3}\index{Norm}
+  	\begin{figure}
+  		\centering
+  		% source: http://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Vector_norms.svg/170px-Vector_norms.svg.png
+  		\includegraphics[width=1.5cm]{images/normen.png}
+  		\caption{Sphären mit gleichem Normbetrag (Bildquelle: Wikipedia)}
+  	\end{figure}
+  	\footnotetext{Bildquelle der Sphärenabb.: https://commons.wikimedia.org/wiki/File:Vector\_norms.svg}
+  	
+  	\begin{align*}
+  	\text{Summennorm ($l_1$-Norm):} &&	\nn{x}_1 &\coloneqq \sum_{i=1}^{n}|x_i| 
+  	\index{Norm!Summennorm}\\
+  	\\
+  	\text{Euklidische Norm ($l_2$-Norm):} &&	\nn{x}_2 &\coloneqq \sqrt{\sum_{i=1}^{n}|x_i|^2}
+  	\index{Norm!Euklidische Norm} \\
+  	\\
+  	\text{Maximumsnorm ($l_\infty$-Norm):} &&\nn{x}_\infty &\coloneqq \max\{|x_i| : i=1, \cdots n\} \\
+  	\index{Norm!Maximumsnorm}
+  	\\
+  	\text{Hölder-Norm ($l_p$-Norm):} &&	\nn{x}_p &\coloneqq 
+  	\left(\sum_{i=1}^{n}|x_i|^p\right)^{\frac{1}{p}} 
+  	\index{Norm!Hölder-Norm}
+  	\end{align*}
+  \end{Wdhe}
 
-  \subsection{Definition: Matrixnorm} \label{3.2.4}
-  Auf dem $\R^n$  sei die Norm $\nn{\,\cdot\,}_a$ und auf dem $\R^m$ die Norm $\nn{\,\cdot\,}_b$ gegeben.
-  Dann ist die zugehörige \textbf{Matrixnorm} \index{Norm!Matrixnorm} gegeben durch:
-  \begin{align}
-    \nn{A}_{a,b} &\coloneqq \sup_{x\neq 0} \frac{\nn{Ax}_b}{\nn{x}_a} \\ \nonumber
-                 &= \sup_{\nn{x}_a=1} \nn{Ax}_b \label{III.2.1} 
-  \end{align}
-  Also ist   $\nn{A}_{a,b}$ die kleinste Zahl $c>0$ mit
-  \begin{gather*}
-    \nn{Ax}_b  \leq c\nn{x}_a \quad\quad \forall x\in \R^n
-  \end{gather*}
 
-  \subsection{Definition: Frobeniusnorm, p-Norm, Verträglichkeit} \label{3.2.5}
-  Sei $A\in \R^{m\times n}$.
-  \begin{enumerate}[a)]
-  \item \textbf{Frobeniusnorm} (Schurnorm):
-    $ \quad \nn{A}_F \coloneqq \sqrt{\sum_{i=1}^{m}\sum_{j=1}^{n}|a_{ij}^2|}
-    \index{Norm!Frobeniusnorm}$
-  \item \textbf{p-Norm}: 
-    $\quad \nn{A}_p \coloneqq \nn{A}_{p,p}
-    \index{p-Norm}$
-  \item Eine Matrixnorm heißt \textbf{verträglich} \index{Norm!verträglich} mit den Vektornormen 
-    $\nn{\,\cdot\,}_a, \nn{\,\cdot\,}_b$, falls gilt
-    \footnote{ Beachte: $\nn{A}_{a,b}$ ist die kleinste Norm im Gegensatz zu $\nn{A}$, welche hier beliebig ist.}:
-    \begin{gather*}
-      \nn{Ax}_b \leq \nn{A}\cdot \nn{x}_a \quad \forall x\in \R^n
-    \end{gather*}
-  \end{enumerate}
 
-  \subsection{Bemerkungen} \label{3.2.6}
-  \begin{enumerate}[a)]
-  \item Die Normen $\nn{\,\cdot\,}_F$ und $\nn{\,\cdot\,}_p$ sind \textbf{submultiplikativ} \index{Norm!submultiplikative}, d.h.
-    \begin{gather*}
-      \nn{A\cdot B} \leq \nn{A}\cdot\nn{B}
-    \end{gather*}
-  \item Die Norm $\nn{\,\cdot\,}_{1,1}$ wird auch \textbf{Spaltensummennorm}\index{Norm!Spaltensummennorm} genannt:
-    \begin{gather*}
-      \nn{A}_1 = \max_{1\leq j \leq n}\sum_{i=1}^{m}|a_{ij}|
-    \end{gather*}
-    Sie ist das Maximum der Spaltensummen\footnote{Beweis: siehe Übungsblatt 3}.
-  \item Die Norm $\nn{\,\cdot\,}_{\infty, \infty}$ wird auch \textbf{Zeilensummennorm} \index{Zeilensummennorm}
-    genannt\footnote{Beweis: siehe Übungsblatt 3}:
-    % not sure, why \footref won't work here ...
-    \begin{gather*}
-      \nn{A}_\infty = \max_{1\leq i \leq m}\sum_{j=1}^{n}|a_{ij}|
-    \end{gather*}
-  \item Die Frobeniusnorm $\nn{\,\cdot\,}_F$ ist verträglich mit der euklidischen Norm $\nn{\,\cdot\,}_2$
-  \item Die Wurzeln aus den Eigenwerten von $A^TA$ heißen \textbf{Singulärwerte $\sigma_i$} \index{Singulärwert} von A.
-    Mit ihnen kann die $\nn{\,\cdot\,}_{2,2}$ Norm dargestellt werden\footnote{Beweis: siehe Übungsblatt 3}:
-    \begin{align*}
-      \nn{A}_2 &= max \{\sqrt{\mu} : A^TA\cdot x = \mu x\text{ für ein }x\neq 0 \} \\
-               & = \sigma_{max}
-    \end{align*}
-  \end{enumerate}
+%  \subsectione{Definition: Matrixnorm} 
+  \begin{Defe}
+  	\label{3.2.4}
+  	Auf dem $\R^n$  sei die Norm $\nn{\,\cdot\,}_a$ und auf dem $\R^m$ die Norm $\nn{\,\cdot\,}_b$ gegeben.
+  	Dann ist die zugehörige \textbf{Matrixnorm} \index{Norm!Matrixnorm} gegeben durch:
+  	\begin{align}
+  	\nn{A}_{a,b} &\coloneqq \sup_{x\neq 0} \frac{\nn{Ax}_b}{\nn{x}_a} \\ \nonumber
+  	&= \sup_{\nn{x}_a=1} \nn{Ax}_b \label{III.2.1} 
+  	\end{align}
+  	Also ist   $\nn{A}_{a,b}$ die kleinste Zahl $c>0$ mit
+  	\begin{gather*}
+  	\nn{Ax}_b  \leq c\nn{x}_a \quad\quad \forall x\in \R^n
+  	\end{gather*}
+  \end{Defe}
 
+%  \subsectione{Definition: Frobeniusnorm, p-Norm, Verträglichkeit} 
+\begin{Defe}
+	\label{3.2.5}
+	Sei $A\in \R^{m\times n}$.
+	\begin{enumerate}[a)]
+		\item \textbf{Frobeniusnorm} (Schurnorm):
+		$ \quad \nn{A}_F \coloneqq \sqrt{\sum_{i=1}^{m}\sum_{j=1}^{n}|a_{ij}^2|}
+		\index{Norm!Frobeniusnorm}$
+		\item \textbf{p-Norm}: 
+		$\quad \nn{A}_p \coloneqq \nn{A}_{p,p}
+		\index{p-Norm}$
+		\item Eine Matrixnorm heißt \textbf{verträglich} \index{Norm!verträglich} mit den Vektornormen 
+		$\nn{\,\cdot\,}_a, \nn{\,\cdot\,}_b$, falls gilt
+		\footnote{ Beachte: $\nn{A}_{a,b}$ ist die kleinste Norm im Gegensatz zu $\nn{A}$, welche hier beliebig ist.}:
+		\begin{gather*}
+		\nn{Ax}_b \leq \nn{A}\cdot \nn{x}_a \quad \forall x\in \R^n
+		\end{gather*}
+	\end{enumerate}
+\end{Defe}
+
+%  \subsectione{Bemerkungen} 
+  \begin{Beme}~
+  	\label{3.2.6}
+  	\begin{enumerate}[a)]
+  		\item Die Normen $\nn{\,\cdot\,}_F$ und $\nn{\,\cdot\,}_p$ sind \textbf{submultiplikativ} \index{Norm!submultiplikative}, d.h.
+  		\begin{gather*}
+  		\nn{A\cdot B} \leq \nn{A}\cdot\nn{B}
+  		\end{gather*}
+  		\item Die Norm $\nn{\,\cdot\,}_{1,1}$ wird auch \textbf{Spaltensummennorm}\index{Norm!Spaltensummennorm} genannt:
+  		\begin{gather*}
+  		\nn{A}_1 = \max_{1\leq j \leq n}\sum_{i=1}^{m}|a_{ij}|
+  		\end{gather*}
+  		Sie ist das Maximum der Spaltensummen\footnote{Beweis: siehe Übungsblatt 3}.
+  		\item Die Norm $\nn{\,\cdot\,}_{\infty, \infty}$ wird auch \textbf{Zeilensummennorm} \index{Zeilensummennorm}
+  		genannt\footnote{Beweis: siehe Übungsblatt 3}:
+  		% not sure, why \footref won't work here ...
+  		\begin{gather*}
+  		\nn{A}_\infty = \max_{1\leq i \leq m}\sum_{j=1}^{n}|a_{ij}|
+  		\end{gather*}
+  		\item Die Frobeniusnorm $\nn{\,\cdot\,}_F$ ist verträglich mit der euklidischen Norm $\nn{\,\cdot\,}_2$
+  		\item Die Wurzeln aus den Eigenwerten von $A^TA$ heißen \textbf{Singulärwerte $\sigma_i$} \index{Singulärwert} von A.
+  		Mit ihnen kann die $\nn{\,\cdot\,}_{2,2}$ Norm dargestellt werden\footnote{Beweis: siehe Übungsblatt 3}:
+  		\begin{align*}
+  		\nn{A}_2 &= max \{\sqrt{\mu} : A^TA\cdot x = \mu x\text{ für ein }x\neq 0 \} \\
+  		& = \sigma_{max}
+  		\end{align*}
+  	\end{enumerate}
+  \end{Beme}
 
   \marginpar{22.10.2014}
   % ultimate evil hack to go along with numeration
@@ -1647,78 +1758,87 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   %% Alternative to add it to table of contents:
   % \renewcommand{\thesubsection}{\thesection.a)}
   % \setkomafont{subsection}{\Large}
-  % \subsection{NORMWEISE KONDITIONSANALYSE}
+  % \subsectione{NORMWEISE KONDITIONSANALYSE}
   % \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
   % \addtocounter{subsection}{-1}
   % \setkomafont{subsection}{\large}
 
-  \subsection{Definition: absolute und relative normweise Kondition}\index{normweise Kondition}
-  Sei $(f,x)$ ein Problem mit $f:U\subset \R^n \rightarrow \R^m$
-  und $\nn{\,\cdot\,}_a$ auf $\R^n$ und $\nn{\,\cdot\,}_b$ auf $\R^m$ eine Norm.
-  \begin{enumerate}[a)]
-  \item Die \textbf{absolute normweise Kondition}\index{Kondition!normweise, absolut} eines Problems $(f,x)$ ist die kleinste Zahl 
-    $\kappa _{abs} > 0 $ mit
-    \begin{align}
-      \nn{f(\widetilde{x})-f(x)}_b &\leq \kappa _{abs}(f,x) \nn{\widetilde{x}-x}_a
-                                     + o\left(\nn{\widetilde{x}-x}_a\right) \label{III.2.2} \\\nonumber
-      \Bigl(f(\widetilde{x})- f(x) 
-                                   &=\underbrace{ f'(x)(\widetilde{x}-x)\pm o\left(\nn{\widetilde{x}-x}\right)}_{Taylorentwicklung}
-                                     \quad \text{für }\widetilde{x}\rightarrow x 
-                                     \Bigr)
-    \end{align}
-  \item Die \textbf{relative normweise Kondition}\index{Kondition!normweise. relativ} eines Problems $(f,x)$  mit $x\neq 0, f(x) \neq 0$
-    ist die kleinste Zahl 
-    $\kappa _{rel} > 0 $ mit
-    \begin{align}
-      \frac{	\nn{f(\widetilde{x})-f(x)}_b }{\nn{f(x)}_b}
-      &\leq \kappa _{rel}(f,x)\frac{ \nn{\widetilde{x}-x}_a}{\nn{x}_a}
-        + 
-        o\left(\frac{\nn{\widetilde{x}-x}_a}{\nn{x}_a}\right) \label{III.2.3}
-      &&	\text{für } \widetilde{x} \rightarrow x
-    \end{align}
-  \item Sprechweise:
-    \begin{itemize}\index{Kondition!gut/schlecht konditioniert}
-    \item falls $\kappa$ \enquote{klein} ist, ist das Problem \enquote{gut konditioniert}
-    \item falls $\kappa$ \enquote{groß} ist, ist das Problem \enquote{schlecht konditioniert}
-    \end{itemize}
-  \end{enumerate}
+%  \subsectione{Definition: absolute und relative normweise Kondition}
+\begin{Defe}
+	\index{normweise Kondition}
+	Sei $(f,x)$ ein Problem mit $f:U\subset \R^n \rightarrow \R^m$
+	und $\nn{\,\cdot\,}_a$ auf $\R^n$ und $\nn{\,\cdot\,}_b$ auf $\R^m$ eine Norm.
+	\begin{enumerate}[a)]
+		\item Die \textbf{absolute normweise Kondition}\index{Kondition!normweise, absolut} eines Problems $(f,x)$ ist die kleinste Zahl 
+		$\kappa _{abs} > 0 $ mit
+		\begin{align}
+		\nn{f(\widetilde{x})-f(x)}_b &\leq \kappa _{abs}(f,x) \nn{\widetilde{x}-x}_a
+		+ o\left(\nn{\widetilde{x}-x}_a\right) \label{III.2.2} \\\nonumber
+		\Bigl(f(\widetilde{x})- f(x) 
+		&=\underbrace{ f'(x)(\widetilde{x}-x)\pm o\left(\nn{\widetilde{x}-x}\right)}_{Taylorentwicklung}
+		\quad \text{für }\widetilde{x}\rightarrow x 
+		\Bigr)
+		\end{align}
+		\item Die \textbf{relative normweise Kondition}\index{Kondition!normweise. relativ} eines Problems $(f,x)$  mit $x\neq 0, f(x) \neq 0$
+		ist die kleinste Zahl 
+		$\kappa _{rel} > 0 $ mit
+		\begin{align}
+		\frac{	\nn{f(\widetilde{x})-f(x)}_b }{\nn{f(x)}_b}
+		&\leq \kappa _{rel}(f,x)\frac{ \nn{\widetilde{x}-x}_a}{\nn{x}_a}
+		+ 
+		o\left(\frac{\nn{\widetilde{x}-x}_a}{\nn{x}_a}\right) \label{III.2.3}
+		&&	\text{für } \widetilde{x} \rightarrow x
+		\end{align}
+		\item Sprechweise:
+		\begin{itemize}\index{Kondition!gut/schlecht konditioniert}
+			\item falls $\kappa$ \enquote{klein} ist, ist das Problem \enquote{gut konditioniert}
+			\item falls $\kappa$ \enquote{groß} ist, ist das Problem \enquote{schlecht konditioniert}
+		\end{itemize}
+	\end{enumerate}
+\end{Defe}
 
-  \subsection{Lemma} \label{3.2.8}
-  Falls $f$ differenzierbar ist, gilt
-  \begin{gather}
-    \kappa_{abs}(f,x) = \nn{Df(x)}_{a,b} \label{III.2.4}
-  \end{gather}
-  und für $f(x) \neq 0$
-  \begin{gather}
-    \kappa_{rel}(f,x) = \frac{\nn{x}_a}{\nn{f(x)}_b}\cdot \|Df(x)\|_{a,b} \label{III.2.5}
-  \end{gather}
-  wobei $Df(x)$ die Jakobi-Matrix bezeichnet.
-  % 
-  \subsection{Beispiel: Kondition der Addition}\label{3.2.9} \index{Kondition!Addition}
-  $f(x_1, x_2) \coloneqq x_1 +x_2 , \, f:\R^2 \rightarrow \R$. \\
-  Wähle $l_1$-Norm auf $\R^2$ (und $\R$)
-  \begin{align*}
-    Df(x_1, x_2) \, =(\nabla f^T) \, &= (\frac{\partial}{\partial x_1}f, \frac{\partial}{\partial x_2}f )\\
-                                     &= (1,1) && \text{(Matrix!)}
-  \end{align*}
-  damit
-  \begin{align*}
-    \kappa_{abs} (f,x)&= \nn{Df(x)}_{1,1} && \text{(Matrix-Norm!!)}\\
-                      &= \nn{Df(x)}_1 \\
-                      &=1 \\
-    \kappa_{rel} (f,x) &= \frac{\nn{x}_1}{\nn{f(x)}_1} \cdot \nn{Df(x)}_{1} \\
-                      &= \frac{|x_1| + |x_2|}{|x_1+x_2|}
-  \end{align*}
-  Daraus folgt: Die Addition zweier Zahlen mit gleichem Vorzeichen ergibt
-  \begin{gather*}
-    \kappa_{rel} = 1
-  \end{gather*}
-  Die Subtraktion zweier annähernd gleich großer  Zahlen ergibt eine sehr schlechte relative
-  Konditionierung:
-  \begin{gather*}
-    \kappa_{rel} \gg 1
-  \end{gather*}
-  Zum Beispiel in \ref{3.1.8}: Es ist 
+%  \subsectione{Lemma} 
+  \begin{Leme}\label{3.2.8}
+  	Falls $f$ differenzierbar ist, gilt
+  	\begin{gather}
+  	\kappa_{abs}(f,x) = \nn{Df(x)}_{a,b} \label{III.2.4}
+  	\end{gather}
+  	und für $f(x) \neq 0$
+  	\begin{gather}
+  	\kappa_{rel}(f,x) = \frac{\nn{x}_a}{\nn{f(x)}_b}\cdot \|Df(x)\|_{a,b} \label{III.2.5}
+  	\end{gather}
+  	wobei $Df(x)$ die Jakobi-Matrix bezeichnet.
+  \end{Leme}
+  
+%  \subsectione{Beispiel: Kondition der Addition}
+  \begin{Bspe}[Kondition der Addition]
+  	\label{3.2.9} \index{Kondition!Addition}
+  	$f(x_1, x_2) \coloneqq x_1 +x_2 , \, f:\R^2 \rightarrow \R$. \\
+  	Wähle $l_1$-Norm auf $\R^2$ (und $\R$)
+  	\begin{align*}
+  	Df(x_1, x_2) \, =(\nabla f^T) \, &= (\frac{\partial}{\partial x_1}f, \frac{\partial}{\partial x_2}f )\\
+  	&= (1,1) && \text{(Matrix!)}
+  	\end{align*}
+  	damit
+  	\begin{align*}
+  	\kappa_{abs} (f,x)&= \nn{Df(x)}_{1,1} && \text{(Matrix-Norm!!)}\\
+  	&= \nn{Df(x)}_1 \\
+  	&=1 \\
+  	\kappa_{rel} (f,x) &= \frac{\nn{x}_1}{\nn{f(x)}_1} \cdot \nn{Df(x)}_{1} \\
+  	&= \frac{|x_1| + |x_2|}{|x_1+x_2|}
+  	\end{align*}
+  	Daraus folgt: Die Addition zweier Zahlen mit gleichem Vorzeichen ergibt
+  	\begin{gather*}
+  	\kappa_{rel} = 1
+  	\end{gather*}
+  	Die Subtraktion zweier annähernd gleich großer  Zahlen ergibt eine sehr schlechte relative
+  	Konditionierung:
+  	\begin{gather*}
+  	\kappa_{rel} \gg 1
+  	\end{gather*}
+  \end{Bspe}
+  
+  \textbf{Zum Beispiel} in \ref{3.1.8}: Es ist 
   \begin{align*}
     x &= \begin{pmatrix}
       9,995 \\
@@ -1737,159 +1857,170 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   \end{align*}
   % 
 
-  \subsection{Beispiel: Lösen eines Gleichungssystems} \label{3.2.10}
-  Sei $A\in \R^{n\times n}$ invertierbar und $b\in \R^n$. Es soll 
-  \begin{gather*}
-    Ax =b
-  \end{gather*}
-  gelöst werden.
-  Die möglichen Lösungen in $A$ und in $b$ lassen sich folgendermaßen ermitteln:
-  \begin{enumerate}[a)]
-  \item Betrachte die Störungen in $b$:\\
-    Sei hierzu
-    \begin{gather*}
-      f: b\mapsto x= A^{-1}b 
-    \end{gather*}
-    Berechne dann $ \kappa(f,b)$ und löse 
-    \begin{align*}
-      A(x + \Delta x) &= b+\Delta b \\
-      f(b + \Delta b) - f(b) &= \Delta x \\
-                      &= A^{-1} \cdot \Delta b && \text{da }x = A^{-1}b \\
-      \Rightarrow \|\Delta x\|_{b}  &= \|A^{-1}\Delta b\|_{b} \\
-                      &\leq \|A^{-1}\|_{a,b}\cdot \|\Delta b\|_{b} && \forall b, \Delta b 
-    \end{align*}
-    wobei $\|\cdot\| $ auf $\Renn$ die dem $\Ren$ zugeordnete Matrix-Norm sei. \\
-    Die Abschätzung ist \textbf{scharf}\index{scharf}, d.h. es gibt ein $\Delta b\in \R^n$, so dass \enquote{=} gilt, nach Definition \ref{3.2.4}. \\
-    Also gilt\footnote{vgl. auch Lemma \ref{3.2.8}: $\kappa_{abs}(f,b)=\nn{Df(b)}_{a,b}=\nn{A^{-1}}_{a,b}$}:
-    \begin{gather}
-      \kappa_{abs}(f,b) = \nn{A^{-1}}_{a,b} \label{III.2.6}
-    \end{gather}
-    unabhängig von b.  $ \quad \left( x\mapsto Ax \quad \kappa_{abs}\right)$\\
-    Ebenso folgt die scharfe Abschätzung 
-    \begin{align}
-      \nonumber
-      \frac{\|	f(b + \Delta b) - f(b)\|}{\|f(b)\|} &= \frac{\nn{\Delta x}}{\nn{x}}\\ \nonumber
-                                                    & = \frac{\nn{A^{-1}\Delta b}}{\nn{x}} \\ \nonumber
-                                                    & \leq  \frac{\|A^{-1}\|\cdot \|b\|}{\|x\|} \cdot \frac{\|\Delta b\|}{\|b\|} \\
-      \intertext{Damit}
-      \kappa_{rel} (f,b) &= \|A^{-1} \| \cdot \frac{\|b\|}{\|A^{-1}\cdot b\|} \label{III.2.7}
-    \end{align}
-    Da $\|b\| \leq \|A\|\cdot\|x\| = \|A\|\cdot \|A^{-1}b\|$ folgt:
-    \begin{gather}
-      \kappa_{rel}(f,b) \leq \|A\| \cdot \|A^{-1}\| \label{III.2.8}
-    \end{gather}
-    für alle (möglichen rechten Seiten) $b $.\\
-    \ref{3.2.8} ist scharf in dem Sinne, dass es ein $\widehat{b}\in \R^n$ gibt 
-    mit 
-    \begin{gather*}
-      \|\widehat{b}\| = \nn{A}\cdot \nn{\widehat{x}}
-    \end{gather*}
-    und somit
-    \begin{gather*}
-      \kappa_{rel}(f,\widehat{b}) = \nn{A}\cdot \| A^{-1}\|
-    \end{gather*} %
-    % 
-  \item Betrachte die Störungen in $A$:\\
-    Löse also 
-    \begin{gather*}
-      (A+\Delta A)(x+\Delta x) = b
-    \end{gather*}
-    Sei hierzu
-    \begin{align*}
-      f:A&\mapsto x= A^{-1}b \\
-      \R^{n\times n}&\rightarrow \R^n
-    \end{align*}
-    und berechne $\kappa(f,A)$ mittels Ableitung $Df(A):\R^{n\times n} \rightarrow \R^n$:
-    \begin{align*}
-      C\mapsto Df(A) C&= \frac{d}{dt} \left((A+tC)^{-1} \cdot b\right) \Big\vert_{t=0} \\
-                      & = \frac{d}{dt}\left((A+tC)^{-1}\right)\Big\vert_{t=0}\cdot b
-    \end{align*}			
-    Weiterhin gilt
-    \begin{align}
-      \frac{d}{dt} \left((A+tC)^{-1}\right) \Big\vert_{t=0} &= -A^{-1}CA^{-1}, \label{III.2.9}
-    \end{align}
-    da
-    \begin{align*}
-      0&= \frac{d}{dt}I \\
-       &= \frac{d}{dt}\left( (A+tC)(A+tC)^{-1}\right)\\
-       &= C(A+tC)^{-1} +(A+tC)\cdot \frac{d}{dt}(A+tC)^{-1} \\
-      \Leftrightarrow \frac{d}{dt} (A+ tC)^{-1} 
-       &= -(A+tC)^{-1} \cdot C(A+tC)^{-1} \, ,
-    \end{align*}
-    falls $(A+tC)$ invertierbar ist. Für ein genügend kleines $t$ ist das gewährleistet, da $A$ invertierbar ist (s. Lemma \ref{3.2.12}).
-    \begin{gather*}
-      \Rightarrow Df(A) C = -A^{-1}CA^{-1}b
-    \end{gather*}
-    Somit folgt
-    \begin{align}
-      \nonumber
-      \kappa_{abs} (f,A) &= \|Df(A)\| \\ \nonumber
-                         &= \sup_{\substack{
-                           C\neq 0 \\ 
-      C\in \R^{n\times n}											  	
-      }}
-      \frac{\|A^{-1}CA^{-1}b\|}{\|C\|} \\ \nonumber
-                         &\leq \sup_{\substack{
-                           C\neq 0 \\ 
-      C \in \R^{n\times n}														  	
-      }}
-      \frac{\|A^{-1}\|\cdot\|C\|\cdot\|A^{-1}b\|}{\|C\|} \\ \nonumber
-                         &= \|A^{-1}\| \cdot\|x\| \\ \nonumber
-                         &\leq   \|A^{-1}\|^2 \cdot\|b\| \\ \nonumber
-      \kappa_{rel}(f,A)  &= \frac{\|A\|}{\|f(A)\|} \cdot \|Df(A)\| \\
-                         &\leq \|A\|\cdot \|A^{-1}\| \label{III.2.10}
-    \end{align}
-  \item betrachte Störungen in $A$ und $b$ :
-    \begin{gather*}
-      (A+\Delta A)(x+\Delta x) = (b+\Delta b) 
-    \end{gather*}
-    Für $\kappa$ müsste $\|(A,b)\|$ festgelegt werden. Dies wird jedoch nicht betrachtet. Es gilt aber folgende Abschätzung für invertierbare Matrizen $A\in \Renn $ und Störungen
-    $\Delta A \in \R^{n\times n}$ mit $\|A^{-1}\|\cdot \|\Delta A\| < 1$:
-    \begin{align}
-      \frac{\|\Delta x\|}{\|x\|} & \leq \|A\| \cdot \|A^{-1}\|\cdot (1- \|A^{-1}\|\cdot \|\Delta A\|) 
-                                   \cdot
-                                   \underbrace{\left(  \frac{\|\Delta b\|}{\|b\|} +  \frac{\|\Delta A\|}{\|A\|}  \right)}_{\neq  \frac{\|(\Delta A, \Delta b)\|}{\|(A,b)\|} }
-                                   \label{III.2.11}
-    \end{align}
-    \begin{proof} s. Übungsblatt \end{proof}
-  \end{enumerate}
+%  \subsectione{Beispiel: Lösen eines Gleichungssystems} 
+\begin{Bspe}[Lösen eines lin. Gleichungssystems]
+	\label{3.2.10}
+	Sei $A\in \R^{n\times n}$ invertierbar und $b\in \R^n$. Es soll 
+	\begin{gather*}
+	Ax =b
+	\end{gather*}
+	gelöst werden.
+	Die möglichen Lösungen in $A$ und in $b$ lassen sich folgendermaßen ermitteln:
+	\begin{enumerate}[a)]
+		\item Betrachte die Störungen in $b$:\\
+		Sei hierzu
+		\begin{gather*}
+		f: b\mapsto x= A^{-1}b 
+		\end{gather*}
+		Berechne dann $ \kappa(f,b)$ und löse 
+		\begin{align*}
+		A(x + \Delta x) &= b+\Delta b \\
+		f(b + \Delta b) - f(b) &= \Delta x \\
+		&= A^{-1} \cdot \Delta b && \text{da }x = A^{-1}b \\
+		\Rightarrow \|\Delta x\|_{b}  &= \|A^{-1}\Delta b\|_{b} \\
+		&\leq \|A^{-1}\|_{a,b}\cdot \|\Delta b\|_{b} && \forall b, \Delta b 
+		\end{align*}
+		wobei $\|\cdot\| $ auf $\Renn$ die dem $\Ren$ zugeordnete Matrix-Norm sei. \\
+		Die Abschätzung ist \textbf{scharf}\index{scharf}, 
+		d.h. es gibt ein $\Delta b\in \R^n$, so dass \enquote{=} gilt, 
+		nach Definition \ref{3.2.4}. \\
+		Also gilt\footnote{vgl. auch Lemma \ref{3.2.8}: $\kappa_{abs}(f,b)=\nn{Df(b)}_{a,b}=\nn{A^{-1}}_{a,b}$}:
+		\begin{gather}
+		\kappa_{abs}(f,b) = \nn{A^{-1}}_{a,b} \label{III.2.6}
+		\end{gather}
+		unabhängig von b.  $ \quad \left( x\mapsto Ax \quad \kappa_{abs}\right)$\\
+		Ebenso folgt die scharfe Abschätzung 
+		\begin{align}
+		\nonumber
+		\frac{\|	f(b + \Delta b) - f(b)\|}{\|f(b)\|} &= \frac{\nn{\Delta x}}{\nn{x}}\\ \nonumber
+		& = \frac{\nn{A^{-1}\Delta b}}{\nn{x}} \\ \nonumber
+		& \leq  \frac{\|A^{-1}\|\cdot \|b\|}{\|x\|} \cdot \frac{\|\Delta b\|}{\|b\|} \\
+		\intertext{Damit}
+		\kappa_{rel} (f,b) &= \|A^{-1} \| \cdot \frac{\|b\|}{\|A^{-1}\cdot b\|} \label{III.2.7}
+		\end{align}
+		Da $\|b\| \leq \|A\|\cdot\|x\| = \|A\|\cdot \|A^{-1}b\|$ folgt:
+		\begin{gather}
+		\kappa_{rel}(f,b) \leq \|A\| \cdot \|A^{-1}\| \label{III.2.8}
+		\end{gather}
+		für alle (möglichen rechten Seiten) $b $.\\
+		\ref{3.2.8} ist scharf in dem Sinne, dass es ein $\widehat{b}\in \R^n$ gibt 
+		mit 
+		\begin{gather*}
+		\|\widehat{b}\| = \nn{A}\cdot \nn{\widehat{x}}
+		\end{gather*}
+		und somit
+		\begin{gather*}
+		\kappa_{rel}(f,\widehat{b}) = \nn{A}\cdot \| A^{-1}\|
+		\end{gather*} %
+		% 
+		\item Betrachte die Störungen in $A$:\\
+		Löse also 
+		\begin{gather*}
+		(A+\Delta A)(x+\Delta x) = b
+		\end{gather*}
+		Sei hierzu
+		\begin{align*}
+		f:A&\mapsto x= A^{-1}b \\
+		\R^{n\times n}&\rightarrow \R^n
+		\end{align*}
+		und berechne $\kappa(f,A)$ mittels Ableitung $Df(A):\R^{n\times n} \rightarrow \R^n$:
+		\begin{align*}
+		C\mapsto Df(A) C&= \frac{d}{dt} \left((A+tC)^{-1} \cdot b\right) \Big\vert_{t=0} \\
+		& = \frac{d}{dt}\left((A+tC)^{-1}\right)\Big\vert_{t=0}\cdot b
+		\end{align*}			
+		Weiterhin gilt
+		\begin{align}
+		\frac{d}{dt} \left((A+tC)^{-1}\right) \Big\vert_{t=0} &= -A^{-1}CA^{-1}, \label{III.2.9}
+		\end{align}
+		da
+		\begin{align*}
+		0&= \frac{d}{dt}I \\
+		&= \frac{d}{dt}\left( (A+tC)(A+tC)^{-1}\right)\\
+		&= C(A+tC)^{-1} +(A+tC)\cdot \frac{d}{dt}(A+tC)^{-1} \\
+		\Leftrightarrow \frac{d}{dt} (A+ tC)^{-1} 
+		&= -(A+tC)^{-1} \cdot C(A+tC)^{-1} \, ,
+		\end{align*}
+		falls $(A+tC)$ invertierbar ist. Für ein genügend kleines $t$ ist das gewährleistet, da $A$ invertierbar ist (s. Lemma \ref{3.2.12}).
+		\begin{gather*}
+		\Rightarrow Df(A) C = -A^{-1}CA^{-1}b
+		\end{gather*}
+		Somit folgt
+		\begin{align}
+		\nonumber
+		\kappa_{abs} (f,A) &= \|Df(A)\| \\ \nonumber
+		&= \sup_{\substack{
+				C\neq 0 \\ 
+				C\in \R^{n\times n}											  	
+			}}
+			\frac{\|A^{-1}CA^{-1}b\|}{\|C\|} \\ \nonumber
+			&\leq \sup_{\substack{
+					C\neq 0 \\ 
+					C \in \R^{n\times n}														  	
+				}}
+				\frac{\|A^{-1}\|\cdot\|C\|\cdot\|A^{-1}b\|}{\|C\|} \\ \nonumber
+				&= \|A^{-1}\| \cdot\|x\| \\ \nonumber
+				&\leq   \|A^{-1}\|^2 \cdot\|b\| \\ \nonumber
+				\kappa_{rel}(f,A)  &= \frac{\|A\|}{\|f(A)\|} \cdot \|Df(A)\| \\
+				&\leq \|A\|\cdot \|A^{-1}\| \label{III.2.10}
+				\end{align}
+				\item betrachte Störungen in $A$ und $b$ :
+				\begin{gather*}
+				(A+\Delta A)(x+\Delta x) = (b+\Delta b) 
+				\end{gather*}
+				Für $\kappa$ müsste $\|(A,b)\|$ festgelegt werden. Dies wird jedoch nicht betrachtet. Es gilt aber folgende Abschätzung für invertierbare Matrizen $A\in \Renn $ und Störungen
+				$\Delta A \in \R^{n\times n}$ mit $\|A^{-1}\|\cdot \|\Delta A\| < 1$:
+				\begin{align}
+				\frac{\|\Delta x\|}{\|x\|} & \leq \|A\| \cdot \|A^{-1}\|\cdot (1- \|A^{-1}\|\cdot \|\Delta A\|) 
+				\cdot
+				\underbrace{\left(  \frac{\|\Delta b\|}{\|b\|} +  \frac{\|\Delta A\|}{\|A\|}  \right)}_{\neq  \frac{\|(\Delta A, \Delta b)\|}{\|(A,b)\|} }
+				\label{III.2.11}
+				\end{align}
+				\begin{proof} s. Übungsblatt \end{proof}
+			\end{enumerate}
+\end{Bspe}
 
-  \subsection{Definition: Kondition einer Matrix} \index{Kondition!Matrix}
-  Sei $\|\cdot\|$ eine Norm auf $\R^{n\times n} $ und $A\in \R^{n\times n}$ eine reguläre Matrix.
-  Die Größe
-  \begin{gather*}
-    \kappa_{\|\cdot\|}(A) = cond_{\|\cdot\|} \coloneqq \|A\| \cdot \|A^{-1}\|
-  \end{gather*}
-  heißt \textbf{Kondition der Matrix} bzgl. der Norm ${\|\cdot\|}$. \\
-  Ist  ${\|\cdot\|}$ von einer Vektor-Norm ${\|\cdot\|}_p$ induziert, bezeichnet 
-  $cond_p(A)$
-  die $cond_{\|\cdot\|_p}(A)$. Wir schreiben $cond(A)$ für $cond_2(A)$. \\
-  $cond_{\|\cdot\|}(A) $ schätzt die relative Kondition eines linearen GLS $Ax=b$ für alle möglichen 
-  Störungen in $b$ oder in $A$ ab und diese Abschätzung ist scharf. \\
-
-  Es stellt sich nun die Frage: \\
-  \textit{Wann existiert die Inverse der gestörten invertierbaren Matrix $A$?} \\
-  Hierzu werden wir die Relationen benötigen:
-  \begin{align*}
-    A+\Delta A &= A (I+A^{-1}\Delta A)\\
-    \intertext{und mit $C \in \Renn,\, \|C\| < 1$}
-    (I-C)^{-1} &= \sum_{k=0}^{\infty}C^k \\
-    \|	(I-C)^{-1} \| &\leq \frac{1}{1-\|C\|}
-  \end{align*}
+%  \subsectione{Definition: Kondition einer Matrix} 
+  \begin{Defe}
+  	\index{Kondition!Matrix}
+  	Sei $\|\cdot\|$ eine Norm auf $\R^{n\times n} $ und $A\in \R^{n\times n}$ eine reguläre Matrix.
+  	Die Größe
+  	\begin{gather*}
+  	\kappa_{\|\cdot\|}(A) = cond_{\|\cdot\|} \coloneqq \|A\| \cdot \|A^{-1}\|
+  	\end{gather*}
+  	heißt \textbf{Kondition der Matrix} bzgl. der Norm ${\|\cdot\|}$. \\
+  	Ist  ${\|\cdot\|}$ von einer Vektor-Norm ${\|\cdot\|}_p$ induziert, bezeichnet 
+  	$cond_p(A)$
+  	die $cond_{\|\cdot\|_p}(A)$. Wir schreiben $cond(A)$ für $cond_2(A)$. \\
+  	$cond_{\|\cdot\|}(A) $ schätzt die relative Kondition eines linearen GLS $Ax=b$ für alle möglichen 
+  	Störungen in $b$ oder in $A$ ab und diese Abschätzung ist scharf. \\
+  	
+  	Es stellt sich nun die Frage: \\
+  	\textit{Wann existiert die Inverse der gestörten invertierbaren Matrix $A$?} \\
+  	Hierzu werden wir die Relationen benötigen:
+  	\begin{align*}
+  	A+\Delta A &= A (I+A^{-1}\Delta A)\\
+  	\intertext{und mit $C \in \Renn,\, \|C\| < 1$}
+  	(I-C)^{-1} &= \sum_{k=0}^{\infty}C^k \\
+  	\|	(I-C)^{-1} \| &\leq \frac{1}{1-\|C\|}
+  	\end{align*}
+  \end{Defe}
 
   \marginpar{27.10.2014}
-  \subsection{Lemma (Neumannsche Reihe)}\index{Neumannsche Reihe}\label{3.2.12}
-  \addtocounter{equation}{1}
-  Sei $C\in\Renn$ mit $\|C\|<1$ und mit einer submultiplikativen Norm $\|\cdot\|$,
-  so ist $(I-C)$ invertierbar und es gilt:
-  \begin{gather*}
-    (I-C)^{-1}=\sum_{k=0}^{\infty}C^k
-  \end{gather*}
-  Weiterhin gilt:
-  \begin{gather*}
-    \|(I-C)^ {-1}\| \leq \frac{1}{1-\|C\|}
-  \end{gather*}
-
+%  \subsectione{Lemma (Neumannsche Reihe)}
+  \begin{Leme}{Neumannsche Reihe}
+  	\index{Neumannsche Reihe}\label{3.2.12}
+  	\addtocounter{equation}{1}
+  	Sei $C\in\Renn$ mit $\|C\|<1$ und mit einer submultiplikativen Norm $\|\cdot\|$,
+  	so ist $(I-C)$ invertierbar und es gilt:
+  	\begin{gather*}
+  	(I-C)^{-1}=\sum_{k=0}^{\infty}C^k
+  	\end{gather*}
+  	Weiterhin gilt:
+  	\begin{gather*}
+  	\|(I-C)^ {-1}\| \leq \frac{1}{1-\|C\|}
+  	\end{gather*}
+  \end{Leme}
+  
   \begin{proof}
     Es gilt zu zeigen, dass $\sum_{k=1}^{\infty}C^k$ existiert: \\
     Sei $q\coloneqq \|C\| < 1$, dann gilt: 
@@ -1909,110 +2040,123 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
     \end{align*}
   \end{proof}
 
-  \subsection{Bemerkung}\label{3.2.13}
-  \begin{enumerate}[a)]
-  \item Für symmetrische, positiv definite Matrix $A\in \Renn$ gilt\footnote{Beweis: siehe Übungsblatt 3}: 
-    \begin{gather}
-      \kappa_2(A) = \frac{\lambda_{max}}{\lambda_{min}} \label{III.2.13}
-    \end{gather}
-  \item Eine andere Darstellung von $\kappa(A)$ ist
-    \begin{gather}
-      \kappa(A) \coloneqq 
-      \frac{\underset{\|x\|=1}{\max}\|Ax\|}{\underset{\|x\|=1}{\min}\|Ax\|} \in  \left[ 0, \infty \right]
-      \label{III.2.14}
-    \end{gather}
-    Diese ist auch für nicht invertierbare und rechteckige Matrizen wohldefiniert. \\
-    Dann gilt offensichtlich:
-  \item $\kappa(A) \geq 1$
-  \item $\kappa(\alpha A)=\kappa(A) \quad \text{für } 0\neq\alpha\in\R$ (skalierungsinvariant)
-  \item $A\neq 0$ und $A\in\Renn $ ist genau dann singulär, wenn $\kappa(A)=\infty$. \\
-    Wegen der Skalierungsinvarianz ist die Kondition zur Überprüfung der Regularität von $A$ 
-    besser geeignet als die Determinante.
-  \end{enumerate}
+%  \subsectione{Bemerkung}
+  \begin{Beme}
+  	\label{3.2.13}~
+  	\begin{enumerate}[a)]
+  		\item Für symmetrische, positiv definite Matrix $A\in \Renn$ gilt\footnote{Beweis: siehe Übungsblatt 3}: 
+  		\begin{gather}
+  		\kappa_2(A) = \frac{\lambda_{max}}{\lambda_{min}} \label{III.2.13}
+  		\end{gather}
+  		\item Eine andere Darstellung von $\kappa(A)$ ist
+  		\begin{gather}
+  		\kappa(A) \coloneqq 
+  		\frac{\underset{\|x\|=1}{\max}\|Ax\|}{\underset{\|x\|=1}{\min}\|Ax\|} \in  \left[ 0, \infty \right]
+  		\label{III.2.14}
+  		\end{gather}
+  		Diese ist auch für nicht invertierbare und rechteckige Matrizen wohldefiniert. \\
+  		Dann gilt offensichtlich:
+  		\item $\kappa(A) \geq 1$
+  		\item $\kappa(\alpha A)=\kappa(A) \quad \text{für } 0\neq\alpha\in\R$ (skalierungsinvariant)
+  		\item $A\neq 0$ und $A\in\Renn $ ist genau dann singulär, wenn $\kappa(A)=\infty$. \\
+  		Wegen der Skalierungsinvarianz ist die Kondition zur Überprüfung der Regularität von $A$ 
+  		besser geeignet als die Determinante.
+  	\end{enumerate}
+  \end{Beme}
   
 
-  \subsection{Beispiel: Kondition eines nichtlinearen Gleichungssystems}
-  Sei $f:\Ren\rightarrow\Ren$ stetig differenzierbar und $y\in\Ren$ gegeben. \\
-  Löse
-  \begin{gather*}
-    f(x) = y
-  \end{gather*}
-  Gesucht:
-  \begin{gather*}
-    \kappa(f^{-1},y)
-  \end{gather*}
-  mit $f^{-1}$ Ausgabe und $y$ Eingabe. \\
-  Sei $Df(x)$ invertierbar, dann existiert aufgrund des Satzes für implizite Funktionen die inverse Funktion $f^{-1}$ lokal in einer Umgebung von $y$ mit $f^{-1}(y)=x$, sowie
-  \begin{gather*}
-    D(f^{-1})(y) = (Df(x))^{-1}
-  \end{gather*}
-  Hiermit folgt:
-  \begin{align}
-    \nonumber
-    \kappa_{abs}(f^{-1},y) &= \|(Df(x))^{-1}\| \\
-    \kappa_{rel}(f^{-1},y) &= \frac{\|f(x)\|}{\|x\|}\cdot\|(Df(x))^{-1}\|  \label{III.2.15}
-  \end{align}
-  Für skalare Funktionen $f:\R\rightarrow\R$ folgt somit:
-  \begin{gather*}
-    \kappa_{rel}(f^{-1},y) = \frac{|f(x)|}{|x|}\cdot \frac{1}{|f'(x)|}
-  \end{gather*}
-  Falls $|f'(x)|\rightarrow 0$ ist es eine schlechte absolute Kondition. \\
-  Für $|f'(x)| \gg 0$ ist es eine gute absolute Kondition.\\
-  \begin{figure}
-    \parbox{\linewidth}{
-      \centering
-      \includegraphics[width=2cm]{images/image_missing.jpg}
-    }
-    \caption{Gute und schlechte Kondition}
-  \end{figure}
-
-  Damit bedeutet eine kleine Störung in $y$ eine große Störung in $x$.
-
+%  \subsectione{Beispiel: Kondition eines nichtlinearen Gleichungssystems}
+\begin{Bspe}[Kondition eines nichtlin. Gleichungssystems]
+	Sei $f:\Ren\rightarrow\Ren$ stetig differenzierbar und $y\in\Ren$ gegeben. \\
+	Löse
+	\begin{gather*}
+	f(x) = y
+	\end{gather*}
+	Gesucht:
+	\begin{gather*}
+	\kappa(f^{-1},y)
+	\end{gather*}
+	mit $f^{-1}$ Ausgabe und $y$ Eingabe. \\
+	Sei $Df(x)$ invertierbar, dann existiert aufgrund des Satzes für implizite Funktionen die inverse Funktion $f^{-1}$ lokal in einer Umgebung von $y$ mit $f^{-1}(y)=x$, sowie
+	\begin{gather*}
+	D(f^{-1})(y) = (Df(x))^{-1}
+	\end{gather*}
+	Hiermit folgt:
+	\begin{align}
+	\nonumber
+	\kappa_{abs}(f^{-1},y) &= \|(Df(x))^{-1}\| \\
+	\kappa_{rel}(f^{-1},y) &= \frac{\|f(x)\|}{\|x\|}\cdot\|(Df(x))^{-1}\|  \label{III.2.15}
+	\end{align}
+	Für skalare Funktionen $f:\R\rightarrow\R$ folgt somit:
+	\begin{gather*}
+	\kappa_{rel}(f^{-1},y) = \frac{|f(x)|}{|x|}\cdot \frac{1}{|f'(x)|}
+	\end{gather*}
+	Falls $|f'(x)|\rightarrow 0$ ist es eine schlechte absolute Kondition. \\
+	Für $|f'(x)| \gg 0$ ist es eine gute absolute Kondition.\\
+	\begin{figure}
+		\parbox{\linewidth}{
+			\centering
+			\includegraphics[width=2cm]{images/image_missing.jpg}
+		}
+		\caption{Gute und schlechte Kondition}
+	\end{figure}
+	
+	Damit bedeutet eine kleine Störung in $y$ eine große Störung in $x$.
+\end{Bspe}
+  
 
   % \minisec{\Large3.2 b) Komponentenweise Konditionsanalyse} \label{3.2b}\vspace{1eM}
   \extrasection{b)}{Komponentenweise Konditionsanalyse}
 
-  \subsection{Beispiel}
-  Falls $A$ Diagonalgestalt hat, sind die Gleichungen unabhängig voneinander (entkoppelt)\index{entkoppelt}.
-  Die erwartete relative Kondition wäre dann -- wie bei skalaren Gleicungen -- stets gleich 1.
-  Ebenso sind Störungen nur in der Diagonale zu erwarten. Jedoch:
-  \begin{align*}
-    A  &=\begin{pmatrix}
-      1 & 0\\
-      0 & \varepsilon
-    \end{pmatrix} \\
-    \Rightarrow 	A^{-1}&=\begin{pmatrix}
-      1 & 0\\
-      0 & \varepsilon^{-1}
-    \end{pmatrix}\\
-    \Rightarrow \kappa_\infty& = \kappa_2 = \frac{1}{\varepsilon} 
-        && \text{für }0 < \varepsilon \leq 1											
-  \end{align*}
+%  \subsectione{Beispiel}
+  \begin{Bspe}
+  	Falls $A$ Diagonalgestalt hat, sind die Gleichungen unabhängig voneinander (entkoppelt)\index{entkoppelt}.
+  	Die erwartete relative Kondition wäre dann -- wie bei skalaren Gleicungen -- stets gleich 1.
+  	Ebenso sind Störungen nur in der Diagonale zu erwarten. Jedoch:
+  	\begin{align*}
+  	A  &=\begin{pmatrix}
+  	1 & 0\\
+  	0 & \varepsilon
+  	\end{pmatrix} \\
+  	\Rightarrow 	A^{-1}&=\begin{pmatrix}
+  	1 & 0\\
+  	0 & \varepsilon^{-1}
+  	\end{pmatrix}\\
+  	\Rightarrow \kappa_\infty& = \kappa_2 = \frac{1}{\varepsilon} 
+  	&& \text{für }0 < \varepsilon \leq 1											
+  	\end{align*}
+  \end{Bspe}
+  
+%  \subsectione{Definition: Komponentenweise Kondition}
+\begin{Defe}
+	\index{Kondition!komponentenweise}
+	Sei $(f, x) $ ein Problem mit $f(x)\neq 0$ und $x=(x_i)_{i=1,\cdots , n}$ mit $x_i\neq 0 $  für alle $i=1,\cdots, n$.
+	Die \textbf{komponentenweise Kondition} von $(f,x) $ ist die kleinste Zahl $\kappa_{rel}\geq 0$, so dass:
+	\begin{align*}
+	\frac{\|f(\widetilde{x})-f(x)\|_\infty}{\|f(x)\|_\infty} 
+	&\leq \kappa_{rel} \cdot \underset{i}{\max}\frac{|\widetilde{x_i}-x_i|}{|x_i|}+ o\left(\underset{i}{\max}\frac{|\widetilde{x_i}-x_i|}{|x_i|}\right) 
+	&& \text{für }\widetilde{x}\rightarrow x
+	\end{align*}
+	Vorsicht:
+	\begin{gather*}
+	\frac{\|\widetilde{x}-x\|_\infty}{\|x\|_\infty}\neq \underset{i}{\max}\frac{|\widetilde{x_i}-x_i|}{|x_i|}
+	\end{gather*}
+\end{Defe}
 
-  \subsection{Definition: Komponentenweise Kondition}\index{Kondition!komponentenweise}
-  Sei $(f, x) $ ein Problem mit $f(x)\neq 0$ und $x=(x_i)_{i=1,\cdots , n}$ mit $x_i\neq 0 $  für alle $i=1,\cdots, n$.
-  Die \textbf{komponentenweise Kondition} von $(f,x) $ ist die kleinste Zahl $\kappa_{rel}\geq 0$, so dass:
-  \begin{align*}
-    \frac{\|f(\widetilde{x})-f(x)\|_\infty}{\|f(x)\|_\infty} 
-    &\leq \kappa_{rel} \cdot \underset{i}{\max}\frac{|\widetilde{x_i}-x_i|}{|x_i|}+ o\left(\underset{i}{\max}\frac{|\widetilde{x_i}-x_i|}{|x_i|}\right) 
-    && \text{für }\widetilde{x}\rightarrow x
-  \end{align*}
-  Vorsicht:
-  \begin{gather*}
-    \frac{\|\widetilde{x}-x\|_\infty}{\|x\|_\infty}\neq \underset{i}{\max}\frac{|\widetilde{x_i}-x_i|}{|x_i|}
-  \end{gather*}
-
-  \subsection{Lemma} \label{3.2.17}
-  Sei $f$ differenzierbar und fasse $|\cdot|$ komponentenweise auf, d.h. $|x| = \begin{pmatrix}
-    |x_1| \\
-    \vdots \\
-    |x_n|
-  \end{pmatrix}$.
-  Dann gilt:
-  \begin{gather}
-    \kappa_{rel} = \frac{\|\, |Df(x)|\cdot |x| \, \|_\infty}{\|f(x)\|_\infty} \label{III.2.16}
-  \end{gather}
-
+%  \subsectione{Lemma} 
+  \begin{Leme}
+  	\label{3.2.17}
+  	Sei $f$ differenzierbar und fasse $|\cdot|$ komponentenweise auf, d.h. $|x| = \begin{pmatrix}
+  	|x_1| \\
+  	\vdots \\
+  	|x_n|
+  	\end{pmatrix}$.
+  	Dann gilt:
+  	\begin{gather}
+  	\kappa_{rel} = \frac{\|\, |Df(x)|\cdot |x| \, \|_\infty}{\|f(x)\|_\infty} \label{III.2.16}
+  	\end{gather}
+  \end{Leme}
+  
   \begin{proof}
     Vergleiche seien ebenfalls komponentenweise zu verstehen. \\
     Nach dem Satz von Taylor gilt: 
@@ -2053,57 +2197,59 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
     \end{align*}
   \end{proof}
 
-  \subsection{Beispiel}
-  \begin{enumerate}[a)]
-  \item Komponentenweise Kondition der Multiplikation
-    \begin{align*}
-      f:&\R^2 \rightarrow \R, \, f(x,y) \coloneqq x\cdot y \\
-      \Rightarrow Df(x,y) &= (y, x)  \\
-      \Rightarrow \kappa_{rel}(x,y) &= \frac{\left\| (|y|, |x|)\cdot \begin{pmatrix}
-            |x| \\
-            |y|
-          \end{pmatrix}\right\|_\infty}
-      {|x\cdot y|} \\
-        &= \frac{2\cdot|x|\cdot |y|}{|x\cdot y|} \\
-        &= 2
-    \end{align*}
-  \item Komponentenweise Kondition eines linearen Gleichungssystems:\\
-    Löse $Ax=b$ mit möglichen Störungen in $b$, also zu
-    \begin{align*}
-      f: & b\mapsto A^{-1}b \\
-      \kappa_{rel} & = \frac{\| \, |A^{-1}| \cdot |b|\, \|_\infty}{\|A^{-1}b\|_\infty}
-    \end{align*}
-    Falls A eine Diagonalmatrix ist, folgt:
-    \begin{gather*}
-      \kappa_{rel}=1
-    \end{gather*}
-  \item Komponentenweise Kondition des Skalarproduktes:
-    \begin{align*}
-      \langle x,y \rangle \coloneqq \sum_{i=1}^{n}x_i y_i& = x^Ty \\
-      f: \R^2 \rightarrow \R, \, f(x,y) &= \langle x,y \rangle \\
-      \Rightarrow Df(x,y) &= (y^T, x^T) \\
-      \kappa_{rel}  &= \frac{\left\| \,\left|(y^T, x^T)\right|\cdot\left|\begin{pmatrix}
-              x \\
-              y
-            \end{pmatrix}\right|\right\|_\infty }
-      {\|\langle x,y\rangle\|_\infty}\\
-                                                         &= \frac{2\cdot |y^T|\cdot |x|}{|\langle x,y\rangle|} \\
-                                                         &= 2\cdot \frac{\langle |x|,|y|\rangle}{|\langle x,y\rangle|} \\
-                                                         &= 2 \cdot \frac{\cos(|x|, |y|)}{\cos(x,y)}  \\
-                                                         &&&				\text{	da  }\cos(x,y) = \frac{\langle y,x \rangle}{\|x\|_2 \cdot \|y\|_2} \, . 
-    \end{align*}
-    Falls $x$ und $y$ nahezu senkrecht aufeinander stehen, kann das Skalarprodukt sehr schlecht konditioniert sein. \\
-    Zum Beispiel für $x=\widetilde{x} = \begin{pmatrix} 1 \\1 \end{pmatrix}$
-    und $y=\begin{pmatrix} 1+10^{-10} \\-1 \end{pmatrix},
-    \, \widetilde{y}=\begin{pmatrix} 1 \\-1 \end{pmatrix}$. \\
-    \begin{figure}
-      \parbox{\linewidth}{
-        \centering
-        \includegraphics[width=2cm]{images/image_missing.jpg}
-      }
-      \caption{Schlechte Kondition des Skalarprodukts bei nahezu senkrechten Vektoren}
-    \end{figure}
-  \end{enumerate}
+%  \subsectione{Beispiel}
+\begin{Bspe}~
+	\begin{enumerate}[a)]
+		\item Komponentenweise Kondition der Multiplikation
+		\begin{align*}
+		f:&\R^2 \rightarrow \R, \, f(x,y) \coloneqq x\cdot y \\
+		\Rightarrow Df(x,y) &= (y, x)  \\
+		\Rightarrow \kappa_{rel}(x,y) &= \frac{\left\| (|y|, |x|)\cdot \begin{pmatrix}
+			|x| \\
+			|y|
+			\end{pmatrix}\right\|_\infty}
+			{|x\cdot y|} \\
+			&= \frac{2\cdot|x|\cdot |y|}{|x\cdot y|} \\
+			&= 2
+			\end{align*}
+			\item Komponentenweise Kondition eines linearen Gleichungssystems:\\
+			Löse $Ax=b$ mit möglichen Störungen in $b$, also zu
+			\begin{align*}
+			f: & b\mapsto A^{-1}b \\
+			\kappa_{rel} & = \frac{\| \, |A^{-1}| \cdot |b|\, \|_\infty}{\|A^{-1}b\|_\infty}
+			\end{align*}
+			Falls A eine Diagonalmatrix ist, folgt:
+			\begin{gather*}
+			\kappa_{rel}=1
+			\end{gather*}
+			\item Komponentenweise Kondition des Skalarproduktes:
+			\begin{align*}
+			\langle x,y \rangle \coloneqq \sum_{i=1}^{n}x_i y_i& = x^Ty \\
+			f: \R^2 \rightarrow \R, \, f(x,y) &= \langle x,y \rangle \\
+			\Rightarrow Df(x,y) &= (y^T, x^T) \\
+			\kappa_{rel}  &= \frac{\left\| \,\left|(y^T, x^T)\right|\cdot\left|\begin{pmatrix}
+				x \\
+				y
+				\end{pmatrix}\right|\right\|_\infty }
+				{\|\langle x,y\rangle\|_\infty}\\
+				&= \frac{2\cdot |y^T|\cdot |x|}{|\langle x,y\rangle|} \\
+				&= 2\cdot \frac{\langle |x|,|y|\rangle}{|\langle x,y\rangle|} \\
+				&= 2 \cdot \frac{\cos(|x|, |y|)}{\cos(x,y)}  \\
+				&&&				\text{	da  }\cos(x,y) = \frac{\langle y,x \rangle}{\|x\|_2 \cdot \|y\|_2} \, . 
+				\end{align*}
+				Falls $x$ und $y$ nahezu senkrecht aufeinander stehen, kann das Skalarprodukt sehr schlecht konditioniert sein. \\
+				Zum Beispiel für $x=\widetilde{x} = \begin{pmatrix} 1 \\1 \end{pmatrix}$
+				und $y=\begin{pmatrix} 1+10^{-10} \\-1 \end{pmatrix},
+				\, \widetilde{y}=\begin{pmatrix} 1 \\-1 \end{pmatrix}$. \\
+				\begin{figure}
+					\parbox{\linewidth}{
+						\centering
+						\includegraphics[width=2cm]{images/image_missing.jpg}
+						}
+						\caption{Schlechte Kondition des Skalarprodukts bei nahezu senkrechten Vektoren}
+				\end{figure}
+	\end{enumerate}	
+\end{Bspe}
 
   \sectione{Stabilität von Algorithmen}
   Bislang: Kondition eines gegebenen Problems $(f,x)$. \\
@@ -2123,62 +2269,69 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
 
   Die Fehlerfortpflanzung durch die einzelnen Rechenschritte, aus denen die Implementierung aufgebaut ist, wird abgeschätzt.
 
-  \subsection{Bemerkung}
-  Für die Rechenoperationene $+,-,\, \cdot \, , \, /\,$, kurz $\nabla$, gilt:
-  \begin{align}
-    \nonumber
-    fl(a\nabla b) &= (a\nabla b)\cdot (1+\varepsilon) \\
-                  &= (a\nabla b) \cdot \frac{1}{1+\mu} \label{III.3.1}
-  \end{align}
-  mit $|\varepsilon|, |\mu| \leq eps$.
-
+%  \subsectione{Bemerkung}
+\begin{Beme}
+	Für die Rechenoperationene $+,-,\, \cdot \, , \, /\,$, kurz $\nabla$, gilt:
+	\begin{align}
+	\nonumber
+	fl(a\nabla b) &= (a\nabla b)\cdot (1+\varepsilon) \\
+	&= (a\nabla b) \cdot \frac{1}{1+\mu} \label{III.3.1}
+	\end{align}
+	mit $|\varepsilon|, |\mu| \leq eps$.
+\end{Beme}
+  
 
   \marginpar{29.10.2014}
-  \subsection{Beispiel}
-  Sei $f(x_1, x_2, x_3) \coloneqq \frac{x_1x_2}{x_3}$ mit Maschinenzahlen $x_i$ und $x_3\neq 0$ und sei der Algorithmus durch
-  \begin{gather*}
-    f(x_1, x_2, x_3) = (f^{(2)} \circ f^{(1)})(x_1, x_2, x_3) 
-  \end{gather*}
-  gegeben mit 
-  \begin{align*}
-    f^{(1)}(x_1, x_2, x_3) & = (x_1\cdot x_2, x_3) && \text{und} \\
-    f^{(2)}(y,z) &= \frac{y}{z}
-  \end{align*}
-  Die Implementierung $\widetilde{f}$ von $f$  beinhaltet Rundungsfehler. \\
+%  \subsectione{Beispiel}
+\begin{Bspe}
+Sei $f(x_1, x_2, x_3) \coloneqq \frac{x_1x_2}{x_3}$ mit Maschinenzahlen $x_i$ und $x_3\neq 0$ und sei der Algorithmus durch
+\begin{gather*}
+f(x_1, x_2, x_3) = (f^{(2)} \circ f^{(1)})(x_1, x_2, x_3) 
+\end{gather*}
+gegeben mit 
+\begin{align*}
+f^{(1)}(x_1, x_2, x_3) & = (x_1\cdot x_2, x_3) && \text{und} \\
+f^{(2)}(y,z) &= \frac{y}{z}
+\end{align*}
+Die Implementierung $\widetilde{f}$ von $f$  beinhaltet Rundungsfehler. \\
 
-  Sei  $x=(x_1, x_2, x_3) $. Daraus folgt:
-  \begin{align*}
-    \widetilde{f}^{(1)}(x) &= (fl(x_1\cdot x_2), x_3) \\
-                           & = (x_1x_2 (1+\varepsilon_1), x_3)
-                             \intertext{mit $|\varepsilon_1|\leq eps$:}
-                             \widetilde{f}(x) &= \widetilde{f}^{(2)}(\widetilde{f}^{(1)}(x)) \\
-                           &= fl(f^{(2)}(x_1 x_2 (1+\varepsilon_1), x_3)) \\
-                           &= \frac{x_1x_2(1+\varepsilon_1)}{x_3}\cdot (1+\varepsilon_2)  \\
-                           &= f(x)\cdot (1+\varepsilon_1)(1+\varepsilon_2)
-                             \intertext{mit $|\varepsilon_2| \leq eps$:}
-                             \frac{|\widetilde{f}(x) -f(x)|}{|f(x)|} &= |\varepsilon_1+\varepsilon_2 +\varepsilon_1\cdot \varepsilon_2| \\
-                           &\leq 2eps + eps^2
-  \end{align*}
-  Dies ist eine \enquote{worst case} Analyse, da immer der maximale Fehler angenommen wird,
-  und gibt i.d.R. eine starte Überschätzung des Fehlers an.
-  Für qualitative Aussagen sind sie jedoch unnützlich. \\
-  In Computersystemen stehen mehr Operationen wie $\nabla$ zur Verfügung,
-  die mit einer relativen Genauigkeit $eps$ realisiert werden können. \\
-
+Sei  $x=(x_1, x_2, x_3) $. Daraus folgt:
+\begin{align*}
+\widetilde{f}^{(1)}(x) &= (fl(x_1\cdot x_2), x_3) \\
+& = (x_1x_2 (1+\varepsilon_1), x_3)
+\intertext{mit $|\varepsilon_1|\leq eps$:}
+\widetilde{f}(x) &= \widetilde{f}^{(2)}(\widetilde{f}^{(1)}(x)) \\
+&= fl(f^{(2)}(x_1 x_2 (1+\varepsilon_1), x_3)) \\
+&= \frac{x_1x_2(1+\varepsilon_1)}{x_3}\cdot (1+\varepsilon_2)  \\
+&= f(x)\cdot (1+\varepsilon_1)(1+\varepsilon_2)
+\intertext{mit $|\varepsilon_2| \leq eps$:}
+\frac{|\widetilde{f}(x) -f(x)|}{|f(x)|} &= |\varepsilon_1+\varepsilon_2 +\varepsilon_1\cdot \varepsilon_2| \\
+&\leq 2eps + eps^2
+\end{align*}
+Dies ist eine \enquote{worst case} Analyse, da immer der maximale Fehler angenommen wird,
+und gibt i.d.R. eine starte Überschätzung des Fehlers an.
+Für qualitative Aussagen sind sie jedoch unnützlich. \\
+In Computersystemen stehen mehr Operationen wie $\nabla$ zur Verfügung,
+die mit einer relativen Genauigkeit $eps$ realisiert werden können.	
+\end{Bspe}
+  
   Daher:
 
-  \subsection{Definition: Elementar ausführbar}
-  Eine Abbildung $\phi : U\subseteq \Ren \rightarrow \R^m$ heißt
-  \textbf{elementar ausführbar}\index{elementar ausführbar}, falls es 
-  eine elementare Operation $\widetilde{\phi}:\F^n \rightarrow \F^m$
-  gibt, wobei $\F$ die Menge der Maschinenzahlen bezeichne mit
-  \begin{gather}
-    |\widetilde{\phi}_i(x)-\phi_i(x)| \leq eps\cdot |\phi_i(x) | 
-    \quad \forall x\in \F^n \text{ und } i=1,\cdots , m \label{III.3.2}\, .
-  \end{gather}
-  $\widetilde{\phi}$ heißt dann \textbf{Realisierung}\index{Realisierung} von $\phi$.
+%  \subsectione{Definition: Elementar ausführbar}
+\begin{Defe}
+	Eine Abbildung $\phi : U\subseteq \Ren \rightarrow \R^m$ heißt
+	\textbf{elementar ausführbar}\index{elementar ausführbar}, falls es 
+	eine elementare Operation $\widetilde{\phi}:\F^n \rightarrow \F^m$
+	gibt, wobei $\F$ die Menge der Maschinenzahlen bezeichne mit
+	\begin{gather}
+	|\widetilde{\phi}_i(x)-\phi_i(x)| \leq eps\cdot |\phi_i(x) | 
+	\quad \forall x\in \F^n \text{ und } i=1,\cdots , m \label{III.3.2}\, .
+	\end{gather}
+	$\widetilde{\phi}$ heißt dann \textbf{Realisierung}\index{Realisierung} von $\phi$.
+\end{Defe}
+  
 
-  \paragraph{Bemerkung:}
+  \textbf{Bemerkung}\\
   aus \eqref{III.3.2} folgt für $1\leq p\leq \infty$:
   \begin{gather}
     \nn{\widetilde{\phi}(x)-\phi(x)}_p \leq eps\cdot\nn{\phi(x)}_n 
@@ -2186,48 +2339,54 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   \end{gather}
 
 
-  \subsection{Definition: Algorithmus, Implementation}
-  Sei $f:E\subseteq \Ren \rightarrow \R^m$ gegeben.\\
-  Ein Tupel $\left(f^{(1)},\cdots ,f^{(l)}\right)$ mit $l\in \N$ von elementar ausführbaren
-  Abbildungen
-  \begin{gather*}
-    f^{(i)}: U_1\subseteq \R^{k_i} \rightarrow U_{i+1}\subseteq \R^{k_{i+1}}
-  \end{gather*}
-  mit $k_1=n$ und $k_{l+1}=m$ heißt \textbf{Algorithmus}\index{Algorithmus} von $f$, falls
-  \begin{gather*}
-    f=f	^{(l)}\circ \dotsc \circ f^{(1)}
-  \end{gather*}
-  Das Tupel $(\widetilde{f}1^{(1)},\cdots ,\widetilde{f}^{(l)})$ mit Abbildungen $\widetilde{f}^{(i)}$, welche Realisierungen der $f^{(i)}$ sind,
-  heißt \textbf{Implementation}\index{Implementation} von 
-  $\left(f^{(1)},\dotsc ,f^{(l)}\right)$.
-  Die Komposition 
-  \begin{gather*}
-    \widetilde{f}=\widetilde{f}	^{(l)}\circ \dotsc \circ \widetilde{f}^{(1)}
-  \end{gather*}
-  heißt Implementation von f. \\
-  Im Allgemeinen gibt es verschiedene Implementierungen einer Abbildung $f$.
+%  \subsectione{Definition: Algorithmus, Implementation}
+\begin{Defe}
+	Sei $f:E\subseteq \Ren \rightarrow \R^m$ gegeben.\\
+	Ein Tupel $\left(f^{(1)},\cdots ,f^{(l)}\right)$ mit $l\in \N$ von elementar ausführbaren
+	Abbildungen
+	\begin{gather*}
+	f^{(i)}: U_1\subseteq \R^{k_i} \rightarrow U_{i+1}\subseteq \R^{k_{i+1}}
+	\end{gather*}
+	mit $k_1=n$ und $k_{l+1}=m$ heißt \textbf{Algorithmus}\index{Algorithmus} von $f$, falls
+	\begin{gather*}
+	f=f	^{(l)}\circ \dotsc \circ f^{(1)}
+	\end{gather*}
+	Das Tupel $(\widetilde{f}1^{(1)},\cdots ,\widetilde{f}^{(l)})$ mit Abbildungen $\widetilde{f}^{(i)}$, welche Realisierungen der $f^{(i)}$ sind,
+	heißt \textbf{Implementation}\index{Implementation} von 
+	$\left(f^{(1)},\dotsc ,f^{(l)}\right)$.
+	Die Komposition 
+	\begin{gather*}
+	\widetilde{f}=\widetilde{f}	^{(l)}\circ \dotsc \circ \widetilde{f}^{(1)}
+	\end{gather*}
+	heißt Implementation von f. \\
+	Im Allgemeinen gibt es verschiedene Implementierungen einer Abbildung $f$.
+\end{Defe}
+  
 
-  \subsection{Lemma (Fehlerfortpflanzung)}\label{3.3.5} \index{Fehler!Fortpflanzung}
-  Sei $x\in \Ren$ und $\widetilde{x}\in \F^n$ mit $|\widetilde{x}_i-x_i|\leq eps|x_i|$ für alle 
-  $i=1,\cdots , n$.
-  Sei $\left(f^{(1)},\dotsc ,f^{(l)}\right)$ ein Algorithmus für $f$ und 
-  $(\widetilde{f}^{(1)},\dotsc ,\widetilde{f}^{(l)})$ eine zugehörige Implementation. \\
-  Mit den Abkürzungen
-  \begin{align*}
-    x^{(j+1)} &\coloneqq f^{(j)}\circ \dotsc \circ f^{(1)}(x) \\
-    x^{(1)} &\coloneqq x
-  \end{align*}
-  und entsprechend mit $\widetilde{x}^{(j+1)}$ gilt,
-  falls $x^{(j+1)} \neq 0$ für alle $j=0,\dotsc , (l-1)$ und $\nn{\,\cdot\,}$ eine beliebige p-Norm ist:
-  \begin{align}
-    \frac{\nn{\widetilde{x}^{(j+1)}-x^{(j+1)}}}{\nn{x^{(j+1)}}}
-    &\leq eps \cdot \K + o\left(eps\right)
-      \label{III.3.4} 
-    \\ \nonumber
-    \K^{(j)}&=(1+\kappa^{(j)}+\kappa^{(j)}\cdot \kappa^{(j-1)}+ \cdots + \kappa^{(j)}\cdot \dotsm \cdot \kappa^{(1)}) \\ \nonumber
-  \end{align}
-  wobei $	\kappa^{(j)} \coloneqq \kappa_{rel}(f^{(j)}, x^{(j)})$ die Kondition der elementar ausführbaren Operationen $f^{(j)}$ ist.
-
+%  \subsectione{Lemma (Fehlerfortpflanzung)}
+  \begin{Leme}[Fehlerfortpflanzung]
+  	\label{3.3.5} \index{Fehler!Fortpflanzung}
+  	Sei $x\in \Ren$ und $\widetilde{x}\in \F^n$ mit $|\widetilde{x}_i-x_i|\leq eps|x_i|$ für alle 
+  	$i=1,\cdots , n$.
+  	Sei $\left(f^{(1)},\dotsc ,f^{(l)}\right)$ ein Algorithmus für $f$ und 
+  	$(\widetilde{f}^{(1)},\dotsc ,\widetilde{f}^{(l)})$ eine zugehörige Implementation. \\
+  	Mit den Abkürzungen
+  	\begin{align*}
+  	x^{(j+1)} &\coloneqq f^{(j)}\circ \dotsc \circ f^{(1)}(x) \\
+  	x^{(1)} &\coloneqq x
+  	\end{align*}
+  	und entsprechend mit $\widetilde{x}^{(j+1)}$ gilt,
+  	falls $x^{(j+1)} \neq 0$ für alle $j=0,\dotsc , (l-1)$ und $\nn{\,\cdot\,}$ eine beliebige p-Norm ist:
+  	\begin{align}
+  	\frac{\nn{\widetilde{x}^{(j+1)}-x^{(j+1)}}}{\nn{x^{(j+1)}}}
+  	&\leq eps \cdot \K + o\left(eps\right)
+  	\label{III.3.4} 
+  	\\ \nonumber
+  	\K^{(j)}&=(1+\kappa^{(j)}+\kappa^{(j)}\cdot \kappa^{(j-1)}+ \cdots + \kappa^{(j)}\cdot \dotsm \cdot \kappa^{(1)}) \\ \nonumber
+  	\end{align}
+  	wobei $	\kappa^{(j)} \coloneqq \kappa_{rel}(f^{(j)}, x^{(j)})$ die Kondition der elementar ausführbaren Operationen $f^{(j)}$ ist.
+  \end{Leme}
+  
   \begin{proof}
     \begin{align*}
       \frac{\nn{\widetilde{x}^{(j+1)}-x^{(j+1)}}}{\nn{x^{(j+1)}}}
@@ -2263,74 +2422,87 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
 
   Hiermit folgt:
 
-  \subsection{Korollar}\label{3.3.6}
-  Unter der Voraussetzung von Lemma \ref{3.3.5} gilt:
-  \begin{gather}
-    \frac{\nn{\widetilde{f}(\widetilde{x})-f(x)}}{\nn{f(x)}} \leq 
-    eps\cdot \left( 1+\kappa^{(l)}+ \kappa^{(l)}\cdot \kappa^{(l-1)}+ \dotsc
-      + \kappa^{(l)}\cdot \dotsc \cdot \kappa^{(1)}\right) + o(eps) 
-    \label{III.3.5}
-  \end{gather}
+%  \subsectione{Korollar}
+  \begin{Kore}
+  	\label{3.3.6}
+  	Unter der Voraussetzung von Lemma \ref{3.3.5} gilt:
+  	\begin{gather}
+  	\frac{\nn{\widetilde{f}(\widetilde{x})-f(x)}}{\nn{f(x)}} \leq 
+  	eps\cdot \left( 1+\kappa^{(l)}+ \kappa^{(l)}\cdot \kappa^{(l-1)}+ \dotsc
+  	+ \kappa^{(l)}\cdot \dotsc \cdot \kappa^{(1)}\right) + o(eps) 
+  	\label{III.3.5}
+  	\end{gather}~
+  \end{Kore}
 
-  \subsection{Bemerkung}
-  Mit Korollar \ref{3.3.6} ist offensichtlich, dass schlecht konditionierte Probleme 
-  zu elementar ausführbaren Abbildungen so früh wie möglich ausgeführt werden sollten. \\
-  Nach Beispiel \ref{3.2.9} ist die Substraktion zweier annähernd gleicher Zahlen schlecht konditioniert.
-  Deshalb sollte man unvermeidbare Subtraktionen möglichst früh durchführen. \\
-  Allerdings hängt $\kappa^{(j)}$ nicht nur von $f^{(j)}$, sondern auch vo\nocite{*}m Zwischenergebnis $x^{(j)}$ ab, welches a priori unbekannt ist.
+%  \subsectione{Bemerkung}
+\begin{Beme}
+	Mit Korollar \ref{3.3.6} ist offensichtlich, dass schlecht konditionierte Probleme 
+	zu elementar ausführbaren Abbildungen so früh wie möglich ausgeführt werden sollten. \\
+	Nach Beispiel \ref{3.2.9} ist die Substraktion zweier annähernd gleicher Zahlen schlecht konditioniert.
+	Deshalb sollte man unvermeidbare Subtraktionen möglichst früh durchführen. \\
+	Allerdings hängt $\kappa^{(j)}$ nicht nur von $f^{(j)}$, sondern auch vom 
+	Zwischenergebnis $x^{(j)}$ ab, welches a priori unbekannt ist.
+\end{Beme}
+  
+%  \subsectione{Bemerkung zur Sprechweise} %\label{3.3.8}
+\begin{Beme}[Sprechweise]
+	Der Quotient 
+	\begin{gather}
+	\frac{\overbrace{\frac{\nn{\widetilde{f}(\widetilde{x})-f(x)}}{\nn{f(x)}}}^{
+			\text{Gesamtfehler}}}
+	{\underbrace{\frac{\nn{\widetilde{f}(\widetilde{x})}}{\nn{f(x)}}}_{
+			\scriptsize\substack{
+				\text{Fehler} \\
+				\text{durch} \\
+				\text{Problem}
+			}}
+			\cdot
+			{\underbrace{\frac{\nn{\widetilde{x}-x}}{\nn{x}}}_{
+					\scriptsize\substack{\text{Eingabe-} \\ \text{fehler}}}}}
+		\label{III.3.6}
+		\end{gather}
+		gibt die \textbf{Güte des Algorithmus} \index{Güte!Algorithmus} an.
+		Als Stabilitätsindikator kann also 
+		\begin{gather}
+		\sigma\left(f, \widetilde{f}, x\right) \coloneqq \frac{\K}{\kappa_{rel}(f, x)}
+		\label{III.3.7}
+		\end{gather}
+		verwendet werden und es gilt
+		\begin{gather*}
+		\frac{\nn{\widetilde{f}(\widetilde{x})-f(x)}}{\nn{f(x)}}
+		< \underbrace{\sigma\left( f,\widetilde{f}, x\right) }_{
+			\substack{\text{Beitrag}\\
+				\text{des} \\
+				\text{Algorithmus}}}
+		\cdot \underbrace{\kappa_{rel}(f,x)}_{
+			\substack{\text{Beitrag} \\
+				\text{des} \\
+				\text{Problems}}}
+		\cdot \underbrace{eps}_{\substack{\text{Rundungs-}\\\text{fehler}}}
+		+ \quad o(eps)
+		\end{gather*}
+		Falls $\sigma( f,\widetilde{f}, x)  < 1$, dämpft der Algorithmus die Fehlerfortpflanzung der Eingabe- und Rundungsfehler und heißt \textbf{stabil}\index{Stabilität}. \\
+		Für $\sigma( f,\widetilde{f}, x)  \gg 1$ heißt der Algorithmus \textbf{instabil}.
+\end{Beme}
+  
 
-  \subsection{Bemerkung zur Sprechweise} %\label{3.3.8}
-  Der Quotient 
-  \begin{gather}
-    \frac{\overbrace{\frac{\nn{\widetilde{f}(\widetilde{x})-f(x)}}{\nn{f(x)}}}^{
-        \text{Gesamtfehler}}}
-    {\underbrace{\frac{\nn{\widetilde{f}(\widetilde{x})}}{\nn{f(x)}}}_{
-        \scriptsize\substack{
-          \text{Fehler} \\
-          \text{durch} \\
-          \text{Problem}
-        }}
-      \cdot
-      {\underbrace{\frac{\nn{\widetilde{x}-x}}{\nn{x}}}_{
-          \scriptsize\substack{\text{Eingabe-} \\ \text{fehler}}}}}
-    \label{III.3.6}
-  \end{gather}
-  gibt die \textbf{Güte des Algorithmus} \index{Güte!Algorithmus} an.
-  Als Stabilitätsindikator kann also 
-  \begin{gather}
-    \sigma\left(f, \widetilde{f}, x\right) \coloneqq \frac{\K}{\kappa_{rel}(f, x)}
-    \label{III.3.7}
-  \end{gather}
-  verwendet werden und es gilt
-  \begin{gather*}
-    \frac{\nn{\widetilde{f}(\widetilde{x})-f(x)}}{\nn{f(x)}}
-    < \underbrace{\sigma\left( f,\widetilde{f}, x\right) }_{
-      \substack{\text{Beitrag}\\
-        \text{des} \\
-        \text{Algorithmus}}}
-    \cdot \underbrace{\kappa_{rel}(f,x)}_{
-      \substack{\text{Beitrag} \\
-        \text{des} \\
-        \text{Problems}}}
-    \cdot \underbrace{eps}_{\substack{\text{Rundungs-}\\\text{fehler}}}
-    + \quad o(eps)
-  \end{gather*}
-  Falls $\sigma( f,\widetilde{f}, x)  < 1$, dämpft der Algorithmus die Fehlerfortpflanzung der Eingabe- und Rundungsfehler und heißt \textbf{stabil}\index{Stabilität}. \\
-  Für $\sigma( f,\widetilde{f}, x)  \gg 1$ heißt der Algorithmus \textbf{instabil}.
 
-
-
-  \subsection{Beispiel}
-  Nach Gleichung \eqref{III.3.3} gilt für die Elementaroperationen $\K\leq 1$.
-  Da für die Subtraktion zweier annähernd gleich großer Zahlen $\kappa_{rel}\gg 1$ gilt,
-  ist der Stabilitätsfaktor zweier annähernd gleich großer
-  Zahlen sehr klein und der Algorithmus also stabil, Falls es sich jedoch bei einer zusammengesetzten Abbildung $f=h\circ g$  bei der zweiten Abbildung $h$ um eine Subtaktion handelt, gilt
-  \begin{gather*}
-    \K =(1+\kappa(sub)+\kappa(sub)\cdot\kappa(g))
-  \end{gather*}
-  und die Stabilität ist gefährdet.
-  Genauere Abschätzungen und damit genauere Indikatoren können durch komponentenweise Betrachtungen erhalten werden.
-
+%  \subsectione{Beispiel}
+\begin{Bspe}
+	Nach Gleichung \eqref{III.3.3} gilt für die Elementaroperationen $\K\leq 1$.
+	Da für die Subtraktion zweier annähernd gleich großer Zahlen $\kappa_{rel}\gg 1$ gilt,
+	ist der Stabilitätsfaktor zweier annähernd gleich großer
+	Zahlen sehr klein und der Algorithmus also stabil,
+	Falls es sich jedoch bei einer zusammengesetzten Abbildung $f=h\circ g$
+	  bei der zweiten Abbildung $h$ um eine Subtaktion handelt, gilt
+	\begin{gather*}
+	\K =(1+\kappa(sub)+\kappa(sub)\cdot\kappa(g))
+	\end{gather*}
+	und die Stabilität ist gefährdet.
+	Genauere Abschätzungen und damit genauere Indikatoren
+	 können durch komponentenweise Betrachtungen erhalten werden.
+\end{Bspe}
+  
 
   \extrasection{b)}{Rückwärtsanalyse} \index{Rückwärtsanalyse}
   Die Fragestellung ist nun: \\
@@ -2339,10 +2511,7 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   \begin{gather*}
     \exists\, \widehat{x}\in \Ren: f(\widehat{x})= \widetilde{f}(\widetilde{x}) \, .
   \end{gather*}
-  Dann schätze den Fehler 
-  \begin{gather*} 
-    \nn{\widehat{x}-x}
-  \end{gather*}
+  Dann schätze den Fehler $ \nn{\widehat{x}-x}$
   bzw. für nicht injektive $f$
   \begin{gather*}
     \min_{\widehat{x}\in \Ren}
@@ -2385,63 +2554,67 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
     Genauigkeit der numerisch berechneten Werte.
   \end{itemize}
   
-  \subsection{Bemerkung}
-  (siehe auch Folien) \\
-  $$ \mbox{Vorw"artsfehler} \; \leq \; \mbox{Kondition des
-    Problems } \cdot \mbox{R"uckw"artsfehler} .$$
-  
-  $$ ||\tilde f (\tilde x)  - f(x)|| \leq \kappa (f,x) \; || \hat x -x|| $$
-  
-  Beispiel: Rückwärtsanalyse der Gauß-Elimination
-  (geht auf Wilkinson zurück)
-  
-  
-  \subsection{Satz}
-  $A \in \R^{n\times n}$ besitze eine LR-Zerlegung. Dann berechnet die
-  Gauß-Elimination Matrizen $\hat{L}$ und $\hat{R}$,
-  so dass
-  \begin{gather*}\hat{L}\,\hat{R}\; = \;\hat{A}\end{gather*}
-  und
-  \begin{align*}
-    \mid \hat{ A} -  A \mid & \leq & \frac{eps}{1 -n \;eps}
-                                     \left( | \hat{ L} | \left( \begin{array}{cccc}
-                                                                  1 && \multicolumn{2}{c}{0}\\[-2ex] & 2
-                                                                                                     &&\\[-2ex]
-                                                                    &&\ddots & \\[-2ex]  \multicolumn{2}{c}{0} && n
-                                                                \end{array} \right)
-                                                                                                                  | \hat{ R} | - |\hat{ R}| \right)
-    \\[1ex]
-                            & \leq & \frac{n \; eps}{1- n \;eps}\, | \hat{ L} | \,
-                                     |\hat{ R}| \; 
-                                     = \; n \; eps  | \hat{ L} | \,  |\hat{ R}| +
-                                     \mathcal{O}( n^2 eps^2)
-  \end{align*}
-  falls $n\;eps \leq 1/2$.
-  
-  \begin{proof}
-    siehe Stoer\cite{stoerbulirsch}.
-  \end{proof}
+%  \subsectione{Bemerkung}
+  \begin{Beme}
+  	$$ \mbox{Vorw"artsfehler} \; \leq \; \mbox{Kondition des
+  		Problems } \cdot \mbox{R"uckw"artsfehler} .$$
+  	
+  	$$ ||\tilde f (\tilde x)  - f(x)|| \leq \kappa (f,x) \; || \hat x -x|| $$
+  	
+  	Beispiel: Rückwärtsanalyse der Gauß-Elimination
+  	(geht auf Wilkinson zurück)
+  \end{Beme}
   
   
-  \subsection{Satz (Sautter 1971)}
-  $ A \in \R^{n\times n}$ besitze eine LR-Zerlegung.  Dann berechnet das
-  Gaußsche Eliminationsverfahren für das Gleichungssystem
-  $\;  A  x =  b$ eine Lösung $\overline{ x}$ mit 
-  \begin{gather*} \overline{ A} \overline{ x}  =   b \vspace*{-2ex} \end{gather*}
-  mit
-  \begin{gather*} 
-    | \overline{ A} - A |  \leq  2 \, n \, eps \,
-    |\hat{L}| \, | \hat{R}| + \mathcal{O}( n^2 eps^2).
-  \end{gather*}
+%  \subsectione{Satz}
+  \begin{Satze}
+  		$A \in \R^{n\times n}$ besitze eine LR-Zerlegung. Dann berechnet die
+  		Gauß-Elimination Matrizen $\hat{L}$ und $\hat{R}$,
+  		so dass
+  		\begin{gather*}\hat{L}\,\hat{R}\; = \;\hat{A}\end{gather*}
+  		und
+  		\begin{align*}
+  		\mid \hat{ A} -  A \mid & \leq & \frac{eps}{1 -n \;eps}
+  		\left( | \hat{ L} | \left( \begin{array}{cccc}
+  		1 && \multicolumn{2}{c}{0}\\[-2ex] & 2
+  		&&\\[-2ex]
+  		&&\ddots & \\[-2ex]  \multicolumn{2}{c}{0} && n
+  		\end{array} \right)
+  		| \hat{ R} | - |\hat{ R}| \right)
+  		\\[1ex]
+  		& \leq & \frac{n \; eps}{1- n \;eps}\, | \hat{ L} | \,
+  		|\hat{ R}| \; 
+  		= \; n \; eps  | \hat{ L} | \,  |\hat{ R}| +
+  		\mathcal{O}( n^2 eps^2)
+  		\end{align*}
+  		falls $n\;eps \leq 1/2$.
+  \end{Satze}
+    		\begin{proof}
+    			\cite[siehe][]{stoerbulirsch}.
+    		\end{proof}
   
-  \begin{proof}
-    siehe Deuflhard/Hohmann \cite{deuflhardhohmann}.
-  \end{proof}
   
-  Weitere Abschätzungen existieren für Gauß-Elimination mit 
-  Pivotisierung und für spezielle Klassen von Matrizen.
+%  \subsectione{Satz (Sautter 1971)}
+\begin{Satze}[Sautter 1971]
+	$ A \in \R^{n\times n}$ besitze eine LR-Zerlegung.  Dann berechnet das
+	Gaußsche Eliminationsverfahren für das Gleichungssystem
+	$\;  A  x =  b$ eine Lösung $\overline{ x}$ mit 
+	\begin{gather*} \overline{ A} \overline{ x}  =   b \vspace*{-2ex} \end{gather*}
+	mit
+	\begin{gather*} 
+	| \overline{ A} - A |  \leq  2 \, n \, eps \,
+	|\hat{L}| \, | \hat{R}| + \mathcal{O}( n^2 eps^2).
+	\end{gather*}
+\end{Satze}
+	
+	\begin{proof}
+		\cite[siehe][]{deuflhardhohmann}.
+	\end{proof}
+	
+	Weitere Abschätzungen existieren für Gauß-Elimination mit 
+	Pivotisierung und für spezielle Klassen von Matrizen.
   
-  \subsection{Allgemeine Faustregeln für die LR-Zerlegung}
+  \subsectione{Allgemeine Faustregeln für die LR-Zerlegung}
   \begin{itemize}
   \item Falls die Matrix $n | \hat{ L} | \,  |\hat{ R}|$ die
     selbe Größenordnung wie $| A|$ besitzt, ist der
@@ -2502,40 +2675,42 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   Für große $cond(A)$ ist dieser Quotient jedoch weiterhin ungeeignet.
   
   \extrasection{b)}{Im Sinne der Rückwärtsanalyse}
-  \subsection{Satz (Prager und Oettli, 1964)} \label{3.4.1}
-  Sei $\tilde{ x}$ eine Näherungslösung für 
-  $  A  x =  b$. 
-  Falls
-  \begin{gather}\label{III.4.3}
-    |  r(\tilde { x})|  \; \leq \; \varepsilon ( | A| | \tilde { x} | + |  b|).
-  \end{gather}
-  dann existiert eine Matrix $\tilde{ A}$  und ein
-  Vektor $\tilde { b}$, so dass
-  \begin{gather*}
-    \tilde{ A} \tilde { x}  =  \tilde{ b} 
-  \end{gather*}
-  und
-  \begin{equation}
-    |\tilde{ A} -  A |  \leq  \varepsilon | A|
-    \quad \textrm{und} \quad | \tilde{ b} -  b| \leq
-    \varepsilon | b|.
-    \label{III.4.4}
-  \end{equation}
-  
-  Aufgrund von \eqref{III.4.3} wird der komponentenweise relative
-  Rückwärtsfehler durch 
-  \begin{gather*}
-    \max_i \frac{|  A \tilde{ x} -  b|_i}
-    { (| A|\, |\tilde{ x}| + | b|)_i} 
-  \end{gather*}
-  abgeschätzt.
-  
-  Für den normweisen relativen Rückwärtsfehler gilt entsprechend
-  (Rigal und Gaches 1967)
-  \begin{gather*}
-    \frac{\|  A \tilde{ x} -  b\|}
-    { \| A\| \|\tilde{ x} \| + \| b\| } .
-  \end{gather*}
+%  \subsectione{Satz (Prager und Oettli, 1964)} 
+  \begin{Satze}[Prager und Oettli, 1964]\label{3.4.1}
+  	  Sei $\tilde{ x}$ eine Näherungslösung für 
+  	  $  A  x =  b$. 
+  	  Falls
+  	  \begin{gather}\label{III.4.3}
+  	  |  r(\tilde { x})|  \; \leq \; \varepsilon ( | A| | \tilde { x} | + |  b|).
+  	  \end{gather}
+  	  dann existiert eine Matrix $\tilde{ A}$  und ein
+  	  Vektor $\tilde { b}$, so dass
+  	  \begin{gather*}
+  	  \tilde{ A} \tilde { x}  =  \tilde{ b} 
+  	  \end{gather*}
+  	  und
+  	  \begin{equation}
+  	  |\tilde{ A} -  A |  \leq  \varepsilon | A|
+  	  \quad \textrm{und} \quad | \tilde{ b} -  b| \leq
+  	  \varepsilon | b|.
+  	  \label{III.4.4}
+  	  \end{equation}
+  	  
+  	  Aufgrund von \eqref{III.4.3} wird der komponentenweise relative
+  	  Rückwärtsfehler durch 
+  	  \begin{gather*}
+  	  \max_i \frac{|  A \tilde{ x} -  b|_i}
+  	  { (| A|\, |\tilde{ x}| + | b|)_i} 
+  	  \end{gather*}
+  	  abgeschätzt.
+  	  
+  	  Für den normweisen relativen Rückwärtsfehler gilt entsprechend
+  	  (Rigal und Gaches 1967)
+  	  \begin{gather*}
+  	  \frac{\|  A \tilde{ x} -  b\|}
+  	  { \| A\| \|\tilde{ x} \| + \| b\| } .
+  	  \end{gather*}
+  \end{Satze}
   
   
   \chapter{Lineare Gleichungssysteme: Direkte Methoden (Fortsetzung)}
@@ -2555,7 +2730,7 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   Sei $A\in\Renm $ und $\nn{\,\cdot\,} $ eine Vektornorm.
   
   
-  \subsection{Äquilibrierung der Zeilen} \index{Äquilibrierung!Zeilen-}
+  \subsectione{Äquilibrierung der Zeilen} \index{Äquilibrierung!Zeilen-}
   Alle Zeilen von $D_zA$ haben die gleiche Norm, z.B. $\nn{\,\cdot\,} =1$, wofür 
   \begin{gather}
     D_z = \begin{pmatrix}
@@ -2569,7 +2744,7 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   gesetzt wird.
 
 
-\subsection{Äquilibrierung der Spalten} \index{Äquilibrierung!Spalten-}
+\subsectione{Äquilibrierung der Spalten} \index{Äquilibrierung!Spalten-}
   Alle Spalten von $AD_s$ haben die gleiche Norm, z.B. $\nn{\,\cdot\,} =1$, wofür 
   \begin{gather}
     D_s = \begin{pmatrix}
@@ -2587,12 +2762,15 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   Äquilibrierung von Zeilen \textbf{und} Spalten führt zu einem nichtlinearen Gleichungssystem und ist i.d.R. aufwendig.
   
   
-  \subsection{Lemma} \label{4.3.1}
-  Sei $A$ zeilenäquilibriert bzgl. der $l_1$-Norm, dann gilt:
-  \begin{gather}
-    cond_{\infty}(A) \leq cond_{\infty}(DA)  \label{IV.1.3}
-  \end{gather}
-  für alle regulären Diagonalmatrizen $D$.
+%  \subsectione{Lemma}
+  \begin{Leme}
+  	\label{4.3.1}
+  	Sei $A$ zeilenäquilibriert bzgl. der $l_1$-Norm, dann gilt:
+  	\begin{gather}
+  	cond_{\infty}(A) \leq cond_{\infty}(DA)  \label{IV.1.3}
+  	\end{gather}
+  	für alle regulären Diagonalmatrizen $D$.
+  \end{Leme} 
   
   \begin{proof}
     siehe Übungsaufgabe
@@ -2602,7 +2780,7 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   trotz Pivotisierung und Äquilibrierung noch sehr ungenau sein.
 
 
-  \subsection{Nachiteration} \index{Nachiteration}
+  \subsectione{Nachiteration} \index{Nachiteration}
   Die Näherung $\widetilde{x}$ kann durch Nachiteration verbessert werden. \\
   Falls $\widetilde{x}$ exakt ist, gilt:
   \begin{gather}
@@ -2620,95 +2798,103 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   Wiederhole dies sooft, bis $x^{(i)}$ \enquote{genau genug} ist.
   Die Lösung $\widetilde{x}$ wird durch Nachiteration meist mit sehr gutem Erfolg verbessert
   \cite[genaueres in ][]{dahmenreusken}\\
-  \eqref{IV.1.5} wird mit der bereits vorhandenen LR-Zerlegung nur mit der neuen rechten Seite $r(\widetilde{x})$ gelöst, d.h. eine vorwärts und eine Rückwärtssubstitution
+  \eqref{IV.1.5} wird mit der bereits vorhandenen LR-Zerlegung
+  nur mit der neuen rechten Seite $r(\widetilde{x})$ gelöst, 
+  d.h. eine vorwärts und eine Rückwärtssubstitution
   mit $\mathcal{O}(n^2)$ flops.
 
-  \subsection{Bemerkung (nach Skeel 1980)}
-  Die Gauß-Elimination mit Spaltenpivotsuche und einer Nachiteration ist komponentenweise stabil.
-
+%  \subsectione{Bemerkung (nach Skeel 1980)}
+\begin{Beme}[nach Skeel 1980]
+	Die Gauß-Elimination mit Spaltenpivotsuche und einer Nachiteration
+	ist komponentenweise stabil.
+\end{Beme}
+  
 
   \sectione{Cholesky-Verfahren}
   Im Folgenden sei $A$ eine symmetrische, positiv definite Matrix in $\Renn $, d.h.
   $A=A^T$ und $\langle x, Ax \rangle = x^TAx > 0 \quad $ für alle $ x\neq 0$. \\
   (kurs: \textbf{spd Matrix}) \index{spd Matrix}
 
-  \subsection{Satz (Eigenschaften von symm., pos. def. Matrizen)} \label{4.2.1}
-  Für jede spd Matrix $A\in \Renn $ gilt:
-  \begin{enumerate}[i)]	
-  \item $A$ ist invertierbar
-  \item $a_{ii}>0$ für $i=1, \dots , n$
-  \item $\max_{ij}|a_{ij}| = \max_{i}a_{ii}$
-  \item Bei der Gauß-Elimination ohne Pivotsuche ist jede Restmatrix wieder eine spd Matrix.
-  \end{enumerate}
-
-  \begin{proof}~\\
-    \begin{enumerate}[i)]
-    \item folgt aus \eqref{IV.2.1}
-    \item Sei $e_i$ der i-te Einheitsvektor, so folgt $a_{ii} = e_{i}^TAe_i > 0$.
-    \item siehe Übungsaufgabe
-    \item Es gilt:
-      \begin{align*}
-        A^{(1)} &\coloneqq A = \begin{pmatrix}
-          a_{11} & z^T \\ 
-          z			& B^{(1)}
-        \end{pmatrix} \\
-        A^{(2)}	&\coloneqq L_1 A^{(1)} 
-                  = \begin{pmatrix}
-                    1 & 0 & \dotsm & 0 \\ \\
-                    -\frac{z}{a_{ii}} && I \\ ~
-                  \end{pmatrix} 
-        = \begin{pmatrix}
-          a_{11} &  & z^T & ~ \\ 
-          0 \\
-          \vdots && B^{(2)} \\ 
-          0
-        \end{pmatrix} \\
-        \Rightarrow L_1A^{(1)}L_1^T  
-                &= \begin{pmatrix}
-                  a_{11} &  & z^T & ~ \\ 
-                  0 \\
-                  \vdots && B^{(2)} \\ 
-                  0
-                \end{pmatrix} 
-        \cdot  \begin{pmatrix}
-          1 &  &	-\frac{z}{a_{11}} & ~ \\ 
-          0 \\\nocite{*}
-          \vdots && I \\ 
-          0
-        \end{pmatrix}\\
-                &= \begin{pmatrix}
-                  a_{11} & 0 & \cdots & 0\\ 
-                  0 \\
-                  \vdots && B^{(2)} \\ 
-                  0
-                \end{pmatrix} 
-      \end{align*}
-      Weiterhin gilt:
-      \begin{gather*}
-        x\neq 0 \Leftrightarrow L_1 x\neq 0 \,
-      \end{gather*}
-      da $L_1$ invertierbar. Also gilt insgesamt:
-      \begin{align*}
-        \widetilde{x}^TB^{(2)} \widetilde{x} &= x^T L_1A^{(1)}L_1^Tx
-        &&  \text{für } x\coloneqq \begin{pmatrix}	0 \\ \widetilde{x}\end{pmatrix}\\
-                                             &= (L_1^Tx)^TA(L_1^Tx) > 0
-        && \forall \widetilde{x}\neq 0 
-      \end{align*}
-      und damit ist auch $B^{(2)}$ spd.
-      
-      Induktiv folgt hiermit iv).\hfill $\square$
-      Insbesondere ergibt sich: 
-      \begin{gather*}
-        (L_{n-1}\cdot \cdots\cdot L_1)A^{(1)}(L_1^T\cdot \cdots \cdot L_{n-1}^T) 
-        = \begin{pmatrix} d_1 & & 0 \\ &\vdots& \\ 0&& d_n\end{pmatrix} \, ,
-      \end{gather*}
-      wobei $d_i$ das i-te Diagonalelement von $A^{(i)}$ ist und somit $d_i>0$ für $ i= 1, \cdots , n$ gilt. \\
-      
-      Sei $L\coloneqq (L_1^{-1}\cdot \cdots \cdot L_{n-1}^{-1})$ wie in \eqref{II.1.8}, so ergibt sich:
-    \end{enumerate}
-  \end{proof}		
-
-  \subsection{Folgerung} \label{4.2.2}
+%  \subsectione{Satz (Eigenschaften von symm., pos. def. Matrizen)} 
+  \begin{Satze}
+  	\label{4.2.1}
+  	Für jede spd Matrix $A\in \Renn $ gilt:
+  	\begin{enumerate}[i)]	
+  		\item $A$ ist invertierbar
+  		\item $a_{ii}>0$ für $i=1, \dots , n$
+  		\item $\max_{ij}|a_{ij}| = \max_{i}a_{ii}$
+  		\item Bei der Gauß-Elimination ohne Pivotsuche ist jede Restmatrix wieder eine spd Matrix.
+  	\end{enumerate}
+  \end{Satze}
+    	
+    	\begin{proof}~\\
+    		\begin{enumerate}[i)]
+    			\item folgt aus \eqref{IV.2.1}
+    			\item Sei $e_i$ der i-te Einheitsvektor, so folgt $a_{ii} = e_{i}^TAe_i > 0$.
+    			\item siehe Übungsaufgabe
+    			\item Es gilt:
+    			\begin{align*}
+    			A^{(1)} &\coloneqq A = \begin{pmatrix}
+    			a_{11} & z^T \\ 
+    			z			& B^{(1)}
+    			\end{pmatrix} \\
+    			A^{(2)}	&\coloneqq L_1 A^{(1)} 
+    			= \begin{pmatrix}
+    			1 & 0 & \dotsm & 0 \\ \\
+    			-\frac{z}{a_{ii}} && I \\ ~
+    			\end{pmatrix} 
+    			= \begin{pmatrix}
+    			a_{11} &  & z^T & ~ \\ 
+    			0 \\
+    			\vdots && B^{(2)} \\ 
+    			0
+    			\end{pmatrix} \\
+    			\Rightarrow L_1A^{(1)}L_1^T  
+    			&= \begin{pmatrix}
+    			a_{11} &  & z^T & ~ \\ 
+    			0 \\
+    			\vdots && B^{(2)} \\ 
+    			0
+    			\end{pmatrix} 
+    			\cdot  \begin{pmatrix}
+    			1 &  &	-\frac{z}{a_{11}} & ~ \\ 
+    			0 \\
+    			\vdots && I \\ 
+    			0
+    			\end{pmatrix}\\
+    			&= \begin{pmatrix}
+    			a_{11} & 0 & \cdots & 0\\ 
+    			0 \\
+    			\vdots && B^{(2)} \\ 
+    			0
+    			\end{pmatrix} 
+    			\end{align*}
+    			Weiterhin gilt:
+    			\begin{gather*}
+    			x\neq 0 \Leftrightarrow L_1 x\neq 0 \,
+    			\end{gather*}
+    			da $L_1$ invertierbar. Also gilt insgesamt:
+    			\begin{align*}
+    			\widetilde{x}^TB^{(2)} \widetilde{x} &= x^T L_1A^{(1)}L_1^Tx
+    			&&  \text{für } x\coloneqq \begin{pmatrix}	0 \\ \widetilde{x}\end{pmatrix}\\
+    			&= (L_1^Tx)^TA(L_1^Tx) > 0
+    			&& \forall \widetilde{x}\neq 0 
+    			\end{align*}
+    			und damit ist auch $B^{(2)}$ spd.
+    			
+    			Induktiv folgt hiermit iv).\hfill $\square$
+    			Insbesondere ergibt sich: 
+    			\begin{gather*}
+    			(L_{n-1}\cdot \cdots\cdot L_1)A^{(1)}(L_1^T\cdot \cdots \cdot L_{n-1}^T) 
+    			= \begin{pmatrix} d_1 & & 0 \\ &\vdots& \\ 0&& d_n\end{pmatrix} \, ,
+    			\end{gather*}
+    			wobei $d_i$ das i-te Diagonalelement von $A^{(i)}$ ist und somit $d_i>0$ für $ i= 1, \cdots , n$ gilt. \\
+    			
+    			Sei $L\coloneqq (L_1^{-1}\cdot \cdots \cdot L_{n-1}^{-1})$ wie in \eqref{II.1.8}, so ergibt sich:
+    		\end{enumerate}
+    	\end{proof}		
+  
+  \subsectione{Folgerung} \label{4.2.2}
   Für jede spd Matrix $A$ existiert eine eindeutige Zerlegung der Form 
   \begin{gather*}
     A= LDL^T
@@ -2741,7 +2927,7 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   Es ergibt sich folgender Algorithmus:
   
   
-  \subsection{Cholesky-Zerlegung}\index{Cholesky-Zerlegung}
+  \subsectione{Cholesky-Zerlegung}\index{Cholesky-Zerlegung}
   Der Algorithmus der Cholesky-Zerlegung ist wie folgt:
   
   \begin{pseudocode}{0.55\linewidth}
@@ -2755,7 +2941,7 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   
   
   
-  \subsection{Rechenaufwand in flops}
+  \subsectione{Rechenaufwand in flops}
   Es sind je 
   \begin{enumerate}
   \item[] $\frac{1}{6}(n^2-n) $ Additionen sowie Multiplikationen und 
@@ -2764,62 +2950,63 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   also ca. $\frac{2}{3} n^2$ flops für große $n$ notwendig. \\
   Im Vergleich zur LR-Zerlegung halbiert sich in etwa der Aufwand.
   
-  \subsection{Bemerkung}
-  \begin{enumerate}[a)]
-  \item Wegen \eqref{IV.2.3} gilt $|\overline{l}_{kj}| \leq \sqrt{a_{kk}}$,
-    d.h. die Matrizeneinträge können nicht zu groß werden.
-  \item Für spd Matrizen ist der Cholesky-Algorithmus stabil nach \eqref{III.3.13}
-  \item Da $A$ symmetrisch ist, muss nur die untere Dreiecksmatrix gespeichert werden.
-    In Algorithmen kann $\bar{L}$ in eine Kopie dieser Dreiecksmatrix geschrieben werden.
-  \item Fast singuläre Matrizen können durch die Diagonale erkannt werden.
-  \end{enumerate}
+%  \subsectione{Bemerkung}
+\begin{Beme}~
+	\begin{enumerate}[a)]
+		\item Wegen \eqref{IV.2.3} gilt $|\overline{l}_{kj}| \leq \sqrt{a_{kk}}$,
+		d.h. die Matrizeneinträge können nicht zu groß werden.
+		\item Für spd Matrizen ist der Cholesky-Algorithmus stabil nach \eqref{III.3.13}
+		\item Da $A$ symmetrisch ist, muss nur die untere Dreiecksmatrix gespeichert werden.
+		In Algorithmen kann $\bar{L}$ in eine Kopie dieser Dreiecksmatrix geschrieben werden.
+		\item Fast singuläre Matrizen können durch die Diagonale erkannt werden.
+	\end{enumerate}
+\end{Beme}
   
   
   \marginpar{10.11.2014}
   \sectione{Lineare Ausgleichsprobleme} \index{Ausgleichsproblem!linear}
   
-  \subsection{Beispiel}
-  (s. Einführung)
-  
-  Seien $m$ Messungen $(I_i, U_i)$ für die Stromstärke $I$ und die Spannung $U$ gegeben. \\
-  
-  \begin{figure}
-    \parbox{\linewidth}{
-      \centering
-      \includegraphics{images/ohmsche.jpeg}
-    }
-    \caption{Schaltplan einer einfachen U-I-Messung}
-  \end{figure}
-  
-  
-  Das Ohmsche Gesetz liefert hierfür:
-  \begin{gather*}
-    U=R\cdot I
-  \end{gather*}
-  Gesucht ist der zugehörige Widerstand $R$.\\
-  
-  \begin{figure}
-    \parbox{\linewidth}{
-      \centering
-      \includegraphics[width=0.5\linewidth]{images/linausgl2.png}
-    }
-    \caption{Linearausgleich einer U-I-Messung mit Ursprungsgerade als Modellfunktion}
-  \end{figure}
-  
-  
-  Wird jetzt davon ausgegangen dass die $I_i$ exakt sind, wird das $R$ gesucht, 
-  für das $RI_i$ im Mitttel den minimalen Abstand zu $U_i$ hat.
-  Genauer gesagt berechne
-  \begin{gather*}
-    \min_{r\in\R} \sum_{i=1}^{m}(U_i-rI_i)^2
-  \end{gather*}
-  \textbf{Vorsicht: } Es wird \textbf{nicht} die Gerade (bzw. der lineare Untervektorraum) mit 
-  minimalem euklidischem Abstand zu $(I_i,U_i)$ gesucht! \\
-  Dieses Problem ist nichtlinear und aufwendig zu lösen.\\
-  
+%  \subsectione{Beispiel}
+  \begin{Bspe}
+  	(s. Einführung)
+  	
+  	Seien $m$ Messungen $(I_i, U_i)$ für die Stromstärke $I$ und die Spannung $U$ gegeben. \\
+  	
+  	\begin{figure}
+  		\parbox{\linewidth}{
+  			\centering
+  			\includegraphics{images/ohmsche.jpeg}
+  		}
+  		\caption{Schaltplan einer einfachen U-I-Messung}
+  	\end{figure}
+  	
+  	Das Ohmsche Gesetz liefert hierfür:
+  	\begin{gather*}
+  	U=R\cdot I
+  	\end{gather*}
+  	Gesucht ist der zugehörige Widerstand $R$.\\
+  	
+  	\begin{figure}
+  		\parbox{\linewidth}{
+  			\centering
+  			\includegraphics[width=0.5\linewidth]{images/linausgl2.png}
+  		}
+  		\caption{Linearausgleich einer U-I-Messung mit Ursprungsgerade als Modellfunktion}
+  	\end{figure}
+  	
+  	Wird jetzt davon ausgegangen dass die $I_i$ exakt sind, wird das $R$ gesucht, 
+  	für das $RI_i$ im Mitttel den minimalen Abstand zu $U_i$ hat.
+  	Genauer gesagt berechne
+  	\begin{gather*}
+  	\min_{r\in\R} \sum_{i=1}^{m}(U_i-rI_i)^2
+  	\end{gather*}
+  	\textbf{Vorsicht: } Es wird \textbf{nicht} die Gerade (bzw. der lineare Untervektorraum) mit 
+  	minimalem euklidischem Abstand zu $(I_i,U_i)$ gesucht! \\
+  	Dieses Problem ist nichtlinear und aufwendig zu lösen.
+  \end{Bspe}
 
   
-  \subsection{Lineares Ausgleichsproblem} \index{Ausgleichsproblem!linear}
+  \subsectione{Lineares Ausgleichsproblem} \index{Ausgleichsproblem!linear}
   Gegeben seien Messdaten $(t_i, b_i)$ mit $t_i, b_i\in \R$ für $i=1, \dots, m$ 
   und die Abhängigkeit $b(t)$ werde beschrieben durch eine Modellfunktion,
   welche linear von den unbekannten Parametern $x_1, \cdots, x_n$ des Modells abhängt,
@@ -2877,111 +3064,117 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
     \fill  (8,2.46) circle (2pt);
   \end{tikzpicture}
   
-  \subsection{Projektionssatz} \index{Projektionssatz} \label{4.3.3}
-  Sei $V$ ein reeller Vektorraum mit einem Skalarprodukt $\scp{\cdot}{\cdot}$
-  und der induzierten Norm $\nn{v}\coloneqq \sqrt{\scp{v}{v}}$.
-  Sei $U\subset V$ ein endlich dimensionaler Untervektorraum und sei
-  \begin{gather*}
-    U^\bot \coloneqq \left\{ v\in V  \, \middle\vert \, \scp{v}{u} = 0 ~~ \forall u\in U \right\}
-  \end{gather*}
-  Dann gilt:
-  \begin{enumerate}[1)]
-  \item Zu jedem $v\in V$ existiert genau ein $\overline{u}\in U$, 
-    so dass $v-\overline{u}\in U^\bot$, d.h.
-    \begin{gather*}
-      \scp{v-\overline{u}}{u} = 0 \quad \forall u \in U
-    \end{gather*}
-    Dies definiert die \textbf{orthogonale Projektion} \index{orthogonale Projektion}
-    \begin{gather*}
-      P:V\rightarrow U, \quad v\mapsto \overline{u}= Pv
-    \end{gather*}
-  \item Zu jedem $v\in V $ bestimmt $P\cdot v$ die eindeutige Lösung
-    \begin{gather*}
-      \nn{v-Pv}= \min_{u\in U} \nn{v-u}
-    \end{gather*}
-    Also gilt mit einem eindeutigen $\overline{u}= Pv$, dass 
-    \begin{gather}
-      \nn{v-\overline{u}} = \min_{u\in U} \nn{v-u} 
-      \Longleftrightarrow \scp{v-\overline{u}}{u} = 0 \quad \forall u\in U
-      \label{IV.3.3}
-    \end{gather}
-  \end{enumerate}
+%  \subsectione{Projektionssatz} 
+  \begin{Satze}[Projektionssatz]
+  	\index{Projektionssatz} \label{4.3.3}
+ 	Sei $V$ ein reeller Vektorraum mit einem Skalarprodukt $\scp{\cdot}{\cdot}$
+ 	und der induzierten Norm $\nn{v}\coloneqq \sqrt{\scp{v}{v}}$.
+ 	Sei $U\subset V$ ein endlich dimensionaler Untervektorraum und sei
+ 	\begin{gather*}
+ 	U^\bot \coloneqq \left\{ v\in V  \, \middle\vert \, \scp{v}{u} = 0 ~~ \forall u\in U \right\}
+ 	\end{gather*}
+ 	Dann gilt:
+ 	\begin{enumerate}[1)]
+ 		\item Zu jedem $v\in V$ existiert genau ein $\overline{u}\in U$, 
+ 		so dass $v-\overline{u}\in U^\bot$, d.h.
+ 		\begin{gather*}
+ 		\scp{v-\overline{u}}{u} = 0 \quad \forall u \in U
+ 		\end{gather*}
+ 		Dies definiert die \textbf{orthogonale Projektion} \index{orthogonale Projektion}
+ 		\begin{gather*}
+ 		P:V\rightarrow U, \quad v\mapsto \overline{u}= Pv
+ 		\end{gather*}
+ 		\item Zu jedem $v\in V $ bestimmt $P\cdot v$ die eindeutige Lösung
+ 		\begin{gather*}
+ 		\nn{v-Pv}= \min_{u\in U} \nn{v-u}
+ 		\end{gather*}
+ 		Also gilt mit einem eindeutigen $\overline{u}= Pv$, dass 
+ 		\begin{gather}
+ 		\nn{v-\overline{u}} = \min_{u\in U} \nn{v-u} 
+ 		\Longleftrightarrow \scp{v-\overline{u}}{u} = 0 \quad \forall u\in U
+ 		\label{IV.3.3}
+ 		\end{gather}
+ 	\end{enumerate} 	
+  \end{Satze}
+   	
+   	\begin{proof}
+   		\begin{enumerate}[1)]
+   			\item Sei $\{u_1, \dots , u_n \}$ eine Orthonormalbasis von $U$ 
+   			und $\overline{u}\in U $. \\
+   			Daraus folgt:
+   			\begin{gather*}
+   			\exists ! \, (\alpha_i)_{i=1,\dotsc,n} \subset \R: \overline{u} = \sum_{i=1}^{n} \alpha_i u_i
+   			\end{gather*}
+   			Damit gilt:
+   			\begin{alignat*}{3}
+   			&&0 &= \scp{v-\overline{u}}{u} &\quad& \forall u \in U \\
+   			&\Longleftrightarrow \quad& 0 &= \scp{v- \sum_{i=1}^{n} \alpha_i u_i}{u_i} &\quad &\forall j=1, \dots , n\\
+   			&\Longleftrightarrow  & \scp{v}{u_j} &= \sum_{i=1}^{n} \alpha_i \scp{u_i}{u_j} = \alpha_j
+   			\end{alignat*}
+   			Setze also 
+   			\begin{align}
+   			\nonumber
+   			P\cdot v &= \overline{u} \\
+   			& = \sum_{i=1}^{n} \scp{v}{u_i} u_i \in U
+   			\label{IV.3.4}
+   			\end{align}
+   			dann ist $\overline{u}$ die eindeutig bestimmte Lösung für $ v-\overline{u} \in U^\bot$
+   			
+   			IMAGE~MISSING \\
+   			
+   			Sei  $u\in U$. Dann gilt:
+   			\begin{align}
+   			\nonumber
+   			\nn{v-u}^2 &= \nn{v-\overline{u}+\overline{u} -u}^2 \\ \nonumber
+   			&= \nn{v-\overline{u}}^2 +
+   			\underbrace{\scp{v-\overline{u}}{\overbrace{\overline{u}-u}^{~~\in U}}}_{=0}
+   			+ \nn{u-\overline{u}}^2 \\
+   			&= \nn{v-\overline{u}}^2 + \nn{u-\overline{u}}^2
+   			\label{IV.3.5}
+   			\end{align}
+   			(Dies ist anschaulich der Satz des Pythagoras.)
+   		\end{enumerate}
+   	\end{proof}
+ 
   
-  \begin{proof}
-    \begin{enumerate}[1)]
-    \item Sei $\{u_1, \dots , u_n \}$ eine Orthonormalbasis von $U$ 
-      und $\overline{u}\in U $. \\
-      Daraus folgt:
-      \begin{gather*}
-        \exists ! \, (\alpha_i)_{i=1,\dotsc,n} \subset \R: \overline{u} = \sum_{i=1}^{n} \alpha_i u_i
-      \end{gather*}
-      Damit gilt:
-      \begin{alignat*}{3}
-        &&0 &= \scp{v-\overline{u}}{u} &\quad& \forall u \in U \\
-        &\Longleftrightarrow \quad& 0 &= \scp{v- \sum_{i=1}^{n} \alpha_i u_i}{u_i} &\quad &\forall j=1, \dots , n\\
-        &\Longleftrightarrow  & \scp{v}{u_j} &= \sum_{i=1}^{n} \alpha_i \scp{u_i}{u_j} = \alpha_j
-      \end{alignat*}
-      Setze also 
-      \begin{align}
-        \nonumber
-        P\cdot v &= \overline{u} \\
-                 & = \sum_{i=1}^{n} \scp{v}{u_i} u_i \in U
-                   \label{IV.3.4}
-      \end{align}
-      dann ist $\overline{u}$ die eindeutig bestimmte Lösung für $ v-\overline{u} \in U^\bot$
-      
-      IMAGE~MISSING \\
-      
-      Sei  $u\in U$. Dann gilt:
-      \begin{align}
-        \nonumber
-        \nn{v-u}^2 &= \nn{v-\overline{u}+\overline{u} -u}^2 \\ \nonumber
-                   &= \nn{v-\overline{u}}^2 +
-                     \underbrace{\scp{v-\overline{u}}{\overbrace{\overline{u}-u}^{~~\in U}}}_{=0}
-                     + \nn{u-\overline{u}}^2 \\
-                   &= \nn{v-\overline{u}}^2 + \nn{u-\overline{u}}^2
-                     \label{IV.3.5}
-      \end{align}
-      (Dies ist anschaulich der Satz des Pythagoras.)
-    \end{enumerate}
-  \end{proof}
-  
-  \subsection{Satz} 
-  Der Vektor $\overline{x} \in\R^n$ ist genau dann Lösung des linearen Ausgleichsproblems
-  \begin{gather*}
-    \min_{x\in\Ren} \nn{b-Ax}_2 \, ,
-  \end{gather*}
-  falls er die Normalengleichung
-  \begin{gather}
-    A^TA\overline{x} = A^Tb
-    \label{IV.3.6}
-  \end{gather}
-  erfüllt. \\
-  Insbesondere ist $\overline{x}$ eindeutig,
-  falls $A\in \R^{m\times n}$ maximalen Rang $n\leq m$ hat.
+%  \subsectione{Satz}
+  \begin{Satze}
+  	Der Vektor $\overline{x} \in\R^n$ ist genau dann Lösung des linearen Ausgleichsproblems
+  	\begin{gather*}
+  	\min_{x\in\Ren} \nn{b-Ax}_2 \, ,
+  	\end{gather*}
+  	falls er die Normalengleichung
+  	\begin{gather}
+  	A^TA\overline{x} = A^Tb
+  	\label{IV.3.6}
+  	\end{gather}
+  	erfüllt. \\
+  	Insbesondere ist $\overline{x}$ eindeutig,
+  	falls $A\in \R^{m\times n}$ maximalen Rang $n\leq m$ hat.
+  \end{Satze}
   
   \begin{proof} Bezeichne
-    $V= \R^m, U= R(A) = \left\{Ax \, \middle|  \, x \in\Ren \right\}, b \in \R^m$.\\
-    Nach \eqref{IV.3.3} gilt:
-    \begin{alignat*}{2}
-      &&\nn{b-A\overline{x}}_2 &= \min_{x\in\Ren} \nn{b-Ax}_2 \\
-      &\Leftrightarrow \quad & \scp{b-A \overline{x}}{Ax} &= 0 \quad \forall x\in \Ren \\
-      &\Leftrightarrow & \scp{A^T(b-A\overline{x})}{x} &= 0 \quad  \forall x\in\Ren \\
-      &\Leftrightarrow & A^T(b-A\overline{x}) &= 0 \\
-      &\Leftrightarrow & A^TA\overline{x} &= A^Tb
-    \end{alignat*}
-    Nach dem Projektionssatz \ref{4.3.3} existiert mindestens ein eindeutiges
-    $\overline{y} = P b$.
-    Für dieses $\overline{y}$ ist $\overline{x}\in \Ren $ mit $\overline{y} = A\overline{x}$
-    eindeutig bestimmt, falls $A$ injektiv ist, d.h. falls $rang(A) = n$. \end{proof}
-  
+  	$V= \R^m, U= R(A) = \left\{Ax \, \middle|  \, x \in\Ren \right\}, b \in \R^m$.\\
+  	Nach \eqref{IV.3.3} gilt:
+  	\begin{alignat*}{2}
+  	&&\nn{b-A\overline{x}}_2 &= \min_{x\in\Ren} \nn{b-Ax}_2 \\
+  	&\Leftrightarrow \quad & \scp{b-A \overline{x}}{Ax} &= 0 \quad \forall x\in \Ren \\
+  	&\Leftrightarrow & \scp{A^T(b-A\overline{x})}{x} &= 0 \quad  \forall x\in\Ren \\
+  	&\Leftrightarrow & A^T(b-A\overline{x}) &= 0 \\
+  	&\Leftrightarrow & A^TA\overline{x} &= A^Tb
+  	\end{alignat*}
+  	Nach dem Projektionssatz \ref{4.3.3} existiert mindestens ein eindeutiges
+  	$\overline{y} = P b$.
+  	Für dieses $\overline{y}$ ist $\overline{x}\in \Ren $ mit $\overline{y} = A\overline{x}$
+  	eindeutig bestimmt, falls $A$ injektiv ist, d.h. falls $rang(A) = n$. 
+  \end{proof}
   
   Ähnlich zum Skalarprodukt ist die relative Kondition von $(P,b) $ schlecht, 
   falls $b$ fast senkrecht zu $U$ steht.
   Die relative Kondition des linearen Ausgleichsproblems hängt zusätzlich von $cond(A)$ ab.
   
   
-  \subsection{Lösung der Normalgleichung}
+  \subsectione{Lösung der Normalgleichung}
   Falls $rang(A) = n$, ist $A^TA$ spd und das Cholesky-Verfahren ist anwendbar. \\
   Dafür ist
   \begin{enumerate}[1.]
@@ -3006,60 +3199,63 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   \textbf{Cholesky-Zerlegung \index{Cholesky-Zerlegung} für Normalgleichungen ungeeignet}.
   
   
-  \subsection{Satz}
-  Sei $A\in \R^{m\times n} $ mit $m\geq n$ und $rang(A) = n$,
-  sei $b\in\R^m$ und besitze $A$ eine Zerlegung
-  \begin{gather*}
-    A= Q\begin{pmatrix}R\\0\end{pmatrix}
-  \end{gather*}
-  mit einer orthogonalen Matrix $Q\in R^{m\times m}$ und 
-  einer oberen Dreiecksmatrix $R\in \R^{n\times n}$. \\
-  Dann ist $R$ invertierbar. \\
-  Bezeichne 
-  \begin{gather}
-    \begin{pmatrix} \overline{b}_1 \\ \overline{b}_2\end{pmatrix}
-    \coloneqq Q^T\cdot b
-    \label{IV.3.9}
-  \end{gather}
-  dann ist
-  \begin{gather}
-    \overline{x} = R^{-1} \overline{b}_1 
-    \label{IV.3.10}
-  \end{gather}
-  die Lösung des linearen Ausgleichsproblems und
-  \begin{align*}
-    \nn{\overline{b}_2} &= \nn{b-A\overline{x}} \\
-                        & = \min_{x\in \Ren }\nn{b-Ax}
-  \end{align*}
-  Zur Erinnerung:
-  \begin{align*}
-    Q \text{ orthogonal} &:\Leftrightarrow QQ^T = I \\
-                         &\, \Leftrightarrow Q^{-1} = Q^T
-  \end{align*}
-  Weiterhin ist $Q$ längenerhaltend\index{längenerhaltend}, d.h. $\nn{Qv}_2 = \nn{v}_2$ 
-  und somit folgt
-  \begin{gather}
-    \nonumber
-    \nn{Q}_2 = \nn{Q^{-1}}_2 = 1 \quad \text{und} \\
-    cond_2(Q) = 1
-    \label{IV.3.11}
-  \end{gather}
-  
-  \begin{proof} $R$ ist invertierbar, da 
-    \begin{align*}
-      rang(R) &= rang(Q^{-1}\cdot A) \\	
-              & = rang(A) \\
-              &= n
-    \end{align*}
-    Außerdem gilt:
-    \begin{align*}
-      \nn{b-Ax}_2^2 & = \nn{Q(Q^Tb-\begin{pmatrix}R\\0\end{pmatrix}x)}_2^2 \\
-                    &=  \nn{Q^Tb-\begin{pmatrix}Rx\\0\end{pmatrix}}_2^2  \\
-                    &\overset{\mathllap{\text{$Q$ längenerhaltend}}}{=}
-                      \nn{\overline{b}_1 - Rx}_2^2  + \nn{\overline{b}_2^2}
-    \end{align*}
-    wird minimal für $R\overline{x} = \overline{b}_1$
-  \end{proof}
+%  \subsectione{Satz}
+\begin{Satze}
+	Sei $A\in \R^{m\times n} $ mit $m\geq n$ und $rang(A) = n$,
+	sei $b\in\R^m$ und besitze $A$ eine Zerlegung
+	\begin{gather*}
+	A= Q\begin{pmatrix}R\\0\end{pmatrix}
+	\end{gather*}
+	mit einer orthogonalen Matrix $Q\in R^{m\times m}$ und 
+	einer oberen Dreiecksmatrix $R\in \R^{n\times n}$. \\
+	Dann ist $R$ invertierbar. \\
+	Bezeichne 
+	\begin{gather}
+	\begin{pmatrix} \overline{b}_1 \\ \overline{b}_2\end{pmatrix}
+	\coloneqq Q^T\cdot b
+	\label{IV.3.9}
+	\end{gather}
+	dann ist
+	\begin{gather}
+	\overline{x} = R^{-1} \overline{b}_1 
+	\label{IV.3.10}
+	\end{gather}
+	die Lösung des linearen Ausgleichsproblems und
+	\begin{align*}
+	\nn{\overline{b}_2} &= \nn{b-A\overline{x}} \\
+	& = \min_{x\in \Ren }\nn{b-Ax}
+	\end{align*}
+ \end{Satze}
+
+	Zur Erinnerung:
+	\begin{align*}
+	Q \text{ orthogonal} &:\Leftrightarrow QQ^T = I \\
+	&\, \Leftrightarrow Q^{-1} = Q^T
+	\end{align*}
+	Weiterhin ist $Q$ längenerhaltend\index{längenerhaltend}, d.h. $\nn{Qv}_2 = \nn{v}_2$ 
+	und somit folgt
+	\begin{gather}
+	\nonumber
+	\nn{Q}_2 = \nn{Q^{-1}}_2 = 1 \quad \text{und} \\
+	cond_2(Q) = 1
+	\label{IV.3.11}
+	\end{gather}
+	
+	\begin{proof} $R$ ist invertierbar, da 
+		\begin{align*}
+		rang(R) &= rang(Q^{-1}\cdot A) \\	
+		& = rang(A) \\
+		&= n
+		\end{align*}
+		Außerdem gilt:
+		\begin{align*}
+		\nn{b-Ax}_2^2 & = \nn{Q(Q^Tb-\begin{pmatrix}R\\0\end{pmatrix}x)}_2^2 \\
+		&=  \nn{Q^Tb-\begin{pmatrix}Rx\\0\end{pmatrix}}_2^2  \\
+		&\overset{\mathllap{\text{$Q$ längenerhaltend}}}{=}
+		\nn{\overline{b}_1 - Rx}_2^2  + \nn{\overline{b}_2^2}
+		\end{align*}
+		wird minimal für $R\overline{x} = \overline{b}_1$
+	\end{proof}
   
   Da $Q$ längenerhaltend ist, folgt mit \ref{3.2.13} b)
   ($cond_A \coloneqq \frac{\max \nn{Ax}}{\min \nn{Ax}}$)
@@ -3070,20 +3266,22 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   Die auftretende Kondition entspricht also der des Ausgleichsproblems.
   
   
-  \subsection{Bemerkung}
-  Sei $A\in \Renn$ invertierbar und habe ein QR-Zerlegung, d.h. es existiert
-  eine orthogonale Matrix $Q$ und eine obere Dreiecksmatrix $R$, so dass:
-  \begin{gather*}
-    A= Q\cdot R
-  \end{gather*}
-  Dann kann das Gleichungssystem $Ax=b$ wie folgt gelöst werden:
-  \begin{enumerate}[1.]
-  \item Setze $z=Q^Tb$, was Kondition 1 hat.
-  \item Löse durch Rückwärtssubstitution $Rx=z$.
-  \end{enumerate}
+%  \subsectione{Bemerkung}
+\begin{Beme}
+	Sei $A\in \Renn$ invertierbar und habe ein QR-Zerlegung, d.h. es existiert
+	eine orthogonale Matrix $Q$ und eine obere Dreiecksmatrix $R$, so dass:
+	\begin{gather*}
+	A= Q\cdot R
+	\end{gather*}
+	Dann kann das Gleichungssystem $Ax=b$ wie folgt gelöst werden:
+	\begin{enumerate}[1.]
+		\item Setze $z=Q^Tb$, was Kondition 1 hat.
+		\item Löse durch Rückwärtssubstitution $Rx=z$.
+	\end{enumerate}
+\end{Beme}
   
-  
-  \marginpar{12.11.2014}
+
+\marginpar{12.11.2014}
 
   \sectione{Orthogonalisierungsverfahren}		\index{Orthogonalisierung}
   Konsturiere eine QR-Zerlegung
@@ -3276,7 +3474,7 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   
   Es ergibt sich:
   
-  \subsection{Givens-QR-Algorithmus} \index{Givens-QR-Algorithmus}
+  \subsectione{Givens-QR-Algorithmus} \index{Givens-QR-Algorithmus}
   
   \begin{pseudocode}{0.7\linewidth}
     \textbf{for} $j=1, \dotsc , n$ \\
@@ -3289,35 +3487,37 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
     \textbf{end}							
   \end{pseudocode}
   
-  \subsection{Bemerkungen} 
-  \begin{enumerate}[a)]
-  \item $A(i-1 : i, 1 : j-1) = 0$ und ist daher nicht zu berechnen oder
-    zu speichern. Der Speicherplatz kann für die Speicherung der
-    Givensrotationen benutzt werden.
-  \item  $R$ steht anschließend in $A$.
-  \item Die Bestimmung der Länge $|\alpha|$ wird so ausgeführt, dass over- ¨
-    oder underflow vermieden wird. Weiterhin wird das Vorzeichen
-    von $c$ oder $s$ festgelegt, so dass aufgrund von $c^2+s^2=1$ nur
-    ein Wert $\rho$ gespeichert werden muss. Hiermit wird auch das
-    Vorzeichen von $\alpha$ festgelegt:\\
-    \begin{description}
-    \item[$a_2=0$:] Setze $c=1, s=0, \alpha = a_1$, merke $\rho=1$.
-    \item[$|a_2|>|a_1|$:] Setze $\tau= \frac{a_1}{a_2}, s=\frac{1}{\sqrt{1+\tau^2}}, c=s\cdot\tau, \alpha =a_2\sqrt{1+\tau^2}$, merke $\rho=\frac{c}{2}$.
-    \item[$|a_1|\geq|a_2|$:] Setze $\tau= \frac{a_2}{a_1}, c=\frac{1}{\sqrt{1+\tau^2}}, s=c\cdot\tau, \alpha =a_1\sqrt{1+\tau^2}$, merke $\rho=\frac{2}{s}$.
-    \end{description}
-  \item Aufgrund von c) muss nur $\rho$ gespeichert werden:
-    \begin{description}
-    \item[$\rho=1$:] Setze $c=1, s=0$.
-    \item[$|\rho|<1$:] Setze $c=2\rho , s= \sqrt{1-c^2}$.
-    \item[$|\rho|>1$:] Setze $s=\frac{2}{\rho}, c=\sqrt{1-s^2}$.
-    \end{description}
-  \end{enumerate}
-  Hiermit können alle notwendigen Givens-Rotationen als untere
-  Dreiecksmatrix zusammen mit $R$ in $A$ gespeichert werden.
+%  \subsectione{Bemerkungen} 
+\begin{Beme}~
+	\begin{enumerate}[a)]
+		\item $A(i-1 : i, 1 : j-1) = 0$ und ist daher nicht zu berechnen oder
+		zu speichern. Der Speicherplatz kann für die Speicherung der
+		Givensrotationen benutzt werden.
+		\item  $R$ steht anschließend in $A$.
+		\item Die Bestimmung der Länge $|\alpha|$ wird so ausgeführt, dass over- ¨
+		oder underflow vermieden wird. Weiterhin wird das Vorzeichen
+		von $c$ oder $s$ festgelegt, so dass aufgrund von $c^2+s^2=1$ nur
+		ein Wert $\rho$ gespeichert werden muss. Hiermit wird auch das
+		Vorzeichen von $\alpha$ festgelegt:\\
+		\begin{description}
+			\item[$a_2=0$:] Setze $c=1, s=0, \alpha = a_1$, merke $\rho=1$.
+			\item[$|a_2|>|a_1|$:] Setze $\tau= \frac{a_1}{a_2}, s=\frac{1}{\sqrt{1+\tau^2}}, c=s\cdot\tau, \alpha =a_2\sqrt{1+\tau^2}$, merke $\rho=\frac{c}{2}$.
+			\item[$|a_1|\geq|a_2|$:] Setze $\tau= \frac{a_2}{a_1}, c=\frac{1}{\sqrt{1+\tau^2}}, s=c\cdot\tau, \alpha =a_1\sqrt{1+\tau^2}$, merke $\rho=\frac{2}{s}$.
+		\end{description}
+		\item Aufgrund von c) muss nur $\rho$ gespeichert werden:
+		\begin{description}
+			\item[$\rho=1$:] Setze $c=1, s=0$.
+			\item[$|\rho|<1$:] Setze $c=2\rho , s= \sqrt{1-c^2}$.
+			\item[$|\rho|>1$:] Setze $s=\frac{2}{\rho}, c=\sqrt{1-s^2}$.
+		\end{description}
+	\end{enumerate}
+	Hiermit können alle notwendigen Givens-Rotationen als untere
+	Dreiecksmatrix zusammen mit $R$ in $A$ gespeichert werden.
+\end{Beme}
   
   
   
-  \subsection{Aufand des Givens-QR-Algorithmus}
+  \subsectione{Aufand des Givens-QR-Algorithmus}
   \begin{enumerate}[a)]
   \item $m\approx n$\\ $\rightarrow $  ca. $\frac{4}{3}n^3$ Multiplikationen
     und $\frac{1}{2}n^2$ Quadratwurzeln nötig \\
@@ -3410,107 +3610,110 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   \end{align}
   
   
-  \subsection{Bemerkung}\label{4.4.4}
-  \begin{enumerate}[a)]
-  \item Q ist symmetrisch
-  \item Q ist orthogonal
-  \item Q ist involutorisch, d.h. $Q^2 = I$ ~~(bzw. gilt $Q^{-1}= Q^T=Q$)
-  \end{enumerate}
-  Die Householder Reflexion setzt nicht nur eine Null,
-  sondern im Vektor gleich alle gewünschten Nullen
-  \begin{align*}
-    \text{\textbf{Rotation: }}&
-                                \quad \begin{pmatrix} * \\ * \\ *	\end{pmatrix}
-    \rightarrow \begin{pmatrix} * \\ * \\0	\end{pmatrix}
-    \rightarrow \begin{pmatrix} * \\0\\0	\end{pmatrix} \\
-    \text{\textbf{Reflexion: }}&
-                                 \quad \begin{pmatrix} * \\ * \\ *	\end{pmatrix}
-    \rightarrow \begin{pmatrix} *\\0\\0	\end{pmatrix}
-  \end{align*}
-  Um die erste Spalte in $A$ auf die gewünschte Gestalt zu bringen,
-  bestimme $Q^{(1)}$ wie oben, indem die erste Spalte als $a$ gewählt wird:
-  \begin{gather*}
-    A\rightarrow A^{(1)} = Q^{(1)} A =
-    \begin{pmatrix}
-      \alpha^{(1)} \\
-      0 &*&~~\\
-      \vdots \\
-      0
-    \end{pmatrix}
-  \end{gather*}
-  In der $k$-ten Spalte sollen nun die $(k-1)$-ten Zeilen und die $(k-1)$-ten Spalten
-  bleiben und die Restmatrix verändert werden.\\
-  
-  \begin{align*}
-    A^{(k-1)} &=
-                \begin{pmatrix}
-                  *  &&&&&\\
-                  &\ddots &&&& * \\
-                  &&*&&\_&\_&\_ \\
-                  &&0&|&\\
-                  &0&\vdots&| &&T^{(k-1)}\\
-                  &&\vdots&  |\\
-                  &&0&  |
-                \end{pmatrix}
-                       \begin{array}{l}
-                         \\
-                         \shortleftarrow (k-1) \text{-te Zeile} \\
-                         \\\\\\\\
-                       \end{array}\\
-              &\phantom{= \, (} \begin{array}{ccl}
-                                  ~&~&~ \uparrow (k-1)\text{-te Spalte}
-                                \end{array}
-  \end{align*}
-  
-  Setze also
-  \begin{gather}
-    Q^{(k)} = \begin{pmatrix}
-      I_{k-1} & 0 \\
-      0 & \overline{Q}^{(k)} \, ,
-      \label{IV.4.13}
-    \end{pmatrix}
-  \end{gather}
-  wobei $\overline{Q}^{(k)} $ durch die erste Spalte von $T^{(k)}$, d.h.
-  \begin{gather}
-    a= (a_{i,k}^{k-1})_{i=k,\dotsc, m} \subset \R^{m+1-k}
-    \label{IV.4.14}
-  \end{gather}
-  bestimmt wird. Dann gilt
-  \begin{gather*}
-    Q^{(k)}A^{(k-1)} =
-    \begin{pmatrix}
-      *  &&&&&\\
-      &\ddots &&&& * \\
-      &&*&&\_&\_&\_&\_ \\
-      &&0&|&* \\
-      &0&\vdots&|&0&* \\
-      &&\vdots&  |&\vdots &&\ddots\\
-      &&0&  |&0&&&*
-    \end{pmatrix}
-  \end{gather*}
-  Nach insgesamt 
-  \begin{gather}
-    p=\min (m-1, n)
-    \label{IV.4.15}
-  \end{gather}
-  Schritten erhalten wir für $A\in \R^{m\times n}$
-  \begin{gather}
-    Q^TA = Q^{(p)}\cdot \dotsc \cdot Q^{(1)}A 
-    = \begin{pmatrix} R\\0\end{pmatrix}\, ,
-  \end{gather}
-  wobei Bemerkung \ref{4.4.4} auch für 
-  $Q^T= Q^{(p)}\cdot \dotsc \cdot Q^{(1)} $ und somit auch für
-  \begin{gather}
-    Q = Q^{(1)}\cdot \dotsc \cdot Q^{(p)}
-    \label{IV.4.16}
-  \end{gather}
-  gilt.
+%  \subsectione{Bemerkung}
+  \begin{Beme}
+  	\label{4.4.4}~
+  	\begin{enumerate}[a)]
+  		\item Q ist symmetrisch
+  		\item Q ist orthogonal
+  		\item Q ist involutorisch, d.h. $Q^2 = I$ ~~(bzw. gilt $Q^{-1}= Q^T=Q$)
+  	\end{enumerate}
+  	Die Householder Reflexion setzt nicht nur eine Null,
+  	sondern im Vektor gleich alle gewünschten Nullen
+  	\begin{align*}
+  	\text{\textbf{Rotation: }}&
+  	\quad \begin{pmatrix} * \\ * \\ *	\end{pmatrix}
+  	\rightarrow \begin{pmatrix} * \\ * \\0	\end{pmatrix}
+  	\rightarrow \begin{pmatrix} * \\0\\0	\end{pmatrix} \\
+  	\text{\textbf{Reflexion: }}&
+  	\quad \begin{pmatrix} * \\ * \\ *	\end{pmatrix}
+  	\rightarrow \begin{pmatrix} *\\0\\0	\end{pmatrix}
+  	\end{align*}
+  	Um die erste Spalte in $A$ auf die gewünschte Gestalt zu bringen,
+  	bestimme $Q^{(1)}$ wie oben, indem die erste Spalte als $a$ gewählt wird:
+  	\begin{gather*}
+  	A\rightarrow A^{(1)} = Q^{(1)} A =
+  	\begin{pmatrix}
+  	\alpha^{(1)} \\
+  	0 &*&~~\\
+  	\vdots \\
+  	0
+  	\end{pmatrix}
+  	\end{gather*}
+  	In der $k$-ten Spalte sollen nun die $(k-1)$-ten Zeilen und die $(k-1)$-ten Spalten
+  	bleiben und die Restmatrix verändert werden.\\
+  	
+  	\begin{align*}
+  	A^{(k-1)} &=
+  	\begin{pmatrix}
+  	*  &&&&&\\
+  	&\ddots &&&& * \\
+  	&&*&&\_&\_&\_ \\
+  	&&0&|&\\
+  	&0&\vdots&| &&T^{(k-1)}\\
+  	&&\vdots&  |\\
+  	&&0&  |
+  	\end{pmatrix}
+  	\begin{array}{l}
+  	\\
+  	\shortleftarrow (k-1) \text{-te Zeile} \\
+  	\\\\\\\\
+  	\end{array}\\
+  	&\phantom{= \, (} \begin{array}{ccl}
+  	~&~&~ \uparrow (k-1)\text{-te Spalte}
+  	\end{array}
+  	\end{align*}
+  	
+  	Setze also
+  	\begin{gather}
+  	Q^{(k)} = \begin{pmatrix}
+  	I_{k-1} & 0 \\
+  	0 & \overline{Q}^{(k)} \, ,
+  	\label{IV.4.13}
+  	\end{pmatrix}
+  	\end{gather}
+  	wobei $\overline{Q}^{(k)} $ durch die erste Spalte von $T^{(k)}$, d.h.
+  	\begin{gather}
+  	a= (a_{i,k}^{k-1})_{i=k,\dotsc, m} \subset \R^{m+1-k}
+  	\label{IV.4.14}
+  	\end{gather}
+  	bestimmt wird. Dann gilt
+  	\begin{gather*}
+  	Q^{(k)}A^{(k-1)} =
+  	\begin{pmatrix}
+  	*  &&&&&\\
+  	&\ddots &&&& * \\
+  	&&*&&\_&\_&\_&\_ \\
+  	&&0&|&* \\
+  	&0&\vdots&|&0&* \\
+  	&&\vdots&  |&\vdots &&\ddots\\
+  	&&0&  |&0&&&*
+  	\end{pmatrix}
+  	\end{gather*}
+  	Nach insgesamt 
+  	\begin{gather}
+  	p=\min (m-1, n)
+  	\label{IV.4.15}
+  	\end{gather}
+  	Schritten erhalten wir für $A\in \R^{m\times n}$
+  	\begin{gather}
+  	Q^TA = Q^{(p)}\cdot \dotsc \cdot Q^{(1)}A 
+  	= \begin{pmatrix} R\\0\end{pmatrix}\, ,
+  	\end{gather}
+  	wobei Bemerkung \ref{4.4.4} auch für 
+  	$Q^T= Q^{(p)}\cdot \dotsc \cdot Q^{(1)} $ und somit auch für
+  	\begin{gather}
+  	Q = Q^{(1)}\cdot \dotsc \cdot Q^{(p)}
+  	\label{IV.4.16}
+  	\end{gather}
+  	gilt.
+  \end{Beme}
   
   
   
   \marginpar{17.11.2014}
 
-  \subsection{Speicherung}
+  \subsectione{Speicherung}
   Gespeichert werden müssen die obere Dreiecksmatrix $R$ und die 
   \textbf{Householdervektoren} \index{Householdervektoren}
   $v^{(i)}\in \R{m+1-i}$.
@@ -3540,7 +3743,7 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   dass $v_1^{(i)} = 1$ ist, braucht diese Komponente nicht gespeichert werden 
   und $R$ kann komplett in $A$ gespeichert werden.
   
-  \subsection{Aufwand für den Householder-QR-Algorithmus}
+  \subsectione{Aufwand für den Householder-QR-Algorithmus}
   \begin{enumerate}[a)]
   \item Falls $m\approx n$ sind ungefähr $\frac{2}{3}n^3$ Multiplikationen notwendig
     und ist somit ungefähr doppelt so teuer wie die LR-Zerlegung, ist aber stabil.
@@ -3551,27 +3754,33 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   
   
   \chapter{Numerische Lösung nichtlinearer Gleichungssysteme}
-  Beispiel:\\
-  linear: $Ax=b$ \\
-  nichtlinear: $f(x) = \sin(x) +x^3-4=0$
+  Beispiel:
+  \begin{description}
+  	\item[linear:] $Ax=b$
+  	\item[nichtlinear:] $f(x) = \sin(x) +x^3-4=0$
+  \end{description}
+ 
+  
   
   \sectione{Einführung}
-  \subsection{Beispiele}
-  \begin{enumerate}[1)]
-  \item $f(x) = x^2-c = 0 \Leftrightarrow x= \pm \sqrt{c}$: \\Berechnung der Wurzel
-  \item Sei $p$ ein Polynom:\\ Nullstellenbestimmung
-  \item Löse das nichtlineare Randwertproblem
-    \begin{gather*}
-      -\Delta u = f(u)
-    \end{gather*}
-    in $\Omega=(0,1)^2$ mit $u=0$ auf $\partial \Omega$. \\
-    Mit dem Differenzenverfahren\footnote{s. Übungsaufgabe 2)}
-    ergibt sich
-    \begin{gather*}
-      A\vec{u} = h^2 \vec{f}(\vec{u})
-    \end{gather*}
-    ein System nichtlinearer Gleichungen.
-  \end{enumerate}
+%  \subsectione{Beispiele}
+\begin{Bspe}~
+	\begin{enumerate}[1)]
+		\item $f(x) = x^2-c = 0 \Leftrightarrow x= \pm \sqrt{c}$: \\Berechnung der Wurzel
+		\item Sei $p$ ein Polynom:\\ Nullstellenbestimmung
+		\item Löse das nichtlineare Randwertproblem
+		\begin{gather*}
+		-\Delta u = f(u)
+		\end{gather*}
+		in $\Omega=(0,1)^2$ mit $u=0$ auf $\partial \Omega$. \\
+		Mit dem Differenzenverfahren\footnote{s. Übungsaufgabe 2)}
+		ergibt sich
+		\begin{gather*}
+		A\vec{u} = h^2 \vec{f}(\vec{u})
+		\end{gather*}
+		ein System nichtlinearer Gleichungen.
+	\end{enumerate}
+\end{Bspe}
   
   \subsubsection{Nullstellenbestimmung}\index{Nullstellenbestimmung}
   \begin{description}
@@ -3586,7 +3795,7 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   \end{description}
   Falls m=n ist dies äquivalent zur Nullstellenbestimmung.
   
-  \subsection{Das Bisektionsverfahren}\index{Bisektionsverfahren}
+  \subsectione{Das Bisektionsverfahren}\index{Bisektionsverfahren}
   Sei $f:[a,b]\rightarrow \R $ stetig udn$f(a) \cdot f(b) <0$.\\
   Dann folgt aus dem Zwischenwertsatz die Existenz
   mindestens einer Nullstelle $x^{*}\in (a,b)$.
@@ -3623,21 +3832,25 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   Also $\lim_{i\rightarrow \infty}x^{(i)} = x^{*}$.
   
   
-  \subsection{Korollar}
+%  \subsectione{Korollar}
+\begin{Kore}
   Das oben angegebene Bisektionsverfahren konvergiert, falls
   $f:[a,b]\rightarrow \R $ stetig ist und 
   $f(a)\cdot f(b) <0$ gilt.
+\end{Kore}
   
-  \subsection{Bemerkungen}
-  \begin{enumerate}[a)]
-  \item $x^{(i)} $ wird als Intervallmitte, also unabhängig von $f(x^{(i)})$
-    gewählt. die Konvergenzgeschwindigkeit hängt von der Länge des Intervalls $[a,b]$ ab
-    und der Lage von $x^{*}$ bezüglich der Intervallhalbierung ab. \\
-    Die Konvergenz kann demnach sehr langsam sein.
-  \item Ein Vorteil ist, dass keine Differenzierbarkeitsvoraussetzungen nötig sind.
-  \item Das Verfahren ist nicht für $f:D\longrightarrow \R^n$ anwendbar.
-  \end{enumerate}
-  
+%  \subsectione{Bemerkungen}
+\begin{Beme}~
+	\begin{enumerate}[a)]
+		\item $x^{(i)} $ wird als Intervallmitte, also unabhängig von $f(x^{(i)})$
+		gewählt. die Konvergenzgeschwindigkeit hängt von der Länge des Intervalls $[a,b]$ ab
+		und der Lage von $x^{*}$ bezüglich der Intervallhalbierung ab. \\
+		Die Konvergenz kann demnach sehr langsam sein.
+		\item Ein Vorteil ist, dass keine Differenzierbarkeitsvoraussetzungen nötig sind.
+		\item Das Verfahren ist nicht für $f:D\longrightarrow \R^n$ anwendbar.
+	\end{enumerate}
+\end{Beme}
+ 
   
   \sectione{Fixpunktiteration}\index{Fixpunktiteration}
   Gesucht sei ein Fixpunkt $x^{*}\in D\subseteq \R^n$ der stetigen Funktion
@@ -3661,36 +3874,44 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
                                                   \label{V.2.3}
   \end{align}
   
-  \subsection{Beispiel}
-  Löse $x-e^{-x}-1 = 0$.
-  \begin{enumerate}[a)]
-  \item $x=1+e^{-x} \eqqcolon g_1(x)$
-    \imagemissing{Konvergenz der Fixpunktiteration für $x=1+e^{-x}$}
-    $\longrightarrow$ Konvergenz
-  \item $e^{-x} = x-1   \Leftrightarrow x= -ln(x-1) \eqqcolon g_2(x)$
-    \imagemissing{Versagen der Fixpunktiteration für $x=-ln(x-1)$}
-    $\longrightarrow$ $g(x^{(2)}) $ nicht definiert!
-  \end{enumerate}
+%  \subsectione{Beispiel}
+\begin{Bspe}
+	Löse $x-e^{-x}-1 = 0$.
+	\begin{enumerate}[a)]
+		\item $x=1+e^{-x} \eqqcolon g_1(x)$
+		\imagemissing{Konvergenz der Fixpunktiteration für $x=1+e^{-x}$}
+		$\longrightarrow$ Konvergenz
+		\item $e^{-x} = x-1   \Leftrightarrow x= -ln(x-1) \eqqcolon g_2(x)$
+		\imagemissing{Versagen der Fixpunktiteration für $x=-ln(x-1)$}
+		$\longrightarrow$ $g(x^{(2)}) $ nicht definiert!
+	\end{enumerate}
+\end{Bspe}
   
-  \subsection{Definition: Kontraktion} \index{Kontraktion}
-  Sei $D\subseteq  \R^n $ abgeschlossen und $\nn{\,\cdot\,}$ eine Norm auf dem $\R^n$.
-  Eine Abbildung $g:D\rightarrow \R^n $ heißt \textbf{Kontraktion} bezüglich  $\nn{\,\cdot\,}$,
-  falls es ein $\kappa \in [0,1)$ gibt mit
-  \begin{gather*}
-    \nn{g(u)-g(v)} \leq \kappa \nn{u-v} \quad \forall u,v\in D
-  \end{gather*}
-  Die kleinste solche Zahl $\kappa$ heißt Kontraktionszahl von g.
+%  \subsectione{Definition: Kontraktion} 
+  \begin{Defe}
+  	\index{Kontraktion}
+  	Sei $D\subseteq  \R^n $ abgeschlossen und $\nn{\,\cdot\,}$ eine Norm auf dem $\R^n$.
+  	Eine Abbildung $g:D\rightarrow \R^n $ heißt \textbf{Kontraktion} bezüglich  $\nn{\,\cdot\,}$,
+  	falls es ein $\kappa \in [0,1)$ gibt mit
+  	\begin{gather*}
+  	\nn{g(u)-g(v)} \leq \kappa \nn{u-v} \quad \forall u,v\in D
+  	\end{gather*}
+  	Die kleinste solche Zahl $\kappa$ heißt Kontraktionszahl von g.
+  	
+  	\imagemissing{Grafische Veranschaulichung einer Kontraktion}
+  	
+  	Offensichtlich ist jede auf $D$ kontrahierende Abbildung stetig.
+  \end{Defe}  
   
-  \imagemissing{Grafische Veranschaulichung einer Kontraktion}
-  
-  Offensichtlich ist jede auf $D$ kontrahierende Abbildung stetig.
-  
-  \subsection{Lemma} \label{5.2.3}
-  Sei $D=\overline{\Omega} $ mit $\Omega \subseteq \R^n$ offen und konvex
-  und $\nn{\,\cdot\,}$ eine Norm auf dem $R^n$.\\
-  Falls $g:D\longrightarrow \R^n$ eine stetig differenzierbare Funktion ist und
-  bezüglich der zugeordneten Matrixnorm $\sup_{x\in \Omega}\nn{Dg(x)}<1$ gelte,
-  so ist $g$ kontrahierend bezüglich  $\nn{\,\cdot\,}$.
+%  \subsectione{Lemma}
+  \begin{Leme}
+  	\label{5.2.3}
+  	Sei $D=\overline{\Omega} $ mit $\Omega \subseteq \R^n$ offen und konvex
+  	und $\nn{\,\cdot\,}$ eine Norm auf dem $R^n$.\\
+  	Falls $g:D\longrightarrow \R^n$ eine stetig differenzierbare Funktion ist und
+  	bezüglich der zugeordneten Matrixnorm $\sup_{x\in \Omega}\nn{Dg(x)}<1$ gelte,
+  	so ist $g$ kontrahierend bezüglich  $\nn{\,\cdot\,}$.
+  \end{Leme} 
   
   \begin{proof}
     Mit $u,v \in D$ gilt $u+t(v-u)\in D$, da $D$ konvex ist. \\
@@ -3709,30 +3930,32 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   \end{proof}
   
   
-  \subsection{Banachscher Fixpunktsatz} \index{Banachscher Fixpunktsatz}
-  \label{5.2.4}
-  Sei $D\subset \R^n$ abgeschlossen und die Abbildung $g:D\longrightarrow \R^n$  eine Kontraktion. \\
-  Dann gilt:
-  \begin{enumerate}[1)]
-  \item Es existiert genau ein Fixpunkt $x^{*}$ von $g$.
-  \item Für jeden Startwert $x^{(0)}\in D$ konvergiert die Folge der Fixpunktiterierten
-    \begin{gather}
-      x^{(k+1)} \coloneqq g(x^{(k)})  ~
-      \overset{\mathclap{k\rightarrow \infty}}{\longrightarrow}~ x^{*}
-      \label{V.2.5}
-    \end{gather}
-  \item Es gelte die a posteriori Fehlerabschätzung
-    \begin{gather}
-      \nn{x^{(k)}-x^{*}} \leq \frac{\kappa}{1-\kappa} \nn{x^{(k)}-x^{(k-1)}}
-      \label{V.2.6}
-    \end{gather}
-    und die a priori Fehlerabschätzung
-    \begin{gather}
-      \nn{x^{(k)}-x^{*}} \leq \frac{\kappa^k}{1-\kappa} \nn{x^{(1)}-x^{(0)} }
-      \label{V.2.7}
-    \end{gather}
-  \end{enumerate}
-  
+%  \subsectione{Banachscher Fixpunktsatz} 
+  \begin{Satze}[Banachscher Fixpunktsatz]
+  	\index{Banachscher Fixpunktsatz}
+  	\label{5.2.4}
+  	Sei $D\subset \R^n$ abgeschlossen und die Abbildung $g:D\longrightarrow \R^n$  eine Kontraktion. \\
+  	Dann gilt:
+  	\begin{enumerate}[1)]
+  		\item Es existiert genau ein Fixpunkt $x^{*}$ von $g$.
+  		\item Für jeden Startwert $x^{(0)}\in D$ konvergiert die Folge der Fixpunktiterierten
+  		\begin{gather}
+  		x^{(k+1)} \coloneqq g(x^{(k)})  ~
+  		\overset{\mathclap{k\rightarrow \infty}}{\longrightarrow}~ x^{*}
+  		\label{V.2.5}
+  		\end{gather}
+  		\item Es gelte die a posteriori Fehlerabschätzung
+  		\begin{gather}
+  		\nn{x^{(k)}-x^{*}} \leq \frac{\kappa}{1-\kappa} \nn{x^{(k)}-x^{(k-1)}}
+  		\label{V.2.6}
+  		\end{gather}
+  		und die a priori Fehlerabschätzung
+  		\begin{gather}
+  		\nn{x^{(k)}-x^{*}} \leq \frac{\kappa^k}{1-\kappa} \nn{x^{(1)}-x^{(0)} }
+  		\label{V.2.7}
+  		\end{gather}
+  	\end{enumerate}
+  \end{Satze}
   
   \marginpar{19.11.2014}
   \begin{proof}
@@ -3773,17 +3996,20 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
     \end{description}
   \end{proof}
   
-  \subsection{Bemerkung}\label{5.2.5}
-  \begin{enumerate}[1)]
-  \item Als Voraussetzung wäre bereits ausreichend:\\
-    $D$ ist vollständiger metrischer Raum mit Metrik $d$. \\
-    Dann ersetze die Norm durch die Metrik $d$.
-  \item Im Allgemeinen ist der Nachweis $g(D)\subset D$ schwierig.
-  \end{enumerate}
+%  \subsectione{Bemerkung}
+\begin{Beme}
+	\label{5.2.5}~
+	\begin{enumerate}[1)]
+		\item Als Voraussetzung wäre bereits ausreichend:\\
+		$D$ ist vollständiger metrischer Raum mit Metrik $d$. \\
+		Dann ersetze die Norm durch die Metrik $d$.
+		\item Im Allgemeinen ist der Nachweis $g(D)\subset D$ schwierig.
+	\end{enumerate}
+\end{Beme}
   
   
   
-  \subsection{Folgerungen}\label{5.2.6}
+  \subsectione{Folgerungen}\label{5.2.6}
   Sei $x^{*}\in \R^n$, so dass $g(x^{*})=x^{*}$ und sei $g$ in einer Umgebung von 
   $\overline{B_\varepsilon(x^{*})}=\left\{ x\in \R^n \middle\vert \nn{x-x^{*}}\leq \varepsilon \right\}$ stetig differenzierbar und es gelte $\nn{g'(x)}<1$ für $x\in \overline{B_\varepsilon(x^{*})}$,
   so ist Satz \ref{5.2.4} mit $D=\overline{B_\varepsilon(x^{*})}$ anwendbar.
@@ -3794,71 +4020,86 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   
   \sectione{Konvergenzordnung und Fehlerabschätzungen}
   
-  \subsection{Definition: lineare Konvergenz}\label{5.3.1}
-  Eine Folge $(x^{(k)})_{k\in\N} $ mit $x^{(k)}\in\R^n$ \textbf{konvergiert} mit (mindestens)
-  der \textbf{Ordnung}\index{Konvergenz!Ordnung} $p\geq 1$ gegen $x^{*}$, falls
-  \begin{gather*}
-    \lim\limits_{k\rightarrow \infty}x^{(k)}=x^{*}
-  \end{gather*}
-  und falls es ein $C>0$ sowie $N\in\N$ gibt, so dass
-  \begin{gather*}
-    \nn{x^{(k+1)}-x^{*}} \leq C \nn{x^{(k)}-x^{*}}^p\qquad \forall k\geq N 
-  \end{gather*}
-  Im Fall $p=1$ ist zusätzlich $C<1$ und man spricht von \textbf{linearer Konvergenz}\index{Konvergen!linear}. \\
-  Für $p=2$ heißt es \textbf{quadratische Konvergenz}\index{Konvergenz!quadratisch}.
-  \\Gilt 
-  \begin{gather*} 
-    \lim\limits_{k\rightarrow \infty}\frac{\nn{x^{(k+1)}-x^{*}}}{\nn{x^{(k)}-x^{*}}} = 0\, ,
-  \end{gather*} so konvergiert die Folge \textbf{superlinear}\index{Konvergenz!superlinear}.
+%  \subsectione{Definition: lineare Konvergenz}
+  \begin{Defe}
+  	\label{5.3.1}
+  	Eine Folge $(x^{(k)})_{k\in\N} $ mit $x^{(k)}\in\R^n$ \textbf{konvergiert} mit (mindestens)
+  	der \textbf{Ordnung}\index{Konvergenz!Ordnung} $p\geq 1$ gegen $x^{*}$, falls
+  	\begin{gather*}
+  	\lim\limits_{k\rightarrow \infty}x^{(k)}=x^{*}
+  	\end{gather*}
+  	und falls es ein $C>0$ sowie $N\in\N$ gibt, so dass
+  	\begin{gather*}
+  	\nn{x^{(k+1)}-x^{*}} \leq C \nn{x^{(k)}-x^{*}}^p\qquad \forall k\geq N 
+  	\end{gather*}
+  	Im Fall $p=1$ ist zusätzlich $C<1$ und man spricht von \textbf{linearer Konvergenz}\index{Konvergen!linear}. \\
+  	Für $p=2$ heißt es \textbf{quadratische Konvergenz}\index{Konvergenz!quadratisch}.
+  	\\Gilt 
+  	\begin{gather*} 
+  	\lim\limits_{k\rightarrow \infty}\frac{\nn{x^{(k+1)}-x^{*}}}{\nn{x^{(k)}-x^{*}}} = 0\, ,
+  	\end{gather*} so konvergiert die Folge \textbf{superlinear}\index{Konvergenz!superlinear}.
+  \end{Defe}
 
   
-  \subsection{Bemerkung}
-  Die Fixpunktiteration konvergiert unter der Voraussetzung in \ref{5.2.4} mindestens linear.
-  
-  \subsection{Bemerkung}
-  \begin{enumerate}[a)]
-  \item  lineare Konvergenz hängt von der gewählten Norm ab.
-  \item Hat die Folge bzgl. einer Vektornorm auf dem $\R^n$ die Konvergenzordnung $p>1$,
-    hat sie diese bzgl. jeder Norm.
-  \end{enumerate}
-  
-  \subsection{Definition: lokale und globale Konvergenz} \label{5.3.4}
-  \begin{enumerate}[a)]
-  \item Ein iteratives Verfahren zur Bestimmung eines Wertes $x^{*}$ hat 
-    die Konvergenzordnung $p$, falls es eine Umgebung $U$ um $x^{*}$ gibt, 
-    so dass für alle Startwerte aus $U\backslash \{x^{*}\}$ die erzeugte Folge mit Ordnung $p$ konvergiert.
-  \item Das Verfahren heißt \textbf{lokal konvergent}\index{Konvergenz!lokal},
-    falls es für alle Startwerte in einer Umbegung von $x^{*}$ konvergiert.
-  \item Das Verfahren heißt \textbf{global konvergent}\index{Konvergenz!global},
-    falls es im gesamten Definitionsbereich des zugehörigen Problems konvergiert.
-  \end{enumerate}
+%  \subsectione{Bemerkung}
+\begin{Beme}
+	Die Fixpunktiteration konvergiert unter der Voraussetzung in \ref{5.2.4} mindestens linear.
+\end{Beme}
   
   
-  \subsection{Lemma} \label{5.3.5}
-  Sei $(x^{(k)})_{k\in\N}$ eine konvergente Folge in $\R$ mit Grenzwert $x^{*}$.
-  \begin{enumerate}[a)]
-  \item Falls 
-    \begin{gather}
-      \lim\limits_{k\rightarrow \infty}\frac{\nn{x^{(k+1)}-x^{*}}}{\nn{x^{(k)}-x^{*}}}=
-      A\in (-1,1)\, ,~ A\neq 0
-      \label{V.3.1}
-    \end{gather}
-    hat die Folge genau die Konvergenzordnung 1.
-    Weiter gilt mit $A_k=\frac{x^{(k)}-x^{(k-1)}}{x^{(k-1)}-x^{(k-2)}}$
-    \begin{gather}
-      \lim\limits_{k\rightarrow \infty}\frac{A_k}{1-A_k}\cdot 
-      \frac{x^{(k)}-x^{(k-1)}}{x^{*}-x^{(k)}}=1 
-      \label{V.3.2}
-      \\ \nonumber
-      \lim\limits_{k\rightarrow\infty}A_k=A
-    \end{gather}
-  \item Falls die Folge Konvergenzordnung $p>1$ hat, gilt
-    \begin{gather}
-      \lim\limits_{k\rightarrow\infty}\frac{x^{(k)}-x^{(k-1)}}{x^{*}-x^{(k)}}=1
-      \label{V.3.3}
-    \end{gather}
-  \item[\textbf{zu}]\textbf{Def.} \ref{5.3.1}:  Im Fall $p=1$ ist zusätzlich $C<1 $ verlangt.
-  \end{enumerate}
+%  \subsectione{Bemerkung}
+\begin{Beme}~
+	 \begin{enumerate}[a)]
+	 	\item  lineare Konvergenz hängt von der gewählten Norm ab.
+	 	\item Hat die Folge bzgl. einer Vektornorm auf dem $\R^n$ die Konvergenzordnung $p>1$,
+	 	hat sie diese bzgl. jeder Norm.
+	 \end{enumerate}
+\end{Beme}
+ 
+  
+%  \subsectione{Definition: lokale und globale Konvergenz}
+\begin{Defe}
+	\label{5.3.4}
+	\begin{enumerate}[a)]
+		\item Ein iteratives Verfahren zur Bestimmung eines Wertes $x^{*}$ hat 
+		die Konvergenzordnung $p$, falls es eine Umgebung $U$ um $x^{*}$ gibt, 
+		so dass für alle Startwerte aus $U\backslash \{x^{*}\}$ die erzeugte Folge mit Ordnung $p$ konvergiert.
+		\item Das Verfahren heißt \textbf{lokal konvergent}\index{Konvergenz!lokal},
+		falls es für alle Startwerte in einer Umbegung von $x^{*}$ konvergiert.
+		\item Das Verfahren heißt \textbf{global konvergent}\index{Konvergenz!global},
+		falls es im gesamten Definitionsbereich des zugehörigen Problems konvergiert.
+	\end{enumerate}
+\end{Defe} 
+  
+  
+%  \subsectione{Lemma}
+  \begin{Leme}
+  	\label{5.3.5}
+  	Sei $(x^{(k)})_{k\in\N}$ eine konvergente Folge in $\R$ mit Grenzwert $x^{*}$.
+  	\begin{enumerate}[a)]
+  		\item Falls 
+  		\begin{gather}
+  		\lim\limits_{k\rightarrow \infty}\frac{\nn{x^{(k+1)}-x^{*}}}{\nn{x^{(k)}-x^{*}}}=
+  		A\in (-1,1)\, ,~ A\neq 0
+  		\label{V.3.1}
+  		\end{gather}
+  		hat die Folge genau die Konvergenzordnung 1.
+  		Weiter gilt mit $A_k=\frac{x^{(k)}-x^{(k-1)}}{x^{(k-1)}-x^{(k-2)}}$
+  		\begin{gather}
+  		\lim\limits_{k\rightarrow \infty}\frac{A_k}{1-A_k}\cdot 
+  		\frac{x^{(k)}-x^{(k-1)}}{x^{*}-x^{(k)}}=1 
+  		\label{V.3.2}
+  		\\ \nonumber
+  		\lim\limits_{k\rightarrow\infty}A_k=A
+  		\end{gather}
+  		\item Falls die Folge Konvergenzordnung $p>1$ hat, gilt
+  		\begin{gather}
+  		\lim\limits_{k\rightarrow\infty}\frac{x^{(k)}-x^{(k-1)}}{x^{*}-x^{(k)}}=1
+  		\label{V.3.3}
+  		\end{gather}
+  		\item[\textbf{zu}]\textbf{Def.} \ref{5.3.1}:  Im Fall $p=1$ ist zusätzlich $C<1 $ verlangt.
+  	\end{enumerate}
+  \end{Leme} 
   
   \begin{proof}
     \textit{(skizzenhaft, siehe Übungsaufgaben)}\\
@@ -3878,7 +4119,7 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
     \end{enumerate}
   \end{proof}
 
-  \subsection{Folgerung: a posteriori Fehlerabschätzung}
+  \subsectione{Folgerung: a posteriori Fehlerabschätzung}
   \begin{enumerate}[a)]
   \item Für $p=1$ gilt
     \begin{gather}
@@ -3896,24 +4137,27 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
     für große $k$.
   \end{enumerate}
   
-  \subsection{Bemerkung}
-  Für Folgen im $\R^n$ gibt es für $p=1$ kein Analogon zu \eqref{V.3.4}.
-  Falls $p>1$, lässt sich \eqref{V.3.3} für die Normen der Differenzen zeigen,
-  d.h.
-  \begin{gather}
-    \nn{x^{*}-x^{(k)}} \approx \nn{x^{(k+1)}-x^{(k)}}
-    \label{V.3.6}
-  \end{gather}
+%  \subsectione{Bemerkung}
+  \begin{Beme}
+  	Für Folgen im $\R^n$ gibt es für $p=1$ kein Analogon zu \eqref{V.3.4}.
+  	Falls $p>1$, lässt sich \eqref{V.3.3} für die Normen der Differenzen zeigen,
+  	d.h.
+  	\begin{gather}
+  	\nn{x^{*}-x^{(k)}} \approx \nn{x^{(k+1)}-x^{(k)}}
+  	\label{V.3.6}
+  	\end{gather}
+  	
+  	\begin{proof}
+  		Nutze $\lim\limits_{k\rightarrow\infty} \frac{\nn{e^{(k+1)}}}{\nn{e^{(k)}}} =0$
+  		und 
+  		\begin{gather*}
+  		\nn{e^{(k)}}-\nn{e^{(k+1)}}\leq \nn{x^{(k+1)}-x^{(k)}} \leq \nn{e^{(k)}}+\nn{e^{(k+1)}} \, .
+  		\end{gather*}
+  	\end{proof}
+  \end{Beme}
   
-  \begin{proof}
-    Nutze $\lim\limits_{k\rightarrow\infty} \frac{\nn{e^{(k+1)}}}{\nn{e^{(k)}}} =0$
-    und 
-    \begin{gather*}
-      \nn{e^{(k)}}-\nn{e^{(k+1)}}\leq \nn{x^{(k+1)}-x^{(k)}} \leq \nn{e^{(k)}}+\nn{e^{(k+1)}} \, .
-    \end{gather*}
-  \end{proof}
   
-  \subsection{Folgerung}
+  \subsectione{Folgerung}
   Falls $p>1$ ist, kann $p$ folgendermaßen approximiert werden:
   \begin{gather*}
     p \approx \frac{\log(\nn{x^{(k+2)}-x^{(k+1)}})}{\log(\nn{x^{(k+1)}-x^{(k)}})}
@@ -3938,7 +4182,7 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   Notwendig ist hier die Bedingung $f'(x) \neq 0$.
   
   
-  \subsection{Iterationsschritt des Newton(-Kantorowitsch)-Verfahrens}
+  \subsectione{Iterationsschritt des Newton(-Kantorowitsch)-Verfahrens}
   \begin{gather}
     x^{(k+1)} = x^{(k)} - \frac{f(x^{(k)})}{f'(x^{(k)})}
     \label{V.4.1}
@@ -3946,14 +4190,17 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   wird auch Tangentenverfahren\index{Tangentenverfahren} genannt und stammt von
   J. Raphson (1630). Newton hat eine ähnliche Technik früher angewendet.
   
-  \subsection{Satz}\label{5.4.2}
-  Sei $f\in C^1(a,b)$ und $x^{*}\in (a,b)$ eine einfache Nullstelle von $f$, d.h. $f'(x^{*})\neq 0$. \\
-  Dann gibt es ein  $\varepsilon >0$, s.d. für jedes $x^{(0)}\in\overline{B_\varepsilon(x^{*})}$
-  das Newton-Verfahren \eqref{V.4.1} superlinear gegen $x^{*}$ konvergiert.\\
-  Falls $f\in C^2(a,b) $ tritt mindestens quadratische Konvergenz ein, d.h. das Verfahren
-  konvergiert lokal quadratisch.
-  
-  \begin{proof}
+%  \subsectione{Satz}
+ \begin{Satze}
+ 	\label{5.4.2}
+ 	Sei $f\in C^1(a,b)$ und $x^{*}\in (a,b)$ eine einfache Nullstelle von $f$, d.h. $f'(x^{*})\neq 0$. \\
+ 	Dann gibt es ein  $\varepsilon >0$, s.d. für jedes $x^{(0)}\in\overline{B_\varepsilon(x^{*})}$
+ 	das Newton-Verfahren \eqref{V.4.1} superlinear gegen $x^{*}$ konvergiert.\\
+ 	Falls $f\in C^2(a,b) $ tritt mindestens quadratische Konvergenz ein, d.h. das Verfahren
+ 	konvergiert lokal quadratisch.
+ \end{Satze}
+ 
+ \begin{proof}
     Gleichung \eqref{V.4.1} definiert eine Fixpunktiteration mit $g(x) = x-\frac{f(x)}{f'(x)}$.\\
     Für $f\in C^2(a,b)$ gilt 
     \begin{gather*}
@@ -3980,49 +4227,57 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
     aufgrund der Taylorentwicklung und da
     $x^{(k-)}\in\overline{B_\varepsilon(x^{*})}~\forall k\in\N$ (da $g$ Kontraktion).
     
-    Für $f\in C^1$ siehe Hämmerlin\cite{haemmerlinhoffmann}.
+    Für $f\in C^1$ siehe \cite{haemmerlinhoffmann}.
   \end{proof}
   
-  \subsection{Bemerkung}
-  \begin{enumerate}[a)]
-  \item Mehrfache Nullstellen könne im Allgemeinen
-    nicht mit \eqref{V.4.1} bestimmt werden.
-  \item Die Ableitung $f'$ muss analytisch (als Funktion) gegeben sein.
-  \item Die Lage und Größe des Konvergenzinterfalls ist a priori unbekannt.\\
-    (Hierfür könnte z.B. das Bisektionsverfahren Anwendung finden.)
-  \end{enumerate}
+%  \subsectione{Bemerkung}
+\begin{Beme}~
+	\begin{enumerate}[a)]
+		\item Mehrfache Nullstellen könne im Allgemeinen
+		nicht mit \eqref{V.4.1} bestimmt werden.
+		\item Die Ableitung $f'$ muss analytisch (als Funktion) gegeben sein.
+		\item Die Lage und Größe des Konvergenzinterfalls ist a priori unbekannt.\\
+		(Hierfür könnte z.B. das Bisektionsverfahren Anwendung finden.)
+	\end{enumerate}
+\end{Beme}
+  
   
 
   \marginpar{24.11.2014}
 
-  \subsection{Beispiele: Newton-Verfahren ohne Konvergenz}
-  \begin{itemize}
-  \item $x^{(1)}$ nicht mehr im Definitionsbereich
-    \imagemissing{Fehlschlagen des Newton-Verfahren: außerhalb des Definitionsbereichs}
-  \item $|x^{*}-x^{(1)}| \nless |x^{*}-x^{(0)}| $
-    \imagemissing{Fehlschlagen des Newton-Verfahren: Konvergenz nicht gesichert}
-  \end{itemize}
+%  \subsectione{Beispiele: Newton-Verfahren ohne Konvergenz}
+  \begin{Bspe}[Newton-Verfahren ohne Konvergenz]~
+  	\begin{itemize}
+  		\item $x^{(1)}$ nicht mehr im Definitionsbereich
+  		\imagemissing{Fehlschlagen des Newton-Verfahren: außerhalb des Definitionsbereichs}
+  		\item $|x^{*}-x^{(1)}| \nless |x^{*}-x^{(0)}| $
+  		\imagemissing{Fehlschlagen des Newton-Verfahren: Konvergenz nicht gesichert}
+  	\end{itemize}
+  \end{Bspe}
   
-  \subsection{Newton-Verfahren: Iterativer Linearisierungsprozess}
+  \subsectione{Newton-Verfahren: Iterativer Linearisierungsprozess}
   Die entscheidende Idee beim Newton-Verfahren ist der \textbf{iterative Linearisierungsprozess}
   \index{iterativer Linearisierungsprozess}, d.h. die Lösung einer nichtlinearen Gleichung wird
   durch eine Folge von Lösungen linearer Gelichungen ersetzt.
   
-  \subsection{Beispiel}\label{5.4.6}
-  Es ist die Lösung von $x-e^{-\frac{1}{2}x}=0$ mit $x^{(0)}=0,8$ gesucht.
-  \begin{enumerate}[a)]
-  \item Mit der Banachschen Fixpunktiteration angewendet auf 
-    $x=e^{(-\frac{1}{2}x)}$ ergibt sich
-    \begin{gather*}
-      x^{(10)}=\text{\bfseries 0,7034}7017 
-      \qquad \text{auf 4 Stellen exakt}
-    \end{gather*}
-  \item Mit dem Newton-Verfahren
-    \begin{align*}
-      x^{(3)}&= 0,70346742 &&\text{bis auf 17 Stellen exakt}\\
-      x^{(4)} &&& \text{bis auf Maschinengenauigkeit exakt}
-    \end{align*}		
-  \end{enumerate}
+%  \subsectione{Beispiel}
+  \begin{Bspe}
+  	\label{5.4.6}
+  	Es ist die Lösung von $x-e^{-\frac{1}{2}x}=0$ mit $x^{(0)}=0,8$ gesucht.
+  	\begin{enumerate}[a)]
+  		\item Mit der Banachschen Fixpunktiteration angewendet auf 
+  		$x=e^{(-\frac{1}{2}x)}$ ergibt sich
+  		\begin{gather*}
+  		x^{(10)}=\text{\bfseries 0,7034}7017 
+  		\qquad \text{auf 4 Stellen exakt}
+  		\end{gather*}
+  		\item Mit dem Newton-Verfahren
+  		\begin{align*}
+  		x^{(3)}&= 0,70346742 &&\text{bis auf 17 Stellen exakt}\\
+  		x^{(4)} &&& \text{bis auf Maschinengenauigkeit exakt}
+  		\end{align*}		
+  	\end{enumerate}
+  \end{Bspe}
   Die Ableitung $f'(x)$ ist nicht immer explizit bekannt. \\
   Eine Idee ist, sie zu approximieren mithilfe des Differenzenquotienten:
   \begin{gather*}
@@ -4035,26 +4290,27 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   d.h. $x^{(k+1)} $ ist die Nullstelle der Sekante durch $f(x^{k})$ und $f(x^{(k-1)})$.
   
   
-  \subsection{Iterationsschritt des Sekantenverfahrens}
+  \subsectione{Iterationsschritt des Sekantenverfahrens}
   \begin{gather}
     x^{(k+1)} = \frac{x^{(k-1)}f(x^{(k)}) - x^{(k)}f(x^{k-1})}{f(x^{(k)})-f(x^{(k-1)})}
+    \label{V.4.2}
   \end{gather}
   
   \imagemissing{Geometrische Veranschaulichung des Sekantenverfahrens}
   
   
-  \subsection{Satz (Konvergenz des Sekantenverfahrens)}
-  Sei $f\in C^2([a,b])$ und $x^{*}\in (a,b)$ eine einfache Nullstelle.\\
-  Dann konvergiert das Sekantenverfahren in einer Umbegung von $x^{*}$
-  superlinear mit Ordnung 
-  \begin{gather*}
-    p=\frac{1}{2}(1+\sqrt{5})= 1,618 \, .
-  \end{gather*}
+%  \subsectione{Satz (Konvergenz des Sekantenverfahrens)}
+\begin{Satze}[Konvergenz des Sekantenverfahrens]
+	Sei $f\in C^2([a,b])$ und $x^{*}\in (a,b)$ eine einfache Nullstelle.\\
+	Dann konvergiert das Sekantenverfahren in einer Umbegung von $x^{*}$
+	superlinear mit Ordnung 
+	\begin{gather*}
+	p=\frac{1}{2}(1+\sqrt{5})= 1,618 \, .
+	\end{gather*}
+\end{Satze}
   
   \begin{proof}
-    siehe z.B. Hämmerlin/Hoffmann\cite{haemmerlinhoffmann}
-    oder Stoer\cite{stoerbulirsch}\\
-    (Zwischenwertsatz, Fibonacci-Folge)
+    Siehe z.B. \cite[][Zwischenwertsatz, Fibonacci-Folge]{haemmerlinhoffmann,stoerbulirsch}
   \end{proof}
   
   \textbf{zu Beispiel} \ref{5.4.6}: Das Sekantenverfahren benötigt
@@ -4067,30 +4323,33 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   \end{align*}
   
   
-  \subsection{Bemerkungen}
-  \begin{enumerate}[a)]
-  \item Das Verfahren ist keine Fixpunktiteration.
-    Es benötigt $x^{(k)}$ und $x^{(k-1)}$ für $x^{(k+1)}$
-    (\textbf{Mehrschrittverfahren})\index{Mehrschrittverfahren}
-  \item Die Berechnung von $f(x)$ und $f'(x)$ ist im Allgemeinen
-    sehr teuer. Das Sekanten-Verfahren benötigt pro Iteration
-    nur eine Funktionsauswertung, das Newton-Verfahren hingegen zwei.\\
-    Also sind zwei Iterationen des Sekanten-Verfahrens so teuer wie eine
-    des Newton-Verfahrens. \\
-    Bei gleichem Aufwand konvergiert das Sekanten-Verfahren daher lokal
-    schneller mit der Konvergenzordnung 
-    \begin{gather*}
-      p^2= 2,618\dotsc
-    \end{gather*}
-    für $x^{(k)}\rightarrow x^{(k+2)}$ als das Newton-Verfahren
-    (siehe auch Beispiel \ref{5.4.6}).\\
-    
-    \textit{Beispiel:} Sei $f:\R^n\rightarrow\R$ und $f(x)$ die erste Komponente von $ A^{-1}x$.
-    Diese n-dimensionale Funktionsauswertung benötigt $\mathcal{O}(n^3)$ flops.
-  \item Die Sekantenmethode ist i.A. nicht stabil, denn für $f(x^{(k)})\approx f(x^{(k+1)})$
-    können Stellenauslöschungen im Nenner auftreten. \\
-    Stabilere Varianten, wie z.B. \textbf{regula falsi}, haben eine geringere Konvergenzordnung.
-  \end{enumerate}
+%  \subsectione{Bemerkungen}
+\begin{Beme}~
+	\begin{enumerate}[a)]
+		\item Das Verfahren ist keine Fixpunktiteration.
+		Es benötigt $x^{(k)}$ und $x^{(k-1)}$ für $x^{(k+1)}$
+		(\textbf{Mehrschrittverfahren})\index{Mehrschrittverfahren}
+		\item Die Berechnung von $f(x)$ und $f'(x)$ ist im Allgemeinen
+		sehr teuer. Das Sekanten-Verfahren benötigt pro Iteration
+		nur eine Funktionsauswertung, das Newton-Verfahren hingegen zwei.\\
+		Also sind zwei Iterationen des Sekanten-Verfahrens so teuer wie eine
+		des Newton-Verfahrens. \\
+		Bei gleichem Aufwand konvergiert das Sekanten-Verfahren daher lokal
+		schneller mit der Konvergenzordnung 
+		\begin{gather*}
+		p^2= 2,618\dotsc
+		\end{gather*}
+		für $x^{(k)}\rightarrow x^{(k+2)}$ als das Newton-Verfahren
+		(siehe auch Beispiel \ref{5.4.6}).\\
+		
+		\textit{Beispiel:} Sei $f:\R^n\rightarrow\R$ und $f(x)$ die erste Komponente von $ A^{-1}x$.
+		Diese n-dimensionale Funktionsauswertung benötigt $\mathcal{O}(n^3)$ flops.
+		\item Die Sekantenmethode ist i.A. nicht stabil, denn für $f(x^{(k)})\approx f(x^{(k+1)})$
+		können Stellenauslöschungen im Nenner auftreten. \\
+		Stabilere Varianten, wie z.B. \textbf{regula falsi}, haben eine geringere Konvergenzordnung.
+	\end{enumerate}
+\end{Beme}
+  
   
   
   \sectione{Das Newton-Verfahren im Mehrdimensionalen} \index{Newton-Verfahren!mehrdimensional}
@@ -4114,13 +4373,13 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
     \overline{x} = x-[Df(x)]^{-1}\cdot f(x)
   \end{gather*}
   
-  \subsection{Iterationsschritt des Newton-Verfahrens}
+  \subsectione{Iterationsschritt des Newton-Verfahrens}
   \begin{gather}
     x^{(k+1)} = x^{(k)} -[Df(x^{(k)})]^{-1}\cdot f(x^{(k)})
     \label{V.5.2}
   \end{gather}
   
-  \subsection{Newton-Verfahren}
+  \subsectione{Newton-Verfahren}
   \begin{pseudocode}{0.5\linewidth}
     setze Startwert $x$ \\
     $i=0$ \\
@@ -4135,18 +4394,21 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   \end{pseudocode}
   \footnotetext{entspricht $Ax=b$}
   
-  \subsection{Bemerkung}
-  Ein Newton-Iterationsschritt \eqref{V.5.2} wird also aufgeteilt in Berechnung
-  der sogenannten \textbf{Newton-Korrektur}\index{Newton-Verfahren!Newton-Korrektur}
-  \begin{gather}
-    Df(x^{(k)})\Delta x^{(k)} = -f(x^{(k)}) \label{V.5.3}
-  \end{gather}
-  und dem \textbf{Korrekturschritt}\index{Newton-Verfahren!Korrekturschritt}
-  \begin{gather}
-    x^{(k+1)}= x^{(k)}+\Delta x^{(k)} \label{V.5.4}
-  \end{gather}
+%  \subsectione{Bemerkung}
+\begin{Beme}
+	 Ein Newton-Iterationsschritt \eqref{V.5.2} wird also aufgeteilt in Berechnung
+	 der sogenannten \textbf{Newton-Korrektur}\index{Newton-Verfahren!Newton-Korrektur}
+	 \begin{gather}
+	 Df(x^{(k)})\Delta x^{(k)} = -f(x^{(k)}) \label{V.5.3}
+	 \end{gather}
+	 und dem \textbf{Korrekturschritt}\index{Newton-Verfahren!Korrekturschritt}
+	 \begin{gather}
+	 x^{(k+1)}= x^{(k)}+\Delta x^{(k)} \label{V.5.4}
+	 \end{gather}
+\end{Beme}
+ 
   
-  \subsection{Aufwand pro Iteration}
+  \subsectione{Aufwand pro Iteration}
   \begin{itemize}
   \item[\textbf{$n$}] eindimensionale Funtionsauswertungen für $f(x)$
   \item[\textbf{$n^2$}] eindimensionale Funtionsauswertungen für $Df(x)$
@@ -4155,25 +4417,30 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   
   
   \marginpar{26.11.2014}
-  \subsection{Bemerkung}\label{5.5.5}
-  Das Newton-Verfahren ist \textbf{affin-invariant}\index{affin-invariant},
-  d.h. die Folge $(x^{(k)})$ ist zu gegebenem $x^{(0)}$ unabhängig davon,
-  ob $f(x)=0$ oder $\widetilde{f}(x)\coloneqq A\cdot f(x) =0$
-  mit regulärem $A\in \Renn $ gelöst wird.
-  Dies gilt, da 
-  \begin{align*}
-    [D\widetilde{f}(x)]^{-1} \cdot \widetilde{f}(x)
-    &= [A\cdot Df(x)]^{-1} \cdot (A\cdot f(x))\\
-    &= [Df(x)]^{-1} \cdot f(x)
-  \end{align*}
-  und damit ist die Newton-Korrektur $\Delta x^{(k)}$ affin-invariant.
+%  \subsectione{Bemerkung}
+  \begin{Beme}
+  	\label{5.5.5}
+  	Das Newton-Verfahren ist \textbf{affin-invariant}\index{affin-invariant},
+  	d.h. die Folge $(x^{(k)})$ ist zu gegebenem $x^{(0)}$ unabhängig davon,
+  	ob $f(x)=0$ oder $\widetilde{f}(x)\coloneqq A\cdot f(x) =0$
+  	mit regulärem $A\in \Renn $ gelöst wird.
+  	Dies gilt, da 
+  	\begin{align*}
+  	[D\widetilde{f}(x)]^{-1} \cdot \widetilde{f}(x)
+  	&= [A\cdot Df(x)]^{-1} \cdot (A\cdot f(x))\\
+  	&= [Df(x)]^{-1} \cdot f(x)
+  	\end{align*}
+  	und damit ist die Newton-Korrektur $\Delta x^{(k)}$ affin-invariant.
+  \end{Beme}
   
-  \subsection{Satz}
-  Sei $\Omega\in\R^n$ offen und $f:\Omega\rightarrow\Ren$ in $C^2(\Omega)$.
-  Sei $x^{*}\in\Omega $ eine Nullstelle $f$ mit einer invertierbaren Jacobi-Matrix $Df(x^{*})$.
-  Dann existiert eine Umgebung von $x^{*}$, so dass das Newton-Verfahren 
-  für jeden Startwert $x^{(0)}$ in dieser Umgebung
-  quadratisch gegen $x^{*}$ konvergiert.
+%  \subsectione{Satz}
+  \begin{Satze}
+  	Sei $\Omega\in\R^n$ offen und $f:\Omega\rightarrow\Ren$ in $C^2(\Omega)$.
+  	Sei $x^{*}\in\Omega $ eine Nullstelle $f$ mit einer invertierbaren Jacobi-Matrix $Df(x^{*})$.
+  	Dann existiert eine Umgebung von $x^{*}$, so dass das Newton-Verfahren 
+  	für jeden Startwert $x^{(0)}$ in dieser Umgebung
+  	quadratisch gegen $x^{*}$ konvergiert.
+  \end{Satze}
   
   \begin{proof}
     Kann wie im eindimensionalen durchgeführt werden.\\
@@ -4239,7 +4506,8 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   Unter genaueren Voraussetzungen kann die Existenz von $x^{*}$ gezeigt 
   und eine Umgebung $B_r(x^{*})$ explizit angegeben werden.
   
-  Dies liefert der \textbf{Satz von Kantorowitsch}:\\
+  Dies liefert der 
+  \begin{Satze}[Satz von Kantorowitsch]
   Sei $f:\Omega\rightarrow \Ren$, $\Omega_0 \subset \Ren$ konvex,
   $f$ stetig differenzierbar auf $\Omega_0$ und 
   erfülle für ein $x^{(0)}\in \Omega_0$ folgendes:
@@ -4253,6 +4521,7 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   genau eine Nullstelle $x^{*}$ in $\Omega_0\cap B_{r_+}(x^{(0)})$.\\
   Weiterhin bleibt die Folge der Newton-Iterierten in $B_{r_{-}}(x^{(0)})$
   und konvergiert gegen $x^{*}$.
+  \end{Satze}
   \begin{proof}
     z.B. in Ortega/Rheinhold (2000)
   \end{proof}
@@ -4269,7 +4538,7 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   \end{enumerate}
   
   
-  \subsection{Der Monotonietest}
+  \subsectione{Der Monotonietest}
   Beim Newton-Verfahren sollte die Funktion $g$ der zugehörigen
   Fixpunktiteration eine Kontraktion sein, d.h. es muss ein 
   $\kappa \in (0,1)$ für alle $k$ geben mit
@@ -4304,7 +4573,7 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   getestet werden.
   
   
-  \subsection{Kriterium für erreichte Konvergenz}
+  \subsectione{Kriterium für erreichte Konvergenz}
   Es ist $f(x^{*})$ gesucht, also teste hierauf. Das residuumbasierte Kriterium
   \begin{gather}
     \nn{f(x^{(k)})}\leq Tol
@@ -4342,7 +4611,7 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   $Df(x^{(0)})$ approximiert werden.
   
   
-  \subsection{Iterationsschritt des vereinfachten Newton-Verfahrens}
+  \subsectione{Iterationsschritt des vereinfachten Newton-Verfahrens}
   \index{Newton-Verfahren!vereinfacht}
   \begin{gather}
     x^{(k+1)} = x^{(k)} -[Df(x^{(0)})]^{-1} f(x^{(k)})
@@ -4354,7 +4623,7 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   
   \marginpar{01.12.2014}
   
-  \subsection{Das Broyden-Verfahren}
+  \subsectione{Das Broyden-Verfahren}
   Das Broyden-Verfahren ist eine Verallgemeinerung des Sekantenverfahrens
   auf $n>1$. $Df(x^{(k)})$ wird durch den
   \enquote{Differenzenquotienten} approximiert, d.h.
@@ -4373,24 +4642,24 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   \begin{align}\nonumber
     d^{(k)} &= -[B^{(k)}]^{-1} f(x^{(k)}) \\\nonumber
     x^{(k+1)} &= x^{(k)} + d^{(k)} \\\nonumber
-    p^{(k)} & \coloneqq d^{(k)} &\text{nach
+    p^{(k)} & \coloneqq d^{(k)} \qquad \text{nach
                                   \eqref{V.7.1}}\\\nonumber
     q^{(k)} & \coloneqq f(x^{(k+1)})-f(x^{(k)}) \\
     B^{(k+1)} & = B^{(k)} + \frac{1}{{p^{(k)}}^T\cdot p^{(k)}}
                 \cdot \left(q^{(k)}-
-                \underbrace{B^{(k)}p^{(k)}}_{=f(x^{(k)})
-                \text{ nach \eqref{V.7.1}}}
+                \underbrace{B^{(k)}p^{(k)}}_{\substack{=f(x^{(k)})\\
+                \text{ nach \eqref{V.7.1}}}}
                 \right){p^{(k)}}^T
                 \label{V.7.4}
   \end{align}
   Hierfür muss $x^{(0)} $ und $B^{(0)}$ gegeben sein.
   Unter bestimmten Voraussetzungen konvergiert das Verfahren lokal
-  superlinear (siehe Stoer\cite{stoerbulirsch} und dortige Referenzen).
+  superlinear \cite[siehe][dortige Referenzen]{stoerbulirsch}.
   Der fleißige Leser vergewissere sich, dass für
   \eqref{V.7.4} auch \eqref{V.7.3} gilt.
 
 
-  \subsection{Das gedämpfte Newton-Verfahren}
+  \subsectione{Das gedämpfte Newton-Verfahren}
   Es gilt
   \begin{gather}
     f(x^{*}) = 0 \quad \Longleftrightarrow \quad 
@@ -4412,8 +4681,8 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
   \end{gather}
   denn 
   \begin{align*}
-    \frac{d}{d\mu} \Phi(x+\mu d)\vert_{\mu = 0} 
-    &= [f(x+\mu d)^TDf(x+\mu d)d]\vert_{\mu = 0}\\
+    \left.\frac{d}{d\mu} \Phi(x+\mu d)\right\vert_{\mu = 0} 
+    &= \left[f(x+\mu d)^TDf(x+\mu d)d\right]_{\mu = 0}\\
     &= -f(x)^Tf(x) \\
     &< 0 & \text{für } f(x)\neq 0
   \end{align*}
@@ -4492,14 +4761,16 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
 
   \extrasection{a)}{Lagrangesche Interpolationsformel und Lemma von Aitken}
 
-  \subsection{Satz}
-  Zu beliebigen $n+1$ Stützpunkten $(x_i, f_i)_{i=0, \dots n}$ 
-    mit $x_i\neq x_k$ für $i\neq k$,
-    gibt es genau ein $p\in \mathcal{P}$ mit $p(x_i) = f_i$ für $i=0,
-    \dots ,n$.\\
-    $p$ heißt \textbf{Interpolationspolynom}\index{Interpolation!-polynom}
-    und wird mit $p(f|x_0, \dots, x_n) $ bezeichnet.
-
+%  \subsectione{Satz}
+\begin{Satze}
+	Zu beliebigen $n+1$ Stützpunkten $(x_i, f_i)_{i=0, \dots n}$ 
+	mit $x_i\neq x_k$ für $i\neq k$,
+	gibt es genau ein $p\in \mathcal{P}$ mit $p(x_i) = f_i$ für $i=0,
+	\dots ,n$.\\
+	$p$ heißt \textbf{Interpolationspolynom}\index{Interpolation!-polynom}
+	und wird mit $p(f|x_0, \dots, x_n) $ bezeichnet.
+\end{Satze}
+  
     \begin{proof}~
       \begin{enumerate}[a)]
       \item \textit{Eindeutigkeit}:
@@ -4553,18 +4824,19 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
     um den Wert $p(\overline{x} ) $ zu berechnen,
     benötigt man:
 
-    \subsection{Lemma von Aitken}
+%    \subsectione{Lemma von Aitken}
+    \begin{Leme}[Lemma von Aitken]
     Für das Interpolationspolynom $p(f\,|\,x_0, \dots, x_n)$ gilt die 
     Rekursionsformel
     \begin{gather}
-      p(f\,|\,x_0, \dots, x_n) (x) = \frac{(x_0-x)p(f\,|\,x_1,\dots, x_n)(x) -
-        (x_n-x)p(f\,|\,x_0,\dots, x_{n-1})(x)}
-      {(x_0-x_n)}
-      \label{VI.1.5}
+    p(f\,|\,x_0, \dots, x_n) (x) = \frac{(x_0-x)p(f\,|\,x_1,\dots, x_n)(x) -
+    	(x_n-x)p(f\,|\,x_0,\dots, x_{n-1})(x)}
+    {(x_0-x_n)}
+    \label{VI.1.5}
     \end{gather}
-    für $n>0$.
-
-
+    für $n>0$.	
+    \end{Leme}
+    
     \begin{proof}
       Sei die rechte Seite von \eqref{VI.1.5} definiert als $\varphi(x)$.
       Dann ist $\varphi\in\mathcal{P}_n$ und 
