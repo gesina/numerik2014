@@ -10,3 +10,7 @@
 *.synctex.gz
 *.toc
 *.xml
+
+## other sources
+material
+material/*

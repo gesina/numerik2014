@@ -1,0 +1,988 @@
+% % % % % % % % % % % % % % 
+%
+%     Skript zu NUMERIK I
+%           WS14/15
+%    von Prof. Dr. Blank
+% Universität Regensburg
+%
+%
+%	Kap. 5: Numerische Lösung nichtlinearer Gleichungssysteme
+%
+% % % % % % % % % % % % % %
+
+
+\chapter{Numerische Lösung nichtlinearer Gleichungssysteme}
+Beispiel:
+\begin{description}
+	\item[linear:] $Ax=b$
+	\item[nichtlinear:] $f(x) = \sin(x) +x^3-4=0$
+\end{description}
+
+
+
+\sectione{Einführung}
+% \subsectione{Beispiele}
+\begin{Bspe}~
+	\begin{enumerate}[1)]
+		\item $f(x) = x^2-c = 0 \Leftrightarrow x= \pm \sqrt{c}$: \\Berechnung der Wurzel
+		\item Sei $p$ ein Polynom:\\ Nullstellenbestimmung
+		\item Löse das nichtlineare Randwertproblem
+		\begin{gather*}
+		-\Delta u = f(u)
+		\end{gather*}
+		in $\Omega=(0,1)^2$ mit $u=0$ auf $\partial \Omega$. \\
+		Mit dem Differenzenverfahren\footnote{s. Übungsaufgabe 2)}
+		ergibt sich
+		\begin{gather*}
+		A\vec{u} = h^2 \vec{f}(\vec{u})
+		\end{gather*}
+		ein System nichtlinearer Gleichungen.
+	\end{enumerate}
+\end{Bspe}
+
+\subsubsection{Nullstellenbestimmung}\index{Nullstellenbestimmung}
+\begin{description}
+	\item[Gegeben]   $D\subseteq \R^n, f: D\rightarrow \R^m$ stetig
+	\item[Gesucht]    $x^{*}\in D $ mit $f(x^{*}) = 0$
+\end{description}
+
+\subsubsection{Fixpunktgleichung}\index{Fixpunktiteration}
+\begin{description}
+	\item[Gegeben]   $D\subseteq \R^n, g: D\rightarrow \R^n$ stetig
+	\item[Gesucht]      $x^{*}\in D $ mit $g(x^{*}) = x^{*}$
+\end{description}
+Falls m=n ist dies äquivalent zur Nullstellenbestimmung.
+
+\subsectione{Das Bisektionsverfahren}\index{Bisektionsverfahren}
+Sei $f:[a,b]\rightarrow \R $ stetig udn$f(a) \cdot f(b) <0$.\\
+Dann folgt aus dem Zwischenwertsatz die Existenz
+mindestens einer Nullstelle $x^{*}\in (a,b)$.
+
+\imagemissing{Beispiel zur Nullstellenexistenz}
+
+Generiere eine Folge von Intervallen
+$[a^{(i)}, b^{(i)}]\in  [a^{(i-1)}, b^{(i-1)}] $,
+die eine Nullstelle enthalten und mit $b^{(i)}-a^{(i)} \longrightarrow 0$.
+Definiere
+\begin{gather}
+x^{(i+1)}= \frac{1}{2}(b^{(i)}+a^{(i)})
+\label{V.1.1}
+\end{gather}
+und
+\begin{gather}
+[a^{(i+1)}, b^{(i+1)}] \coloneqq \begin{cases}
+[x^{(i+1)}, b^{(i)}] & \text{für } f(a^{(i)})\cdot f(x^{(i+1)}) > 0 \\
+[a^{(i)}, x^{(i+1)}] & \text{für } f(a^{(i)})\cdot f(x^{(i+1)}) < 0
+\end{cases}
+\label{V.1.2}
+\end{gather}
+Für jedes $i\geq 1$ gilt somit
+\begin{gather*}
+b^{(i)}-a^{(i)} = \frac{1}{2^i}(b-a)
+\end{gather*}
+und es existiert eine Nullstelle $x^{*}$ in $[a^{(i)}, b^{(i)}]\in  [a^{(i-1)}, b^{(i-1)}] $
+für alle $i$. \\
+Damit folgt
+\begin{align*}
+|x^{(i-1)}-x^{*}| &\leq \frac{1}{2}(b^{(i)}-a^{(i)}) \\
+&=  2^{-(i+1)} (b-a) \longrightarrow 0
+\end{align*}
+Also $\lim_{i\rightarrow \infty}x^{(i)} = x^{*}$.
+
+
+% \subsectione{Korollar}
+\begin{Kore}
+	Das oben angegebene Bisektionsverfahren konvergiert, falls
+	$f:[a,b]\rightarrow \R $ stetig ist und 
+	$f(a)\cdot f(b) <0$ gilt.
+\end{Kore}
+
+% \subsectione{Bemerkungen}
+\begin{Beme}~
+	\begin{enumerate}[a)]
+		\item $x^{(i)} $ wird als Intervallmitte, also unabhängig von $f(x^{(i)})$
+		gewählt. die Konvergenzgeschwindigkeit hängt von der Länge des Intervalls $[a,b]$ ab
+		und der Lage von $x^{*}$ bezüglich der Intervallhalbierung ab. \\
+		Die Konvergenz kann demnach sehr langsam sein.
+		\item Ein Vorteil ist, dass keine Differenzierbarkeitsvoraussetzungen nötig sind.
+		\item Das Verfahren ist nicht für $f:D\longrightarrow \R^n$ anwendbar.
+	\end{enumerate}
+\end{Beme}
+
+
+\sectione{Fixpunktiteration}\index{Fixpunktiteration}
+Gesucht sei ein Fixpunkt $x^{*}\in D\subseteq \R^n$ der stetigen Funktion
+$g:D\rightarrow\R^n$, d.h.
+\begin{gather}
+x^{*} = g(x^{*}) \label{V.2.1}
+\end{gather}
+\textit{Idee:}
+Nutze \eqref{V.2.1} zur Iteration, d.h. wähle $x^{(0)}\in D$,
+setze 
+\begin{gather}
+x^{(k+1)} = g(x^{(k)})  \quad \text{für } k\in 0, 1, \dotsc
+\label{V.2.2}
+\end{gather}
+Es bedarf noch der Voraussetzung, dass $x^{(k)}\in D~~ \forall k$ \\
+Falls $x^{(k)}$ konvergiert, ist der Grenzwert $x^{*}$ ein Fixpunkt,
+denn für stetiges $g$ gilt:
+\begin{align} \nonumber
+x^{*} = \lim_{k\rightarrow \infty}x^{(k+1)} &= \lim_{k\rightarrow \infty}g(x^{(k)}) \\
+& \overset{\mathclap{g \text{ stetig}} }{=}\quad g(\lim_{k\rightarrow \infty}x^{(k)}) = g(x^{*})
+\label{V.2.3}
+\end{align}
+
+% \subsectione{Beispiel}
+\begin{Bspe}
+	Löse $x-e^{-x}-1 = 0$.
+	\begin{enumerate}[a)]
+		\item $x=1+e^{-x} \eqqcolon g_1(x)$
+		\imagemissing{Konvergenz der Fixpunktiteration für $x=1+e^{-x}$}
+		$\longrightarrow$ Konvergenz
+		\item $e^{-x} = x-1   \Leftrightarrow x= -ln(x-1) \eqqcolon g_2(x)$
+		\imagemissing{Versagen der Fixpunktiteration für $x=-ln(x-1)$}
+		$\longrightarrow$ $g(x^{(2)}) $ nicht definiert!
+	\end{enumerate}
+\end{Bspe}
+
+% \subsectione{Definition: Kontraktion} 
+\begin{Defe}
+	\index{Kontraktion}
+	Sei $D\subseteq  \R^n $ abgeschlossen und $\nn{\,\cdot\,}$ eine Norm auf dem $\R^n$.
+	Eine Abbildung $g:D\rightarrow \R^n $ heißt \textbf{Kontraktion} bezüglich  $\nn{\,\cdot\,}$,
+	falls es ein $\kappa \in [0,1)$ gibt mit
+	\begin{gather*}
+	\nn{g(u)-g(v)} \leq \kappa \nn{u-v} \quad \forall u,v\in D
+	\end{gather*}
+	Die kleinste solche Zahl $\kappa$ heißt Kontraktionszahl von g.
+	
+	\imagemissing{Grafische Veranschaulichung einer Kontraktion}
+	
+	Offensichtlich ist jede auf $D$ kontrahierende Abbildung stetig.
+\end{Defe}  
+
+% \subsectione{Lemma}
+\begin{Leme}
+	\label{5.2.3}
+	Sei $D=\overline{\Omega} $ mit $\Omega \subseteq \R^n$ offen und konvex
+	und $\nn{\,\cdot\,}$ eine Norm auf dem $R^n$.\\
+	Falls $g:D\longrightarrow \R^n$ eine stetig differenzierbare Funktion ist und
+	bezüglich der zugeordneten Matrixnorm $\sup_{x\in \Omega}\nn{Dg(x)}<1$ gelte,
+	so ist $g$ kontrahierend bezüglich  $\nn{\,\cdot\,}$.
+\end{Leme} 
+
+\begin{proof}
+	Mit $u,v \in D$ gilt $u+t(v-u)\in D$, da $D$ konvex ist. \\
+	Somit ist $h:[0,1]\rightarrow \R^n $ mit $h(t) \coloneqq g(u+t(v-u))$ wohldefiniert
+	und stetig differenzierbar. Mit dem Hauptsatz der Differenzial- und Integralrechnung
+	folgt:
+	\begin{align}\nonumber
+	\nn{g(u)-g(v)} & = \nn{h(1)-h(0)}  \\ \nonumber
+	& = \nn{\int_{0}^{1} h'(t) dt} \\ \nonumber
+	& = \nn{\int_{0}^{1} Dg(u+t(v-u))\cdot (v-u)dt} \\ \nonumber
+	& \leq \int_{0}^{1} \nn{Dg(u+t(v-u))}dt \cdot \nn{v-u} \\
+	& \leq \underbrace{\sup_{x\in\Omega}\nn{Dg(x)}}_{\eqqcolon \kappa} 
+	\cdot \nn{v-u}
+	\label{V.2.4}
+	\end{align}
+\end{proof}
+
+
+% \subsectione{Banachscher Fixpunktsatz} 
+\begin{Satze}[Banachscher Fixpunktsatz]
+	\index{Banachscher Fixpunktsatz}
+	\label{5.2.4}
+	Sei $D\subset \R^n$ abgeschlossen und die Abbildung $g:D\longrightarrow \R^n$  eine Kontraktion. \\
+	Dann gilt:
+	\begin{enumerate}[1)]
+		\item Es existiert genau ein Fixpunkt $x^{*}$ von $g$.
+		\item Für jeden Startwert $x^{(0)}\in D$ konvergiert die Folge der Fixpunktiterierten
+		\begin{gather}
+		x^{(k+1)} \coloneqq g(x^{(k)})  ~
+		\overset{\mathclap{k\rightarrow \infty}}{\longrightarrow}~ x^{*}
+		\label{V.2.5}
+		\end{gather}
+		\item Es gelte die a posteriori Fehlerabschätzung
+		\begin{gather}
+		\nn{x^{(k)}-x^{*}} \leq \frac{\kappa}{1-\kappa} \nn{x^{(k)}-x^{(k-1)}}
+		\label{V.2.6}
+		\end{gather}
+		und die a priori Fehlerabschätzung
+		\begin{gather}
+		\nn{x^{(k)}-x^{*}} \leq \frac{\kappa^k}{1-\kappa} \nn{x^{(1)}-x^{(0)} }
+		\label{V.2.7}
+		\end{gather}
+	\end{enumerate}
+\end{Satze}
+
+%-----------------------------------------------------------------------------
+
+\begin{proof}
+	\marginpar{19.11.2014}
+	\begin{description}
+		\item[zu 2)] Sei $x_0\in D$ beliebig. \eqref{V.2.5} ist wohldefiniert, da $g(D)\subset D$.
+		$(x^{(k)})_{k\in\N}$ bilden eine Cauchyfolge, da 
+		\begin{align*}
+		\nn{x^{(k+1)}-x^{(k)}} &= \nn{g(x^{(k)})-g(x^{(k-1)})} \\
+		&\leq \kappa \nn{x^{(k)}-x^{(k-1)}} \\
+		&\leq \kappa^k\nn{x^{(1)}-x^{(0)}} \\
+		\Longrightarrow~~ \nn{x^{(k+l)}-x^{(k)}} &\leq \sum_{i=0}^{l}\nn{x^{(k+i+1)}-x^{(k+i)}} \\
+		&\leq \sum_{i=0}^{l}\kappa^{k+1}\nn{x^{(1)}-x^{(0)}}\\
+		&\leq \frac{\kappa^k}{1-\kappa}\nn{x^{(1)}-x^{(0)}}
+		&&\forall l\in\N 
+		\end{align*}
+		Daraus folgt, dass $\lim\limits_{k\rightarrow \infty} x^{(k)}=x^{*} $ existiert 
+		und $x^{*}\in D$, da $D$ abgeschlossen ist und somit vollständig.
+		
+		\item[zu 1)] Da $g$ stetig ist, ist $g(x^{*})=x^{*}$ (siehe hierzu \eqref{V.2.3}). \\
+		$x^{*}	$ ist eindeutiger Fixpunkt, da für einen weiteren Fixpunkt $y^{*}$ gilt
+		\begin{gather*}
+		0\leq \nn{x^{*}-y^{*}} = \nn{g(x^{*})-g()y^{*})}\leq \kappa \nn{x^{*}-y^{*}}
+		\end{gather*}
+		Da $\kappa<1$, muss $ \nn{x^{*}-y^{*}}=0$ sein und damit $x^{*}=y^{*}$.
+		
+		\item[zu 3)] Betrachte 
+		\begin{align*}
+		\nn{x^{*}-x^{(k)}} &= \lim\limits_{l\rightarrow \infty} \nn{x^{(k+l)}-x^{(k)}} \\
+		\leq  \frac{\kappa^k}{1-\kappa} \nn{x^{(1)}- x^{(0)}}
+		\end{align*}
+		bzw.
+		\begin{align*}
+		\lim\limits_{l\rightarrow \infty} \nn{x^{(k+l)}-x^{(k)}}
+		&\leq \lim\limits_{l\rightarrow \infty} \sum_{i=0}^{l-1}\nn{x^{(k+i+1)}-x^{(k+i)}} \\
+		&\leq \lim\limits_{l\rightarrow \infty}\sum_{i=0}^{l-1}\kappa^{i+1} \nn{x^{(k)}-x^{(k-1)}} \\
+		&\leq \frac{\kappa}{1-\kappa} \nn{x^{(k)}-x^{(k-1)}} 
+		\end{align*}
+	\end{description}
+\end{proof}
+
+% \subsectione{Bemerkung}
+\begin{Beme}
+	\label{5.2.5}~
+	\begin{enumerate}[1)]
+		\item Als Voraussetzung wäre bereits ausreichend:\\
+		$D$ ist vollständiger metrischer Raum mit Metrik $d$. \\
+		Dann ersetze die Norm durch die Metrik $d$.
+		\item Im Allgemeinen ist der Nachweis $g(D)\subset D$ schwierig.
+	\end{enumerate}
+\end{Beme}
+
+
+
+% \subsectione{Folgerungen}
+\begin{Fole}
+	\label{5.2.6}
+	Sei $x^{*}\in \R^n$, so dass $g(x^{*})=x^{*}$ und sei $g$ in einer Umgebung von 
+	$\overline{B_\varepsilon(x^{*})}=\left\{ x\in \R^n \middle\vert \nn{x-x^{*}}\leq \varepsilon \right\}$
+	stetig differenzierbar und es gelte $\nn{g'(x)}<1$ für $x\in \overline{B_\varepsilon(x^{*})}$,
+	so ist Satz \ref{5.2.4} mit $D=\overline{B_\varepsilon(x^{*})}$ anwendbar.
+\end{Fole}
+
+\begin{proof}
+	Nutze \eqref{V.2.4} und Lemma \ref{5.2.3}.
+\end{proof}
+
+\sectione{Konvergenzordnung und Fehlerabschätzungen}
+
+% \subsectione{Definition: lineare Konvergenz}
+\begin{Defe}
+	\label{5.3.1}
+	Eine Folge $(x^{(k)})_{k\in\N} $ mit $x^{(k)}\in\R^n$ \textbf{konvergiert} mit (mindestens)
+	der \textbf{Ordnung}\index{Konvergenz!Ordnung} $p\geq 1$ gegen $x^{*}$, falls
+	\begin{gather*}
+	\lim\limits_{k\rightarrow \infty}x^{(k)}=x^{*}
+	\end{gather*}
+	und falls es ein $C>0$ sowie $N\in\N$ gibt, so dass
+	\begin{gather*}
+	\nn{x^{(k+1)}-x^{*}} \leq C \nn{x^{(k)}-x^{*}}^p\qquad \forall k\geq N 
+	\end{gather*}
+	Im Fall $p=1$ ist zusätzlich $C<1$ und man spricht von \textbf{linearer Konvergenz}\index{Konvergen!linear}. \\
+	Für $p=2$ heißt es \textbf{quadratische Konvergenz}\index{Konvergenz!quadratisch}.
+	\\Gilt 
+	\begin{gather*} 
+	\lim\limits_{k\rightarrow \infty}\frac{\nn{x^{(k+1)}-x^{*}}}{\nn{x^{(k)}-x^{*}}} = 0\, ,
+	\end{gather*} so konvergiert die Folge \textbf{superlinear}\index{Konvergenz!superlinear}.
+\end{Defe}
+
+
+% \subsectione{Bemerkung}
+\begin{Beme}
+	Die Fixpunktiteration konvergiert unter der Voraussetzung in \ref{5.2.4} mindestens linear.
+\end{Beme}
+
+
+% \subsectione{Bemerkung}
+\begin{Beme}~
+	\begin{enumerate}[a)]
+		\item  lineare Konvergenz hängt von der gewählten Norm ab.
+		\item Hat die Folge bzgl. einer Vektornorm auf dem $\R^n$ die Konvergenzordnung $p>1$,
+		hat sie diese bzgl. jeder Norm.
+	\end{enumerate}
+\end{Beme}
+
+
+% \subsectione{Definition: lokale und globale Konvergenz}
+\begin{Defe}
+	\label{5.3.4}
+	\begin{enumerate}[a)]
+		\item Ein iteratives Verfahren zur Bestimmung eines Wertes $x^{*}$ hat 
+		die Konvergenzordnung $p$, falls es eine Umgebung $U$ um $x^{*}$ gibt, 
+		so dass für alle Startwerte aus $U\backslash \{x^{*}\}$ die erzeugte Folge mit Ordnung $p$ konvergiert.
+		\item Das Verfahren heißt \textbf{lokal konvergent}\index{Konvergenz!lokal},
+		falls es für alle Startwerte in einer Umbegung von $x^{*}$ konvergiert.
+		\item Das Verfahren heißt \textbf{global konvergent}\index{Konvergenz!global},
+		falls es im gesamten Definitionsbereich des zugehörigen Problems konvergiert.
+	\end{enumerate}
+\end{Defe} 
+
+
+% \subsectione{Lemma}
+\begin{Leme}
+	\label{5.3.5}
+	Sei $(x^{(k)})_{k\in\N}$ eine konvergente Folge in $\R$ mit Grenzwert $x^{*}$.
+	\begin{enumerate}[a)]
+		\item Falls 
+		\begin{gather}
+		\lim\limits_{k\rightarrow \infty}\frac{\nn{x^{(k+1)}-x^{*}}}{\nn{x^{(k)}-x^{*}}}=
+		A\in (-1,1)\, ,~ A\neq 0
+		\label{V.3.1}
+		\end{gather}
+		hat die Folge genau die Konvergenzordnung 1.
+		Weiter gilt mit $A_k=\frac{x^{(k)}-x^{(k-1)}}{x^{(k-1)}-x^{(k-2)}}$
+		\begin{gather}
+		\lim\limits_{k\rightarrow \infty}\frac{A_k}{1-A_k}\cdot 
+		\frac{x^{(k)}-x^{(k-1)}}{x^{*}-x^{(k)}}=1 
+		\label{V.3.2}
+		\\ \nonumber
+		\lim\limits_{k\rightarrow\infty}A_k=A
+		\end{gather}
+		\item Falls die Folge Konvergenzordnung $p>1$ hat, gilt
+		\begin{gather}
+		\lim\limits_{k\rightarrow\infty}\frac{x^{(k)}-x^{(k-1)}}{x^{*}-x^{(k)}}=1
+		\label{V.3.3}
+		\end{gather}
+		\item[\textbf{zu}]\textbf{Def.} \ref{5.3.1}:  Im Fall $p=1$ ist zusätzlich $C<1 $ verlangt.
+	\end{enumerate}
+\end{Leme} 
+
+\begin{proof}
+	\textit{(skizzenhaft, siehe Übungsaufgaben)}\\
+	Sei $e^{(k)}\coloneqq x^{*}-x^{(k)}$.\\
+	Nutze $x^{(k+1)}-x^{(k)} = e^{(k)}-e^{(k+1)}$:
+	\begin{enumerate}[a)]
+		\item Zeige 
+		\begin{gather*} 
+		\lim\limits_{k\rightarrow\infty}\frac{x^{(k)}-x^{(k-1)}}{e^{(k)}} = \frac{1-A}{A}\, ,
+		\end{gather*}
+		sowie
+		\begin{gather*}
+		\lim\limits_{k\rightarrow \infty}A_k = A \, ,
+		\end{gather*}
+		so folgt die Behauptung.
+		\item Folgt aus $\lim\limits_{k\rightarrow\infty} \frac{e^{(k+1)}}{e^{(k)}} =0$.
+	\end{enumerate}
+\end{proof}
+
+% \subsectione{Folgerung: a posteriori Fehlerabschätzung}
+\begin{Fole}[a posteriori Fehlerabschätzung]~
+	\begin{enumerate}[a)]
+		\item Für $p=1$ gilt
+		\begin{gather}
+		x^{*}-x^{(k)} \approx \frac{A_k}{1-A_k}(x^{(k)}-x^{(k-1)})
+		\label{V.3.4}
+		\end{gather}
+		für große $k$ und $A_k$ in etwa konstant. \\
+		$|x^{(k)}-x^{(k-1)}|$ ist im Allgemeinen \textbf{keine} sinnvolle Schätzung
+		des Fehlers $|x^{*}-x^{(k)}|$!
+		\item Für $p>1$ gilt:
+		\begin{gather}
+		x^{*}-x^{(k)} \approx x^{(k+1)}-x^{(k)}
+		\label{V.3.5}
+		\end{gather}
+		für große $k$.
+	\end{enumerate}
+\end{Fole}
+
+
+% \subsectione{Bemerkung}
+\begin{Beme}
+	Für Folgen im $\R^n$ gibt es für $p=1$ kein Analogon zu \eqref{V.3.4}.
+	Falls $p>1$, lässt sich \eqref{V.3.3} für die Normen der Differenzen zeigen,
+	d.h.
+	\begin{gather}
+	\nn{x^{*}-x^{(k)}} \approx \nn{x^{(k+1)}-x^{(k)}}
+	\label{V.3.6}
+	\end{gather}
+	
+	\begin{proof}
+		Nutze $\lim\limits_{k\rightarrow\infty} \frac{\nn{e^{(k+1)}}}{\nn{e^{(k)}}} =0$
+		und 
+		\begin{gather*}
+		\nn{e^{(k)}}-\nn{e^{(k+1)}}\leq \nn{x^{(k+1)}-x^{(k)}} \leq \nn{e^{(k)}}+\nn{e^{(k+1)}} \, .
+		\end{gather*}
+	\end{proof}
+\end{Beme}
+
+
+% \subsectione{Folgerung}
+\begin{Fole}
+	Falls $p>1$ ist, kann $p$ folgendermaßen approximiert werden:
+	\begin{gather*}
+	p \approx \frac{\log(\nn{x^{(k+2)}-x^{(k+1)}})}{\log(\nn{x^{(k+1)}-x^{(k)}})}
+	\end{gather*}
+\end{Fole}
+
+\begin{proof}
+	Siehe Übungsaufgabe.
+\end{proof}
+
+\sectione{Newton-Verfahren für skalare Gleichung} \index{Newton-Verfahren}
+Sei $f:[a,b]\longrightarrow \R$ differenzierbar. Dann gilt
+\begin{gather*}
+f(x^{*}) = f(x) + f'(x)(x^{*}-x)+o(\nn{x-x^{*}}) \, ,
+\end{gather*} 
+d.h. $f$ kann lokal gut durch die Tangente approximiert werden. \\
+Betrachte die Nullstellengleichung $f(x^{*}) = 0$ \\
+\imagemissing{Veranschaulichung des Newton-Verfahrens an einem Funktionsgraphen}
+und bestimme iterativ die Nullstelle der Tangentengleichung
+\begin{gather*}
+0=f(x) + f'(x)(\overline{x}-x) \Leftrightarrow \overline{x}= x-\frac{f(x)}{f'(x)}
+\end{gather*}
+Notwendig ist hier die Bedingung $f'(x) \neq 0$.
+
+
+\subsectione{Iterationsschritt des Newton(-Kantorowitsch)-Verfahrens}
+\begin{gather}
+x^{(k+1)} = x^{(k)} - \frac{f(x^{(k)})}{f'(x^{(k)})}
+\label{V.4.1}
+\end{gather}
+wird auch Tangentenverfahren\index{Tangentenverfahren} genannt und stammt von
+J. Raphson (1630). Newton hat eine ähnliche Technik früher angewendet.
+
+% \subsectione{Satz}
+\begin{Satze}
+	\label{5.4.2}
+	Sei $f\in C^1(a,b)$ und $x^{*}\in (a,b)$ eine einfache Nullstelle von $f$, d.h. $f'(x^{*})\neq 0$. \\
+	Dann gibt es ein  $\varepsilon >0$, s.d. für jedes $x^{(0)}\in\overline{B_\varepsilon(x^{*})}$
+	das Newton-Verfahren \eqref{V.4.1} superlinear gegen $x^{*}$ konvergiert.\\
+	Falls $f\in C^2(a,b) $ tritt mindestens quadratische Konvergenz ein, d.h. das Verfahren
+	konvergiert lokal quadratisch.
+\end{Satze}
+
+\begin{proof}
+	Gleichung \eqref{V.4.1} definiert eine Fixpunktiteration mit $g(x) = x-\frac{f(x)}{f'(x)}$.\\
+	Für $f\in C^2(a,b)$ gilt 
+	\begin{gather*}
+	g'(x) = 1- \frac{f'f'-ff''}{(f')^2}(x)= \frac{f(x)f''(x)}{(f'(x))^2}\, .
+	\end{gather*}
+	Da $f(x^{*})= 0$ und $f'(x^{*})\neq 0$ gilt $g'(x^{*})=0$ .\\
+	Weiterhin gibt es eine Umgebung $U_0$ von $x^{*}$, in der $f(x)\neq 0~\forall x\in U_0$,
+	da $f$ stetig ist.\\
+	In $U_0$ ist somit $g' $ stetig. Da $g'(x^{*})=0$ ist, existiert ein $\varepsilon>0$ mit
+	\begin{gather*}
+	g'(x)\leq \kappa<1 \quad \forall x\in \overline{B_\varepsilon(x^{*})}\, .
+	\end{gather*}
+	Da $g(x^{*})=x^{*}$ ist, ist die Folgerung \ref{5.2.6} anwendbar,
+	also ist $g$ eine Kontraktion. und $g(\overline{B_\varepsilon(x^{*})}) \subset \overline{B_\varepsilon(x^{*})}$.
+	Der Banachsche Fixpunktsatz liefert Konvergenz für alle $x^{(0)}\in\overline{B_\varepsilon(x^{*})}$. \\
+	
+	Die quadratische Konvergenz folgt aus 
+	\begin{align*}
+	|x^{(k-1)}-x^{*}| &= |x^{(k)}-\frac{f(x^{(k)})}{f'(x^{(k)})}-x^{*}+\frac{f(x^{*})}{f'(x^{*})}| \\
+	&= \frac{|f(x^{(*)})-f(x^{(k)})+f'(x^{(k)})(x^{(k)}-x^{*})|}{|f'(x^{(k)})|}\\
+	&\leq \sup_{x\in\overline{B_\varepsilon(x^{*})}}\frac{1}{|f'(x^{*}|)}
+	\cdot \sup_{x\in\overline{B_\varepsilon(x^{*})}}|f''(x)\cdot\frac{1}{2}|x^{(k)}-x^{*}|^2
+	\end{align*}
+	aufgrund der Taylorentwicklung und da
+	$x^{(k-)}\in\overline{B_\varepsilon(x^{*})}~\forall k\in\N$ (da $g$ Kontraktion).
+	
+	Für $f\in C^1$ siehe \cite{haemmerlinhoffmann}.
+\end{proof}
+
+% \subsectione{Bemerkung}
+\begin{Beme}~
+	\begin{enumerate}[a)]
+		\item Mehrfache Nullstellen könne im Allgemeinen
+		nicht mit \eqref{V.4.1} bestimmt werden.
+		\item Die Ableitung $f'$ muss analytisch (als Funktion) gegeben sein.
+		\item Die Lage und Größe des Konvergenzinterfalls ist a priori unbekannt.\\
+		(Hierfür könnte z.B. das Bisektionsverfahren Anwendung finden.)
+	\end{enumerate}
+\end{Beme}
+
+
+
+%----------------------------------------------------------------
+
+% \subsectione{Beispiele: Newton-Verfahren ohne Konvergenz}
+\begin{Bspe}[Newton-Verfahren ohne Konvergenz]~
+	\marginpar{24.11.2014}
+	\begin{itemize}
+		\item $x^{(1)}$ nicht mehr im Definitionsbereich
+		\imagemissing{Fehlschlagen des Newton-Verfahren: außerhalb des Definitionsbereichs}
+		\item $|x^{*}-x^{(1)}| \nless |x^{*}-x^{(0)}| $
+		\imagemissing{Fehlschlagen des Newton-Verfahren: Konvergenz nicht gesichert}
+	\end{itemize}
+\end{Bspe}
+
+\subsectione{Newton-Verfahren: Iterativer Linearisierungsprozess}
+Die entscheidende Idee beim Newton-Verfahren ist der \textbf{iterative Linearisierungsprozess}
+\index{iterativer Linearisierungsprozess}, d.h. die Lösung einer nichtlinearen Gleichung wird
+durch eine Folge von Lösungen linearer Gelichungen ersetzt.
+
+% \subsectione{Beispiel}
+\begin{Bspe}
+	\label{5.4.6}
+	Es ist die Lösung von $x-e^{-\frac{1}{2}x}=0$ mit $x^{(0)}=0,8$ gesucht.
+	\begin{enumerate}[a)]
+		\item Mit der Banachschen Fixpunktiteration angewendet auf 
+		$x=e^{(-\frac{1}{2}x)}$ ergibt sich
+		\begin{gather*}
+		x^{(10)}=\text{\textbf{0,7034}}7017 
+		\qquad \text{auf 4 Stellen exakt}
+		\end{gather*}
+		\item Mit dem Newton-Verfahren
+		\begin{align*}
+		x^{(3)}&= 0,70346742 &&\text{bis auf 17 Stellen exakt}\\
+		x^{(4)} &&& \text{bis auf Maschinengenauigkeit exakt}
+		\end{align*}		
+	\end{enumerate}
+\end{Bspe}
+Die Ableitung $f'(x)$ ist nicht immer explizit bekannt. \\
+Eine Idee ist, sie zu approximieren mithilfe des Differenzenquotienten:
+\begin{gather*}
+f'(x^{(k)})  \approx \frac{f(x^{(k)})-f(x^{(k-1)})}{x^{(k)}-x^{(k-1)}}
+\end{gather*}
+Damit ergibt sich
+\begin{gather*}
+x^{(k+1)} = x^{(k)}-f(x^{(k)}) \frac{x^{(k)} - x^{(k-1)}}{f(x^{(k)})-f(x^{(k-1)})}
+\end{gather*}\index{Sekantenverfahren}
+d.h. $x^{(k+1)} $ ist die Nullstelle der Sekante durch $f(x^{k})$ und $f(x^{(k-1)})$.
+
+
+\subsectione{Iterationsschritt des Sekantenverfahrens}
+\begin{gather}
+x^{(k+1)} = \frac{x^{(k-1)}f(x^{(k)}) - x^{(k)}f(x^{k-1})}{f(x^{(k)})-f(x^{(k-1)})}
+\label{V.4.2}
+\end{gather}
+
+\imagemissing{Geometrische Veranschaulichung des Sekantenverfahrens}
+
+
+% \subsectione{Satz (Konvergenz des Sekantenverfahrens)}
+\begin{Satze}[Konvergenz des Sekantenverfahrens]
+	Sei $f\in C^2([a,b])$ und $x^{*}\in (a,b)$ eine einfache Nullstelle.\\
+	Dann konvergiert das Sekantenverfahren in einer Umbegung von $x^{*}$
+	superlinear mit Ordnung 
+	\begin{gather*}
+	p=\frac{1}{2}(1+\sqrt{5})= 1,618 \, .
+	\end{gather*}
+\end{Satze}
+
+\begin{proof}
+	Siehe z.B. \cite[][Zwischenwertsatz, Fibonacci-Folge]{haemmerlinhoffmann,stoerbulirsch}
+\end{proof}
+
+\textbf{zu Beispiel} \ref{5.4.6}: Das Sekantenverfahren benötigt
+einen zweiten Startwert, z.B.
+\begin{align*}
+x^{(1)}&=0,7 \\
+\Rightarrow ~ x^{(3)} &= 0,7034674 
+&&\text{auf 7 Stellen exakt}\\
+x^{(6)} &&& \text{bis auf Maschinengenauigkeit exakt}
+\end{align*}
+
+
+% \subsectione{Bemerkungen}
+\begin{Beme}~
+	\begin{enumerate}[a)]
+		\item Das Verfahren ist keine Fixpunktiteration.
+		Es benötigt $x^{(k)}$ und $x^{(k-1)}$ für $x^{(k+1)}$
+		(\textbf{Mehrschrittverfahren})\index{Mehrschrittverfahren}
+		\item Die Berechnung von $f(x)$ und $f'(x)$ ist im Allgemeinen
+		sehr teuer. Das Sekanten-Verfahren benötigt pro Iteration
+		nur eine Funktionsauswertung, das Newton-Verfahren hingegen zwei.\\
+		Also sind zwei Iterationen des Sekanten-Verfahrens so teuer wie eine
+		des Newton-Verfahrens. \\
+		Bei gleichem Aufwand konvergiert das Sekanten-Verfahren daher lokal
+		schneller mit der Konvergenzordnung 
+		\begin{gather*}
+		p^2= 2,618\dotsc
+		\end{gather*}
+		für $x^{(k)}\rightarrow x^{(k+2)}$ als das Newton-Verfahren
+		(siehe auch Beispiel \ref{5.4.6}).\\
+		
+		\textit{Beispiel:} Sei $f:\R^n\rightarrow\R$ und $f(x)$ die erste Komponente von $ A^{-1}x$.
+		Diese n-dimensionale Funktionsauswertung benötigt $\mathcal{O}(n^3)$ flops.
+		\item Die Sekantenmethode ist i.A. nicht stabil, denn für $f(x^{(k)})\approx f(x^{(k+1)})$
+		können Stellenauslöschungen im Nenner auftreten. \\
+		Stabilere Varianten, wie z.B. \textbf{regula falsi}, haben eine geringere Konvergenzordnung.
+	\end{enumerate}
+\end{Beme}
+
+
+
+\sectione{Das Newton-Verfahren im Mehrdimensionalen} \index{Newton-Verfahren!mehrdimensional}
+Wie im 1-dimensionalen wird $f:\Omega\subseteq \R^n \longrightarrow\R^n$
+linearisiert 
+\begin{gather}
+f(\overline{x}) \approx f(x) +Df(x)(\overline{x}-x)
+\label{V.5.1}
+\end{gather}
+mit
+\begin{gather*}
+Df(x) = \begin{pmatrix}
+\frac{\partial f_1}{\partial x_1}(x) &\dots & \frac{\partial f_1}{\partial x_n}(x)\\
+\vdots && \vdots\\
+\frac{\partial f_n}{\partial x_1}(x) &\dots & \frac{\partial f_n}{\partial x_n}(x)
+\end{pmatrix}
+\qquad \text{(genannt: die Jacobi-Matrix von f)}
+\end{gather*}
+Falls nun die Jacobi-Matrix $Df(x)$ invertierbar ist und $f(\overline{x})= 0$ gilt, folgt
+\begin{gather*}
+\overline{x} = x-[Df(x)]^{-1}\cdot f(x)
+\end{gather*}
+
+\subsectione{Iterationsschritt des Newton-Verfahrens}
+\begin{gather}
+x^{(k+1)} = x^{(k)} -[Df(x^{(k)})]^{-1}\cdot f(x^{(k)})
+\label{V.5.2}
+\end{gather}
+
+\subsectione{Newton-Verfahren}
+\begin{pseudocode}{0.5\linewidth}
+	setze Startwert $x$ \\
+	$i=0$ \\
+	$fx= f(x)$ \\
+	\textbf{while} \enquote{Abbruchkriterium} \\
+	|	\> $Dfx = Df(x)$ \\
+	|	\> Löse\footnotemark $Dfx\cdot d=-fx$ \\
+	|	\> $x=x+d$ \\
+	|	\> $fx=f(x)$\\
+	|	\> $i=i+1$\\
+	\textbf{end}
+\end{pseudocode}
+\footnotetext{entspricht $Ax=b$}
+
+% \subsectione{Bemerkung}
+\begin{Beme}
+	Ein Newton-Iterationsschritt \eqref{V.5.2} wird also aufgeteilt in Berechnung
+	der sogenannten \textbf{Newton-Korrektur}\index{Newton-Verfahren!Newton-Korrektur}
+	\begin{gather}
+	Df(x^{(k)})\Delta x^{(k)} = -f(x^{(k)}) \label{V.5.3}
+	\end{gather}
+	und dem \textbf{Korrekturschritt}\index{Newton-Verfahren!Korrekturschritt}
+	\begin{gather}
+	x^{(k+1)}= x^{(k)}+\Delta x^{(k)} \label{V.5.4}
+	\end{gather}
+\end{Beme}
+
+
+\subsectione{Aufwand pro Iteration}
+\begin{itemize}
+	\item[\textbf{$n$}] eindimensionale Funtionsauswertungen für $f(x)$
+	\item[\textbf{$n^2$}] eindimensionale Funtionsauswertungen für $Df(x)$
+	\item[$\mathcal{O}(n^2)$] flops (i.d.R.) zum Lösen eines GLS
+\end{itemize}
+
+%---------------------------------------------------------------------
+
+% \subsectione{Bemerkung}
+\begin{Beme}
+	\label{5.5.5}
+	\marginpar{26.11.2014}
+	Das Newton-Verfahren ist \textbf{affin-invariant}\index{affin-invariant},
+	d.h. die Folge $(x^{(k)})$ ist zu gegebenem $x^{(0)}$ unabhängig davon,
+	ob $f(x)=0$ oder $\widetilde{f}(x)\coloneqq A\cdot f(x) =0$
+	mit regulärem $A\in \Renn $ gelöst wird.
+	Dies gilt, da 
+	\begin{align*}
+	[D\widetilde{f}(x)]^{-1} \cdot \widetilde{f}(x)
+	&= [A\cdot Df(x)]^{-1} \cdot (A\cdot f(x))\\
+	&= [Df(x)]^{-1} \cdot f(x)
+	\end{align*}
+	und damit ist die Newton-Korrektur $\Delta x^{(k)}$ affin-invariant.
+\end{Beme}
+
+% \subsectione{Satz}
+\begin{Satze}
+	Sei $\Omega\in\R^n$ offen und $f:\Omega\rightarrow\Ren$ in $C^2(\Omega)$.
+	Sei $x^{*}\in\Omega $ eine Nullstelle $f$ mit einer invertierbaren Jacobi-Matrix $Df(x^{*})$.
+	Dann existiert eine Umgebung von $x^{*}$, so dass das Newton-Verfahren 
+	für jeden Startwert $x^{(0)}$ in dieser Umgebung
+	quadratisch gegen $x^{*}$ konvergiert.
+\end{Satze}
+
+\begin{proof}
+	Kann wie im eindimensionalen durchgeführt werden.\\
+	Aber Vorsicht: $D^2f(x)$ ist eine \textbf{bilineare Abbildung} in 
+	$\mathcal{L}(\Ren, \mathcal{L}(\Ren, \Ren))$. \\
+	
+	Wir zeigen die Behauptung induktiv über die quadratische Konvergenz.\\
+	Da $Df(x^{*})$ invertierbar ist und $f\in C^2(\Omega) $,
+	existiert nach dem Satz über implizite Funktionen
+	eine Umgebung $\overline{B_\varepsilon(x^{*})}\subset \Omega$,
+	auf der $Df(x)$ invertierbar und stetig ist.\\
+	Sei 
+	\begin{gather*}
+	c\coloneqq \sup_{x\in B_\varepsilon(x^{*})} \nn{[Df(x)]^{-1}}
+	\end{gather*}
+	und 
+	\begin{gather*}
+	w\coloneqq \sup_{x\in B_\varepsilon(x^{*})}\nn{D^2f(x)}
+	\end{gather*}
+	Für $x^{(k)}\in B_\varepsilon(x^{*}) $ ist $x^{(k)}+t(x^{*}-x^{(k)})\in B_\varepsilon(x^{*})$
+	für $t\in [0,1]$ und 
+	\begin{gather*}
+	h^{(k)}(t) \coloneqq f(x^{(k)}+ t(x^{*}-x^{(k)}))\qquad \forall t\in [0,1]
+	\end{gather*}
+	ist wohldefiniert und in $C^2([0,1], \Ren)$.\\
+	Wie in \ref{5.4.2} folgt 
+	\begin{align*}
+	x^{(k+1)}-x^{*} &= [Df(x^{(k)})]^{-1}\left(f(x^{*})-f(x^{(k)})-Df(x^{(k)})(x^{*}-x^{(k)})\right)\\
+	&= [Df(x^{(k)})]^{-1}\left( h^{(k)}(1)-h^{(k)}(0)-Dh^{(k)}(0)\cdot 1\right)\\
+	&= [Df(x^{(k)})]^{-1} \int_{0}^{1}D^2h^{(k)}(1-t)dt &&\text{()Restglieddarst. der Taylorentw.)}
+	\end{align*}
+	Das Ziel ist nun zu zeigen, dass $\nn{x^{(k+1)}-x^{*}} \leq c\cdot \nn{x^{(k)}-x^{*}}^2$.
+	Mit den Definitionen von oben wird die Ungleichung zu
+	\begin{align}\nonumber
+	\nn{x^{(k+1)}-x^{*}} &\leq c\cdot \frac{1}{2} \sup_{t\in[0,2]} \nn{D^2h^{(k)}(t)} \\
+	& \leq c\cdot \frac{1}{2} w\nn{x^{(k)}-x^{*}}^2
+	\label{V.5.5}
+	\end{align}
+	und zwar für alle $x^{(k)}\in B_\varepsilon(x^{*})$, wie noch gezeigt wird.\\
+	Sei nun $\delta \leq \varepsilon$, so dass $\frac{1}{2} \cdot c\cdot w <1$ gilt,
+	so folgt induktiv für $x^{(0)}\in B_\delta(x^{*})$ mit \eqref{V.5.5}
+	\begin{align*}
+	\nn{x^{(k+1)}-x^{*}} &\leq \frac{1}{2}w\delta^2 < \delta\\
+	\Rightarrow x^{(k+1)}&\in B_\delta(x^{*})\subseteq B_\varepsilon(x^{*})
+	\end{align*}
+	Auf $x^{(k+1)} $ ist der nächste Iterationsschritt anwendbar
+	und mit \eqref{V.5.5} folgt quadratische Konvergenz.\\
+	Es bleibt zu zeigen:
+	\begin{gather*}
+	\nn{D^2h(t)} \leq w\nn{x^{(k)}-x^{*}}^2 \qquad \forall t\in [0,1],~
+	h:[0,1]\rightarrow\Ren,~ h=\begin{pmatrix} h_1 \\ \vdots \\ h_n \end{pmatrix}
+	\end{gather*}
+	Hierfür betrachte
+	\begin{align*}
+	Dh_i^{(k)}(t)&=\underbrace{Df_i\left( x^{(k)}+t(x^{*}-x^{(k)})\right)}_{\in \R^{1\times n}}
+	\cdot (x^{*}-x^{(k)})\in\R\\
+	D^2h_i^{(k)}(t)&=(x^{*}-x^{(k)})^T\cdot
+	\underbrace{D^2f_i\left( x^{(k)}+t(x^{*}-x^{(k)})\right)}_{\in \R^{n\times n}}
+	\cdot (x^{*}-x^{(k)})\in\R\\
+	\end{align*}
+\end{proof}
+
+Unter genaueren Voraussetzungen kann die Existenz von $x^{*}$ gezeigt 
+und eine Umgebung $B_r(x^{*})$ explizit angegeben werden.
+
+Dies liefert folgender
+\begin{satz}[Satz von Kantorowitsch]
+	Sei $f:\Omega\rightarrow \Ren$, $\Omega_0 \subset \Ren$ konvex,
+	$f$ stetig differenzierbar auf $\Omega_0$ und 
+	erfülle für ein $x^{(0)}\in \Omega_0$ folgendes:
+	\begin{enumerate}[a)]
+		\item $\nn{Df(x) -Df(y)}\leq \gamma \nn{x-y}$ für alle $x,y\in \Omega_0$
+		\item $\nn{[Df(x^{(0)})]^{_1}} \leq \beta$
+		\item $\nn{[Df(x^{(0)})]^{_1}f(x^{(0)})} \leq \alpha$
+	\end{enumerate}
+	mit den Konstanten $h=\alpha\beta\gamma$, $r_\pm = \frac{1\pm \sqrt{1-2h}}{h}\alpha$.\\
+	Dann hat $f$, falls $h\leq \frac{1}{2}$ und $\overline{B_{r_{-}}(x^{(0)})}\subset \Omega$,
+	genau eine Nullstelle $x^{*}$ in $\Omega_0\cap B_{r_+}(x^{(0)})$.\\
+	Weiterhin bleibt die Folge der Newton-Iterierten in $B_{r_{-}}(x^{(0)})$
+	und konvergiert gegen $x^{*}$.
+	\begin{proof}
+		z.B. in Ortega/Rheinhold (2000)
+	\end{proof}
+\end{satz}
+
+
+\sectione{Abbruchkriterien beim Newton-Verfahren}
+\begin{enumerate}[1)]
+	\item Limitiere die Anzahl der Iterationen, u.a. um 
+	Endlosschleifen durch fehlerhafte Programme auszuschließen.
+	\item Breche ab, wenn das Verfahren nicht konvergiert, d.h.
+	wenn $x^{(k)}$ nicht im Konvergenzbereich bleibt.
+	\item Breche ab, wenn das Ergebnis genau genug ist, d.h. der
+	Fehler $e^{(k)}\coloneqq \nn{x^{*}-x^{(k)}}$ klein genug ist.
+\end{enumerate}
+
+
+\subsectione{Der Monotonietest}
+Beim Newton-Verfahren sollte die Funktion $g$ der zugehörigen
+Fixpunktiteration eine Kontraktion sein, d.h. es muss ein 
+$\kappa \in (0,1)$ für alle $k$ geben mit
+\begin{align}\nonumber
+\nn{\Delta x^{(k)}}&=\nn{x^{(k+1)}-x^{(k)}} \\ \nonumber
+&= \nn{g(x^{(k)})-g(x^{(k-1)})}\\
+&\leq \kappa\nn{x^{(k)}-x^{(k-1)}} = \kappa \nn{\Delta x^{(k-1)}}
+\label{V.6.1}
+\end{align}
+Als Abbruchkriterium für eine (mögliche) Divergenz des Verfahrens wähle z.B.
+$\kappa=\frac{1}{2}$ und breche ab, falls 
+\begin{gather}
+\nn{\Delta x^{(k)}}>\frac{1}{2}\nn{\Delta x^{(k-1)}}
+\label{V.6.2}
+\end{gather}
+Um im Mehrdimensionalen eine vielleicht unnötig (teure) Berechnung
+von $Df(x^{(k)})$ bzw. von $\Delta x^{(k)}$ zu vermeiden, kann 
+$\Delta x^{(k)}$ durch 
+\begin{gather}
+\overline{\Delta x}^{(k)} = -[Df(x^{(k-1)})]^{-1}\cdot f(x^{(k)})
+\label{V.6.3}
+\end{gather}
+approximiert werden.
+$Df(x^{(k-1)})$ und eine Zerlegung liegt bereits aus der Berechnung von $\Delta x^{(k-1)}$ vor.
+Ebenso ist $f(x^{(k)})$ bekannt.
+Die Lösung von \eqref{V.6.3} benötigt daher nur $\mathcal{O}(n^2)$ flops.
+Statt \eqref{V.6.2} kann dann auch auf 
+\begin{gather}
+\nn{\overline{\Delta x}^{(k)}} \geq \frac{1}{2} \nn{\Delta x^{(k-1)}}
+\label{V.6.4}
+\end{gather}
+getestet werden.
+
+
+\subsectione{Kriterium für erreichte Konvergenz}
+Es ist $f(x^{*})$ gesucht, also teste hierauf. Das residuumbasierte Kriterium
+\begin{gather}
+\nn{f(x^{(k)})}\leq Tol
+\label{V.6.5}
+\end{gather}
+ist nur bedingt anwendbar, denn nach \ref{5.5.5} ist das Verfahren affin-invariant.
+Demnach bleibt $(x^{(k)})_{k\in\N}$ gleich,
+ob nun $f(x)$ oder $\widetilde{f}(x) =\alpha f(x) $ betrachtet wird.\\
+Aber für $\widetilde{f}$ bricht \eqref{V.6.5} das Verfahren ab, 
+falls $|\alpha|\cdot \nn{f(x^{(k)})} \leq Tol$. \\
+Affin-invariant ist dagegen der Ansatz
+\begin{gather}
+\nn{\Delta x^{(k)}}= \nn{x^{(k+1)}-x^{(k)}} 
+= \nn{[Df(x^{(k)})]^{-1}f(x^{(k)})} 
+\leq Tol \, .
+\label{V.6.6}
+\end{gather}
+\eqref{V.6.6} kann aufgrund der quadratischen Konvergenz (nur) für 
+große $k$ auch mit \eqref{V.3.5} der Approximation des Fehlers 
+$\nn{x^{*}-x^{(k)}} $ motiviert werden.
+
+
+\sectione{Varianten des Newton-Verfahrens}
+$Df(x^{(k)})$ steht nicht immer analytisch zur Verfügung.
+Die exakte Jacobi-Matrix wird häufig durch eine andere Matrix $B$ approximiert, 
+z.B. durch Differenzenquotienten oder sogenanntes
+\enquote{automatisches Differenzieren}.
+Der Iterationsschritt lautet dann
+\begin{align}
+\text{löse}\quad B^{(k)}d^{(k)} &= -f(x^{(k)}) 
+\label{V.7.1} \\\nonumber
+x^{(k+1)} &=x^{(k)} + d^{(k)}
+\end{align}
+Um den Aufwand zu verringern kann $Df(x^{(k)})$ durch
+$Df(x^{(0)})$ approximiert werden.
+
+
+\subsectione{Iterationsschritt des vereinfachten Newton-Verfahrens}
+\index{Newton-Verfahren!vereinfacht}
+\begin{gather}
+x^{(k+1)} = x^{(k)} -[Df(x^{(0)})]^{-1} f(x^{(k)})
+\label{V.7.2}
+\end{gather}
+Das Verfahren konvergiert nur noch lokal linear.
+Der Aufwand je Iteration ist jdoch erheblich geringer.
+
+
+%----------------------------------------------------------------------------
+
+\subsectione{Das Broyden-Verfahren}
+\marginpar{01.12.2014}
+Das Broyden-Verfahren ist eine Verallgemeinerung des Sekantenverfahrens
+auf $n>1$. $Df(x^{(k)})$ wird durch den
+\enquote{Differenzenquotienten} approximiert, d.h.
+\begin{gather}
+B^{(k)}(\underbrace{x^{(k)}-x^{(k-1)}}_{\coloneqq p^{(k-1)}})
+= \underbrace{f(x^{(k)})-f(x^{(k-1)})}_{\coloneqq
+	q^{(k-1)}}
+\label{V.7.3}
+\end{gather}
+$B^{(k)}$ ist jedoch nicht eindeutig durch \eqref{V.7.3} festgelegt.
+Das Broyden-Verfahren bestimmt $B^{(k)}$ rekursiv durch eine 
+Aufdatierung mit einer Rang-1-Matrix, auch \enquote{rang-1-update}
+($C_\text{neu} = C_\text{alt} +M$ mit $rang(M)=1$). \\
+
+Ein Iterationsschritt des Broyden-Verfahrens ist 
+\begin{align}\nonumber
+d^{(k)} &= -[B^{(k)}]^{-1} f(x^{(k)}) \\\nonumber
+x^{(k+1)} &= x^{(k)} + d^{(k)} \\\nonumber
+p^{(k)} & \coloneqq d^{(k)} \qquad \text{nach
+	\eqref{V.7.1}}\\\nonumber
+q^{(k)} & \coloneqq f(x^{(k+1)})-f(x^{(k)}) \\
+B^{(k+1)} & = B^{(k)} + \frac{1}{{p^{(k)}}^T\cdot p^{(k)}}
+\cdot \left(q^{(k)}-
+\underbrace{B^{(k)}p^{(k)}}_{\substack{=f(x^{(k)})\\
+		\text{ nach \eqref{V.7.1}}}}
+\right){p^{(k)}}^T
+\label{V.7.4}
+\end{align}
+Hierfür muss $x^{(0)} $ und $B^{(0)}$ gegeben sein.
+Unter bestimmten Voraussetzungen konvergiert das Verfahren lokal
+superlinear \cite[siehe][dortige Referenzen]{stoerbulirsch}.
+Der fleißige Leser vergewissere sich, dass für
+\eqref{V.7.4} auch \eqref{V.7.3} gilt.
+
+
+\subsectione{Das gedämpfte Newton-Verfahren}
+Es gilt
+\begin{gather}
+f(x^{*}) = 0 \quad \Longleftrightarrow \quad 
+\min_{x\in\Ren} \frac{1}{2} \nn{f(x)}_2^2
+\label{V.7.5}
+\end{gather}
+Betrachte nun die Funktion $\Phi: \Ren\longrightarrow \R$ mit 
+\begin{gather*}
+\Phi (x) \coloneqq \frac{1}{2} \nn{f(x)}_2^2 
+= \frac{1}{2} f(x)^T f(x)
+\end{gather*}
+Für $\Phi$ ist die Newton-Korrektur
+$d^{(k)} \coloneqq \Delta x^{(k)} \coloneqq -[Df(x)]^{-1}f(x)$
+in $x^{(k)} $ eine \textbf{Abstiegsrichtung}\index{Abstiegsrichtung},
+d.h. für $\mu >0 $ klein genung gilt
+\begin{gather}
+\Phi(x^{(k)}+\mu d^{(k)}) < \Phi(x^{(k)} )
+\label{V.7.6}
+\end{gather}
+denn 
+\begin{align*}
+\left.\frac{d}{d\mu} \Phi(x+\mu d)\right\vert_{\mu = 0} 
+&= \left[f(x+\mu d)^TDf(x+\mu d)d\right]_{\mu = 0}\\
+&= -f(x)^Tf(x) \\
+&< 0 & \text{für } f(x)\neq 0
+\end{align*}
+Die Idee ist nun, statt $\mu = 1$ wie im Newton-Verfahren
+ein \enquote{geeignetes} $\mu \in (0,1]$ zu wählen und 
+\begin{gather}
+x^{(k+1)} = x^{(k)} +\mu d^{(k)}
+\label{V.7.7}
+\end{gather}
+entsprechend zu setzen, d.h. dämpfe $d$ mit Schrittweite $\mu$.\\
+Ein möglicher \enquote{Eignungstest} ist
+\begin{gather}
+\nn{f(x^{(k)}+\mu d^{(k)})}
+\leq (1-\frac{1}{2}\mu )\nn{f(x^{(k)}}
+\label{V.7.8}
+\end{gather}
+Und eine mögliche Strategie um $\mu $ zu bestimmen ist 
+\begin{enumerate}[1.]
+	\item Setze $\mu=1$.
+	\item Halbiere $\mu$ rekursiv solange, bis \eqref{V.7.8} gilt.
+\end{enumerate}
+Es sind allerdings effektivere Dämpfungsstrategien bekannt!
+
+Es gibt also eine äußere Iteration $(k)$
+um $x^{*}$ zu bestimmen
+und eine Innere, um für jedes $(k)$
+ein geeignetes $\mu$ zu berechnen.
+Die innere Schleife ist mit $n$ eindimensionalen Funktionsauswertungen
+\enquote{billig}. \\
+Unter bestimmten Voraussetzungen ist
+\textbf{globale} Konvergenz gewährleistet.
