@@ -60,7 +60,6 @@
 %% (nicer)tables
 \usepackage{booktabs} 		%enables better spacing and lines in tables
 % \usepackage{multirow}	%option multirow for tables (centers text vertically)
-% \usepackage{tabularx}  %table with extendable X-column
 % \usepackage{tabulary}	%table-width matches content
 % ..................................................
 %% font
@@ -72,7 +71,7 @@
 % ..................................................
 %% fonts
 % \usepackage{anyfontsize}	%any fontsize with \fontsize{size}{baselineskip}\selectfont
-
+ \usepackage{tabularx}  %table with extendable X-column
 
 % DEFINITIONS
 % ------------------------------------------------------------------------------------------------
@@ -297,7 +296,7 @@ und es gilt $dim\mathcal{P}_n = n+1$.
 \extrasection{a)}{Lagrangesche Interpolationsformel und Lemma von Aitken}
 
 % \subsectione{Satz}
-\begin{Satze}
+\begin{Satze}\label{6.1.1}
   Zu beliebigen $n+1$ Stützpunkten $(x_i, f_i)_{i=0, \dots n}$ 
   mit $x_i\neq x_k$ für $i\neq k$,
   gibt es genau ein $p\in \mathcal{P}$ mit $p(x_i) = f_i$ für $i=0,
@@ -496,7 +495,7 @@ Es geht jedoch noch billiger, wie gleich zu sehen ist.
 \end{Defe}
 
 
-\begin{Satze}
+\begin{Satze}\label{6.1.6}
   Sei $p(f\,|\, x_0,\dots ,x_n)(x)=\sum_{i=0}^{n}a_iw_i(x) = 
   a_nx^n+ \sum_{i=0}^{n-1}c_ix^i$, dann gilt
   \begin{gather*}
@@ -542,7 +541,7 @@ Es geht jedoch noch billiger, wie gleich zu sehen ist.
 \end{proof}
 
 
-\begin{Satze}[Newtonsche Darstellung]
+\begin{Satze}[Newtonsche Darstellung]\label{6.1.7}
  \index{Polynomraum!Newtonsche Darstellung}
   Es gilt 
   \begin{gather}
@@ -669,6 +668,219 @@ Das Schema von Neville benötigt dagegen
   \end{gather*}
   und Gleichung \eqref{VI.1.14} folgt.
 \end{proof}
+
+
+%----------------------------------------------------------------
+
+\extrasection{c)}{Hermite-Interpolation}
+\marginpar{08.12.2014}
+Gegeben seien die Knoten  $x_0<x_1<\dots <x_m$
+und die Werte $ f_i^{(k)}$ für $k=0,\dots, n_i-1$
+mit $i=1,\dots, m$.
+Dann sind
+\begin{gather*}
+  n+1\coloneqq \sum_{i=0}^{m} n_i
+\end{gather*}
+Werte gegeben.
+
+\begin{Defe}\index{Hermite-Interpolationspolynom}
+  Ein Polynom $p$ mit $p\in \mathcal{P}_n$
+und der Interpolationseigenschaft 
+\begin{gather}
+  p^{(k)}(x_i) = f_i^{(k)}
+\label{VI.1.15}
+\end{gather}
+für $i=0,\dots m$ und $k=0, \dots , n_i-1$ heißt
+\textbf{Hermite-Interpolationspolynom} $p$.
+\end{Defe}
+
+
+\begin{Satze}\label{6.1.12}
+  Das Hermite Interpolationspolynom existiert und ist eindeutig.
+
+\begin{proof}~
+  \begin{description}
+    \item[Eindeutigkeit:] Seien $p_1,p_2\in\mathcal{P}_n$ mit
+      \eqref{VI.1.15}, dann gilt $q=p_1-p_2\in\mathcal{P}_n$
+      und $q$ hat mit Vielfachheit gezählt mindestens
+      $(n+1)$ Nullstellen.\\
+      Damit folgt bereits $q\equiv 0$.
+\item[Existenz:] Die Existenz kann wie in Satz \ref{6.1.1}
+mit verallgemeinerten Lagrangepolynomen gezeigt werden.\\
+Alternativ: Für $p(x) = c_0+c_1x+ \dots +c_nx^n$ ergibt sich
+mit \eqref{VI.1.15} ein lineares GLS mit $(n+1)$ Unbekannten
+und $(n+1)$ Gleichungen.
+Da dieses aufgrund der Eindeutigkeit injektiv ist, ist das GLS
+nicht singulär und damit existiert für beliebige $f_i^{(k)}$ eine Lösung.
+\end{description}
+\end{proof}
+\end{Satze}
+
+
+Führe nun virtuelle Knoten ein:
+ \begin{gather*}
+   \overbrace{\underset{\eqqcolon t_0}{x_0}
+     =\dots
+     = \underset{\eqqcolon t_{n_0-1}}{x_0}
+   }^{n_0}
+ <   \overbrace{\underset{\eqqcolon t_{n_0}}{x_1}=\dots
+     = \underset{\eqqcolon t_{n_0+n_1-1}}{x_1}}^{n_1}
+ <  \overbrace{\underset{\eqqcolon t_{n-n_m+1}}{x_m}=\dots
+     = \underset{\eqqcolon t_{n}}{x_m}}^{n_m}
+ \end{gather*}
+und ersetze die Bedingung \eqref{VI.1.15} durch
+\begin{gather}
+  p^{(s_j)}(t_j) = f^{(s_j)}(t_j) \quad \text{für } j=0,\dots,n
+\label{VI.1.17}
+\end{gather}
+dann gilt
+\begin{gather}
+  s_j= \max\left\{ r\in\N\, \middle\vert\, t_j=t_{j-r}\right\}
+  \label{VI.1.18}
+\end{gather}
+
+\begin{Bspe}\label{VI.1.13}
+  \begin{align*}
+     \begin{array}{ccccrc}
+       x_0=0 & f_0^{(0)} = -1 & f_0^{(1)}= -2 
+       && \Rightarrow & n_0=2 \\
+       x_1=1 & f_1^{(0)} = 0 &  f_1^{(1)}= 10 & f_1^{(2)}=40               
+                      &\Rightarrow & n_1=3 \\
+     \end{array}\Longrightarrow n=4 
+\end{align*}
+\begin{gather*}
+    t_0 = t_1 =x_0=0, \quad t_2=t_3=t_4=x_1=1 \\
+     \begin{array}{ccccc}
+       s_0=0, & s_1=1, & s_2=0, & s_3=1, & s_4=2
+     \end{array}
+   \end{gather*}
+Bezeichne wiederum mit $p(f\,| \, t_0,\dots, t_n)$
+das Interpolationspolynom in $\mathcal{P}_n$,
+welches \eqref{VI.1.17} erfüllt.
+\end{Bspe}
+
+\begin{Leme}[Lemma von Aitken]
+\label{6.1.14}\index{Lemma von Aitken}
+Es gelten die Formeln
+\begin{enumerate}[a)]
+\item falls $t_i=\dots = t_{i+k}=x_l$:
+  \begin{gather}
+    p(f\,|\, t_i,\dots, t_{i+k})(x) 
+    = \sum_{r=0}^{k}\frac{f^{(r)}(x_l)}{r}(x-x_l)^r
+    \label{VI.1.19}
+  \end{gather}
+\item falls $t_i<t_{i+k} $:
+  \begin{gather}
+    p(f\,|\, t_i,\dots, t_{i+k})(x) 
+    = \frac{(x-t_i)\cdot p(f\,|\, t_{i+1},\dots, t_{i+k})(x)
+            - (x-t_{i+k})\cdot p(f\,|\,t_k,\dots, t_{i+k-1})(x)}
+          {t_{i+k}-t_i}
+    \label{VI.1.20}
+  \end{gather}
+\end{enumerate}
+\end{Leme}
+
+\begin{proof}
+In beiden Fällen wird nachgewiesen, dass die rechte Seite
+das zugehörige Hermite-Interpolationsproblem löst.\\
+Aufgrund der Eindeutigkeit von $p\in\mathcal{P}_k$
+ folgt dann die Behauptung.
+\end{proof}
+
+
+\begin{Defe}\index{dividierte Differenzen!verallgemeinerte Form}
+  Die verallgemeinerte \textbf{dividierte Differenz}
+ist definiert durch 
+\begin{gather*}
+  [t_i,\dots, t_{i+1}]f \coloneqq \frac{1}{k!} f^{(k)}(x_l)
+\quad \text{für } t_i=\dots = t_{i+1}=x_l
+\end{gather*}
+und wie in \eqref{VI.1.11} d.h.
+\begin{gather*}
+  [t_i,\dots, t_{i+k}]f = \frac{[t_{i+1},\dots, t_{i+k}]f
+                                - [t_i,\dots,t_{i+k-1}]f}
+                              {t_{i+k}-t_i}
+\quad \text{für } t_i<t_{i+k}
+\end{gather*}
+Wie in \ref{6.1.6} und \ref{6.1.7} folgt aus dem \nameref{6.1.14}
+die \textbf{Newtonsche-Darstellung} \eqref{VI.1.13}
+\begin{gather*}
+  p(f\,|\, t_0,\dots, t_{n})(x) = \sum_{i=0}^{n}[t_0,\dots,t_i]f\cdot w_i(x) 
+\end{gather*}
+mit $w_i(x) =\prod_{j=0}^{i-1}(x-t_j)$.\\
+Ebenso folgt die Leibnizformel für $t_0\leq t_1\leq\dots\leq t_n$
+sowie $g,h\in C^n(I)$ aufgrund der Stetigkeit
+ der dividierten Differenzen bzgl. $t_i$.\\
+Letzteres wäre noch zu zeigen.
+\end{Defe}
+
+
+\begin{Bspe}[Fortsetzung]
+  \begin{align*}
+    \begin{array}{ccccccc}
+      &   x_i& [t_i]f & [t_i,t_{i+1}]f &\dots \\
+      t_0 &0 & \boldsymbol{-1} \\
+      t_1 &0 & -1 & \boldsymbol{-2}\\ 
+      t_2 &1 & 0  & 1  &\boldsymbol{3} \\
+      t_3 &1 & 0  & 10 &9  &\boldsymbol{6} \\
+      t_4 &1 & 0  & 10 &10 &11 & \boldsymbol{5}
+    \end{array}\\
+  \end{align*}
+  Damit folgt für $p$
+  \begin{align*}
+    p(f\,|\,t_0,\dots, t_4)(x) 
+    =& -1\\
+	  &-2(x-0)\\
+     & +3(x-0)(x-0)\\
+     & +6(x-0)(x-0)(x-1)\\
+     & +5(x-0)(x-0)(x-1)(x-1)\\
+    =&-1-2x+3x^2+6x^2(x-1)+5x^2(x-1)^2
+  \end{align*}
+\end{Bspe}
+
+\extrasection{d)}{Fehlerabschätzung}
+Der Fehler $f(x) -p(x) $ kann nicht abgeschätzt werden,
+falls nicht mehr als die Funktionswerte $f_i$ von f bekannt sind.
+
+\begin{Satze}[Fehlerdarstellung mit dividierten Differenzen]
+\index{dividierte Differenzen!Fehlerdarstellung}
+Es gilt die Fehlerdarstellung für alle $f$
+\begin{gather}
+  f(\overline{x})-p(f\,|\,t_0,\dots, t_n)(\overline{x}))
+  = [t_o,\dots,t_n,\overline{x}]f\cdot w_{n+1}(\overline{x})
+  \label{VI.1.22}
+\end{gather}
+\end{Satze}
+
+\begin{proof}
+  \begin{gather*}
+    f(\overline{x})= p(f\,|\,t_0,\dots, t_n)(\overline{x})
+    = p(f\,|\, t_0,\dots, t_n)(\overline{x}
+    + [t_0,\dots, t_n,\overline{x})]f\cdot w_{n+1}(\overline{x})
+  \end{gather*}
+aufgrund der Newtonschen Darstellung \eqref{VI.1.13}.
+\end{proof}
+
+
+\begin{Satze}[Restglieddarstellung]
+\index{Restglieddarstellung}
+Sei $f$ $(n+1)$-mal stetig differenzierbar,
+so gibt es zu jedem $\overline{x}$ eine Zahl $\zeta(\overline{x})$
+aus dem kleinsten Intervall $I$, welches $x_0,\dots, x_m$ enthält,
+so dass 
+\begin{gather}
+  f(\overline{x})-p(f\,|\,t_0,\dots,t_n)(\overline{x})
+  = \frac{f^{(n+1)}(\zeta)}{(n+1)!}\cdot w_{n+1}(\overline{x})
+\label{VI.1.21}
+\end{gather}
+\end{Satze}
+
+\begin{proof}
+  Sei $\overline{x}\neq x_i$ (sonst trivial)
+\imagemissing{Veranschaulichung zur Restglieddarstellung}
+\end{proof}
+
+
 
 
 

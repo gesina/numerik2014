@@ -562,7 +562,7 @@ d.h. $x^{(k+1)} $ ist die Nullstelle der Sekante durch $f(x^{k})$ und $f(x^{(k-1
 
 \subsectione{Iterationsschritt des Sekantenverfahrens}
 \begin{gather}
-x^{(k+1)} = \frac{x^{(k-1)}f(x^{(k)}) - x^{(k)}f(x^{k-1})}{f(x^{(k)})-f(x^{(k-1)})}
+x^{(k+1)} = \frac{x^{(k-1)}f(x^{(k)}) - x^{(k)}f(x^{(k-1)})}{f(x^{(k)})-f(x^{(k-1)})}
 \label{V.4.2}
 \end{gather}
 
@@ -849,7 +849,7 @@ Es ist $f(x^{*})$ gesucht, also teste hierauf. Das residuumbasierte Kriterium
 \begin{gather}
 \nn{f(x^{(k)})}\leq Tol
 \label{V.6.5}
-\end{gather}
+\end{gather}\index{Toleranz}
 ist nur bedingt anwendbar, denn nach \ref{5.5.5} ist das Verfahren affin-invariant.
 Demnach bleibt $(x^{(k)})_{k\in\N}$ gleich,
 ob nun $f(x)$ oder $\widetilde{f}(x) =\alpha f(x) $ betrachtet wird.\\
@@ -889,12 +889,12 @@ x^{(k+1)} = x^{(k)} -[Df(x^{(0)})]^{-1} f(x^{(k)})
 \label{V.7.2}
 \end{gather}
 Das Verfahren konvergiert nur noch lokal linear.
-Der Aufwand je Iteration ist jdoch erheblich geringer.
+Der Aufwand je Iteration ist jedoch erheblich geringer.
 
 
 %----------------------------------------------------------------------------
 
-\subsectione{Das Broyden-Verfahren}
+\subsectione{Das Broyden-Verfahren}\index{Broyden-Verfahren}
 \marginpar{01.12.2014}
 Das Broyden-Verfahren ist eine Verallgemeinerung des Sekantenverfahrens
 auf $n>1$. $Df(x^{(k)})$ wird durch den
