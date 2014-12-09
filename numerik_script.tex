@@ -622,7 +622,7 @@ Das Schema von Neville benötigt dagegen
 	\index{dividierte Differenzen!Leibnizregel}
   Seien $x_0,\dots, x_n$ paarweise verschieden. Dann gilt
   \begin{gather}
-    [x_0,\dots, x_n] (g\cdot h] = \sum_{i=0}^{n}[x_0,\dots,x_i]g[x_i,\dots,x_n]h
+    [x_0,\dots, x_n] (g\cdot h) = \sum_{i=0}^{n}[x_0,\dots,x_i]g\cdot [x_i,\dots,x_n]h
     \label{VI.1.14}
   \end{gather}
 \end{Satze}
@@ -640,7 +640,7 @@ Das Schema von Neville benötigt dagegen
   \prod_{l=j+1}^{n}(x-x_l)\in\mathcal{P}_{n-j}$.\\
   Dann folgt 
   \begin{align*}
-    (G\cdot H)(x_i) &= g(x_i)g(x_i) \quad \forall i\leq n
+    (G\cdot H)(x_i) &= g(x_i)h(x_i) \quad \forall i\leq n
                       \intertext{und}
                       G\cdot H &= \sum_{i,j=0}^{n}[x_0,\dots,x_i]g\cdot
                                  [x_j,\dots,x_n]h\cdot w_i\widetilde{w}_j
@@ -655,7 +655,7 @@ Das Schema von Neville benötigt dagegen
   \begin{gather*}
     P\coloneqq \sum_{0\leq i\leq j\leq n}[x_0,\dots, x_i]g
     \cdot [x_j,\dots, x_n]h
-    \underbrace{w_i\widetilde{w}_jj}_{\in\mathcal{P}_{n+i-j}}
+    \underbrace{w_i\widetilde{w}_j}_{\in\mathcal{P}_{n+i-j}}
     \in\mathcal{P}_n
   \end{gather*}
   die Werte $g(x_k),h(x_k)$ für $k=0,\dots,n$
