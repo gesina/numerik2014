@@ -682,7 +682,7 @@ Als \textbf{Givens-Rotation}\index{Givens-Rotation} wird eine Matrix der Form
 \\   \leftarrow \text{$k$-te Zeile}
 \\ \\ \\ \\ \leftarrow \text{$l$-te Zeile}
 \end{array}
-\label{VI.4.5}
+\label{IV.4.5}
 \end{gather}
 mit $c^2+s^2=1$ und $k<l$ bezeichnet.\\
 Es folgt:
@@ -694,7 +694,7 @@ Es folgt:
 \end{align*}
 Demnach werden nur die $k$-te und $l$-te Zeile werden verändert. \\
 Falls nun $[c,s] = givens(x_k, x_l)$ gilt
-\begin{gather*}
+\begin{gather}
 \Omega_{k,l}\cdot x = \begin{pmatrix}
 x_1 \\ \vdots \\x_{k-1} \\\alpha \\ x_{k+1}
 \\\vdots \\
@@ -703,7 +703,8 @@ x_{l-1} \\ 0 \\x_{l+1} \\\vdots \\x_n
 \qquad
 \quad \text{mit~~}
 \alpha = \pm \nn{  \begin{pmatrix} x_k \\ x_l\end{pmatrix}}_2
-\end{gather*}
+\label{IV.4.6}
+\end{gather}
 d.h. eine Givens-Rotation erzeugt eine Null.\\
 Da nun
 \begin{gather*}
@@ -904,9 +905,9 @@ wobei
 w &= \scp{\frac{v}{\nn{v}}}{x} \cdot \frac{v}{\nn{v}} \\ %\nonumber
 Qx &= x-2w = x-2\frac{v^Tx}{v^Tv}v 
 = (I-2\frac{vv^T}{v^Tv})x 
-\label{VI.4.10}\\
+\label{IV.4.10}\\
 Q  &= I-2\frac{vv^T}{v^Tv}&& vv^T \in \Renn,\,\, v^Tv\in\R
-\label{VI.4.11}
+\label{IV.4.11}
 \end{align}
 und heißt \textbf{Householder Reflexion} \index{Householder Reflexion}
 (wurde  1958 von Householder eingeführt).  \\
@@ -1052,6 +1053,44 @@ dann wird $A$ zu:
 Falls zusätzlich $v^{(i)}$ so normiert ist,
 dass $v_1^{(i)} = 1$ ist, braucht diese Komponente nicht gespeichert werden 
 und $R$ kann komplett in $A$ gespeichert werden.
+
+
+
+\subsectione{Householder QR-Algorithmus}
+\begin{pseudocode}{\linewidth}
+	\textbf{for} $j = 1,\dots, \min(m - 1, n)$ \\
+	|	\>	// berechne $\alpha$ für $a = A(j : m, j)$ \\
+	|	\>	$\alpha(j) = -sign(A(j, j))\sqrt{A(j:m, j)^T A(j:m, j)}$ \>\>\>\> siehe \eqref{IV.4.9}\\
+	|	\>  // berechne $A(j:m,j)=v=a-\alpha e_1$ \\
+	|	\>	$A(j,j)=A(j,j)-\alpha(j)$ \>\>\>\> siehe \eqref{IV.4.8}\\
+	|	\> // berechne $-\scp{v}{v} = \alpha(a_1 - \alpha) = \alpha v_1$ \\
+	|	\> $\beta = \alpha(j)A(j, j)$\>\>\>\> siehe \eqref{IV.4.12}\\
+	|	\> // berechne $\overline{Q}^{(j)}T^{(j)}$ 
+			aber nicht mehr die erste Spalte, welche $\alpha(j)e_1$ ist\\
+	|	\> \textbf{for} $l = j + 1 : n$\\
+	|		\>\> // setze $v_x = -2{(v^Tx)}{(v^Tv)}^{-1}$\\
+	|		\>\> $v_x = A(j : m, j)^TA(j:m,l)\cdot \frac{1}{\beta}$ \>\>\>siehe \eqref{IV.4.10}\\
+	|		\>\> // berechne  $\overline{Q}^{(j)}x=x+v_x\cdot v$\\
+	|		\>\> $A(j:m,l) = A(j:m,l)+v_xA(j:m,l)$ \>\>\> siehe \eqref{IV.4.10}\\
+	|	\>\textbf{end}\\
+	\textbf{end}
+\end{pseudocode}
+
+
+\subsectione{Berechnung von $Q^Tb$}
+Zur Lösung eines Gleichungssystems oder eines linearen Ausgleichsproblems
+muss noch $Q^Tb=Q^{(p)}\cdot \dots \cdot Q^{(1)}$ berechnet werden.
+
+\begin{pseudocode}{0.7\linewidth}
+	\textbf{for} $j=1,\dots, \min\{m-1,n\}$\\
+	|	\> // beachte \eqref{IV.4.13}, also $b(1:j-1)$ bleibt gleich\\
+	|	\> // setze $v_x=-2(v^Tb)(v^Tv)^{-1}$\\
+	|	\> $v_x=\big(A(j:m,j)^Tb(j:m)\big)\cdot \big(\alpha(j)A(j,j)\big)^{-1}$ \\
+	|	\> // berechne $\overline{Q}^{(j)} b=b+v_xv$\\
+	|	\> $b(j:m) = b(j:m)+v_xA(j:m,j)$\\
+	\textbf{end}
+\end{pseudocode}
+
 
 \subsectione{Aufwand für den Householder-QR-Algorithmus}
 \begin{enumerate}[a)]

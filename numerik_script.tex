@@ -167,7 +167,7 @@
       \hspace*{1em}	
       \begin{minipage}{#1}
         \begin{tabbing}
-          for~~\= for~~\= for~~\= for~~\= \kill
+          for~~\= for~~\= for~~\= for~~\= some really really large amount of text \= \kill
 	}
 	{ %
         \end{tabbing}
@@ -793,7 +793,7 @@ Aufgrund der Eindeutigkeit von $p\in\mathcal{P}_k$
 ist definiert durch 
 \begin{gather*}
   [t_i,\dots, t_{i+k}]f \coloneqq \frac{1}{k!} f^{(k)}(x_l)
-\quad \text{für } t_i=\dots = t_{i+k}=x_l %????????????????????????????????
+\quad \text{für } t_i=\dots = t_{i+k}=x_l 
 \end{gather*}
 und wie in \eqref{VI.1.11} d.h.
 \begin{gather*}
@@ -838,7 +838,7 @@ Letzteres wäre noch zu zeigen.
   \end{align*}
 \end{Bspe}
 
-\extrasection{d)}{Fehlerabschätzung}
+\extrasection{d)}{Fehlerabschätzung bei Polynominterpolation}
 Der Fehler $f(x) -p(x) $ kann nicht abgeschätzt werden,
 falls nicht mehr als die Funktionswerte $f_i$ von f bekannt sind.
 
@@ -883,9 +883,10 @@ so dass
 
 \marginpar{10.12.2014}
 Definiere
-\begin{gather*}
+\begin{gather}
   F(x) \coloneqq f(x)-p(f\,|\, t_0,\dots , t_n)(x) - Kw_{n+1}(x)
-\end{gather*}
+  \label{IV.1.22}
+\end{gather}
 mit $K=const$ so gewählt, dass $F(\overline{x})=0$.\\
 Aufgrund von $p^{(k)}(x_i)=f^{(k)}(x_i)$
 und $w_{n+1}^{(k)}(x_i) = 0$ wegen
@@ -917,10 +918,12 @@ die ungleich zu den $x_i$ sind für die $n_i>2$.\\
 Weiterhin gilt $F''(x_i)=0$, falls $n_i>2$.\\
 Sukzessive folgt damit für $F^{(n+1)}$ die Existenz von
 \begin{gather*}
-  m+1-n + \#\left\{i\,\middle\vert\, n_i>1\right\}
+  m+1-n + \underbrace{
+	  	\#\left\{i\,\middle\vert\, n_i>1\right\}
         + \#\left\{i\,\middle\vert\, n_i>2\right\}
         + \dots 
         + \#\left\{i\,\middle\vert\, n_i>n\right\}
+        }_{=n-m}
 \end{gather*}
 paarweise verschiedene Nullstellen in $I^{n-m}$.\\
 Also existiert mindestens eine Nullstelle $\xi$ von
@@ -1012,6 +1015,66 @@ als minimal \cite{haemmerlinhoffmann}, wobei
   P_n(x) = \frac{n!}{(2n)!}\frac{d^n}{dx^n}\left((x^2-1)^n\right)
 \end{gather*}
 
+
+\textbf{Achtung:}\index{Interpolation!Konvergenz} Die Folge der Interpolationspolynome,
+die sich bei gleichmäßiger Knotenverteilung ergeben,
+konvergieren \textbf{nicht} gegen f mit wachsender Anzahl der Knoten!\\
+Ein Gegenbeispiel ist $f(x)=|x|$ in $[-1,1]$:\\
+Die Folge $\left\{p(f\,|\,x_0,\dots,x_n)(x)\right\}_{n\in\N}$
+mit $x_i$ gleichmäßig verteilt,
+divergiert für alle Werte $0<|x|<1$.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\linewidth]{images/afg49aequi.jpg}
+	\caption{Gegenbeispiel zur Konvergenz: äquidistante Gitter für Betragsfunktion}
+	\label{6.1.20im1}
+\end{figure}
+\begin{figure}[t!b]
+	\centering
+	\includegraphics[width=0.5\linewidth]{images/afg49tscheby.jpeg}
+	\caption{Gegenbeispiel zur Konvergenz: Tschebyscheff-Punkte für Betragsfunktion}
+	\label{6.1.20im2}
+\end{figure}
+
+Ein weiteres Gegenbeispiel ist $f(x)=\frac{1}{1+x^2}$ in $[-5,5]$ 
+(siehe Übungsaufgabe).
+
+Es gilt sogar:
+
+\begin{Satze}[Faber]
+	Zu jeder Folge von Intervalleinteilungen von $[a,b]$
+	gibt es eine stetige Funktion $f$ ,
+	so dass die Interpolationspolynome auf $[a, b]$
+	nicht gleichmäßig gegen $f$ konvergiert 
+	(bzgl. $\nn{\,\cdot\,}_\infty$).
+\end{Satze}
+
+Basierend auf dem Satz von Jackson gilt:
+\begin{Satze}[Konvergenz bei Tschebyscheff-Knoten]
+	Sei $f\in C([-1,1])$ Lipschitz-stetig.
+	Dann konvergieren die Interpolationspolynome
+	zu den Tschebyscheff-Knoten gleichmäßig	gegen $f$ .
+\end{Satze}
+
+Andererseits gilt \cite[siehe][]{haemmerlinhoffmann}:
+\begin{Satze}[Marcinkiewicz]
+	Zu jeder Funktion $f\in C([a,b])$ kann eine Folge von
+	Intervalleinteilungen angegeben werden,
+	so dass die Folge der Interpolationspolynome gleichmäßig gegen $f$ konvergiert.
+\end{Satze}
+
+Im Gegensatz zur $\nn{\,\cdot\,}_\infty$-Norm (auch Tschebyscheff-Norm genannt)
+gilt für die $\nn{\,\cdot\,}_2$-Norm \cite[siehe][]{haemmerlinhoffmann}:
+\begin{Satze}
+	Sei $f\in C([-1,1])$ und seien $x_0,\dots, x_n$ die Nullstellen
+	des	Legendre-Polynoms $L_n+1$. Dann gilt
+	\begin{gather*}
+		\lim\limits_{n\rightarrow \infty}\nn{f-p(f\,|\,x_0,\dots, x_n)}_2 = 0
+	\end{gather*}
+\end{Satze}
+
+
 \sectione{Stückweise polynomiale Approximation durch Splines}
 Eine hohe Anzahl von Knoten garantiert keine \enquote{gute}
 Approximation durch Interpolationspolynome.
@@ -1027,6 +1090,7 @@ und diese \enquote{glatt} zusammenzusetzen.
     ist zur graphischen Aufarbeitung am geeignetsten,
     da das Auge noch Unstetigkeiten in der Krümmung erkennt.
 \end{itemize}
+
 
 \extrasection{a)}{Splines und zwei verschiedene Basen}
 \begin{Defe}\index{Spline}
