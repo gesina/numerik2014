@@ -200,12 +200,12 @@
 %\includeonly{chapters/numerik_chap0}
 
 
-% ************************************************************************************************
+% **************************************************************************
 \begin{document}
 
-% ----------------------------------------------------------------------------------------------
+% ----------------------------------------------------------------------------
 % FRONTMATTER
-% ----------------------------------------------------------------------------------------------
+% ----------------------------------------------------------------------------
 \frontmatter	%for book only, part for title etc.
 
 % TITLE(PAGE)
@@ -739,14 +739,14 @@ dann gilt
   \label{VI.1.18}
 \end{gather}
 
-\begin{Bspe}\label{VI.1.13}
+\begin{Bspe}\label{6.1.13}
   \begin{align*}
      \begin{array}{ccccrc}
        x_0=0 & f_0^{(0)} = -1 & f_0^{(1)}= -2 
        && \Rightarrow & n_0=2 \\
        x_1=1 & f_1^{(0)} = 0 &  f_1^{(1)}= 10 & f_1^{(2)}=40               
                       &\Rightarrow & n_1=3 \\
-     \end{array}\Longrightarrow n=4 
+     \end{array}\Longrightarrow n=6
 \end{align*}
 \begin{gather*}
     t_0 = t_1 =x_0=0, \quad t_2=t_3=t_4=x_1=1 \\
@@ -792,8 +792,8 @@ Aufgrund der Eindeutigkeit von $p\in\mathcal{P}_k$
   Die verallgemeinerte \textbf{dividierte Differenz}
 ist definiert durch 
 \begin{gather*}
-  [t_i,\dots, t_{i+1}]f \coloneqq \frac{1}{k!} f^{(k)}(x_l)
-\quad \text{für } t_i=\dots = t_{i+1}=x_l
+  [t_i,\dots, t_{i+k}]f \coloneqq \frac{1}{k!} f^{(k)}(x_l)
+\quad \text{für } t_i=\dots = t_{i+k}=x_l %????????????????????????????????
 \end{gather*}
 und wie in \eqref{VI.1.11} d.h.
 \begin{gather*}
@@ -815,7 +815,7 @@ Letzteres wäre noch zu zeigen.
 \end{Defe}
 
 
-\begin{Bspe}[Fortsetzung]
+\begin{Bspe}[Fortsetzung von \ref{6.1.13}1]\label{6.1.16}
   \begin{align*}
     \begin{array}{ccccccc}
       &   x_i& [t_i]f & [t_i,t_{i+1}]f &\dots \\
@@ -846,7 +846,7 @@ falls nicht mehr als die Funktionswerte $f_i$ von f bekannt sind.
 \index{dividierte Differenzen!Fehlerdarstellung}
 Es gilt die Fehlerdarstellung für alle $f$
 \begin{gather}
-  f(\overline{x})-p(f\,|\,t_0,\dots, t_n)(\overline{x}))
+  f(\overline{x})-p(f\,|\,t_0,\dots, t_n)(\overline{x})
   = [t_o,\dots,t_n,\overline{x}]f\cdot w_{n+1}(\overline{x})
   \label{VI.1.22}
 \end{gather}
@@ -854,9 +854,9 @@ Es gilt die Fehlerdarstellung für alle $f$
 
 \begin{proof}
   \begin{gather*}
-    f(\overline{x})= p(f\,|\,t_0,\dots, t_n)(\overline{x})
-    = p(f\,|\, t_0,\dots, t_n)(\overline{x}
-    + [t_0,\dots, t_n,\overline{x})]f\cdot w_{n+1}(\overline{x})
+    f(\overline{x})- p(f\,|\,t_0,\dots, t_n)(\overline{x})
+    = p(f\,|\, t_0,\dots, t_n)(\overline{x})
+    + [t_0,\dots, t_n,\overline{x}]f\cdot w_{n+1}(\overline{x})
   \end{gather*}
 aufgrund der Newtonschen Darstellung \eqref{VI.1.13}.
 \end{proof}
@@ -865,12 +865,12 @@ aufgrund der Newtonschen Darstellung \eqref{VI.1.13}.
 \begin{Satze}[Restglieddarstellung]
 \index{Restglieddarstellung}
 Sei $f$ $(n+1)$-mal stetig differenzierbar,
-so gibt es zu jedem $\overline{x}$ eine Zahl $\zeta(\overline{x})$
+so gibt es zu jedem $\overline{x}$ eine Zahl $\xi(\overline{x})$
 aus dem kleinsten Intervall $I$, welches $x_0,\dots, x_m$ enthält,
 so dass 
 \begin{gather}
   f(\overline{x})-p(f\,|\,t_0,\dots,t_n)(\overline{x})
-  = \frac{f^{(n+1)}(\zeta)}{(n+1)!}\cdot w_{n+1}(\overline{x})
+  = \frac{f^{(n+1)}(\xi)}{(n+1)!}\cdot w_{n+1}(\overline{x})
 \label{VI.1.21}
 \end{gather}
 \end{Satze}
@@ -878,7 +878,217 @@ so dass
 \begin{proof}
   Sei $\overline{x}\neq x_i$ (sonst trivial)
 \imagemissing{Veranschaulichung zur Restglieddarstellung}
+
+%-----------------------------------------
+
+\marginpar{10.12.2014}
+Definiere
+\begin{gather*}
+  F(x) \coloneqq f(x)-p(f\,|\, t_0,\dots , t_n)(x) - Kw_{n+1}(x)
+\end{gather*}
+mit $K=const$ so gewählt, dass $F(\overline{x})=0$.\\
+Aufgrund von $p^{(k)}(x_i)=f^{(k)}(x_i)$
+und $w_{n+1}^{(k)}(x_i) = 0$ wegen
+$w_{n+1}(x) =
+(x-t_0)\cdot\dots\cdot(x-t_n)=\prod_{l=0}^{m}(x-x_l)^{n_l}$
+gilt
+\begin{gather*}
+  F^{(k)}(x_i) = 0 
+  \quad \text{für } i=0,\dots,m 
+\end{gather*}
+sowie
+\begin{gather*}
+  F(\overline{x})=0
+\end{gather*}
+Da $F(x_i)=0$ für $i=0,\dots,m$ und $F(\overline{x})=0$, folgt
+\begin{gather*}
+  \exists\, \rho_0^{(1)},\dots,\rho_m^{(1)}\in I,\,
+  %\rho_i^{(1)}\overset{i\neq j}{\neq}\rho_j^{(1)}
+  : F'(\rho_i^{(1)})=0
+\end{gather*}
+nach dem Satz von Rolle 
+mit paarweise verschiedenen $\rho_i^{(1)}$. \\
+$F'$ hat also $(m+1)+\#\left\{i\,\middle\vert\, n_i>1\right\}$
+paarweise verschiedene Nullstellen.
+Nach dem Satz von Rolle hat $F''$ also 
+$n+\#\left\{i\,\middle\vert\, n_i>1\right\}$
+paarweise verschiedene Nullstellen in $I$,
+die ungleich zu den $x_i$ sind für die $n_i>2$.\\
+Weiterhin gilt $F''(x_i)=0$, falls $n_i>2$.\\
+Sukzessive folgt damit für $F^{(n+1)}$ die Existenz von
+\begin{gather*}
+  m+1-n + \#\left\{i\,\middle\vert\, n_i>1\right\}
+        + \#\left\{i\,\middle\vert\, n_i>2\right\}
+        + \dots 
+        + \#\left\{i\,\middle\vert\, n_i>n\right\}
+\end{gather*}
+paarweise verschiedene Nullstellen in $I^{n-m}$.\\
+Also existiert mindestens eine Nullstelle $\xi$ von
+$F^{(n+1)}=f^{(n+1)}-K(n+1)!$. Damit ist
+\begin{gather*}
+K=\frac{f^{(n+1)}(\xi)}{(n+1)!}
+\end{gather*}
+Mit $F(\overline{x}) =0$ folgt die Behauptung.
 \end{proof}
+
+
+\begin{Fole}
+  Für $f\in C^n(I) $ mit $I=[\min_{i\leq m}x_i, \max_{i\leq m}x_i]$
+gibt es ein $\xi\in I$ mit 
+\begin{gather}
+  [t_0,\dots,t_n]f=\frac{f^{(n)}(\xi)}{n!}
+  \label{VI.1.23}
+\end{gather}
+
+\begin{proof}
+  Für $f\in C^{n+1}(I)$ folgt aus
+Beispiel \ref{6.1.16} und \eqref{VI.1.17}
+\begin{gather*}
+ K= \frac{f^{(n+1)}(\xi)}{(n+1)!}
+\end{gather*}
+womit \eqref{VI.1.23} folgt.
+\end{proof}
+\end{Fole}
+
+Wie in der obigen Fehlerdarstellung zu sehen ist,
+spielt nicht nur $f^{(n+1)}$ bzw.
+$[t_0,\dots,t_n, \overline{x}]f$ eine Rolle für den Fehler,
+sondern mit $w_{n+1}(\overline{x})$ auch die Verteilung der Knoten.\\
+Falls die Knoten frei wählbar sind und
+\begin{gather*}
+  \nn{f-p(f\,|\,t_0,\dots,t_n)}_{C([a,b])}
+\end{gather*}
+klein ist, wird gewünscht, dass
+\begin{gather*}\index{Norm}
+  \nn{w_{n+1}}_{C([a,b])}\coloneqq \nn{w_{n+1}}_\infty
+  = \max_{x\in[a,b]}|w_{n+1}(x)|
+\end{gather*}
+minimal ist, d.h.
+es wird 
+\begin{gather*}
+  \min_{t_0,\dots,t_n\in\R}\,\max_{x\in[a,b]}
+  |(x-t_0)\cdot\dots\cdot(x-t_n)|
+\end{gather*}
+gesucht.\\
+Falls $t_i=x_i$, kann gezeigt werden 
+\cite[z.B.][]{deuflhardhohmann,freundhoppe},
+dass für $[a,b]=[-1,1]$ das zugehörige $w_{n+1}$,
+das sogenannte
+\textbf{Tschebyscheff-Polynom}\index{Tschebyscheff-Polynom}
+\begin{gather}
+  T_{n+1}(x)\coloneqq \cos\big((n+1)\arccos(x)\big)\in\mathcal{P}_{n+1}
+  \label{VI.1.24}
+\end{gather}
+ist. Dessen Nullstellen, die 
+\textbf{Tschebyscheff-Punkte}\index{Tschebyscheff-Punkte},
+sind
+\begin{gather}
+  x_i= \cos\left(\frac{2i+1}{2n+2}\pi\right)\quad \text{für } i=0,\dots,n
+  \label{VI.1.25}
+\end{gather}
+Weiterhin ist der führende Koeffizient von $T_{n+1}$ genau $2^n$,
+sodass 
+\begin{gather}
+  \nn{w_{n+1}}_{C([-1,1])}=2^{-n}
+  \label{VI.1.26}
+\end{gather}
+für die Tschebyscheff-Punkte gilt.\\
+Für andere Intervalle $[a,b]$ wird die lineare Transformation
+\begin{gather*}
+  x=\frac{1}{2}\big(t(b-a)+(b+a)\big)
+\end{gather*}
+von $[-1,1]$ auf $[a,b]$ durchgeführt.
+
+Wird die Fehlerabschätzung bzgl. der 
+$\nn{\,\cdot\,}_2$-Norm\index{Norm!Euklidische Norm},
+d.h. 
+\begin{gather*}
+  \nn{f}_2\coloneqq \left(\int_{a}^{b}|f(t)|^2dt  \right)
+\end{gather*}
+betrachtet, erweisen sich auf $[-1,1]$ die Nullstellen
+des \textbf{Legendre-Polynoms}\index{Legendre-Polynom} $P_{n+1}$
+als minimal \cite{haemmerlinhoffmann}, wobei
+\begin{gather*}
+  P_n(x) = \frac{n!}{(2n)!}\frac{d^n}{dx^n}\left((x^2-1)^n\right)
+\end{gather*}
+
+\sectione{Stückweise polynomiale Approximation durch Splines}
+Eine hohe Anzahl von Knoten garantiert keine \enquote{gute}
+Approximation durch Interpolationspolynome.
+In der Regel treten dann hohe Schwingungen auf,
+die unerwünscht sind.
+Die Idee der stückweisen polynomialen Approximation ist,
+jeweils einige wenige Stützwerte polynomial zu interpolieren
+und diese \enquote{glatt} zusammenzusetzen.
+\imagemissing{Veranschaulichung stückweiser polynomialer Approximation}
+\begin{itemize}
+  \item stückweise linear und stetig ist am einfachsten
+  \item stückweise kubisch und global zweimal stetig differenzierbar
+    ist zur graphischen Aufarbeitung am geeignetsten,
+    da das Auge noch Unstetigkeiten in der Krümmung erkennt.
+\end{itemize}
+
+\extrasection{a)}{Splines und zwei verschiedene Basen}
+\begin{Defe}\index{Spline}
+  Sei $\Delta =\{x_0,\dots,x_n\} $ ein Gitter
+  mit paarweise verschiedenen Knoten $a=x_0<\dots<x_n=b$.\\
+Ein (Polynom-)\textbf{Spline von Ordnung $k$}$\geq 2$ 
+(d.h. der Grad der Teilstückpolynome ist maximal $(k-1)$)
+ist eine Funktion $s$ mit $s\in C^{(k-2)}([a,b])$
+und $s\in\mathcal{P}_{k-1}([x_i,x_{i+1}])$
+für $i=0,\dots,n-1$.\\
+Der Raum der Splines von Ornung $k$ bzgl. $\Delta$ sei
+mit $S_{k,\Delta}$ bezeichnet.\\
+Für $k=1$ ist der Raum definiert durch
+\begin{gather*}
+  S_{1,\Delta} \coloneqq 
+  \left\{
+    s:[a,b]\rightarrow\R\,\middle\vert\,
+    s|_{[x_i,x_{i+1}]}\in\mathcal{P}_0
+      \text{ für } 0\leq i\leq n
+  \right\}
+\end{gather*}
+Für $k=2$ ergeben sich \textbf{lineare Splines}\index{Spline!linear}
+und für $k=4$ die \textbf{kubischen Splines}\index{Spline!kubisch}.\\
+Offensichtlich gilt
+\begin{enumerate}[a)]
+  \item $S_{k,\Delta}$ ist ein linearer Vektorraum.
+  \item $\mathcal{P}_{k-1}\subseteq S_{k,\Delta}$
+\end{enumerate}
+Natürlich lässt sich ein Spline stückweise als Polynom darstellen,
+es hat also $n\cdot k$ Koeffizienten.
+Gewünscht ist aber eine Basisdarstellung,
+welche dann $n+k-1$ Koeffizienten hat.
+\end{Defe}
+
+\begin{Satze}\label{6.2.2}\index{abgebrochene Potenz}
+Die Monome $x^l$ und die \textbf{abgebrochenen Potenzen}
+\begin{gather}
+  (x-x_i)_+^l\coloneqq
+  \begin{cases}
+    (x-x_i)^l & x\geq x_i\\
+    0         & x<x_i
+  \end{cases}
+  \label{VI.2.1}
+\end{gather}
+bilden eine Basis
+\begin{gather*}
+  \mathcal{B}=
+  \left\{
+    1,x,\dots,x^{k-1},(x-x_1)+^{k-1},\dots,(x-x_{n-1})_+^{k-1}
+  \right\}
+\end{gather*}
+des Splineraumes $S_{k,\Delta}$. Insbesondere gilt
+\begin{gather}
+  \dim S_{k,\Delta}=k+n-1
+  \label{VI.2.2}
+\end{gather}
+\imagemissing{Dimension eines Splineraumes}
+
+\begin{proof}
+  siehe Übungsaufgabe
+\end{proof}
+\end{Satze}
 
 
 
