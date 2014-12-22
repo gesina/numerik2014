@@ -225,10 +225,23 @@ Sei $L\coloneqq (L_1^{-1}\cdot \cdots \cdot L_{n-1}^{-1})$ wie in \eqref{II.1.8}
 	Wegen \eqref{IV.2.2} gilt: 
 	\begin{align}
 	a_{kk} &= \bar{l}_{k1}^{2} + \cdots +  \bar{l}_{kk}^2  \label{IV.2.3} \\
-	a_{ik} &= \bar{l}_{i1} \bar{l}_{k1} + \cdots + \bar{l}_{ik} \bar{l}_{kk}  \label{IV.2.4} \\
+	a_{ik} &= \bar{l}_{i1} \bar{l}_{k1} + \cdots + \bar{l}_{ik} \bar{l}_{kk}  \label{IV.2.4}
 	\end{align}
-	\imagemissing{Berechnung der Matrixeinträge der Cholesky-Zerlegung}
 	Demnach funktioniert spaltenweises und zeilenweises Berechnen. 
+		
+	\begin{gather*}
+		\begin{tikzpicture}
+		%Dreiecke zeichnen
+		\foreach \x in {0,5}
+		{
+			\draw (\x,0) -- (\x+4,0) -- (\x,4) -- cycle;
+			\draw (\x,2.5) node[left] {$k$} -- (\x+1.5,2.5);
+			\draw (\x+1.5,4.5) node {$k$};
+		}
+		\draw[dash pattern=on 3pt off 3pt] (6.5,0) -- (6.5,4);
+		\draw (5,1) node[left] {$i$} -- (8,1);
+		\end{tikzpicture}
+	\end{gather*}
 \end{Fole}
 
 Es ergibt sich folgender Algorithmus:
@@ -428,7 +441,7 @@ orthogonale Projektion von $b$ auf den Bildraum $R(A) $ \index{Bildraum}, wie gl
 		\end{align}
 		dann ist $\overline{u}$ die eindeutig bestimmte Lösung für $ v-\overline{u} \in U^\bot$
 		
-		IMAGE~MISSING \\
+		\imagemissing{}\label{im4.3.3}
 		
 		Sei  $u\in U$. Dann gilt:
 		\begin{align}
@@ -614,14 +627,13 @@ Dies ist im Gegensatz zur $LR$-Zerlegung aufgrund von $cond(Q^{(i)})= 1$ immer s
 
 Für $Q\in\R^{2\times 2}$ gibt es zwei mögliche Anschauungen, nämlich:
 \begin{enumerate}[a)]
-	\item Drehung ~~~ IMAGE~MISSING
-	\item Spiegelung ~~~ IMAGE~MISSING
+	\item Drehung ~~~ IMAGE~MISSING\label{im4.4(1)}
+	\item Spiegelung ~~~ IMAGE~MISSING\label{im4.4(2)}
 \end{enumerate}
 
 \extrasection{a)}{Givens-Rotation}
-Es wird eine Drehung auf den 1. Einheitsvektor durchgeführt:\\
-
-IMAGE~MISSING\\
+Es wird eine Drehung auf den 1. Einheitsvektor durchgeführt:
+\imagemissing{Drehung auf den Einheitsvektor}\label{im4.4.a}
 
 \begin{gather*}
 a=\begin{pmatrix}a_1 \\ a_2\end{pmatrix} \rightarrow \begin{pmatrix}\alpha \\ 0 \end{pmatrix}
@@ -857,9 +869,8 @@ Es ergibt sich:
 
 \extrasection{b)}{Householder-Reflexion}
 
-Es sei $H$ eine Hyperebene im $\R^m$ und zusätzlich ein Vektor $a\in\R^m$ gegeben. \\
-
-IMAGE~MISSING \\
+Es sei $H$ eine Hyperebene im $\R^m$ und zusätzlich ein Vektor $a\in\R^m$ gegeben.
+\imagemissing{}\label{im4.4.b}
 
 Gesucht ist nun die Reflexion $Q$, so dass
 \begin{gather*}
@@ -1048,7 +1059,7 @@ v^{(1)}| & v^{(2)}|&\ddots ~~\\
 Wohlgemerkt kann so auch $A\in \R{m\times n}$ mit $m<n$ bearbeitet werden,
 dann wird $A$ zu:
 
-\imagemissing{Zerlegung einer mxn-Matrix für $m<n$}
+\imagemissing{Zerlegung einer mxn-Matrix für $m<n$}\label{im4.4.5}
 
 Falls zusätzlich $v^{(i)}$ so normiert ist,
 dass $v_1^{(i)} = 1$ ist, braucht diese Komponente nicht gespeichert werden 

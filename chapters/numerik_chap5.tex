@@ -58,7 +58,7 @@ Sei $f:[a,b]\rightarrow \R $ stetig udn$f(a) \cdot f(b) <0$.\\
 Dann folgt aus dem Zwischenwertsatz die Existenz
 mindestens einer Nullstelle $x^{*}\in (a,b)$.
 
-\imagemissing{Beispiel zur Nullstellenexistenz}
+\imagemissing{Beispiel zur Nullstellenexistenz}\label{im5.1.2}
 
 Generiere eine Folge von Intervallen
 $[a^{(i)}, b^{(i)}]\in  [a^{(i-1)}, b^{(i-1)}] $,
@@ -137,10 +137,10 @@ x^{*} = \lim_{k\rightarrow \infty}x^{(k+1)} &= \lim_{k\rightarrow \infty}g(x^{(k
 	Löse $x-e^{-x}-1 = 0$.
 	\begin{enumerate}[a)]
 		\item $x=1+e^{-x} \eqqcolon g_1(x)$
-		\imagemissing{Konvergenz der Fixpunktiteration für $x=1+e^{-x}$}
+		\imagemissing{Konvergenz der Fixpunktiteration für $x=1+e^{-x}$}\label{im5.2.1(1)}
 		$\longrightarrow$ Konvergenz
 		\item $e^{-x} = x-1   \Leftrightarrow x= -ln(x-1) \eqqcolon g_2(x)$
-		\imagemissing{Versagen der Fixpunktiteration für $x=-ln(x-1)$}
+		\imagemissing{Versagen der Fixpunktiteration für $x=-ln(x-1)$}\label{im5.2.1(2)}
 		$\longrightarrow$ $g(x^{(2)}) $ nicht definiert!
 	\end{enumerate}
 \end{Bspe}
@@ -156,7 +156,7 @@ x^{*} = \lim_{k\rightarrow \infty}x^{(k+1)} &= \lim_{k\rightarrow \infty}g(x^{(k
 	\end{gather*}
 	Die kleinste solche Zahl $\kappa$ heißt Kontraktionszahl von g.
 	
-	\imagemissing{Grafische Veranschaulichung einer Kontraktion}
+	\imagemissing{Grafische Veranschaulichung einer Kontraktion}\label{im5.2.2}
 	
 	Offensichtlich ist jede auf $D$ kontrahierende Abbildung stetig.
 \end{Defe}  
@@ -443,7 +443,7 @@ f(x^{*}) = f(x) + f'(x)(x^{*}-x)+o(\nn{x-x^{*}}) \, ,
 \end{gather*} 
 d.h. $f$ kann lokal gut durch die Tangente approximiert werden. \\
 Betrachte die Nullstellengleichung $f(x^{*}) = 0$ \\
-\imagemissing{Veranschaulichung des Newton-Verfahrens an einem Funktionsgraphen}
+\imagemissing{Veranschaulichung des Newton-Verfahrens an einem Funktionsgraphen}\label{im5.4}
 und bestimme iterativ die Nullstelle der Tangentengleichung
 \begin{gather*}
 0=f(x) + f'(x)(\overline{x}-x) \Leftrightarrow \overline{x}= x-\frac{f(x)}{f'(x)}
@@ -519,9 +519,9 @@ J. Raphson (1630). Newton hat eine ähnliche Technik früher angewendet.
 	\marginpar{24.11.2014}
 	\begin{itemize}
 		\item $x^{(1)}$ nicht mehr im Definitionsbereich
-		\imagemissing{Fehlschlagen des Newton-Verfahren: außerhalb des Definitionsbereichs}
+		\imagemissing{Fehlschlagen des Newton-Verfahren: außerhalb des Definitionsbereichs}\label{im5.4.4(1)}
 		\item $|x^{*}-x^{(1)}| \nless |x^{*}-x^{(0)}| $
-		\imagemissing{Fehlschlagen des Newton-Verfahren: Konvergenz nicht gesichert}
+		\imagemissing{Fehlschlagen des Newton-Verfahren: Konvergenz nicht gesichert}\label{im5.4.4(2)}
 	\end{itemize}
 \end{Bspe}
 
@@ -566,7 +566,7 @@ x^{(k+1)} = \frac{x^{(k-1)}f(x^{(k)}) - x^{(k)}f(x^{(k-1)})}{f(x^{(k)})-f(x^{(k-
 \label{V.4.2}
 \end{gather}
 
-\imagemissing{Geometrische Veranschaulichung des Sekantenverfahrens}
+\imagemissing{Geometrische Veranschaulichung des Sekantenverfahrens}\label{im5.4.7}
 
 
 % \subsectione{Satz (Konvergenz des Sekantenverfahrens)}
