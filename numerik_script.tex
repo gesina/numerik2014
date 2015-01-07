@@ -274,16 +274,16 @@ beschreibt das numerische Lösen von
 \end{gather*}
 Die numersiche Quadratur $\hat{I}(f)$ sollte
 \begin{enumerate}[a)]
-  \item effizient ausführbar sein,
-  \item viele Eigenschaften der Integration beibehalten und
-  \item $I(f)$ gut approximieren.
+\item effizient ausführbar sein,
+\item viele Eigenschaften der Integration beibehalten und
+\item $I(f)$ gut approximieren.
 \end{enumerate}
 Zu c) einige Eigenschaften des Riemann-Integrals:\\
 Seien $f,g\in C([a,b])$, dann ist $I:C([a,b])\longrightarrow\R$
 eine positive Linearform, d.h. $I$ ist linear und 
 \begin{gather}
-f\geq 0 \quad \Rightarrow \quad I(f)\geq 0
-\label{VII.1.1}
+  f\geq 0 \quad \Rightarrow \quad I(f)\geq 0
+  \label{VII.1.1}
 \end{gather}
 Weiterhin gilt
 \begin{gather}
@@ -293,10 +293,10 @@ Weiterhin gilt
 Diese sollen nun möglichst beibehalten werden.
 
 \begin{Defe}\label{7.1.1}
-Ein Verfahren heißt konvergent von der Ordnung $p$
-(hat die Konvergenzordnung $p$),
-falls der Fehler (hier $|I(f)-\hat{I}(f)|$)
-mit $\mathcal{O}(h^p)$ gegen Null geht für $h\longrightarrow 0$.
+  Ein Verfahren heißt konvergent von der Ordnung $p$
+  (hat die Konvergenzordnung $p$),
+  falls der Fehler (hier $|I(f)-\hat{I}(f)|$)
+  mit $\mathcal{O}(h^p)$ gegen Null geht für $h\longrightarrow 0$.
 \end{Defe}
 
 \subsectione{Mittelpunktregel}
@@ -334,7 +334,7 @@ ergibt sich aus der Taylorentwicklung
   + f'\left(x_i+\frac{h}{2}\right) \cdot 
   \left(t-\left(x_i+\frac{h}{2}\right)\right)
   + \frac{1}{2}f''\big(\xi_i(t)\big)\cdot
-\left(t-\left(x_i+\frac{h}{2}\right)\right)^2
+  \left(t-\left(x_i+\frac{h}{2}\right)\right)^2
 \end{gather*}
 mit einer Zwischenstelle $\xi_i(t)$ zwischen $t$ und
 $\left(x_i+\frac{h}{2}\right)$, denn
@@ -348,7 +348,7 @@ $\left(x_i+\frac{h}{2}\right)$, denn
     f(t) - f\left(x_i+\frac{h}{2}\right)
     \right) dt
     \right|
-\intertext{da $\int_{x_i}^{x_{i+1}}\left(t-\left(x_i+\frac{h}{2}\right)\right)dt=0$}
+    \intertext{da $\int_{x_i}^{x_{i+1}}\left(t-\left(x_i+\frac{h}{2}\right)\right)dt=0$}
   &= \sum_{i=0}^{n-1} \left|
     \int_{x_i}^{x_{i+1}}
     \frac{1}{2} f''\big(\xi_i(t)\big)
@@ -369,7 +369,7 @@ Interpoliere stückweise linear
 \imagemissing{Veranschaulichung Trapezsumme}\label{im7.1.3}
 \begin{align}\nonumber
   &(x_{i+1}-x_i)\cdot \frac{f(x_i)+f(x_{i+1})}{2} 
-    &\text{(Trapezregel)}\\
+  &\text{(Trapezregel)}\\
   \Rightarrow\quad
   & \hat{I}_T(f) = \frac{1}{2}\sum_{i=0}^{n-1}
     \big(
@@ -380,11 +380,11 @@ Interpoliere stückweise linear
 \end{align}
 und für äquidistante Gitter ergibt sich die \textbf{Trapezsumme}
 \begin{gather}
-\hat{I}_T(f) = h\cdot\left( \frac{1}{2}f(x_0)
-  +\sum_{i=0}^{n-1}f(x_i)
-  +\frac{1}{2} f(x_n)
-\right)
-\label{VII.1.7}
+  \hat{I}_T(f) = h\cdot\left( \frac{1}{2}f(x_0)
+    +\sum_{i=0}^{n-1}f(x_i)
+    +\frac{1}{2} f(x_n)
+  \right)
+  \label{VII.1.7}
 \end{gather}
 Die Konvergenz folgt durch die Riemannschen Unter- bzw. Obersummen
 $R_u^{(k)}(f)$ und $R_o^{(k)}(f)$ wegen
@@ -416,7 +416,7 @@ und dann das Integral zu berechnen, d.h.
              &=\sum_{i=0}^{n}f(x_i)
                \cdot \int_a^bL_i(t)dt\\
              &=\sum_{i=0}^{n} w_if(x_i)
-\label{VII.2.1}
+               \label{VII.2.1}
 \end{align}
 mit den Gewichten 
 \begin{gather}
@@ -429,21 +429,21 @@ für Polynome vom Grad weniger oder gleich $n$.
 Es gilt sogar:
 \begin{Leme}\label{7.2.1}
   Zu $n+1$ paarweise verschiedenen Knoten $x_0,\dots, x_n$
-gibt es genau eine Quadraturformel
-\begin{gather*}
-  \hat{I}(f) = \sum_{i=0}^nw_if(x_i)
-\end{gather*}
-mit $w_i\in\R$, welche für alle Polynome $p\in\mathcal{P}_n$ exakt ist.
+  gibt es genau eine Quadraturformel
+  \begin{gather*}
+    \hat{I}(f) = \sum_{i=0}^nw_if(x_i)
+  \end{gather*}
+  mit $w_i\in\R$, welche für alle Polynome $p\in\mathcal{P}_n$ exakt ist.
 
-\begin{proof}
-  $L_i\in\mathcal{P}_n$, also 
-  \begin{align*}
-    I(L_i)=\hat{I}(L_i)&=\sum_{j=0}^{n}w_jL_i(x_j)\\
-                       &=\sum_{j=0}^{n}w_j\delta_{ij}\\
-                       &=w_i && \text{für } i=0,\dots,n
-  \end{align*}
-  Die Gewichte sind damit eindeutig bestimmt.
-\end{proof}
+  \begin{proof}
+    $L_i\in\mathcal{P}_n$, also 
+    \begin{align*}
+      I(L_i)=\hat{I}(L_i)&=\sum_{j=0}^{n}w_jL_i(x_j)\\
+                         &=\sum_{j=0}^{n}w_j\delta_{ij}\\
+                         &=w_i && \text{für } i=0,\dots,n
+    \end{align*}
+    Die Gewichte sind damit eindeutig bestimmt.
+  \end{proof}
 \end{Leme}
 
 \begin{Defe}\label{7.2.2}
@@ -486,17 +486,383 @@ linearen Gleichungssystem für $[a,b]=[0,1]$
 
 \subsectione{Tabelle (Newton-Cotes-Gewichte)}
 \begin{align*}
-  \begin{array}{ccccccc}
+  \begin{array}{cccccccl}
     n\backslash \sigma_i &\sigma_1&\dots&&&& n\cdot s\\
-    1 & 1&1&&&&2\\
-    2&1&4&1&&&6 \\
-    3&1&3&3&1&&8\\
-    4&7&32&12&32&7&90\\
+    1 & 1&1&&&&2& \text{Trapezregel}\\
+    2&1&4&1&&&6 & \text{Simpson-Regel}\\
+    3&1&3&3&1&&8& \text{$\frac{3}{8}$-Regel}\\
+    4&7&32&12&32&7&90 \text{Milue-Regel}\\
     \vdots\\
     8&&&\dots &-4540&\dots
   \end{array}
 \end{align*}
 Positive Funktionen haben kein positives Integral ab einem $n_0$!!
+
+
+%-------------------------------------------------
+
+
+\marginpar{07.01.2015}
+Daraus folgt, dass die Monotonie (Positivität) 
+bei abgeschlossenen Newton-Cotes Formeln i.A. nicht gewährleistet ist,
+wenn Polynome von hohem Grad exakt integriert werden sollen.
+Diese sind dann daher ungeeignet.
+
+
+\begin{Satze}\label{7.2.5}
+Sei $\hat{I}_n(f) $ die abgeschlossene Newton-Cotes-Formel
+der Ordnung $n$.
+Dann gilt:
+\begin{enumerate}[a)]
+  \item $\sum_{i=0}^nw_i= b-a$
+\item $w_i=w_{n-i}$
+\item Ist $n$ gerade, so ist $\hat{I}_n$ exakt für Polynome bis zum
+  Grad $n+1$ nicht nur $n$.
+\end{enumerate}
+
+\begin{proof} siehe Übungsblatt \end{proof}
+\end{Satze}
+
+\begin{Satze}
+  Sei $\hat{I}(f)\coloneqq \sum_{i=0}^n w_if(x_i)$ mit $w_i\in\R$ und
+  $a\leq x_0<x_1<\ldots <x_n\leq b$.
+Dann ist der Integrationsfehler $R$ mit 
+\begin{gather}
+  R(f) \coloneqq \hat{I}(f) - \int_a^b f(x) dx
+  \label{VII.2.5}
+\end{gather}
+eine lineare Abildung, für die folgende Darstellungsformel gilt:
+\\
+Falls $R(p)=0$ für alle $p\in\mathcal{P}_l$, dann gilt 
+für alle $f\in C^{l+1}([a,b])$
+\begin{gather}
+  R(f) = \int_a^bf^{(l+1)}(t) K(t) dt
+\label{VII.2.6}
+\end{gather}
+mit 
+\begin{align}\nonumber
+  K(t) &\coloneqq \frac{1}{l!}
+         R\left( 
+         (\bullet -t)_+^l
+         \right)\\
+  &= \frac{1}{i!}\left( \sum_{i=0}^n w_i(x_i-t)_+^-\int_a^b(x-t)_+^ldx  \right)
+\label{VII.2.7}
+\end{align}
+$K(t)$ heißt \textbf{Peano-Kern des Funktionals
+  $R$}\index{Peano-Kern}.
+\begin{proof}
+  Es gilt
+  \begin{gather*}
+    f(x) = f(a) + f'(a)(x-a) +\ldots + \frac{f^{(l)}(a)}{l!}(x-a)^l + r_l(x)
+  \end{gather*}
+  mit Restglied 
+\begin{align*}
+  r_l(x) &= \frac{1}{l!} \int_a^xf^{(l+1)} (t)\cdot (x-t)^l dt\\
+         &= \frac{1}{l!} \int_a^bf^{(l+1)} (t)\cdot (x-t)_+^l dt
+\end{align*}
+Da $R(p)=0$ für alle $p\in\mathcal{P}_l$ folgt
+\begin{align*}
+  R(f) &= R(r_l)
+  = \frac{1}{l!} R\left(\int_a^bf^{(l+1)} (t)\cdot(\bullet-t)_+^l
+         dt\right)\\
+       &=\frac{1}{l!}\left\{ \sum_{i=0}^n w_i \int_a^b f^{(l+1)}(t)
+         \cdot (x_i-t)_+^ldt  
+         - \int_a^b\int_a^b  f^{(l+1)}(t) \cdot (x-t)_+^ldtdx  \right\}
+  \end{align*}
+Mit dem Satz von Fabini gilt
+\begin{align*}
+  R(f) &= \frac{1}{l!}\int_a^bf^{(l+1)}(t) 
+         \left\{ 
+         \sum_{i=0}^n w_i  \cdot (x_i-t)_+^l  
+         - \int_a^b(x-t)_+^ldx  \right\}
+         dt\\
+  &= \frac{1}{l!} \int_a^bf^{(l+1)}(t) 
+    \cdot R\left( (\bullet -t)_+^l\right) dt    
+\end{align*}
+\end{proof}
+\end{Satze}
+
+\begin{Fole}\label{7.2.7}
+  Falls der Peano-Kern $K$ auf $[a,b]$ ein konstantes Vorzeichen hat,
+gilt nach dem Mittelwertsatz der Integralrechnung
+\begin{gather}
+  R(f) = f^{(l+1)}(\xi) \int_a^b K(t)dt 
+  \quad \text{für ein }\xi\in (a,b)
+  \label{VII.2.8}
+\end{gather}
+Wähle nun ein $g$, für das $R(f)$ und $g^{(l+1)}$ bekannt oder leicht
+berechenbar sind, z.B.
+$g(x)\coloneqq x^{l+1}$. Hier ist
+\begin{gather*}
+  \int_a^bK(t)dt = \frac{R(g)}{(l+1)!} = \frac{R(x^{l+1})}{(l+1)!}
+\end{gather*}
+Dann gilt für ein beliebiges $f\in C^{l+1}([a,b])$
+\begin{gather}
+  R(f) = \frac{R(x^{l+1})}{(l+1)!} f^{(l+1)}(\xi)
+  \quad \text{für ein }\xi \in (a,b)
+\label{VII.2.9}
+\end{gather}
+\end{Fole}
+
+\begin{Satze}[Approximationsfehler]\index{Approximationsfehler}
+  Im Fall der Newton-Cotes-Formeln besitzen die Peano-Kerne
+konstante Vorzeichen. Somit gilt für $f\in C^{n+j+1}$ mit 
+%\begin{gather*}
+  $j= \begin{cases}
+    0 & \text{für $n$ ungerade}\\
+    1 & \text{für $n$ gerade}
+    \end{cases}$
+%\end{gather*}
+\begin{align}\nonumber
+  R_n(f) &= \hat{I}_n (f) - \int_a^b f(x) dx\\
+         &= \frac{R(x^{n+j+1})}{(n+j+1)!}f^{(n+j+1)}(\xi)
+           \label{VII.2.10}
+\end{align}
+
+\begin{proof}
+  Der Beweis des konstanten Vorzeichens gilt
+  \cite[siehe][]{steffensen}.
+% citation: Steffensen 1950
+  Nach Satz \ref{7.2.5}c) gilt:
+\begin{gather*}
+  R_n(p) = 0 \quad\forall p\in\mathcal{P}_{n+j}
+\end{gather*}
+Mit \eqref{VII.2.9} und $l=n+j$ folgt dann die Aussage \eqref{VII.2.10}
+\end{proof}
+\end{Satze}
+
+
+\subsectione{Tabelle: Fehler für Newton-Cotes-Formeln}
+\begin{gather*}\label{7.2.9}
+  \begin{array}{cll}
+    n & & R_n(f)\\
+    1 &\text{Trapezregel} &(b-a)^3\cdot\frac{1}{12}f^{(2)}(\xi)\\
+    2 &\text{Simpsonregel}&\frac{(b-a)}{2}^5\cdot\frac{1}{90}f^{(4)}(\xi)\\
+    3 &\text{$\frac{3}{8}$-Regel}&\frac{(b-a)}{3}^5\cdot\frac{3}{80}f^{(4)}(\xi)\\
+    4 &\text{Milue-Regel}
+        &\frac{(b-a)}{4}^7\cdot\frac{8}{945}f^{(6)}(\xi)\\
+  \end{array}
+\end{gather*}
+
+Die Erhöhung des Polynomgrades $n$
+ergibt also
+i.A. keine bessere Approximation.
+Dies hängt auch von der Länge des
+Intervalls $[a,b]$ ab.
+Stattdessen werden die
+Newton-Cotes-Formeln auf
+Teilintervalle angewendet, 
+d.h. sie bilden die Grundlage für
+stückweise polynomiale
+interpolatorische Integrationsformeln.
+
+\subsectione{Iterierte (wiederholte)
+  Newton-Cotes-Formeln}
+\index{Newton-Cotes-Formeln!wiederholt}
+Betrachte die Intervallunterteilung
+\begin{gather*}
+  a=t_0<t_1<\ldots<t_N=b
+\end{gather*}
+und approximiere
+\begin{gather*}
+  I(f) = \sum_{l=0}^{N-1}\int_{t_l}^{t_{l+1}}f(t)dt
+\end{gather*}
+durch wiederholtes Anwenden einer Newton-Cotes-Formel
+$\hat{I}_n(f)$ auf die Teilintervalle $[t_l, t_{l+1}]$
+$(\hat{I}_n(f))$,
+d.h.
+\begin{gather}
+  \hat{I}(f) = \sum_{l=0}^{N-1}\hat{I}_n^{(l)}(f)
+  = \sum_{l=0}^{N-1}\frac{t_{l+1}-t_l}{n\cdot s}
+  \sum_{i=0}^n \sigma_i f(t_l+i\widetilde{h}_l)
+\label{VII.2.11}
+\end{gather}
+mit $\widetilde{h}_l\coloneqq (t_{l+1}-t_l)\cdot \frac{1}{n}$.
+Für äquidistante Knoten $t_i=a+ih$ mit $h=\frac{b-a}{N}$
+ergibt die Anwendung der Trapezregel $(n=2)$
+die Trapezsumme 
+$\hat{I}_T(f) = h\left(
+  \frac{1}{2}f(t_0)+\sum_{i=1}^{N-1}f(t_i) +\frac{1}{2}f(t_N)
+\right)$
+nach \eqref{VII.1.7}. 
+Ferner lässt sich die Konvergenzordnung \eqref{VII.1.8} zeigen.
+
+
+\begin{Leme}\label{7.2.11}
+  Sei $f\in C^2([a,b])$, dann existiert ein $\tau \in[a,b]$, so dass
+\begin{gather}
+  \hat{I}_T(f) -I(f) = \frac{b-a}{12}h^2 f''(\tau) %MISSING
+\label{VII.2.12}
+\end{gather}
+
+\begin{proof}
+  Es gilt $t_{l+1}-t_l = h= \frac{b-a}{N}$.
+Daraus folgt
+\begin{gather*}
+  \hat{I}_T(f)-I(f)=(t_{l+1}+t_l)^3\cdot\frac{1}{12}f''(\xi_l)
+\end{gather*}
+nach Tabelle \ref{7.2.9} und mit
+$\xi_l\in[t_l,t_{l+1}]$.
+Weiterhin gilt dann
+\begin{align*}
+  \hat{I}_T(f) - I(f) &= h^3\frac{1}{12}\sum_{i=0}^{N-1}f''(\xi_i)\\
+                      &= \frac{b-a}{12}h^2 \cdot \underbrace{
+                        \frac{1}{N}\sum_{i=0}^{N-1}f''(\xi_i)
+                        }_{\coloneqq d}\\
+                      &= \frac{b-a}{12}h^2 f''(\tau)
+\end{align*}
+da mit $\min_{z\in[a,b]} f''(z) \leq d \leq \max_{z\in[a,b]}f''(z)$
+aus dem Zwischenwertsatz die Existenz eines $\tau\in[a,b]$ folgt
+mit $f''(\tau) = d$
+\end{proof}
+\end{Leme}
+
+Die Trapezsumme ist also ein
+Quadraturverfahren zweiter Ordnung\index{Quadraturformel!Ordnung}
+(Polynome vom Grad < 2 werden exakt integriert) und der
+Integrationsfehler konvergiert mit der Ordnung 2 (wegen $h^2$) gegen 0
+für $N\longrightarrow \infty$.
+
+\subsectione{Iterierte (oder
+  summierte) Simpsonregel
+  (Keplersche Fassregel)}
+\index{Simpsonregel}
+\begin{gather}
+  \hat{I}_S(f) = \frac{1}{6}\sum_{l=0}^{N-1} (t_{l+1}-t_l)
+  \cdot \left(f(t_l) +4f(\frac{t_l+t_{l+1}}{2}) + f(t_{l+1})
+    \right)
+\label{VII.2.13}
+\end{gather}
+Für äquidistantes Gitter ergibt sich daher für $t_l=a+l\cdot h$
+\begin{gather}
+  \hat{I}_S(f) = \frac{1}{8}h\cdot
+  \left\{
+  f(t_0+4f\left(\frac{t_1+t_0}{2}\right) 
+  +2f(t_1) + 3f\left(\frac{t_2+t_1}{2}\right)
+  + \ldots +2f(t_{N-1}
+  +4f\left(\frac{t_{N-1}+t_N}{2}\right)
+\right\}
+\label{VII.2.14}
+\end{gather}
+und wie eben die Fehlerabschätzung
+für $f\in C^4([a,b])$
+\begin{gather}
+  \hat{I}_S(f) -I(f) =
+  \frac{b-a}{2880}h^4f^{(4)}(\tau)
+  \quad \text{mit } \tau\in[a,b]
+\label{VII.2.15}
+\end{gather}
+Zu beachten ist, dass aufgrund von
+$f\left(\frac{t_l+t_{l+1}}{2}\right)$
+doppelt so viele Funktionsauswertungen nötig sind
+wie bei der Trapezsumme, d.h. $2N+1$ insgesamt!
+
+Bei einer geraden Anzahl $N$ von Intervallen kann mit der
+Simpsonregel jedoch eine iterierte Regel aufgestellt werden,
+ welche wie die Trapezregel $N+1$ Funktionsauswertungen benötigt.
+Wende hierfür die Simpsonregel auf $[t_{2l}, t_{2l+2}]$ an
+bzw. setze $h=2\frac{b-a}{N}$.
+
+Es ergibt sich mit $\overline{h}= \frac{b-a}{N}$
+\begin{gather}
+S(f) = \frac{\overline{h}}{3}\left[
+       f(t_0)+4f(t_1) + 2f(t_2) + 4f(t_3) +
+     \ldots + 2f(t_{N-1}) + 4f(t_{N-1}) + f(t_N)
+       \right]
+  \label{VII.2.16}
+\end{gather}
+und es gilt die Fehlerabschätzung für $f\in C^4([a,b])$
+\begin{gather}
+  S(f)-I(f)=
+  \frac{b-a}{180}\cdot\overline{h}^4f^{(4)}(\tau)
+\quad \text{mit } \tau \in[a,b]
+\label{VII.2.17}
+\end{gather}
+da $\overline{h}= 2h$.
+
+
+\sectione{Extrapolationsmethode und
+  klassische Rombert-Quadratur}
+Basiert auf der asymptotischen
+Entwicklung
+des Approximationsfehlers der
+Trapezsumme:
+
+\begin{Satze}[Euler-Maclaurinsche
+  Summenformel]
+\index{Euler-Maclaurinsche Summenformel}
+  Sei $f\in C^{2n+2}([a,b])$ und 
+  $\hat{I}_T^h(f)$ die Tr-apezsumme
+  für äquidistante Knoten $x_l=a+lh$
+  mit $h=\frac{b-a}{N}$, d.h.
+\begin{gather}
+  \hat{I}_T^h(f) = h\left\{
+    \frac{1}{2}f(a) + \sum_{i=1}^{N-1}f(a+lh) +
+  \frac{1}{2}f(b)
+\right\}
+\label{VII.3.1}
+\end{gather}
+Dann gilt
+\begin{gather}
+  T(h) \coloneqq \hat{I}_T^h(f) = \tau_0+\tau_1h^2+\tau_2h^4
+  +\ldots + \tau_nh^{2n}+ R_{n+1}(h)h^{2n+1}
+\end{gather}
+wobei
+\begin{gather}
+  \tau_0 = I(f) = \int_a^bf(x)dx
+\label{VII.3.3}
+\end{gather}
+das gesuchte Integral ist, und
+\begin{gather*}
+  \tau_k = \frac{B_{2k}}{(2k)!}
+  \left(f^{(2k-1)}(b)-f^{(2k-1)}(a)\right)
+  \quad k=1,\ldots, n
+\end{gather*}
+mit den Bernoulli-Zahlen $B_{2k}$ sind, und
+\begin{gather*}
+  R_{n+1}(h) =
+  \frac{B_{2n+2}}{(2n+2)!}(b-a)f^{(2n+2)}(\xi(h))
+\end{gather*}
+mit $a<\xi(h)<b$ eine in $h$
+gleichmäßige, beschränkte Funktion
+ist.
+
+\begin{proof}
+  Der Beweis ist in
+  \cite{stoerbulirsch} 
+  oder \cite{haemmerlinhoffmann} zu finden.
+\end{proof}
+\end{Satze}
+
+\subsectione{Idee der Extrapolation}
+Gesucht ist $T(0)= \tau_0=I(f)$.
+Berechne hierfür für paarweise
+verschiedene 
+$h_0,\ldots, h_n$ die Werte
+$T(h_i)$,
+bestimme dann das
+Interpolationspolynom
+\begin{gather}
+  p(x) = a_0+a_1x+\ldots+a_nx^n
+\label{VII.3.4}
+\end{gather}
+mit 
+\begin{gather}
+  p(h_i^2) =
+  T(h_i)=\hat{I}_T^{h_i}(f)
+\quad \text{für } i=0,\ldots,n
+\label{VII.3.5}
+\end{gather}
+Dann ist $p(h^2)$ eine Approximation
+der Funktion $T(h)$
+auf $[\min_ih_i,\max_ih_i]$.
+\enquote{Extrapoliere} nun von
+diesem Intervall
+auf die Stelle $h=0$ und nutze
+den extrapolierten Wert $p(0)$ als
+Näherung für $T(0)=I(f)$.
+
+\imagemissing{Veranschaulichung von Extrapolation}
 
 
 \nocite{*} %include all books in .bib into bibliography

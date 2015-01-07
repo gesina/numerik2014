@@ -1,14 +1,14 @@
 % % % % % % % % % % % % % % 
-%
-%     Skript zu NUMERIK I
-%           WS14/15
-%    von Prof. Dr. Blank
+% 
+% Skript zu NUMERIK I
+% WS14/15
+% von Prof. Dr. Blank
 % Universität Regensburg
-%
-%
+% 
+% 
 %	Kap. 6: Interpolation
-%
-% % % % % % % % % % % % % %
+% 
+% % % % % % % % % % % % % % 
 
 
 \chapter{Interpolation}
@@ -939,45 +939,45 @@ Das Ziel ist nun eine bessere Basis zu konstruieren.
     \imagemissing{Basis eines $S_{1,\Delta}$-Splines aus stückweise
       konstanten Elementen}\label{im6.2.4(1)}
     Die zugehörige Basis wie oben beschrieben wäre
-\begin{gather*}
-  \left\{ 1,(x-x_i)_+^0\right\}
-\end{gather*}
+    \begin{gather*}
+      \left\{ 1,(x-x_i)_+^0\right\}
+    \end{gather*}
     Eine in diesem Fall geeignetere Basis ist
-\begin{gather*}
-  N_{i,1} (x)\coloneqq \chi_{[x_{i-1},x_i)}(x)
-             = \begin{cases}
-               1 & \text{falls } x\in[x_{i-1},x_i)\\
-               0 & \text{sonst}
-             \end{cases}\, ,
-\end{gather*}
-womit die Darstellung eines $S_{1,\Delta}$-Splines zu 
-\begin{gather*}
-  s(x) = \sum_{j=1}^{n+1} f_{j-1} N_{j,1}(x)
-\end{gather*}
-wird.
-\item \index{Splineraumbasis!$S_{2,\Delta}$-Basis} $S_{2,\Delta}$ sind stückweise lineare, global stetige
-  Funktionen. Eine Basis wie in \ref{6.2.2} ist
-\begin{gather*}
-  \left\{1,x^1, (x-x_i)_+^1\right\}
-\end{gather*}
-  \imagemissing{Basis eines $S_{2,\Delta}$-Splines mit Hutfunktion
-    (siehe auch \ref{6.2.6} für allg. Hutfunktionen)}\label{im6.2.4(2)}
-  Hier kann eine Basis wie oben durch sog. 
-  \textbf{Hutfunktionen}\index{Hutfunktion}
-  konstruiert werden
-  \begin{align*}
-    N_{i,2}(x_{j-1}) &= \delta_{i,j}\\
-    N_{i,2}(x) &= \begin{cases}
-      ~\frac{1}{x_{i-1}-x_{i-2}}(x-x_{i-2}) & x\in [x_{i-2}, x_{i-1}]\\
-      -\frac{1}{x_{i-1}-x_{i-2}}(x-x_{i-1})+1 & x\in [x_{i-1}, x_i]
+    \begin{gather*}
+      N_{i,1} (x)\coloneqq \chi_{[x_{i-1},x_i)}(x)
+      = \begin{cases}
+        1 & \text{falls } x\in[x_{i-1},x_i)\\
+        0 & \text{sonst}
+      \end{cases}\, ,
+    \end{gather*}
+    womit die Darstellung eines $S_{1,\Delta}$-Splines zu 
+    \begin{gather*}
+      s(x) = \sum_{j=1}^{n+1} f_{j-1} N_{j,1}(x)
+    \end{gather*}
+    wird.
+  \item \index{Splineraumbasis!$S_{2,\Delta}$-Basis} $S_{2,\Delta}$ sind stückweise lineare, global stetige
+    Funktionen. Eine Basis wie in \ref{6.2.2} ist
+    \begin{gather*}
+      \left\{1,x^1, (x-x_i)_+^1\right\}
+    \end{gather*}
+    \imagemissing{Basis eines $S_{2,\Delta}$-Splines mit Hutfunktion
+      (siehe auch \ref{6.2.6} für allg. Hutfunktionen)}\label{im6.2.4(2)}
+    Hier kann eine Basis wie oben durch sog. 
+    \textbf{Hutfunktionen}\index{Hutfunktion}
+    konstruiert werden
+    \begin{align*}
+      N_{i,2}(x_{j-1}) &= \delta_{i,j}\\
+      N_{i,2}(x) &= \begin{cases}
+        ~\frac{1}{x_{i-1}-x_{i-2}}(x-x_{i-2}) & x\in [x_{i-2}, x_{i-1}]\\
+        -\frac{1}{x_{i-1}-x_{i-2}}(x-x_{i-1})+1 & x\in [x_{i-1}, x_i]
       \end{cases}
-  \end{align*}
-  \imagemissing{allgemeine Hutfunktion am Punkt $x_i$ eines
-    $S_{2,\Delta}$-Splines}\label{im6.2.4(3)}
-  Ein Spline, welches $f$ in $x_i$ interpoliert hat dann die Form
-  \begin{gather*}
-    s(x) = \sum_{j=1}^{n+1}f_{i-1}N_{i,2}(x)
-  \end{gather*}
+    \end{align*}
+    \imagemissing{allgemeine Hutfunktion am Punkt $x_i$ eines
+      $S_{2,\Delta}$-Splines}\label{im6.2.4(3)}
+    Ein Spline, welches $f$ in $x_i$ interpoliert hat dann die Form
+    \begin{gather*}
+      s(x) = \sum_{j=1}^{n+1}f_{i-1}N_{i,2}(x)
+    \end{gather*}
   \end{enumerate}
 \end{Bspe}
 
@@ -997,14 +997,14 @@ wird.
                  \label{VI.2.3}
   \end{align}
   sowie für $l>1$
-\begin{gather}
-  N_{j,l} (x) = \frac{x-t_j}{t_{j+l-1}-t_j}N_{j,l-1}(x) 
-  +  \frac{x-t_{j+1}}{t_{j+l}-t_{j+1}}N_{j+1,l-1}(x) 
-\label{VI.2.4}
-\end{gather}
-Hierbei gilt die Konvention $\frac{0}{0}=0$, 
-denn für $t_j=t_{j+l-1}$ gilt
-$N_{j,1}\equiv 0$ und auch $N_{j,l-1}\equiv 0$.
+  \begin{gather}
+    N_{j,l} (x) = \frac{x-t_j}{t_{j+l-1}-t_j}N_{j,l-1}(x) 
+    +  \frac{x-t_{j+1}}{t_{j+l}-t_{j+1}}N_{j+1,l-1}(x) 
+    \label{VI.2.4}
+  \end{gather}
+  Hierbei gilt die Konvention $\frac{0}{0}=0$, 
+  denn für $t_j=t_{j+l-1}$ gilt
+  $N_{j,1}\equiv 0$ und auch $N_{j,l-1}\equiv 0$.
 \end{Defe}
 
 
@@ -1023,53 +1023,53 @@ $k-1$ entspricht dem Polynomgrad.
 
   \includegraphics[width=\linewidth]{images/quadBsplines.png}
 
-\includegraphics[width=\linewidth]{images/kubBsplines.png}
+  \includegraphics[width=\linewidth]{images/kubBsplines.png}
 }
 
 \begin{Kore}
   Es gilt
-\begin{enumerate}[a)]
+  \begin{enumerate}[a)]
   \item $supp N_{j,k} \coloneqq 
     \overline{\left\{ x\in[a,b]\,\middle\vert
         \, N_{j,k}(x)\neq 0\right\}} \subset [t_j, t_{j+1}]$
     (lokaler Träger)
   \item $N_{j,k}>0 ~\forall x\in(t_j,t_{j+1})$ (nicht negativ)
   \item $N_{j,k}\vert_{[t_l,t_{l+1}]}\in \mathcal{P}_{k-1}$
-\end{enumerate}
+  \end{enumerate}
 
-\begin{proof}
-  siehe Übungsaufgabe
-\end{proof}
+  \begin{proof}
+    siehe Übungsaufgabe
+  \end{proof}
 \end{Kore}
 
 \subsectione{Auswertung von $s$ an der Stelle $\overline{x}$}
 \label{6.2.8}
 Sei $\overline{x}\in[t_j,t_{j+1}]$ und
- $s(x) = \sum_{i=1}^{N}c_iN_{i,k}(x)$.
+$s(x) = \sum_{i=1}^{N}c_iN_{i,k}(x)$.
 Da nur $N_{j,1}(\overline{x})\neq 0$ ist, 
 können aufgrund von \eqref{VI.2.4}
 auch nur $N_{j-l+1, l}(\overline{x}), \dots, N_{j,k}(\overline{x})$
 verschieden von Null sein, da
 \begin{align*}
-\begin{array}{ccccccccc}
-  j\backslash l & t_j & 1 && 2 && 3 &&k\\
-  \cline{1-9}
-  1 & t_1 & N_{1,1}(\overline{x})=0 &&0&&0&&0\\
-  &&0&&\vdots&&\vdots&&\vdots\\
-  &&\vdots &&&&&&0\\
-  j-k+1&t_{j-k+1} &\dots &&\dots&&\dots&&\boldsymbol{N_{j-k+1,k}(\overline{x})} \\
-  \vdots&\vdots&&&&&&&\vdots\\
-   && &&0&& \boldsymbol{N_{j-2,3}(\overline{x})}
-                               &&N_{j-2,k}(\overline{x})\\
-  j-1 & t_{j-1} &0 &\longrightarrow & \boldsymbol{N_{j-1,2}(\overline{x})}
-                          &\longrightarrow & N_{j-1,3}(\overline{x})
-                          && N_{j-1,k}(\overline{x})\\
-  j& t_j & \boldsymbol{N_{j,1}(\overline{x})=1}&\longrightarrow&\boldsymbol{N_{j,2}(\overline{x})}
-    &\longrightarrow&\boldsymbol{N_{j,3}(\overline{x})}&\longrightarrow\dots&\boldsymbol{N_{j,k}(\overline{x})}\\
-  &&0&&0&&&&\vdots\\
-  &&\vdots &&\vdots\\
-  &t_{j+k}&0&&0&&&&0
-\end{array}
+  \begin{array}{ccccccccc}
+    j\backslash l & t_j & 1 && 2 && 3 &&k\\
+    \cline{1-9}
+    1 & t_1 & N_{1,1}(\overline{x})=0 &&0&&0&&0\\
+                  &&0&&\vdots&&\vdots&&\vdots\\
+                  &&\vdots &&&&&&0\\
+    j-k+1&t_{j-k+1} &\dots &&\dots&&\dots&&\boldsymbol{N_{j-k+1,k}(\overline{x})} \\
+    \vdots&\vdots&&&&&&&\vdots\\
+                  && &&0&& \boldsymbol{N_{j-2,3}(\overline{x})}
+                                 &&N_{j-2,k}(\overline{x})\\
+    j-1 & t_{j-1} &0 &\longrightarrow & \boldsymbol{N_{j-1,2}(\overline{x})}
+                                      &\longrightarrow & N_{j-1,3}(\overline{x})
+            && N_{j-1,k}(\overline{x})\\
+    j& t_j & \boldsymbol{N_{j,1}(\overline{x})=1}&\longrightarrow&\boldsymbol{N_{j,2}(\overline{x})}
+                                      &\longrightarrow&\boldsymbol{N_{j,3}(\overline{x})}&\longrightarrow\dots&\boldsymbol{N_{j,k}(\overline{x})}\\
+                  &&0&&0&&&&\vdots\\
+                  &&\vdots &&\vdots\\
+                  &t_{j+k}&0&&0&&&&0
+  \end{array}
 \end{align*}
 
 Daraus folgt, dass $N_{i,k}(\overline{x})\neq x$ 
@@ -1084,32 +1084,32 @@ numerisch sehr stabil.
 
 \begin{Leme}
   Falls $t_j<t_{j+k}$ und $x\neq t_m$,
-so gilt
-\begin{gather}
-  N_{j,k}(\overline{x})=(t_{j+k}-t_j)\underset{
-    [t_j,\dots, t_{j+k}]f\text{ mit } f(t)\coloneqq (t-x)_+^{k-1}}
-  {[t_j,\dots,t_{j+k}](\bullet -x)_+^{k-1}}
-  \label{VI.2.5}
-\end{gather}
+  so gilt
+  \begin{gather}
+    N_{j,k}(\overline{x})=(t_{j+k}-t_j)\underset{
+      [t_j,\dots, t_{j+k}]f\text{ mit } f(t)\coloneqq (t-x)_+^{k-1}}
+    {[t_j,\dots,t_{j+k}](\bullet -x)_+^{k-1}}
+    \label{VI.2.5}
+  \end{gather}
 \end{Leme}
 
 \begin{proof}
   kein Beweis.
 
- Idee: Per Induktion über $k$. Nutze hierfür
+  Idee: Per Induktion über $k$. Nutze hierfür
   \begin{gather*}
     (t-x)_{+}^k = (t-x)(t-x)_{+}^{k-1}\,,\, k \geq 1,
   \end{gather*}
   sowie $[t_j , \dotsc, t_i]( \bullet - x) = 0$ für $i > j+1$ und die Leibnizregel.
 \end{proof}
 
-  Zu gegebenem Splineraum $S_{j,\Delta}$ mit
-  % Nummerierung
-  \begin{gather}
-    \Delta a=x_0 < x_1 < \dotsm < x_n = b
-    \label{VI.2.6}
-  \end{gather}
-  Setzt man nun 
+Zu gegebenem Splineraum $S_{j,\Delta}$ mit
+% Nummerierung
+\begin{gather}
+  \Delta a=x_0 < x_1 < \dotsm < x_n = b
+  \label{VI.2.6}
+\end{gather}
+Setzt man nun 
 \begin{gather}
   T: t_1 = \dotsm = t_k < t_{k+1} < \dotsm < t_{k+n} =
   t_{n+2k+1}\, ,
@@ -1117,33 +1117,33 @@ so gilt
 \end{gather} lässt sich folgender Satz zeigen:
 
 
-%--------------------------------
+% --------------------------------
 
 
 \begin{Satze}\label{6.2.10}~
-\marginpar{17.12.2014}
-\begin{enumerate}
-\item Es gilt 
-  $\mathcal{P}_{k-1}\subset
-  span\left\{N_{1,k}, \dots, N_{n+k-1,k}\right\}$
-\item Die B-Splines bilden eine Zerlegung der Eins auf $[a,b]$,
-  d.h. 
-\begin{gather*}
-  1\equiv \sum_{j=1}^{n+k-1}N_{j,k}(x) \quad \forall x\in[a,b]
-\end{gather*}
-\item Weiterhin sind die B-Splines (lokal) linear unabhängig,
-  d.h. falls
-  \begin{gather*}
-    \sum_{l=1}^{n+k-1}c_lN_{l,k}(x)=0 
-    \quad\forall x\in(c,d)\subset [a,b]\,,
-  \end{gather*}
-folgt $c_j=0$ für alle $j$ mit 
-$(c,d)\cap \underbrace{(t_j,t_j+k)}_{=supp N_{j,k}}\neq \varnothing$.
-\imagemissing{Lineare Unabhängigkeit der B-Splines}\label{im6.2.10}
-\end{enumerate}
+  \marginpar{17.12.2014}
+  \begin{enumerate}
+  \item Es gilt 
+    $\mathcal{P}_{k-1}\subset
+    span\left\{N_{1,k}, \dots, N_{n+k-1,k}\right\}$
+  \item Die B-Splines bilden eine Zerlegung der Eins auf $[a,b]$,
+    d.h. 
+    \begin{gather*}
+      1\equiv \sum_{j=1}^{n+k-1}N_{j,k}(x) \quad \forall x\in[a,b]
+    \end{gather*}
+  \item Weiterhin sind die B-Splines (lokal) linear unabhängig,
+    d.h. falls
+    \begin{gather*}
+      \sum_{l=1}^{n+k-1}c_lN_{l,k}(x)=0 
+      \quad\forall x\in(c,d)\subset [a,b]\,,
+    \end{gather*}
+    folgt $c_j=0$ für alle $j$ mit 
+    $(c,d)\cap \underbrace{(t_j,t_j+k)}_{=supp N_{j,k}}\neq \varnothing$.
+    \imagemissing{Lineare Unabhängigkeit der B-Splines}\label{im6.2.10}
+  \end{enumerate}
 
-\begin{proof}~
-  \begin{description}
+  \begin{proof}~
+    \begin{description}
     \item[a), b)] folgen aus der Marschen-Identität 
       \cite[siehe z.B.][]{deuflhardhohmann}
     \item[c)] O.B.d.A. enthalte $(c,d)$ keine Knoten $t_i$
@@ -1154,8 +1154,8 @@ $(c,d)\cap \underbrace{(t_j,t_j+k)}_{=supp N_{j,k}}\neq \varnothing$.
       Auf $(c,d)$ sind nur $k=dim\mathcal{P}_{k-1}$
       B-Splines von Null verschieden.
       Daher müssen diese linear unabhängig sein.
-  \end{description}
-\end{proof}
+    \end{description}
+  \end{proof}
 \end{Satze}
 
 \begin{Fole}
@@ -1189,20 +1189,20 @@ $(c,d)\cap \underbrace{(t_j,t_j+k)}_{=supp N_{j,k}}\neq \varnothing$.
 \extrasection{b)}{Splineinterpolation}
 
 \subsectione{Splineinterpolation allgemein}\label{6.2.13}
-  Gegeben seien $N=n+k-1=dimS_{k,\Delta}$ Stützpunkte $(\xi_i,f_i)$
-  mit
-  \begin{gather*}
-    \xi_1<\dots<\xi_N\,.
-  \end{gather*}
+Gegeben seien $N=n+k-1=dimS_{k,\Delta}$ Stützpunkte $(\xi_i,f_i)$
+mit
+\begin{gather*}
+  \xi_1<\dots<\xi_N\,.
+\end{gather*}
 Gesucht sind nun Splines $s\in S_{k,\Delta}$ 
 mit $s(\xi_i)=f_i$ für alle $i=1, \dots, N$.
 Das ist äquivalent zu 
 \begin{align}
- \sum_{j=1}^N c_jN_{j,k}(\xi_i)&=f_i &&\text{für }i=1,\dots, N
-                                       \label{VI.2.8}
+  \sum_{j=1}^N c_jN_{j,k}(\xi_i)&=f_i &&\text{für }i=1,\dots, N
+                                         \label{VI.2.8}
   \\\nonumber
   \Leftrightarrow Ac&=f &&\text{mit } A=(N_{j,k}(\xi_i))_{i,j=1,\dots,N}
-  \end{align}
+\end{align}
 
 \subsectione{Lineare B-Splines}\label{6.2.14}
 Sei $k=2$, $N=n+1$, $S_{2,\Delta}$ der Splineraum zu einem $\Delta$,
@@ -1233,8 +1233,8 @@ und hat folgende Eigenschaften
   für $i=1, \ldots, N$.\\
   (nach dem Satz von Schoenberg und Whitney, 1953)
 \item $A$ ist total positiv, d.h. für alle quadratischen
-    Untermatrizen $B$ gilt $\det(B)\geq 0$.\\    
-    (nach Karlin, 1968)
+  Untermatrizen $B$ gilt $\det(B)\geq 0$.\\    
+  (nach Karlin, 1968)
 \end{itemize}
 
 Daraus kann man folgern, dass
@@ -1242,13 +1242,13 @@ die Gaußelimination für Bandmatrizen ohne Pivotsuche
 durchführbar ist, falls $N_{ik}(\xi_i) \neq 0$
 für $i =1, \ldots, N$.\\
 
-  
+
 \subsectione{Kubische B-Spline-Interpolation} \label{6.2.15}
 Sei $k=4$ und entsprechend $N=n+3$ und 
 seien die Stützpunkte zur Interpolation wie in \ref{6.2.14}
 gegeben durch 
 \begin{gather*}
-\xi_i = x_{i-1} \quad \text{ für } i=1, \ldots, n+1\,.
+  \xi_i = x_{i-1} \quad \text{ für } i=1, \ldots, n+1\,.
 \end{gather*}
 (Daraus folgt $N\neq n+3$ und \ref{6.2.13} ist nicht anwendbar.)\\
 Zur eindeutigen Bestimmung von $s\in S_{4,\Delta}$ fehlen zwei
@@ -1256,20 +1256,20 @@ Bedingungen.\\
 Typischerweise werden 
 zusätzlich zu 
 \begin{gather*}
-s(x_i)=f(x_i) \quad \text{für } i=0,\ldots,n
+  s(x_i)=f(x_i) \quad \text{für } i=0,\ldots,n
 \end{gather*} 
 eine der folgenden Randbedingungen gefordert:
 \begin{enumerate}[i)]
 \item $s'(a)=f'(a)$ und $s'(b)=f'(b)$:  \\
-\textbf{vollständige} oder \textbf{Hermitesche kubische 
-Spline-Interpolation} 
+  \textbf{vollständige} oder \textbf{Hermitesche kubische 
+    Spline-Interpolation} 
 \item $s''(a)=s''(b)=0$ (\enquote{natürliche}  Endbedingungen):\\
-\textbf{natürliche kubische Spline-Interpolation}\\
-(d.h. $s$ kann linear außerhalb von $[a,b]$ glatt fortgesetzt
-werden) 
+  \textbf{natürliche kubische Spline-Interpolation}\\
+  (d.h. $s$ kann linear außerhalb von $[a,b]$ glatt fortgesetzt
+  werden) 
 \item $s'(a)=s'(b)$ und $s''(a)=s''(b)$,
-falls $f$ periodisch mit Periode $b-a$ ist: \\
-\textbf{periodische kubische Spline-Interpolation}.
+  falls $f$ periodisch mit Periode $b-a$ ist: \\
+  \textbf{periodische kubische Spline-Interpolation}.
 \end{enumerate}
 Die drei Randbedingungen werden aufgrund physikalischer
 Eigenschaften gefordert. Hierzu ein Beispiel: 
@@ -1298,176 +1298,176 @@ Obige Splines haben gerade diese Eigenschaft, denn:
 
 \begin{Satze}\label{6.2.16}
   Sei $s$ ein interpolierender, kubischer Spline von $f$
- in den Knoten $x_i $ und $y\in C^2$ eine beliebige Funktion
-von $f$, so dass 
-\begin{gather*}
-  \left[s''(t)\cdot(y'(t)-s'(t))\right]_{t=a}^{b}=0
-\end{gather*}
-Dann gilt $\nn{s''}_2 \leq \nn{y''}_2$.
+  in den Knoten $x_i $ und $y\in C^2$ eine beliebige Funktion
+  von $f$, so dass 
+  \begin{gather*}
+    \left[s''(t)\cdot(y'(t)-s'(t))\right]_{t=a}^{b}=0
+  \end{gather*}
+  Dann gilt $\nn{s''}_2 \leq \nn{y''}_2$.
 
-\begin{proof}
- Es gilt
-\begin{align*}
-  \nn{y''}_2^2 &= \nn{s''+(y''-s'')}_2^2\\
-               &= \nn{s''}_2^2
-                 + 2\underbrace{\int_{a}{b}s''(y''-x'')dt}_{
-                 \mathclap{\substack{=0 \\ \text{ wie gezeigt wird}}}
-  }
-  + \nn{y''-s''}_2^2
-\end{align*}
-da
-\begin{align*}
-\int_{a}^{b} s''(y''-x'')dt &= \sum_{i=1}^{N}\left(\left[
-                             s''(y'-s')\right]_{x_{i-1}}^{x_i}
-                              -\int_{x_{i-1}}^{x_i}s'''(y'-s')dt\right)\\
-  \intertext{($S_{4,\Delta}\subseteq C^2([a,b])$, 
-  $s'''(x)\equiv d_{i-1}=const$, 
-  da 
-  $s\in\mathcal{P}_3([x_{i-1},x_i])$ )
-  }
- &= \underbrace{\left[ s''(y'-s')\right]_{a}^{b}}_{
-   \mathclap{\substack{ =0 \\ \text{ nach Voraussetzung } }}
-  }
-   -\sum_{i=1}^{N} d_{i-1}
-   \int_{x_{i-1}}^{x_i} \left(y'(t)-s'(t)\right) dt\\
-&=-\sum_{i=1}^N d_{i-1}\bigg(\big(y(x_i)-s(x_i)\big)
-   - \big(y(x_{i-1})-s(x_{i-1})\big)\bigg) \\
- &=0
-\end{align*}
-da $y$,$s$ Interpolationen von $f$ sind.\\
-Mit den Randbedingungen i), ii) und iii) 
-ist die Voraussetzung von \ref{6.2.16} erfüllt.
-\end{proof}
+  \begin{proof}
+    Es gilt
+    \begin{align*}
+      \nn{y''}_2^2 &= \nn{s''+(y''-s'')}_2^2\\
+                   &= \nn{s''}_2^2
+                     + 2\underbrace{\int_{a}{b}s''(y''-x'')dt}_{
+                     \mathclap{\substack{=0 \\ \text{ wie gezeigt wird}}}
+      }
+      + \nn{y''-s''}_2^2
+    \end{align*}
+    da
+    \begin{align*}
+      \int_{a}^{b} s''(y''-x'')dt &= \sum_{i=1}^{N}\left(\left[
+                                    s''(y'-s')\right]_{x_{i-1}}^{x_i}
+                                    -\int_{x_{i-1}}^{x_i}s'''(y'-s')dt\right)\\
+      \intertext{($S_{4,\Delta}\subseteq C^2([a,b])$, 
+      $s'''(x)\equiv d_{i-1}=const$, 
+      da 
+      $s\in\mathcal{P}_3([x_{i-1},x_i])$ )
+      }
+                                  &= \underbrace{\left[ s''(y'-s')\right]_{a}^{b}}_{
+                                    \mathclap{\substack{ =0 \\ \text{ nach Voraussetzung } }}
+      }
+      -\sum_{i=1}^{N} d_{i-1}
+      \int_{x_{i-1}}^{x_i} \left(y'(t)-s'(t)\right) dt\\
+                                  &=-\sum_{i=1}^N d_{i-1}\bigg(\big(y(x_i)-s(x_i)\big)
+                                    - \big(y(x_{i-1})-s(x_{i-1})\big)\bigg) \\
+                                  &=0
+    \end{align*}
+    da $y$,$s$ Interpolationen von $f$ sind.\\
+    Mit den Randbedingungen i), ii) und iii) 
+    ist die Voraussetzung von \ref{6.2.16} erfüllt.
+  \end{proof}
 \end{Satze}
 
 \begin{Kore}\label{6.2.17}
   Es existiert genau ein interpolierender kubischer Spline 
   $s\in S_{4,\Delta}$, welcher die Randbedingungen aus \ref{6.2.16}
   erfüllt.
-Weiterhin gilt für jede interpolierende Funktion $y\in C^2([a,b])$,
-die derselben Randbedingung genügt
-\begin{gather*}
-  \nn{s''}_2 \leq \nn{y''}_2
-\end{gather*}
+  Weiterhin gilt für jede interpolierende Funktion $y\in C^2([a,b])$,
+  die derselben Randbedingung genügt
+  \begin{gather*}
+    \nn{s''}_2 \leq \nn{y''}_2
+  \end{gather*}
 
-\begin{proof}
-  Die Anzahl der Forderungen ist $N=dim S_{4,\Delta}$.
-  Es ergibt sich also ein quadradratisches lineares Gleichungssystem
-und es genügt Injektivität zu zeigen.\\
-Sei $f\equiv 0$, dann erfüllt $y\equiv 0$ alle Forderungen.
-für alle Lösungen $s\in S_{4,\Delta}$ gilt daher
-\begin{gather*}
-  \nn{s''}_2\leq \nn{y''}_2 =0 \quad \text{ nach \ref{6.2.16}}
-\end{gather*}
-Also gilt $s''\equiv 0$ und $s$ ist stückweise kubische Funktion
-mit $s\in C^2([a,b])$  und $s(x_i)=0$.
-Damit folgt $s\equiv 0$, was die Injektivität zeigt.
-\end{proof}
+  \begin{proof}
+    Die Anzahl der Forderungen ist $N=dim S_{4,\Delta}$.
+    Es ergibt sich also ein quadradratisches lineares Gleichungssystem
+    und es genügt Injektivität zu zeigen.\\
+    Sei $f\equiv 0$, dann erfüllt $y\equiv 0$ alle Forderungen.
+    für alle Lösungen $s\in S_{4,\Delta}$ gilt daher
+    \begin{gather*}
+      \nn{s''}_2\leq \nn{y''}_2 =0 \quad \text{ nach \ref{6.2.16}}
+    \end{gather*}
+    Also gilt $s''\equiv 0$ und $s$ ist stückweise kubische Funktion
+    mit $s\in C^2([a,b])$  und $s(x_i)=0$.
+    Damit folgt $s\equiv 0$, was die Injektivität zeigt.
+  \end{proof}
 \end{Kore}
 
-%----------------------------------------------------
+% ----------------------------------------------------
 
 
 \subsectione{Berechnung der natürlichen Splines mittels B-Splines}
 \label{5.2.18}
 \marginpar{22.12.2014}
 \begin{gather*}
-A \coloneqq 
-\left(\begin{array}{ccccccccc}
-\frac{x_2+x_1-2x_0}{x_2-x_0}& & -\frac{x_1-x_0}{x_2-x_0}& && & & & \\
-N_{2,4}(x_1)&&N_{3,4}(x_1) &&N_{4,4}(x_1)  & &&&0 \\
-&\ddots & &\ddots& &\ddots &  &&\\
-& & N_{i+1,4}(x_i)&& N_{i+2,4}(x_i) && N_{i+3,4}(x_i) && \\
-& &  &\ddots& &\ddots &&\ddots  &\\
-0&&&  &N_{n,4}(x_{n-1}) &&N_{n+1,4}(x_{n-1}) &&N_{n+2,4}(x_{n-1}) \\
-& & && && -\frac{x_n-x_{n-1}}{x_n-x_{n-2}} && \frac{2
-                                              x_n-x_{n-2}-x_{n-1}}{x_n-x_{n-2}}
-\end{array}\right)
-\end{gather*}
-Die Werte $N_{j,4}(x_i)$ lassen sich nach \ref{6.2.8} berechnen.
+  A \coloneqq 
+  \left(\begin{array}{ccccccccc}
+          \frac{x_2+x_1-2x_0}{x_2-x_0}& & -\frac{x_1-x_0}{x_2-x_0}& && & & & \\
+          N_{2,4}(x_1)&&N_{3,4}(x_1) &&N_{4,4}(x_1)  & &&&0 \\
+                                      &\ddots & &\ddots& &\ddots &  &&\\
+                                      & & N_{i+1,4}(x_i)&& N_{i+2,4}(x_i) && N_{i+3,4}(x_i) && \\
+                                      & &  &\ddots& &\ddots &&\ddots  &\\
+          0&&&  &N_{n,4}(x_{n-1}) &&N_{n+1,4}(x_{n-1}) &&N_{n+2,4}(x_{n-1}) \\
+                                      & & && && -\frac{x_n-x_{n-1}}{x_n-x_{n-2}} && \frac{2
+                                                                                    x_n-x_{n-2}-x_{n-1}}{x_n-x_{n-2}}
+        \end{array}\right)
+    \end{gather*}
+    Die Werte $N_{j,4}(x_i)$ lassen sich nach \ref{6.2.8} berechnen.
 
 
-Insbesondere ergibt sich für äquidistantes Gitter
-\begin{equation*}
-\frac{1}{12}
-\left(\begin{array}{ccccccc}
-18& -6&&&&&\\
-3&7&2&  &&&\\
-&2&8&2  &&&\\
-& &\ddots &\ddots &\ddots &&\\
-& & & 2&8&2&\\
-& & & &2&7&3\\
-& & &&&-6&18\\
-\end{array}\right) 
-\left(\begin{array}{c}
-c_2\\ \\ \vdots \\ \\c_{n+2}
-\end{array}\right)
-=
-\left(\begin{array}{c}
-f_0\\ \\ \vdots \\ \\f_n
-\end{array}\right)
-\end{equation*}
-(siehe Übung).
+    Insbesondere ergibt sich für äquidistantes Gitter
+    \begin{equation*}
+      \frac{1}{12}
+      \left(\begin{array}{ccccccc}
+              18& -6&&&&&\\
+              3&7&2&  &&&\\
+                &2&8&2  &&&\\
+                & &\ddots &\ddots &\ddots &&\\
+                & & & 2&8&2&\\
+                & & & &2&7&3\\
+                & & &&&-6&18\\
+            \end{array}\right) 
+          \left(\begin{array}{c}
+                  c_2\\ \\ \vdots \\ \\c_{n+2}
+                \end{array}\right)
+              =
+              \left(\begin{array}{c}
+                      f_0\\ \\ \vdots \\ \\f_n
+                    \end{array}\right)
+                \end{equation*}
+                (siehe Übung).
 
 
-\begin{Bspe}[Laster]\label{5.2.20}
-Das folgende Beispiel zeigt,
-dass sowohl die Glattheit der Funktion
-wie auch die Knotenverteilung einen Einfluß hat,
-da die zugehörige Funktion nicht differenzierbar ist,
-bzw. die Ableitungen betragsmäßig sehr groß sind.
+                \begin{Bspe}[Laster]\label{5.2.20}
+                  Das folgende Beispiel zeigt,
+                  dass sowohl die Glattheit der Funktion
+                  wie auch die Knotenverteilung einen Einfluß hat,
+                  da die zugehörige Funktion nicht differenzierbar ist,
+                  bzw. die Ableitungen betragsmäßig sehr groß sind.
 
-Natürliche Spline-Interpolation
-versus polynomiale Interpolation:\\
-{\centering
-\includegraphics[width=\linewidth]{images/laster1.png}
-}
+                  Natürliche Spline-Interpolation
+                  versus polynomiale Interpolation:\\
+                  {\centering
+                    \includegraphics[width=\linewidth]{images/laster1.png}
+                  }
 
-Mit mehr Stützstellen:\\
-{\centering
-\includegraphics[width=\linewidth]{images/laster2.png} 
-}
-\end{Bspe}
+                  Mit mehr Stützstellen:\\
+                  {\centering
+                    \includegraphics[width=\linewidth]{images/laster2.png} 
+                  }
+                \end{Bspe}
 
-\begin{Satze}[Fehlerabschätzung für kubische Splines]\label{5.2.21}
-Sei $f\in C^4([a,b])$ und $s\in S_{4,\Delta}$ 
-der interpolierende, vollständige, kubische Spline 
-zu äquidistanten Knoten mit $h=x_{i+1}-x_i$. Dann gilt
-für $k=0,1,2,3$
-\begin{gather*}
-  \nn{f^{(k)}-s^{(k)}}_{\infty}\leq c_kh^{4-k}\nn{f^{(4)}}_{\infty}
-\end{gather*}
-mit $c_0=\frac{5}{384}$, $c_1=\frac{1}{24}$, $c_2=\frac{3}{8}$,
-$c_3=1$, wobei $c_0$ und $c_1$ optimal sind.
+                \begin{Satze}[Fehlerabschätzung für kubische Splines]\label{5.2.21}
+                  Sei $f\in C^4([a,b])$ und $s\in S_{4,\Delta}$ 
+                  der interpolierende, vollständige, kubische Spline 
+                  zu äquidistanten Knoten mit $h=x_{i+1}-x_i$. Dann gilt
+                  für $k=0,1,2,3$
+                  \begin{gather*}
+                    \nn{f^{(k)}-s^{(k)}}_{\infty}\leq c_kh^{4-k}\nn{f^{(4)}}_{\infty}
+                  \end{gather*}
+                  mit $c_0=\frac{5}{384}$, $c_1=\frac{1}{24}$, $c_2=\frac{3}{8}$,
+                  $c_3=1$, wobei $c_0$ und $c_1$ optimal sind.
 
-\begin{proof}
-\cite[siehe z.B.]
-[(in allgemeiner Form, d.h. auch für nicht gleichmäßiges Gitter)]
-{stoerbulirsch}\\
-Die optimalen $c_k$ wurden von Hall und Meyer (1976) bewiesen.
-Oft wird mit Stetigkeitsmodulen gearbeitet.
-\end{proof}
-\end{Satze}
-
-
-Für eine wachsende Anzahl der Knoten ergibt sich also Konvergenz,
-anders als bei polynomialer Interpolation.
+                  \begin{proof}
+                    \cite[siehe z.B.]
+                    [(in allgemeiner Form, d.h. auch für nicht gleichmäßiges Gitter)]
+                    {stoerbulirsch}\\
+                    Die optimalen $c_k$ wurden von Hall und Meyer (1976) bewiesen.
+                    Oft wird mit Stetigkeitsmodulen gearbeitet.
+                  \end{proof}
+                \end{Satze}
 
 
-\begin{Satze}[Fehlerabschätzung für lineare Splines]\label{6.2.22}
-  Sei $f\in C^2([a,b])$ und $s\in S_{2,\Delta}$
-  der interpolierende Spline  an den Stützstellen 
-  $a=x_0<x_1<\ldots<x_n=b$. 
-  Dann gilt mit $h=max_{i=0,\ldots,n-1}|x_{i+1}-x_i|$
-\begin{gather*}
-  \nn{f-s}_{\infty}\leq \frac{h^2}{8}\nn{f''}_{\infty} \, .
-\end{gather*}
-
-\begin{proof} 
-siehe Übungsaufgabe
-\end{proof}
-\end{Satze}
+                Für eine wachsende Anzahl der Knoten ergibt sich also Konvergenz,
+                anders als bei polynomialer Interpolation.
 
 
-Weitere Literatur zu
-Splines: \cite{boor}
+                \begin{Satze}[Fehlerabschätzung für lineare Splines]\label{6.2.22}
+                  Sei $f\in C^2([a,b])$ und $s\in S_{2,\Delta}$
+                  der interpolierende Spline  an den Stützstellen 
+                  $a=x_0<x_1<\ldots<x_n=b$. 
+                  Dann gilt mit $h=max_{i=0,\ldots,n-1}|x_{i+1}-x_i|$
+                  \begin{gather*}
+                    \nn{f-s}_{\infty}\leq \frac{h^2}{8}\nn{f''}_{\infty} \, .
+                  \end{gather*}
+
+                  \begin{proof} 
+                    siehe Übungsaufgabe
+                  \end{proof}
+                \end{Satze}
+
+
+                Weitere Literatur zu
+                Splines: \cite{boor}
