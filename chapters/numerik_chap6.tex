@@ -767,7 +767,7 @@ Wird die Fehlerabschätzung bzgl. der
 $\nn{\,\cdot\,}_2$-Norm\index{Norm!Euklidische Norm},
 d.h. 
 \begin{gather*}
-  \nn{f}_2\coloneqq \left(\int_{a}^{b}|f(t)|^2dt  \right)
+  \nn{f}_2\coloneqq \left(\int_{a}^{b}|f(t)|^2dt \right)^\frac{1}{2}
 \end{gather*}
 betrachtet, erweisen sich auf $[-1,1]$ die Nullstellen
 des \textbf{Legendre-Polynoms}\index{Legendre-Polynom} $P_{n+1}$
@@ -976,7 +976,7 @@ Das Ziel ist nun eine bessere Basis zu konstruieren.
       $S_{2,\Delta}$-Splines}\label{im6.2.4(3)}
     Ein Spline, welches $f$ in $x_i$ interpoliert hat dann die Form
     \begin{gather*}
-      s(x) = \sum_{j=1}^{n+1}f_{i-1}N_{i,2}(x)
+      s(x) = \sum_{j=1}^{n+1}f_{j-1}N_{j,2}(x)
     \end{gather*}
   \end{enumerate}
 \end{Bspe}
@@ -986,10 +986,10 @@ Das Ziel ist nun eine bessere Basis zu konstruieren.
   Sei $t_1\leq \dots \leq t_m$ eine beliebige Folge von Knoten
   $x_i$.\\
   Dann sind die \textbf{B-Splines}\index{Spline!B-Splines}
-  $n_{j,l}$ für $l=1,\dots, m$ und $j=1,\dots, m-l$ 
+  $N_{j,l}$ für $l=1,\dots, m$ und $j=1,\dots, m-l$ 
   rekursiv erklärt durch
   \begin{align}\nonumber
-    N_{j,1}(x) &\coloneqq \chi_{[t_j,t_{j+1}]}(x) 
+    N_{j,1}(x) &\coloneqq \chi_{[t_j,t_{j+1})}(x) 
                  \text{ für } t_{j+1}\neq t_j\\
     N_{p,1}(x) &= \chi_{[t_p,t_m]}(x) 
                  \text{ für }
@@ -999,7 +999,7 @@ Das Ziel ist nun eine bessere Basis zu konstruieren.
   sowie für $l>1$
   \begin{gather}
     N_{j,l} (x) = \frac{x-t_j}{t_{j+l-1}-t_j}N_{j,l-1}(x) 
-    +  \frac{x-t_{j+1}}{t_{j+l}-t_{j+1}}N_{j+1,l-1}(x) 
+    +  \frac{t_{j+l}-x}{t_{j+l}-t_{j+1}}N_{j+1,l-1}(x) 
     \label{VI.2.4}
   \end{gather}
   Hierbei gilt die Konvention $\frac{0}{0}=0$, 
@@ -1034,7 +1034,7 @@ $k-1$ entspricht dem Polynomgrad.
         \, N_{j,k}(x)\neq 0\right\}} \subset [t_j, t_{j+1}]$
     (lokaler Träger)
   \item $N_{j,k}>0 ~\forall x\in(t_j,t_{j+1})$ (nicht negativ)
-  \item $N_{j,k}\vert_{[t_l,t_{l+1}]}\in \mathcal{P}_{k-1}$
+  \item $N_{j,k}\vert_{[t_l,t_{l+1})}\in \mathcal{P}_{k-1}$
   \end{enumerate}
 
   \begin{proof}
@@ -1048,7 +1048,7 @@ Sei $\overline{x}\in[t_j,t_{j+1}]$ und
 $s(x) = \sum_{i=1}^{N}c_iN_{i,k}(x)$.
 Da nur $N_{j,1}(\overline{x})\neq 0$ ist, 
 können aufgrund von \eqref{VI.2.4}
-auch nur $N_{j-l+1, l}(\overline{x}), \dots, N_{j,k}(\overline{x})$
+auch nur $N_{j-k+1, k}(\overline{x}), \dots, N_{j,k}(\overline{x})$
 verschieden von Null sein, da
 \begin{align*}
   \begin{array}{ccccccccc}

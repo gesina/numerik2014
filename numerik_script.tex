@@ -499,7 +499,7 @@ linearen Gleichungssystem für $[a,b]=[0,1]$
 Positive Funktionen haben kein positives Integral ab einem $n_0$!!
 
 
-%-------------------------------------------------
+% -------------------------------------------------
 
 
 \marginpar{07.01.2015}
@@ -510,125 +510,125 @@ Diese sind dann daher ungeeignet.
 
 
 \begin{Satze}\label{7.2.5}
-Sei $\hat{I}_n(f) $ die abgeschlossene Newton-Cotes-Formel
-der Ordnung $n$.
-Dann gilt:
-\begin{enumerate}[a)]
+  Sei $\hat{I}_n(f) $ die abgeschlossene Newton-Cotes-Formel
+  der Ordnung $n$.
+  Dann gilt:
+  \begin{enumerate}[a)]
   \item $\sum_{i=0}^nw_i= b-a$
-\item $w_i=w_{n-i}$
-\item Ist $n$ gerade, so ist $\hat{I}_n$ exakt für Polynome bis zum
-  Grad $n+1$ nicht nur $n$.
-\end{enumerate}
+  \item $w_i=w_{n-i}$
+  \item Ist $n$ gerade, so ist $\hat{I}_n$ exakt für Polynome bis zum
+    Grad $n+1$ nicht nur $n$.
+  \end{enumerate}
 
-\begin{proof} siehe Übungsblatt \end{proof}
+  \begin{proof} siehe Übungsblatt \end{proof}
 \end{Satze}
 
 \begin{Satze}
   Sei $\hat{I}(f)\coloneqq \sum_{i=0}^n w_if(x_i)$ mit $w_i\in\R$ und
   $a\leq x_0<x_1<\ldots <x_n\leq b$.
-Dann ist der Integrationsfehler $R$ mit 
-\begin{gather}
-  R(f) \coloneqq \hat{I}(f) - \int_a^b f(x) dx
-  \label{VII.2.5}
-\end{gather}
-eine lineare Abildung, für die folgende Darstellungsformel gilt:
-\\
-Falls $R(p)=0$ für alle $p\in\mathcal{P}_l$, dann gilt 
-für alle $f\in C^{l+1}([a,b])$
-\begin{gather}
-  R(f) = \int_a^bf^{(l+1)}(t) K(t) dt
-\label{VII.2.6}
-\end{gather}
-mit 
-\begin{align}\nonumber
-  K(t) &\coloneqq \frac{1}{l!}
-         R\left( 
-         (\bullet -t)_+^l
-         \right)\\
-  &= \frac{1}{i!}\left( \sum_{i=0}^n w_i(x_i-t)_+^-\int_a^b(x-t)_+^ldx  \right)
-\label{VII.2.7}
-\end{align}
-$K(t)$ heißt \textbf{Peano-Kern des Funktionals
-  $R$}\index{Peano-Kern}.
-\begin{proof}
-  Es gilt
-  \begin{gather*}
-    f(x) = f(a) + f'(a)(x-a) +\ldots + \frac{f^{(l)}(a)}{l!}(x-a)^l + r_l(x)
-  \end{gather*}
-  mit Restglied 
-\begin{align*}
-  r_l(x) &= \frac{1}{l!} \int_a^xf^{(l+1)} (t)\cdot (x-t)^l dt\\
-         &= \frac{1}{l!} \int_a^bf^{(l+1)} (t)\cdot (x-t)_+^l dt
-\end{align*}
-Da $R(p)=0$ für alle $p\in\mathcal{P}_l$ folgt
-\begin{align*}
-  R(f) &= R(r_l)
-  = \frac{1}{l!} R\left(\int_a^bf^{(l+1)} (t)\cdot(\bullet-t)_+^l
-         dt\right)\\
-       &=\frac{1}{l!}\left\{ \sum_{i=0}^n w_i \int_a^b f^{(l+1)}(t)
-         \cdot (x_i-t)_+^ldt  
-         - \int_a^b\int_a^b  f^{(l+1)}(t) \cdot (x-t)_+^ldtdx  \right\}
-  \end{align*}
-Mit dem Satz von Fabini gilt
-\begin{align*}
-  R(f) &= \frac{1}{l!}\int_a^bf^{(l+1)}(t) 
-         \left\{ 
-         \sum_{i=0}^n w_i  \cdot (x_i-t)_+^l  
-         - \int_a^b(x-t)_+^ldx  \right\}
-         dt\\
-  &= \frac{1}{l!} \int_a^bf^{(l+1)}(t) 
-    \cdot R\left( (\bullet -t)_+^l\right) dt    
-\end{align*}
-\end{proof}
+  Dann ist der Integrationsfehler $R$ mit 
+  \begin{gather}
+    R(f) \coloneqq \hat{I}(f) - \int_a^b f(x) dx
+    \label{VII.2.5}
+  \end{gather}
+  eine lineare Abildung, für die folgende Darstellungsformel gilt:
+  \\
+  Falls $R(p)=0$ für alle $p\in\mathcal{P}_l$, dann gilt 
+  für alle $f\in C^{l+1}([a,b])$
+  \begin{gather}
+    R(f) = \int_a^bf^{(l+1)}(t) K(t) dt
+    \label{VII.2.6}
+  \end{gather}
+  mit 
+  \begin{align}\nonumber
+    K(t) &\coloneqq \frac{1}{l!}
+           R\left( 
+           (\bullet -t)_+^l
+           \right)\\
+         &= \frac{1}{i!}\left( \sum_{i=0}^n w_i(x_i-t)_+^-\int_a^b(x-t)_+^ldx  \right)
+           \label{VII.2.7}
+  \end{align}
+  $K(t)$ heißt \textbf{Peano-Kern des Funktionals
+    $R$}\index{Peano-Kern}.
+  \begin{proof}
+    Es gilt
+    \begin{gather*}
+      f(x) = f(a) + f'(a)(x-a) +\ldots + \frac{f^{(l)}(a)}{l!}(x-a)^l + r_l(x)
+    \end{gather*}
+    mit Restglied 
+    \begin{align*}
+      r_l(x) &= \frac{1}{l!} \int_a^xf^{(l+1)} (t)\cdot (x-t)^l dt\\
+             &= \frac{1}{l!} \int_a^bf^{(l+1)} (t)\cdot (x-t)_+^l dt
+    \end{align*}
+    Da $R(p)=0$ für alle $p\in\mathcal{P}_l$ folgt
+    \begin{align*}
+      R(f) &= R(r_l)
+             = \frac{1}{l!} R\left(\int_a^bf^{(l+1)} (t)\cdot(\bullet-t)_+^l
+             dt\right)\\
+           &=\frac{1}{l!}\left\{ \sum_{i=0}^n w_i \int_a^b f^{(l+1)}(t)
+             \cdot (x_i-t)_+^ldt  
+             - \int_a^b\int_a^b  f^{(l+1)}(t) \cdot (x-t)_+^ldtdx  \right\}
+    \end{align*}
+    Mit dem Satz von Fabini gilt
+    \begin{align*}
+      R(f) &= \frac{1}{l!}\int_a^bf^{(l+1)}(t) 
+             \left\{ 
+             \sum_{i=0}^n w_i  \cdot (x_i-t)_+^l  
+             - \int_a^b(x-t)_+^ldx  \right\}
+             dt\\
+           &= \frac{1}{l!} \int_a^bf^{(l+1)}(t) 
+             \cdot R\left( (\bullet -t)_+^l\right) dt    
+    \end{align*}
+  \end{proof}
 \end{Satze}
 
 \begin{Fole}\label{7.2.7}
   Falls der Peano-Kern $K$ auf $[a,b]$ ein konstantes Vorzeichen hat,
-gilt nach dem Mittelwertsatz der Integralrechnung
-\begin{gather}
-  R(f) = f^{(l+1)}(\xi) \int_a^b K(t)dt 
-  \quad \text{für ein }\xi\in (a,b)
-  \label{VII.2.8}
-\end{gather}
-Wähle nun ein $g$, für das $R(f)$ und $g^{(l+1)}$ bekannt oder leicht
-berechenbar sind, z.B.
-$g(x)\coloneqq x^{l+1}$. Hier ist
-\begin{gather*}
-  \int_a^bK(t)dt = \frac{R(g)}{(l+1)!} = \frac{R(x^{l+1})}{(l+1)!}
-\end{gather*}
-Dann gilt für ein beliebiges $f\in C^{l+1}([a,b])$
-\begin{gather}
-  R(f) = \frac{R(x^{l+1})}{(l+1)!} f^{(l+1)}(\xi)
-  \quad \text{für ein }\xi \in (a,b)
-\label{VII.2.9}
-\end{gather}
+  gilt nach dem Mittelwertsatz der Integralrechnung
+  \begin{gather}
+    R(f) = f^{(l+1)}(\xi) \int_a^b K(t)dt 
+    \quad \text{für ein }\xi\in (a,b)
+    \label{VII.2.8}
+  \end{gather}
+  Wähle nun ein $g$, für das $R(f)$ und $g^{(l+1)}$ bekannt oder leicht
+  berechenbar sind, z.B.
+  $g(x)\coloneqq x^{l+1}$. Hier ist
+  \begin{gather*}
+    \int_a^bK(t)dt = \frac{R(g)}{(l+1)!} = \frac{R(x^{l+1})}{(l+1)!}
+  \end{gather*}
+  Dann gilt für ein beliebiges $f\in C^{l+1}([a,b])$
+  \begin{gather}
+    R(f) = \frac{R(x^{l+1})}{(l+1)!} f^{(l+1)}(\xi)
+    \quad \text{für ein }\xi \in (a,b)
+    \label{VII.2.9}
+  \end{gather}
 \end{Fole}
 
 \begin{Satze}[Approximationsfehler]\index{Approximationsfehler}
   Im Fall der Newton-Cotes-Formeln besitzen die Peano-Kerne
-konstante Vorzeichen. Somit gilt für $f\in C^{n+j+1}$ mit 
-%\begin{gather*}
+  konstante Vorzeichen. Somit gilt für $f\in C^{n+j+1}$ mit 
+  % \begin{gather*}
   $j= \begin{cases}
     0 & \text{für $n$ ungerade}\\
     1 & \text{für $n$ gerade}
-    \end{cases}$
-%\end{gather*}
-\begin{align}\nonumber
-  R_n(f) &= \hat{I}_n (f) - \int_a^b f(x) dx\\
-         &= \frac{R(x^{n+j+1})}{(n+j+1)!}f^{(n+j+1)}(\xi)
-           \label{VII.2.10}
-\end{align}
+  \end{cases}$
+  % \end{gather*}
+  \begin{align}\nonumber
+    R_n(f) &= \hat{I}_n (f) - \int_a^b f(x) dx\\
+           &= \frac{R(x^{n+j+1})}{(n+j+1)!}f^{(n+j+1)}(\xi)
+             \label{VII.2.10}
+  \end{align}
 
-\begin{proof}
-  Der Beweis des konstanten Vorzeichens gilt
-  \cite[siehe][]{steffensen}.
-% citation: Steffensen 1950
-  Nach Satz \ref{7.2.5}c) gilt:
-\begin{gather*}
-  R_n(p) = 0 \quad\forall p\in\mathcal{P}_{n+j}
-\end{gather*}
-Mit \eqref{VII.2.9} und $l=n+j$ folgt dann die Aussage \eqref{VII.2.10}
-\end{proof}
+  \begin{proof}
+    Der Beweis des konstanten Vorzeichens gilt
+    \cite[siehe][]{steffensen}.
+    % citation: Steffensen 1950
+    Nach Satz \ref{7.2.5}c) gilt:
+    \begin{gather*}
+      R_n(p) = 0 \quad\forall p\in\mathcal{P}_{n+j}
+    \end{gather*}
+    Mit \eqref{VII.2.9} und $l=n+j$ folgt dann die Aussage \eqref{VII.2.10}
+  \end{proof}
 \end{Satze}
 
 
@@ -675,7 +675,7 @@ d.h.
   \hat{I}(f) = \sum_{l=0}^{N-1}\hat{I}_n^{(l)}(f)
   = \sum_{l=0}^{N-1}\frac{t_{l+1}-t_l}{n\cdot s}
   \sum_{i=0}^n \sigma_i f(t_l+i\widetilde{h}_l)
-\label{VII.2.11}
+  \label{VII.2.11}
 \end{gather}
 mit $\widetilde{h}_l\coloneqq (t_{l+1}-t_l)\cdot \frac{1}{n}$.
 Für äquidistante Knoten $t_i=a+ih$ mit $h=\frac{b-a}{N}$
@@ -690,31 +690,31 @@ Ferner lässt sich die Konvergenzordnung \eqref{VII.1.8} zeigen.
 
 \begin{Leme}\label{7.2.11}
   Sei $f\in C^2([a,b])$, dann existiert ein $\tau \in[a,b]$, so dass
-\begin{gather}
-  \hat{I}_T(f) -I(f) = \frac{b-a}{12}h^2 f''(\tau) %MISSING
-\label{VII.2.12}
-\end{gather}
+  \begin{gather}
+    \hat{I}_T(f) -I(f) = \frac{b-a}{12}h^2 f''(\tau) %MISSING
+    \label{VII.2.12}
+  \end{gather}
 
-\begin{proof}
-  Es gilt $t_{l+1}-t_l = h= \frac{b-a}{N}$.
-Daraus folgt
-\begin{gather*}
-  \hat{I}_T(f)-I(f)=(t_{l+1}+t_l)^3\cdot\frac{1}{12}f''(\xi_l)
-\end{gather*}
-nach Tabelle \ref{7.2.9} und mit
-$\xi_l\in[t_l,t_{l+1}]$.
-Weiterhin gilt dann
-\begin{align*}
-  \hat{I}_T(f) - I(f) &= h^3\frac{1}{12}\sum_{i=0}^{N-1}f''(\xi_i)\\
-                      &= \frac{b-a}{12}h^2 \cdot \underbrace{
-                        \frac{1}{N}\sum_{i=0}^{N-1}f''(\xi_i)
-                        }_{\coloneqq d}\\
-                      &= \frac{b-a}{12}h^2 f''(\tau)
-\end{align*}
-da mit $\min_{z\in[a,b]} f''(z) \leq d \leq \max_{z\in[a,b]}f''(z)$
-aus dem Zwischenwertsatz die Existenz eines $\tau\in[a,b]$ folgt
-mit $f''(\tau) = d$
-\end{proof}
+  \begin{proof}
+    Es gilt $t_{l+1}-t_l = h= \frac{b-a}{N}$.
+    Daraus folgt
+    \begin{gather*}
+      \hat{I}_T(f)-I(f)=(t_{l+1}+t_l)^3\cdot\frac{1}{12}f''(\xi_l)
+    \end{gather*}
+    nach Tabelle \ref{7.2.9} und mit
+    $\xi_l\in[t_l,t_{l+1}]$.
+    Weiterhin gilt dann
+    \begin{align*}
+      \hat{I}_T(f) - I(f) &= h^3\frac{1}{12}\sum_{i=0}^{N-1}f''(\xi_i)\\
+                          &= \frac{b-a}{12}h^2 \cdot \underbrace{
+                            \frac{1}{N}\sum_{i=0}^{N-1}f''(\xi_i)
+                            }_{\coloneqq d}\\
+                          &= \frac{b-a}{12}h^2 f''(\tau)
+    \end{align*}
+    da mit $\min_{z\in[a,b]} f''(z) \leq d \leq \max_{z\in[a,b]}f''(z)$
+    aus dem Zwischenwertsatz die Existenz eines $\tau\in[a,b]$ folgt
+    mit $f''(\tau) = d$
+  \end{proof}
 \end{Leme}
 
 Die Trapezsumme ist also ein
@@ -730,19 +730,19 @@ für $N\longrightarrow \infty$.
 \begin{gather}
   \hat{I}_S(f) = \frac{1}{6}\sum_{l=0}^{N-1} (t_{l+1}-t_l)
   \cdot \left(f(t_l) +4f(\frac{t_l+t_{l+1}}{2}) + f(t_{l+1})
-    \right)
-\label{VII.2.13}
+  \right)
+  \label{VII.2.13}
 \end{gather}
 Für äquidistantes Gitter ergibt sich daher für $t_l=a+l\cdot h$
 \begin{gather}
   \hat{I}_S(f) = \frac{1}{8}h\cdot
   \left\{
-  f(t_0+4f\left(\frac{t_1+t_0}{2}\right) 
-  +2f(t_1) + 3f\left(\frac{t_2+t_1}{2}\right)
-  + \ldots +2f(t_{N-1}
-  +4f\left(\frac{t_{N-1}+t_N}{2}\right)
-\right\}
-\label{VII.2.14}
+    f(t_0+4f\left(\frac{t_1+t_0}{2}\right) 
+    +2f(t_1) + 3f\left(\frac{t_2+t_1}{2}\right)
+    + \ldots +2f(t_{N-1}
+    +4f\left(\frac{t_{N-1}+t_N}{2}\right)
+  \right\}
+  \label{VII.2.14}
 \end{gather}
 und wie eben die Fehlerabschätzung
 für $f\in C^4([a,b])$
@@ -750,7 +750,7 @@ für $f\in C^4([a,b])$
   \hat{I}_S(f) -I(f) =
   \frac{b-a}{2880}h^4f^{(4)}(\tau)
   \quad \text{mit } \tau\in[a,b]
-\label{VII.2.15}
+  \label{VII.2.15}
 \end{gather}
 Zu beachten ist, dass aufgrund von
 $f\left(\frac{t_l+t_{l+1}}{2}\right)$
@@ -759,24 +759,24 @@ wie bei der Trapezsumme, d.h. $2N+1$ insgesamt!
 
 Bei einer geraden Anzahl $N$ von Intervallen kann mit der
 Simpsonregel jedoch eine iterierte Regel aufgestellt werden,
- welche wie die Trapezregel $N+1$ Funktionsauswertungen benötigt.
+welche wie die Trapezregel $N+1$ Funktionsauswertungen benötigt.
 Wende hierfür die Simpsonregel auf $[t_{2l}, t_{2l+2}]$ an
 bzw. setze $h=2\frac{b-a}{N}$.
 
 Es ergibt sich mit $\overline{h}= \frac{b-a}{N}$
 \begin{gather}
-S(f) = \frac{\overline{h}}{3}\left[
-       f(t_0)+4f(t_1) + 2f(t_2) + 4f(t_3) +
-     \ldots + 2f(t_{N-1}) + 4f(t_{N-1}) + f(t_N)
-       \right]
+  S(f) = \frac{\overline{h}}{3}\left[
+    f(t_0)+4f(t_1) + 2f(t_2) + 4f(t_3) +
+    \ldots + 2f(t_{N-1}) + 4f(t_{N-1}) + f(t_N)
+  \right]
   \label{VII.2.16}
 \end{gather}
 und es gilt die Fehlerabschätzung für $f\in C^4([a,b])$
 \begin{gather}
   S(f)-I(f)=
   \frac{b-a}{180}\cdot\overline{h}^4f^{(4)}(\tau)
-\quad \text{mit } \tau \in[a,b]
-\label{VII.2.17}
+  \quad \text{mit } \tau \in[a,b]
+  \label{VII.2.17}
 \end{gather}
 da $\overline{h}= 2h$.
 
@@ -790,68 +790,71 @@ Trapezsumme:
 
 \begin{Satze}[Euler-Maclaurinsche
   Summenformel]
-\index{Euler-Maclaurinsche Summenformel}
+  \index{Euler-Maclaurinsche Summenformel}
   Sei $f\in C^{2n+2}([a,b])$ und 
-  $\hat{I}_T^h(f)$ die Tr-apezsumme
+  $\hat{I}_T^h(f)$ die Trapezsumme
   für äquidistante Knoten $x_l=a+lh$
   mit $h=\frac{b-a}{N}$, d.h.
-\begin{gather}
-  \hat{I}_T^h(f) = h\left\{
-    \frac{1}{2}f(a) + \sum_{i=1}^{N-1}f(a+lh) +
-  \frac{1}{2}f(b)
-\right\}
-\label{VII.3.1}
-\end{gather}
-Dann gilt
-\begin{gather}
-  T(h) \coloneqq \hat{I}_T^h(f) = \tau_0+\tau_1h^2+\tau_2h^4
-  +\ldots + \tau_nh^{2n}+ R_{n+1}(h)h^{2n+1}
-\end{gather}
-wobei
-\begin{gather}
-  \tau_0 = I(f) = \int_a^bf(x)dx
-\label{VII.3.3}
-\end{gather}
-das gesuchte Integral ist, und
-\begin{gather*}
-  \tau_k = \frac{B_{2k}}{(2k)!}
-  \left(f^{(2k-1)}(b)-f^{(2k-1)}(a)\right)
-  \quad k=1,\ldots, n
-\end{gather*}
-mit den Bernoulli-Zahlen $B_{2k}$ sind, und
-\begin{gather*}
-  R_{n+1}(h) =
-  \frac{B_{2n+2}}{(2n+2)!}(b-a)f^{(2n+2)}(\xi(h))
-\end{gather*}
-mit $a<\xi(h)<b$ eine in $h$
-gleichmäßige, beschränkte Funktion
-ist.
+  \begin{gather}
+    \hat{I}_T^h(f) = h\left\{
+      \frac{1}{2}f(a) + \sum_{i=1}^{N-1}f(a+lh) +
+      \frac{1}{2}f(b)
+    \right\}
+    \label{VII.3.1}
+  \end{gather}
+  Dann gilt
+  \begin{gather}
+    T(h) \coloneqq \hat{I}_T^h(f) = \tau_0+\tau_1h^2+\tau_2h^4
+    +\ldots + \tau_nh^{2n}+ R_{n+1}(h)h^{2n+1}
+  \end{gather}
+  wobei
+  \begin{gather}
+    \tau_0 = I(f) = \int_a^bf(x)dx
+    \label{VII.3.3}
+  \end{gather}
+  das gesuchte Integral ist, und
+  \begin{gather*}
+    \tau_k = \frac{B_{2k}}{(2k)!}
+    \left(f^{(2k-1)}(b)-f^{(2k-1)}(a)\right)
+    \quad k=1,\ldots, n
+  \end{gather*}
+  mit den Bernoulli-Zahlen $B_{2k}$ sind, und
+  \begin{gather*}
+    R_{n+1}(h) =
+    \frac{B_{2n+2}}{(2n+2)!}(b-a)f^{(2n+2)}(\xi(h))
+  \end{gather*}
+  mit $a<\xi(h)<b$ eine in $h$
+  gleichmäßige, beschränkte Funktion
+  ist.
 
-\begin{proof}
-  Der Beweis ist in
-  \cite{stoerbulirsch} 
-  oder \cite{haemmerlinhoffmann} zu finden.
-\end{proof}
+  \begin{proof}
+    Der Beweis ist in
+    \cite{stoerbulirsch} 
+    oder \cite{haemmerlinhoffmann} zu finden.
+  \end{proof}
 \end{Satze}
 
+% ---------------------------------------------
+
 \subsectione{Idee der Extrapolation}
+\marginpar{12.01.2015}
 Gesucht ist $T(0)= \tau_0=I(f)$.
 Berechne hierfür für paarweise
 verschiedene 
-$h_0,\ldots, h_n$ die Werte
+$h_0,\ldots, h_m$ die Werte
 $T(h_i)$,
 bestimme dann das
 Interpolationspolynom
 \begin{gather}
-  p(x) = a_0+a_1x+\ldots+a_nx^n
-\label{VII.3.4}
+  p(x) = a_0+a_1x+\ldots+a_mx^m
+  \label{VII.3.4}
 \end{gather}
 mit 
 \begin{gather}
   p(h_i^2) =
   T(h_i)=\hat{I}_T^{h_i}(f)
-\quad \text{für } i=0,\ldots,n
-\label{VII.3.5}
+  \quad \text{für } i=0,\ldots,m
+  \label{VII.3.5}
 \end{gather}
 Dann ist $p(h^2)$ eine Approximation
 der Funktion $T(h)$
@@ -863,6 +866,237 @@ den extrapolierten Wert $p(0)$ als
 Näherung für $T(0)=I(f)$.
 
 \imagemissing{Veranschaulichung von Extrapolation}
+
+Da das Interpolationspolynom nur an einer Stelle,
+nämlich $h=0$, berechnet werden soll,
+wird $p(0)$ mittels des Schemas von Neville berechnet.
+\begin{align}\nonumber
+  T_{i0} &= T(h_i) &&0\leq i\leq m \\
+  T_{ik} &= T_{i,k-1} 
+           + \frac{T_{i,k-1}-T_{i-1,k-1}}
+           {\left(\frac{h_{i-k}}{h_i}\right)^2-1} 
+                   &&\text{für } 1\leq k\leq i\leq m
+                      \label{VII.3.6}
+\end{align}
+\begin{align*}
+  \begin{array}{clccccccl}
+    i\backslash k \\
+    h_0^2 & T_{0,0}=T(h_0)=\hat{I}_T^{h_0}(f) & \searrow \\
+    h_1^2 & T_{1,0}=T(h_1) & \longrightarrow & T_{1,1}\\
+    h_2^2 & T_{2,0}& \longrightarrow &T_{2,1} & \longrightarrow T_{2,2} \\
+    \vdots&&\vdots&&& \ddots\\
+    h_i^2 & T_{i,0} & \longrightarrow & T_{i,1} & \longrightarrow & \ldots &
+                                                                             T_{i,i}\\
+    \vdots&&\vdots&&&&& \ddots\\
+    h_m^2 & T_{m,0}=T(h_m)&\longrightarrow & T_{m,1} &\longrightarrow &\ldots&&&T_{m,m}=p(0)
+  \end{array}
+\end{align*}
+wobei $T_{m,m}$ das gewünschte Ergebnis $p(0)$ liefert.
+
+\begin{Beme}\label{7.3.3}
+  Jedes $T_{i,k}=p(T\,|\,h_{i-1}^2,\ldots, h_i^2)(0)$ 
+  stellt eine lineare Integrationsformel dar
+  \begin{gather*}
+    T_{i,k}=\sum_{l=0}^m \alpha_lf(t_l)
+    \quad \text{mit } t_l\in[a,b]
+  \end{gather*}
+\end{Beme}
+
+\subsectione{Aufwand}
+Es sind $\mathcal{O}(m^2)$ flops für das Schema von Neville
+und die Berechnung von 
+$\hat{I}_T^{h_0}(f),\ldots, \hat{I}_T^{h_m}(f)$,
+also die Funktionsauswertungen $f(a+lh_i)~\forall l,h_i$,
+nötig.
+
+\subsectione{Klassische Romberg-Folge zur Romberg-Quadratur}
+\index{Romberg-Folge}
+Wähle 
+\begin{gather}
+  h_0\coloneqq b-a, 
+  h_1\coloneqq \frac{h_0}{2}, \ldots, 
+  h_i\coloneqq \frac{h_{i-1}}{2}
+  \label{VII.3.7}
+\end{gather}
+d.h. $N_i=2^i, H=b-a$ und $h_i=\frac{H}{N_i}$.
+\imagemissing{Auswertungspunkte auf der Zahlengeraden bei versch. $h_i$}
+Pro Halbierung $(h_{j-1}\rightarrow h_j)$ sind $2^{j-1}$
+neue $f$-Auswertungen nötig.
+Für $T_{i,j}$ sind folglich $2+\sum_{j=1}^i2^{j-1}=2^i+1$
+$f$-Auswertungen notwendig und
+\begin{gather}
+  T_{i+1,0}=T(h_{i+1})=T\left(\frac{1}{2}h_i\right)
+  =\frac{1}{2}\underbrace{T(h_i)}_{=T_{i,0}}
+  + h_{i+1}\big(\ldots f(a+h_{i+1})+f(a+3h_{i+1})+\ldots
+  + f(b-h_{i+1})\big)
+  \label{VII.3.8}
+\end{gather}
+
+\subsectione{Bulirsch-Folge}
+\index{Bulirsch-Folge}
+Sie wurde von Bulirsch 1964 vorgeschlagen.
+Wähle 
+\begin{gather}
+  H=h_0=b-a, h_1=\frac{h_0}{2},h_2=\frac{h_0}{3}
+  \text{und }  h_i=\frac{h_{i-2}}{2} \text{für } i\geq 3.
+  \label{VII.3.9}
+\end{gather}
+d.h. 
+\begin{gather*}
+  N_i = \begin{cases}1&i=0\\2^l&i=2l-1\\3\cdot2^{l-1}&i=2l\end{cases}
+\end{gather*}
+\imagemissing{Auswertungspunkte bei der Bulirsch-Folge}
+Es sind ungefähr die Hälfte 
+der $f$-Auswertungen der Romberg-Folge nötig.
+Ein Nachteil ist jedoch,
+dass die $T_{j,k}$ entsprechenden Quadraturformeln
+negative Gewichte $\alpha_i$ enthalten können,
+während sie bei der Romberg-Folge positiv bleiben.
+
+
+\subsectione{Verfahren und Abbruch}
+In der Regel ist für $f$ kein genaues $m$ mit $f\in C^{2(m+1)}([a,b])$
+bekannt,
+gebe stattdessen ein $m_{max}$ von $f$ vor.
+Beachte weiterhin, dass 
+$T_{j,m_{max}}=p(T\,|\,h_{j-m_{max}}^2,\ldots,h_j^2)(0)$
+für $j>m_{max}$ ebenfalls $\tau_0$ approximiert
+und für $h_0\longrightarrow 0$ besser wird (später).
+Daher gehe in der Tabelle von Neville zeilenweise vor.
+\begin{align*}
+  \begin{array}{lccccc}
+    h_0^2 & T_{0,0}\\
+    h_1^2 & T_{1,0} & T_{1,1}\\
+    h_2^2 & T_{2,0} & T_{2,1} & T_{2,2} \\
+          & \vdots&&&\ddots\\
+    h_{m_{max}}^2 & T_{m_{max},1} &&\ldots && T_{m_{max},m_{max}}
+  \end{array}
+\end{align*}
+\imagemissing{Veranschaulichung der Bulirsch-Folge}
+Es wird fortgefahren, bis $T_{i,m_{max}}$ \enquote{genau genug} ist.
+Z.B. wird $m_{max}=7$ gesetzt und abgebrochen, falls
+\begin{enumerate}[a)]
+\item $i$ zu groß wird
+\item genügend viele Ziffern \enquote{stehen}
+  oder $T_{i,m_{max}}\approx T_{i+1,m_{max}}$,
+  was z.B. durch 
+  \begin{gather}
+    \left| T_{i,m_{max}}-T_{i+1,m_{max}}\right|\leq \varepsilon|s|
+    \label{VII.3.20}
+  \end{gather}
+  mit grobem Schätzwert $s$ von $\tau_0$ und einer relativen
+  Genauigkeitstoleranz $\varepsilon$ getestet wird.
+\end{enumerate}
+
+Zum Konvergenzbeweis nutze folgende Aussage:
+
+\begin{Leme}\label{7.3.8}
+  Für die Lagrange-Funktionen $L_i$ 
+  zu den Stützstellen $t_0,\ldots, t_k$ gilt:
+  \begin{enumerate}[a)]
+  \item $\sum_{j=0}^kL_j(0)t_j^l=p(x^l\,|\,t_0,\ldots,t_k)(0)
+    =\begin{cases}
+      1 &l=0\\
+      0&1\leq l\leq k\\
+      (-1)^kt_0\cdot\ldots\cdot t_k & l=k+1
+    \end{cases}$
+  \item Falls $t_j=h_j^2$ mit $0<\frac{h_{j+1}}{h_j}\leq const<1$ gilt
+    \begin{gather*}
+      \sum_{j=0}^k\left|L_j(0)\right|t_j^{k+1}\leq
+      c_kt_0\cdot\ldots\cdot t_k
+    \end{gather*}
+  \end{enumerate}
+  \begin{proof}~
+    \begin{enumerate}[a)]
+    \item Übungsaufgabe.
+    \item Allgeiner Fall siehe \cite{stoerbulirsch},
+      für geometrische Folgen $h_j=h_0c^3$ und $0<c<1$ siehe
+      \cite{stoer}. 
+    \end{enumerate}
+  \end{proof}
+\end{Leme}
+
+\begin{Satze}\label{7.3.9}
+  Sei $T(h)$ wie in \eqref{VII.3.7}
+  und gelte $0<\frac{h_{j+1}}{h_j}\leq const<1$.
+  Dann gilt für $i\geq k$ und $k<m$
+  \begin{gather}
+    T_{i,k}-\tau_0=(-1)^kh_{j-k}^2\cdot\ldots
+    \cdot h_2^2\left(\tau_{k+1}+\mathcal{O}(h_{i-k}^2)\right)
+    \label{VII.3.11}
+  \end{gather}
+  und für $i\geq m$
+  \begin{gather}
+    \left| T_{i,m}-\tau_0 \right| \leq c_mh_{i-m}^2\cdot\ldots \cdot h_i^2
+    \label{VII.3.12}
+  \end{gather}
+\end{Satze}
+
+\begin{Kore}~
+  \begin{enumerate}[a)]
+  \item Für festes $k\leq m $ gilt asymptotisch 
+    für $i\longrightarrow \infty$ mit $h_{i-k}\longrightarrow 0$
+    \begin{gather}
+      T_{i,k}-\tau_0 = \mathcal{O}\left(h_{i-k}^{2(k+1)}\right)
+      \label{VII.3.13}
+    \end{gather}
+    d.h. die Elemente $T_{i,k}$ in der $(k+1)$-ten Spalte der Tabelle
+    konvergieren gegen $\tau_0$ mit der Ordnung $2(k+1)$.
+  \item Pro Spalte $(k \rightarrow k+1)$ 
+    gewinnt das Verfahren zwei Ordnungen.
+  \end{enumerate}
+
+\end{Kore}
+
+\begin{proof}
+  zu \ref{7.3.9}
+  Sei $k=0$, dann gilt:
+  \begin{gather*}
+    T_{j,0} = T(h_j) = \tau_0+\tau_1h_j^2+\ldots+\tau_mh_j^{2m} 
+    +\mathcal{O}\left(h_j^{2(m+1)}\right)
+  \end{gather*}
+  Daraus folgt
+  \begin{gather*}
+    T_{j,0}-\tau=h_j^2\left(\tau_1+\mathcal{O}( h_j^2)\right)
+  \end{gather*}
+  Da $T_{i,k}=p(T\,|\,h_{i-k}^2,\ldots,h_i^2)(0)
+  =p(T\,|\,\widetilde{h}_0^2,\ldots,\widetilde{h}_k^2)(0)
+  \eqqcolon \widetilde{T}_{k,k}$, reicht es $T_{k,k}$ zu betrachten:
+  Sei nun $k<m$ und $i=k$
+  \begin{align*}
+    T_{k,k} = p(0) &= \sum_{j=0}^kL_j(0)T_{j,0} \\
+                   &= \sum_{j=0}^kL_j(0)\left(
+                     \sum_{l=0}^{k+1}\tau_lh_j^{2l}+\mathcal{O}\left(
+                     h_j^{2(k+1)}\right)\right)\\
+                   &= \sum_{l=0}^{k+1}\tau_l\sum_{j=0}^kL_j(0)\left(h_j^2\right)^l
+                     + \underbrace{\sum_{j=0}^kL_j(0)
+                     \cdot \mathcal{O}\left(h_j^{2(k+2)}\right)
+                     }_{\substack{
+                     =\mathcal{O}\left(
+                     \sum_{j=0}^k|L_j(0)|\cdot h_j^{2(k+1)}\right) \\
+    =\mathcal{O}\left(h_0^p\sum_{j=0}^k|L_j(0)|\cdot h_j^{2(k+1)}\right)
+    }}\\
+                   &=\tau_0 + (-1)^kh_0^2\cdot\ldots\cdot
+                     h_k^2\tau_{k+1}
+                     +c_kh_0^2\cdot\ldots\cdot
+                     h_k^2\mathcal{O}\left(h_0^2\right)
+                   &\text{nach \ref{7.3.8}}
+  \end{align*}
+  Für $i=k=m$:
+  \begin{gather*}
+    T_{m,m}=\underbrace{
+      \sum_{l=0}^m\tau_l\sum_{j=0}^m
+      L_j(0)h_j^{2l}
+    }_{=\tau_0}
+    +\sum_{j=0}^m L_j(0)\mathcal{O}\left(h_j^{2(m+1)}\right)
+  \end{gather*}
+  Also 
+  \begin{gather*}
+    \left| T_{m,m}-\tau_0\right| = \mathcal{O}\left(h_0^2\cdot
+      \ldots\cdot h_m^2\right)
+  \end{gather*}
+  nach \ref{7.3.8}.
+\end{proof}
 
 
 \nocite{*} %include all books in .bib into bibliography
