@@ -3,211 +3,22 @@
 %	titlepage:	titlepage (true) or titlehead (false)
 %	toc:		table of contents options
 % 
-% ESSENTIAL PACKAGES
-% ---------------------------------------------------------------------------
-%% encodings
-\usepackage[T1]{fontenc}      %font-encoding WITH e.g. ö (default is OT1 with 7- instead of 8-bit)
-\usepackage[utf8]{inputenc}   %input-encoding WITH e.g. ö (depends on system), better after fontenc
-% ..................................................
-%% language
-\usepackage{babel}	       %rules typical for chosen language(s)
-% ..................................................
-%% font-settings
-\usepackage{lmodern}	       %font: latin modern
-\usepackage{microtype}	       %micro-typographic optimizing, e.g. ligatures
-% 
-% EXTRA PACKAGES
-% ----------------------------------------------------------------------------
-%% pagestyle
-\usepackage{scrpage2}		%KOMA pagestyles scrheadings, scrplain
-% \usepackage{enumitem}		% numeration items like \alpha*)
-\usepackage{enumerate}		% easy numeration
-% ..................................................
-%% quotes
-\usepackage{csquotes}		%easy quotes with \enquote{...}
-% ..................................................
-%% maths
-\usepackage{amsmath}		%improves maths-sections
-\usepackage{mathtools}          %provides tools like \DeclareParedDelimiter or \DefineMathOperator
-\usepackage{amsthm}		%for proofs etc.
-\usepackage{amssymb}		%further maths symbols like \square for proofs
-\usepackage{dsfont}		%for \mathds{letter} to create e.g. the rational numbers symbol Q
-\usepackage{stmaryrd}		%for math symbols like lightning bold
-\usepackage{MnSymbol}
-% \usepackage{bm}		% nicer bold math symbols with \boldsymbol
-% \usepackage{siunitx}		%units
-% ..................................................
-%% colors
-% \usepackage{color}		%to set/define colors,
-% predefined: white , black, red, green, blue, cyan, magenta, yellow
-% ..................................................
-%% objects
-\usepackage{wrapfig,graphicx}	%inclusion of graphics with \includegraphics{name}
-\usepackage{tikz,pgf}
-\usetikzlibrary{arrows}
-\usetikzlibrary{matrix}
-\usetikzlibrary{decorations.pathmorphing}
-\usepackage{framed}
-% ..................................................
-%% index/bibliography
-\usepackage{makeidx}		%create an index with \makeindex in head
-% (creates *.idx file)
-\makeindex			%if index is required (after {makeidx})
-\usepackage[backend=biber,style=alphabetic]{biblatex}	% print bibliography with \printbibliography
-\bibliography{numerik_script.bib} % loads .bib-file for
-% biber-bibliography; after {biblatex}
-% ..................................................
-%% (nicer)tables
-\usepackage{booktabs} 		%enables better spacing and lines in tables
-% \usepackage{multirow}	%option multirow for tables (centers text vertically)
-% \usepackage{tabulary}	%table-width matches content
-% ..................................................
-%% font
-\usepackage{ulem}         % strike text out
-% ..................................................
-%% hyperlinks
-\usepackage{hyperref}	%for links/hyperlinks, better load last!
-% options: colorlink=true (-> no boxes but colored hyperlinks), color of all link
-% ..................................................
-%% fonts
-% \usepackage{anyfontsize}	%any fontsize with \fontsize{size}{baselineskip}\selectfont
-\usepackage{tabularx}  %table with extendable X-column
-
-% DEFINITIONS
-% ------------------------------------------------------------------------------------------------
-% math (theorems)
-\theoremstyle{definition}
-\newtheorem{Def}{Definition}[section]		%definition with \begin{Def}
-\newtheorem{Bsp}[Def]{Beispiel}
-% \theoremstyle{remark}
-\newtheorem{Bem}[Def]{Bemerkung}	%corollary with \begin{Korr}
-\newtheorem{Wdh}[Def]{Wiederholung}
-\theoremstyle{plain}
-\newtheorem{Satz}[Def]{Satz}		%theorem with \begin{Satz}
-\newtheorem*{satz}{Satz}
-\newtheorem{Lem}[Def]{Lemma}		%lemma with \begin{Lem}
-\newtheorem{Kor}[Def]{Korollar}		%theorem with \begin{Satz}
-\newtheorem{Fol}[Def]{Folgerung}
-% \newtheorem{Ax}[Def]{Axiom}		%axiom with \begin{Ax}
-% \newtheorem{Prop}[Def]{Proposition}%proposition with \begin{Prop}
-
-% colors
-% \definecolor{ashgrey}{rgb}{0.7, 0.75, 0.71}
-
-% NEW COMMANDS
-% ------------------------------------------------------------------------------------------------
-% symbols
-\newcommand{\R}{\mathds{R}}
-\newcommand{\Ren}{\mathds{R}^{n}}
-\newcommand{\Renn}{\mathds{R}^{n\times n}}
-\newcommand{\Renm}{\mathds{R}^{n\times m}}
-\newcommand{\Q}{\mathds{Q}}
-\newcommand{\N}{\mathds{N}}
-\newcommand{\Z}{\mathds{Z}}
-\newcommand{\F}{\mathds{F}}
-\newcommand{\K}{\mathcal{K}}
-
-% for the three boxes to show float numbers
-\newcommand{\floatbox}[3]{ %
-  \begin{array}{|c|c|c|}
-    \cline{1-3} 	
-    #1 & #2 & #3\\
-    \cline{1-3}
-  \end{array}
-}
-
-\newcommand{\nn}[1]{\left\| #1 \right\|}	% norm
-\newcommand{\scp}[2]{\langle #1, #2 \rangle}	% scalar prod. 
-
-% inserted sections a), b)
-\newcommand{\extrasection}[2]{\vspace{1.5eM}\minisec{\Large\itshape \thesection #1 #2}\vspace{1eM}}
-
-% EVIL HACKS to go along with numeration
-% equation numeration
-\newcommand{\sectione}[1]{ \setcounter{equation}{0}\section{#1}}
-% theorem numeration
-\newcommand{\subsectione}[1]{\addtocounter{Def}{1}\subsection{#1}}
-\newenvironment{Satze}[1][]{ %
-  \begin{Satz}[#1]  }
-  { \end{Satz}
-  \addtocounter{subsection}{1}}
-\newenvironment{Leme}[1][]{ %
-  \begin{Lem}[#1] }
-  {\end{Lem}
-  \addtocounter{subsection}{1}}
-\newenvironment{Kore}[1][]{ %
-  \begin{Kor}[#1]}
-  {\end{Kor}
-  \addtocounter{subsection}{1}}
-\newenvironment{Fole}[1][]{ %
-  \begin{Fol}[#1]}
-  {\end{Fol}
-  \addtocounter{subsection}{1}}
-\newenvironment{Bspe}[1][]{ %
-  \begin{Bsp}[#1]}
-  {\end{Bsp}
-  \addtocounter{subsection}{1}}
-\newenvironment{Beme}[1][]{ %
-  \begin{Bem}[#1]}
-  {\end{Bem}
-  \addtocounter{subsection}{1}}
-\newenvironment{Defe}[1][]{ %
-  \begin{Def}[#1]}
-  {\end{Def}
-  \addtocounter{subsection}{1}}
-\newenvironment{Wdhe}[1][]{ %
-  \begin{Wdh}[#1]}
-  {\end{Wdh}
-  \addtocounter{subsection}{1}}
-
-% Pseudocode
-\newenvironment{pseudocode}[1]{ %
-  \begin{minipage}{#1}
-    \begin{framed}
-      \hspace*{1em}	
-      \begin{minipage}{#1}
-        \begin{tabbing}
-          for~~\= for~~\= for~~\= for~~\= some really really large amount of text \= \kill
-	}
-	{ %
-        \end{tabbing}
-      \end{minipage}
-      \hspace*{1em}
-    \end{framed}
-  \end{minipage}
-}
-
-% missing images
-\newcommand{\imagemissing}[1]{
-  \begin{center}~\\
-    \centering 
-    \includegraphics[width=2cm]{images/image_missing.jpg}\\
-    \textit{#1} \\
-  \end{center}
-}	
-
-
-% STYLE SETTINGS
-% ------------------------------------------------------------------------------------------------
-% \pagestyle{scrplain}				%set pagestyle to scrheadings or scrplain (instead of headings or plain)
-% \clearscrplain						%clear old style (either scrplain odr scrheadings)
-% \cfoot[<text for scrplain>]{<text for scrheadings>}	%any new settings for foots/ headings
-% \allowdisplaybreaks              %allow multipage for equations
-\renewcommand{\theequation}{\thesection.\arabic{equation}}
-
+% ------------------------------------------------------------------
+% ALL COMMANDS
+% ------------------------------------------------------------------
+\include{numerik_config}
 
 % quicken compilation
-%\includeonly{chapters/numerik_chap0}
-
+%\includeonly{chapters/numerik_chap6}
 
 % **************************************************************************
 \begin{document}
 
-% ----------------------------------------------------------------------------
-% FRONTMATTER
-% ----------------------------------------------------------------------------
-\frontmatter	%for book only, part for title etc.
 
+% ------------------------------------------------------------------
+% FRONTMATTER
+% ------------------------------------------------------------------
+\frontmatter	%for book only, part for title etc.
 % TITLE(PAGE)
 %	\titlehead{titlehead (free)}
 \title{Skript Numerik I}
@@ -219,13 +30,13 @@
 %	\dedication{Widmung}
 %	\thanks{Fußnote}
 \maketitle
-
 % ---------------------------------------------------
 \tableofcontents
 
-% ----------------------------------------------------------------------------------------------
+
+% ------------------------------------------------------------------
 % CONTENT
-% ----------------------------------------------------------------------------------------------
+% ------------------------------------------------------------------
 \mainmatter		% part for content
 
 % Kap. 0: Vorwort
@@ -251,6 +62,7 @@
 
 
 \chapter{Numerische Integration/Quadratur}
+
 
 \sectione{Einführung und einfache Quadraturformeln}
 Häufig sind Integrale
@@ -343,7 +155,7 @@ $\left(x_i+\frac{h}{2}\right)$, denn
   &\leq \sum_{i=0}^{n-1} \left|
     \int_{x_i}^{x_{i+1}}f(t)dt - h\cdot f\left(x_i+\frac{h}{2}\right)
     \right|\\
-  &=\left|
+  &=\sum_{i=0}^{n-1} \left|
     \int_{x_i}^{x_{i+1}}\left( 
     f(t) - f\left(x_i+\frac{h}{2}\right)
     \right) dt
@@ -373,7 +185,7 @@ Interpoliere stückweise linear
   \Rightarrow\quad
   & \hat{I}_T(f) = \frac{1}{2}\sum_{i=0}^{n-1}
     \big(
-    f(x_i)-f(x_{i+1})
+    f(x_i)+f(x_{i+1})
     \big)
     \cdot (x_{i+1}-x_i)
     \label{VII.1.6}
@@ -412,7 +224,7 @@ Die Idee ist nun, $f$ auf $[a,b]$ polynomial zu interpolieren
 an verschiedenen Stellen $a\leq x_0\leq x_1\leq \dots\leq x_n<b$
 und dann das Integral zu berechnen, d.h.
 \begin{align}\nonumber
-  \hat{I}(f) &\coloneqq I\big( p(f\,|\,x_0,\dots, x_n)\big)\\\nonumber
+  \hat{I}(f) &\coloneqq I\big( p(f\mid x_0,\dots, x_n)\big)\\\nonumber
              &=\sum_{i=0}^{n}f(x_i)
                \cdot \int_a^bL_i(t)dt\\
              &=\sum_{i=0}^{n} w_if(x_i)
@@ -433,10 +245,10 @@ Es gilt sogar:
   \begin{gather*}
     \hat{I}(f) = \sum_{i=0}^nw_if(x_i)
   \end{gather*}
-  mit $w_i\in\R$, welche für alle Polynome $p\in\mathcal{P}_n$ exakt ist.
+  mit $w_i\in\R$, welche für alle Polynome $p\in\p_n$ exakt ist.
 
   \begin{proof}
-    $L_i\in\mathcal{P}_n$, also 
+    $L_i\in\p_n$, also 
     \begin{align*}
       I(L_i)=\hat{I}(L_i)&=\sum_{j=0}^{n}w_jL_i(x_j)\\
                          &=\sum_{j=0}^{n}w_j\delta_{ij}\\
@@ -476,7 +288,7 @@ tabellarisch vor.  Es gilt $n\cdot s$, $\sigma_i\in\Z$ und
   \cdot \sum_{i=0}^{n}\sigma_i f(x_i)\,.
   \label{VII.2.4}
 \end{gather}
-Da sie exakt sind für $p\in \mathcal{P}_n$,
+Da sie exakt sind für $p\in \p_n$,
 können $\frac{\sigma_i}{n\cdot s}$ z.B. aus dem
 linearen Gleichungssystem für $[a,b]=[0,1]$
 \begin{gather*}
@@ -491,7 +303,7 @@ linearen Gleichungssystem für $[a,b]=[0,1]$
     1 & 1&1&&&&2& \text{Trapezregel}\\
     2&1&4&1&&&6 & \text{Simpson-Regel}\\
     3&1&3&3&1&&8& \text{$\frac{3}{8}$-Regel}\\
-    4&7&32&12&32&7&90 \text{Milue-Regel}\\
+    4&7&32&12&32&7&90 & \text{Milue-Regel}\\
     \vdots\\
     8&&&\dots &-4540&\dots
   \end{array}
@@ -533,7 +345,7 @@ Diese sind dann daher ungeeignet.
   \end{gather}
   eine lineare Abildung, für die folgende Darstellungsformel gilt:
   \\
-  Falls $R(p)=0$ für alle $p\in\mathcal{P}_l$, dann gilt 
+  Falls $R(p)=0$ für alle $p\in\p_l$, dann gilt 
   für alle $f\in C^{l+1}([a,b])$
   \begin{gather}
     R(f) = \int_a^bf^{(l+1)}(t) K(t) dt
@@ -560,7 +372,7 @@ Diese sind dann daher ungeeignet.
       r_l(x) &= \frac{1}{l!} \int_a^xf^{(l+1)} (t)\cdot (x-t)^l dt\\
              &= \frac{1}{l!} \int_a^bf^{(l+1)} (t)\cdot (x-t)_+^l dt
     \end{align*}
-    Da $R(p)=0$ für alle $p\in\mathcal{P}_l$ folgt
+    Da $R(p)=0$ für alle $p\in\p_l$ folgt
     \begin{align*}
       R(f) &= R(r_l)
              = \frac{1}{l!} R\left(\int_a^bf^{(l+1)} (t)\cdot(\bullet-t)_+^l
@@ -625,7 +437,7 @@ Diese sind dann daher ungeeignet.
     % citation: Steffensen 1950
     Nach Satz \ref{7.2.5}c) gilt:
     \begin{gather*}
-      R_n(p) = 0 \quad\forall p\in\mathcal{P}_{n+j}
+      R_n(p) = 0 \quad\forall p\in\p_{n+j}
     \end{gather*}
     Mit \eqref{VII.2.9} und $l=n+j$ folgt dann die Aussage \eqref{VII.2.10}
   \end{proof}
@@ -863,9 +675,49 @@ auf $[\min_ih_i,\max_ih_i]$.
 diesem Intervall
 auf die Stelle $h=0$ und nutze
 den extrapolierten Wert $p(0)$ als
-Näherung für $T(0)=I(f)$.
+Näherung für $T(0)=I(f)$.\\
 
-\imagemissing{Veranschaulichung von Extrapolation}
+\begin{tikzpicture}[>=triangle 45]
+  \draw[->,color=black] (0,0) -- (10,0);
+  \draw[->,color=black] (0,0) -- (0,5);
+  \clip(-2.5,-1) rectangle (10,5);
+  
+  % Einträge auf x-Achse
+  \draw(1+0.1,0-0.2)--(1,0-0.2) node[below] {$h_m^2$} --(1,0+0.2)--(1+0.1,0+0.2);
+  \draw(7-0.1,0-0.2)--(7,0-0.2) node[below] {$h_0^2$} --(7,0+0.2)--(7-0.1,0+0.2);
+  \foreach \x/\text in {2/{},3.5/{},5/{},6/{$h_1^2$}}
+  {
+    \draw (\x,0.1) -- (\x,-0.1);
+    \draw (\x,-0.2) node[below] {\text};
+  }
+  \draw[smooth,samples=200,domain=0:7.2] plot(\x,{0.02*\x^2+2});
+  
+  % Einträge auf Graph
+  % Kreuze zeichnen auf Graph und Nodes
+  \foreach \x/\text in {0/,1/$T_m$,2/,3.5/,5/,6/$T_1$,7/$T_0$}
+  {
+    \draw[color=blue] (\x-0.1,0.02*\x^2+2-0.1) -- (\x+0.1,0.02*\x^2+2+0.1);
+    \draw[color=blue] (\x+0.1,0.02*\x^2+2-0.1) -- (\x-0.1,0.02*\x^2+2+0.1);
+    
+    \draw (\x,0.02*\x^2+2.1) node[above]{\text};
+  }
+  \draw (0,2) node[left] {$p(0)\approx I(f)$};
+  \draw (1,6.5) node[anchor = north west] {\textit{Veranschaulichung von Extrapolation}};
+   % k=1
+   % \foreach \x/\y/\wert in {0.5/3.5/3.5,3.5/4.5/1,4.5/6/1.5}
+   % {
+   %   % Waagrechte Linien (chi-Funktionen)
+   %   \draw(\x,\wert)--(\y,\wert);	
+   %   % Beginn und Ende der Linien
+   %   \draw(\x+0.1,\wert-0.2)--(\x,\wert-0.2)--(\x,\wert+0.2)--(\x+0.1,\wert+0.2);	
+   %   \draw (\y-0.1,\wert-0.2) arc (-90:90:0.1 and .2);
+   % }
+   % \draw (6,4)--(8.5,4);
+   % \draw(8.5-0.1,4-0.2)--(8.5,4-0.2)--(8.5,4+0.2)--(8.5-0.1,4+0.2);
+\end{tikzpicture}\\
+{\centering
+
+}
 
 Da das Interpolationspolynom nur an einer Stelle,
 nämlich $h=0$, berechnet werden soll,
@@ -894,7 +746,7 @@ wird $p(0)$ mittels des Schemas von Neville berechnet.
 wobei $T_{m,m}$ das gewünschte Ergebnis $p(0)$ liefert.
 
 \begin{Beme}\label{7.3.3}
-  Jedes $T_{i,k}=p(T\,|\,h_{i-1}^2,\ldots, h_i^2)(0)$ 
+  Jedes $T_{i,k}=p(T\mid h_{i-1}^2,\ldots, h_i^2)(0)$ 
   stellt eine lineare Integrationsformel dar
   \begin{gather*}
     T_{i,k}=\sum_{l=0}^m \alpha_lf(t_l)
@@ -959,7 +811,7 @@ In der Regel ist für $f$ kein genaues $m$ mit $f\in C^{2(m+1)}([a,b])$
 bekannt,
 gebe stattdessen ein $m_{max}$ von $f$ vor.
 Beachte weiterhin, dass 
-$T_{j,m_{max}}=p(T\,|\,h_{j-m_{max}}^2,\ldots,h_j^2)(0)$
+$T_{j,m_{max}}=p(T\mid h_{j-m_{max}}^2,\ldots,h_j^2)(0)$
 für $j>m_{max}$ ebenfalls $\tau_0$ approximiert
 und für $h_0\longrightarrow 0$ besser wird (später).
 Daher gehe in der Tabelle von Neville zeilenweise vor.
@@ -994,7 +846,7 @@ Zum Konvergenzbeweis nutze folgende Aussage:
   Für die Lagrange-Funktionen $L_i$ 
   zu den Stützstellen $t_0,\ldots, t_k$ gilt:
   \begin{enumerate}[a)]
-  \item $\sum_{j=0}^kL_j(0)t_j^l=p(x^l\,|\,t_0,\ldots,t_k)(0)
+  \item $\sum_{j=0}^kL_j(0)t_j^l=p(x^l\mid t_0,\ldots,t_k)(0)
     =\begin{cases}
       1 &l=0\\
       0&1\leq l\leq k\\
@@ -1059,8 +911,8 @@ Zum Konvergenzbeweis nutze folgende Aussage:
   \begin{gather*}
     T_{j,0}-\tau=h_j^2\left(\tau_1+\mathcal{O}( h_j^2)\right)
   \end{gather*}
-  Da $T_{i,k}=p(T\,|\,h_{i-k}^2,\ldots,h_i^2)(0)
-  =p(T\,|\,\widetilde{h}_0^2,\ldots,\widetilde{h}_k^2)(0)
+  Da $T_{i,k}=p(T\mid h_{i-k}^2,\ldots,h_i^2)(0)
+  =p(T\mid \widetilde{h}_0^2,\ldots,\widetilde{h}_k^2)(0)
   \eqqcolon \widetilde{T}_{k,k}$, reicht es $T_{k,k}$ zu betrachten:
   Sei nun $k<m$ und $i=k$
   \begin{align*}
@@ -1097,6 +949,263 @@ Zum Konvergenzbeweis nutze folgende Aussage:
   \end{gather*}
   nach \ref{7.3.8}.
 \end{proof}
+
+
+%-------------------------------------
+\marginpar{14.01.2015}
+\sectione{Gauß-Quadratur und Orthogonalsysteme}
+Bei der Konstruktion der Newton-Cotes-Formeln sind die
+$(n+1)$ Knoten $x_i$ fest (äquidistant) gegeben.
+Die Gewichte $w_i$ sind dann so bestimmt, dass
+\begin{gather*}
+  \hat{I}_n(f) =\sum_{i=0}^n w_if(x_i)
+\end{gather*}
+zumindest für alle $f\in\p$ exakt sind.
+Für die Gauß-Quadratur werden sowohl $(n+1)$ Knoten $x_i$
+wie auch die Gewichte $w_i$ so bestimmt, dass
+$\hat{I}_n$ das Integral
+mit möglichst hoher Ordnung approximiert.
+Da $(2n+2)$ Parameter frei sind,
+ist maximal eine Ordnung $(2n+2)$ zu erwarten,
+d.h. $\hat{I}_n$ ist für $p\in\p_{2n+1}$ exakt.
+Da $x_i$ nicht linear in $\hat{I}_n$ eingeht,
+ist u.a. nicht offensichtlich,
+dass dies erreicht wird.
+Der Ansatz für Gauß-Quadratur ist noch allgemeiner:
+Betrachtet werden gewichtete Integrale
+\begin{gather}
+  I(f) \coloneqq \int_a^bw(x)f(x)dx
+\label{VII.4.1}
+\end{gather}
+wobei $a$ und $b$ auch $-\infty$ oder $\infty$ sein können.
+
+\subsectione{Voraussetzungen an $w$}
+\begin{enumerate}[a)]
+\item $w$ ist auf $(a,b)$ stetig und nicht negativ 
+\item Alle \textbf{Momente}\index{Moment}
+  \begin{gather*}
+    \mu_k\coloneqq \int_a^b x^kw(x)dx\quad k=0,1,\ldots
+  \end{gather*}
+  sind endlich.
+\item Für jedes Polynom $p$ mit $p(x) \geq 0$
+  für $x\in[a,b]$ und $\int_a^bw(x)p(x)dx=0$
+  gilt $p\equiv 0$.
+\end{enumerate}
+Zu einem gegebenen $w$ führen wir das
+Skalarprodukt\index{Skalarprodukt} ein
+\begin{gather}
+  (f,g)\coloneqq \int_a^bw(x)f(x)g(x)dx 
+  \label{VII.4.2}
+\end{gather}
+mit $\nn{f}^2\coloneqq (f,f)$.
+Zwei Funktionen $f$ und $g$ heißen orthogonal,
+falls $(f,g)=0$ gilt.
+
+\begin{Leme}
+  \label{7.4.2}
+  Es gibt keine reellen Zahlen $x_i, w_i$ für $i=0,\ldots,n$,
+so dass die zugehörige Quadratur $\hat{I}_n$ exakt ist
+für alle Polynome in $\p_{2n+2}$.
+
+\begin{proof}
+  Angenommen es exisieren $x_i,w_i$, so dass die Quadratur
+für alle Polynome in $\p_{2n+2}$ exakt ist.
+Wähle nun $\overline{p}(x)\coloneqq
+\prod_{j=0}^n(x-x_j)^2\in\p$.
+Dann folgt ein Widerspruch, da
+\begin{gather*}
+  0<I(\overline{p})=\hat{I}_n(\overline{p})
+  =\sum_{i=0}^nw_i\overline{p}(x_i) = 0
+\end{gather*}
+\end{proof}
+\end{Leme}
+
+
+Das Ziel ist es, zu einem gegebenen $w$ und $n$
+die Werte $x_i$ und $w_i$ zu finden.
+Ein Mittel hierzu sind die Orthogonalpolynome
+zur Bestimmung der $x_i$.
+
+
+\begin{Leme}
+  \label{7.4.3}
+Falls $\hat{I}_n$ für alle $p\in\p_{2n+1}$ exakt ist, ist 
+\begin{gather*}
+  P_{n+1}(x)\coloneqq (x-x_0)\cdot \ldots\cdot (x-x_n)\in\p_n
+\end{gather*}
+orthogonal bzgl. $(\cdot,\cdot)$ zu allen $p\in\p_n$.
+
+\begin{proof}
+  Sei $p\in\p_n$, dann gilt 
+$p\cdot P_{n+1}\in\p_{2n+1}$, also 
+\begin{gather*}
+  (p,\p_{n+1})=I(p\cdot P_{n+1})
+  = \hat{I}_n(pP_{n+1})
+  =\sum_{i=0}^nw_ip(x_i)P_{n+1}(x_i) 
+  = 0
+\end{gather*}
+\end{proof}
+
+Es stellen sich noch folgende Fragen:
+\begin{enumerate}
+\item Existiert ein (eindeutiges) $P_{n+1}$,
+welches orthogonal ist zu $\p_n$ und normalisiert?
+\item Sind die Nullstellen von $P_{n+1}$ einfach und reell?
+\item Wie sind die $w_i$ zu wählen?
+\item Ist dann $\hat{I}_n(p)$ exakt für alle $p\in\p_{2n+1}$?
+\end{enumerate}
+\end{Leme}
+
+\begin{Satze}[Existenz von Orthogonalpolynomen]\label{7.4.4}
+  Es gibt für $j=0,1,\ldots$ eindeutig bestimmte, normalisierte
+Polynome $p_j\in\p_j$ mit 
+\begin{gather*}
+  (p_j,p_k) =0 \quad \forall j\neq k
+\end{gather*}
+Diese Polynome genügen der (Drei-Term-)Rekursionsformel 
+\index{Drei-Term-Rekursionsformel} mit 
+$p_{-1}\coloneqq 0, \gamma_0\coloneqq 1$
+\begin{alignat}{3}
+  \nonumber
+  &1.~~&p_0(x)&=1 \\
+  &2.~~&p_{i+1}(x)&=(x-\delta_i)p_i(x)-\gamma_ip_{i-1}(x)
+                    &\quad \text{für  }i\geq 0
+\label{VII.4.3} 
+\end{alignat}
+und
+\begin{align}
+  \nonumber
+  \delta_i &=\frac{(xp_i,p_i)}{(p_i,p_i)}
+  &&\text{für }i\geq 0 \\
+  \gamma_i &=\frac{(p_i,p_i)}{(p_{i-1},p_{i-1})}
+  &&\text{für }i\geq 1
+  \label{VII.4.4}     
+\end{align}
+
+\begin{proof}
+  Per Induktion:
+\begin{description}
+  \item[$\boldsymbol{i=0}$:] $p_0\in\p_0$, normalisiert: klar.
+  \item[$\boldsymbol{i\Rightarrow i+1}$:]  Es ist $xp_i\in\p_i$
+    und damit
+    \begin{gather*}
+      p_{i+1}=xp_i-\sum_{l=0}^ic_lp_l\in\p_{i+1}
+    \end{gather*}
+    und $p_{i+1}$ ist normalisiert.
+    Mit Induktionsvoraussetzung gilt $(p_l,p_j)=0$ 
+    für $0\leq l\neq j\leq i$. Also 
+  \begin{gather*}
+    0=(p_{i+1},p_j) = (xp_i-c_jp_j, p_j) \quad \text{für } j=0,\ldots, i
+  \end{gather*}
+  mit entsprechend 
+  \begin{gather*}
+    c_j=\frac{(xp_i,p_j)}{(p_j,p_j)} = \frac{(p_i,xp_j)}{(p_j,p_j)}
+  \end{gather*}
+  Weiterhin folgt nach Induktionsvoraussetzung für $1\leq j+1\leq i$
+  \begin{gather*}
+    p_{j+1}(x)=(x-\delta_j)p_j(x) -\gamma_jp_{j-1}(x)
+  \end{gather*}
+Demnach ist $c_0=\ldots=c_{i-2}=0$ und
+$\gamma=c_{i-1}=\frac{(p_i,p_i)}{(p_{i-1},p_{i-1})}$
+aufgrund der Orthogonalität
+und $\delta=c_i=\frac{(xp_i,p_i)}{(p_i,p_i)}$.
+Mit $c_i$ ist auch $p_{i+1}$ eindeutig.
+\end{description}
+\end{proof}
+\end{Satze}
+
+Damit folgt:
+
+
+\begin{Kore}
+  \label{7.4.5}
+  Es gilt $(p,P_{n+1})=0~\forall p\in\p_n$.
+Das eindeutige $P_{n+1}$ erfüllt somit die
+Bedingungen von Lemma \ref{7.4.3}.
+\end{Kore}
+
+
+\begin{Satze}
+  Die Nulstellen $x_0,\ldots,x_{n-1}$ von $P_n$
+  sind reell, einfach und liegen im offenen Intervall $(a,b)$.
+
+  \begin{proof}
+    Seien $a<x_0<\ldots<x_l<b$ die Nullstellen von $P_n$,
+    an denen $P_n$ das Vorzeichen wechselt,
+    d.h. die reellen Nullstellen ungerader Vielfachheit in $(a,b)$.
+
+    Es ist zu zeigen, dass $l=n-1$.
+    Dazu sei angenommen, dass $l<n-1$, 
+    dann gilt für das normalisierte Polynom
+    $q(x)\coloneqq \prod_{j=0}^{l}(x-x_j)\in\p_l$ die
+    Gleichung $(p_n,q)=0$.
+    Andererseits ändert $p_n\cdot q\not\equiv 0$ 
+    auf $(a,b)$ das  Vorzeichen nicht, also würde gelten
+    \begin{gather*}
+      (p_n,q)=\int_a^bw(x)p_n(x)q(x)dx
+      \underset{\mathclap{\substack{\uparrow\\\text{Vor. an $w$}}}}{\neq} 0
+    \end{gather*}
+    Dies ist ein Widerspruch.
+  \end{proof}
+\end{Satze}
+
+\begin{Bspe}
+  \begin{align*}
+    \begin{array}{lll}
+      w(x) & [a,b] \\
+      1    & [-1,1] & \text{Legendre-Polynome }\mathcal{P}_n\\
+      \frac{1}{\sqrt{1-x^2}} & [-1,1] & \text{Tschebyscheff-Polynome }
+                                          T_n\\
+      e^{-x} & [0,\infty] &\text{Laguerre-Polynome } L_n\\
+      e^{-x^2}& [-\infty,\infty] & \text{Hermite-Polynome } H_n
+    \end{array}
+  \end{align*}
+\end{Bspe}
+
+\begin{Satze} %MISSING
+  s. Folien
+\end{Satze}
+
+\begin{Satze}[Approximationsfehler]\label{7.4.9}
+  Für $f\in C^{2n+2}([a,b])$ gilt für ein $\xi\in(a,b)$
+  \begin{gather}
+    \int_a^bw(x)f(x)dx-\sum_{i=0}^nw_if(x_i) =
+    \frac{f^{(2n+2)}(\xi)}{(2n+2)!}(p_{n+1},p_{n+1})
+    \label{VII.4.8}
+  \end{gather}
+  
+  \begin{proof}
+    Betrachte die Hermite-Interpolierende $h\in\p_{2n+1}$
+    mit $h(x_i)=f(x_i)$ und $h'(x_i)=f'(x_i)$ für $i=0,\ldots,n$.
+    Da $h\in\p_{2n+1}$ folgt
+    \begin{gather*}
+      I(h) = \sum_{i=0}^nw_ih(x_i)=\hat{I}_n(f)
+    \end{gather*}
+    und daraus 
+    \begin{gather*}
+      I(f)-\hat{I}_n(f) = I(f)-I(h) 
+      =\int_a^bw(x)\cdot\left( f(x)-h(x)\right) dx
+    \end{gather*}
+Aufgrund der Restglieddarstellung bei Polynominterpolation gilt
+\begin{align*}
+  f(x)-h(x) &= \frac{f^{(2n+2)}\left(\xi(x)\right)}{(2n+2)!}(x-x_0)^2
+              \cdot \ldots\cdot (x-x_n)^2 \\
+            &=\frac{f^{(2n+2)}\left(\xi(x)\right)}{(2n+2)!}p_{n+1}^2(x)
+\end{align*}
+mit $\xi(x)$ liegt im kleinsten Intervall, welches $x$ und alle $x_i$
+enthält.
+Mit $f,h,p_{n+1}$ ist auch $f^{(2n+2)}(\xi)$ stetig von $x$ abhängig.
+Da $w(x)p_{n+1}^2(x)\geq 0$ konstantes Vorzeichen hat,
+folgt mit dem Mittelwertsatz der Integralrechnung
+\begin{gather*}
+  I(f) -\hat{I}_n(f) = \frac{f^{(2n+2)}(y)}{(2n+2)!}
+   \cdot \int_a^bw(x)p_{n+1}(x)p_{n+1}(x)dx
+\end{gather*}
+  \end{proof}
+\end{Satze}
+
+\subsectione{Vergleich und Bemerkungen} %MISSING
+s. Folien
 
 
 \nocite{*} %include all books in .bib into bibliography

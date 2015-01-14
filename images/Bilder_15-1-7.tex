@@ -1,0 +1,53 @@
+\input{praeambel_gesina.tex}
+
+\usepackage{pgf,tikz}
+\usetikzlibrary{arrows}
+
+
+\begin{document}
+\centering
+
+
+
+
+	\begin{tikzpicture}[>=triangle 45]
+			\draw[->,color=black] (0,0) -- (10,0);
+			\draw[->,color=black] (0,0) -- (0,5);
+			\clip(-2.5,-1) rectangle (10,5);
+			
+			%Einträge auf x-Achse
+			\draw(1+0.1,0-0.2)--(1,0-0.2) node[below] {$h_m^2$} --(1,0+0.2)--(1+0.1,0+0.2);
+			\draw(7-0.1,0-0.2)--(7,0-0.2) node[below] {$h_0^2$} --(7,0+0.2)--(7-0.1,0+0.2);
+			\foreach \x/\text in {2/{},3.5/{},5/{},6/{$h_1^2$}}
+			{
+				\draw (\x,0.1) -- (\x,-0.1);
+				\draw (\x,-0.2) node[below] {\text};
+			}
+			\draw[smooth,samples=200,domain=0:7.2] plot(\x,{0.02*\x^2+2});
+			
+			%Einträge auf Graph
+			% Kreuze zeichnen auf Graph und Nodes
+			\foreach \x/\text in {0/,1/$T_m$,2/,3.5/,5/,6/$T_1$,7/$T_0$}
+			{
+				\draw[color=blue] (\x-0.1,0.02*\x^2+2-0.1) -- (\x+0.1,0.02*\x^2+2+0.1);
+				\draw[color=blue] (\x+0.1,0.02*\x^2+2-0.1) -- (\x-0.1,0.02*\x^2+2+0.1);
+				
+				\draw (\x,0.02*\x^2+2.1) node[above]{\text};
+			}
+			\draw (0,2) node[left] {$p(0)\approx I(f)$};
+			%k=1
+%			\foreach \x/\y/\wert in {0.5/3.5/3.5,3.5/4.5/1,4.5/6/1.5}
+%			{
+%				%Waagrechte Linien (chi-Funktionen)
+%					\draw(\x,\wert)--(\y,\wert);	
+%				%Beginn und Ende der Linien
+%				\draw(\x+0.1,\wert-0.2)--(\x,\wert-0.2)--(\x,\wert+0.2)--(\x+0.1,\wert+0.2);	
+%				\draw (\y-0.1,\wert-0.2) arc (-90:90:0.1 and .2);
+%			}
+				
+%				\draw (6,4)--(8.5,4);
+				
+%				\draw(8.5-0.1,4-0.2)--(8.5,4-0.2)--(8.5,4+0.2)--(8.5-0.1,4+0.2);
+		\end{tikzpicture}
+
+\end{document}

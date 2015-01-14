@@ -1,14 +1,14 @@
 % % % % % % % % % % % % % % 
-%
-%     Skript zu NUMERIK I
-%           WS14/15
-%    von Prof. Dr. Blank
+% 
+% Skript zu NUMERIK I
+% WS14/15
+% von Prof. Dr. Blank
 % Universität Regensburg
-%
-%
+% 
+% 
 %	Kap. 4: Lineare Gleichungssysteme: Direkte Methoden (Fortsetzung)
-%
-% % % % % % % % % % % % % %
+% 
+% % % % % % % % % % % % % % 
 
 
 
@@ -32,13 +32,13 @@ Sei $A\in\Renm $ und $\nn{\,\cdot\,} $ eine Vektornorm.
 \subsectione{Äquilibrierung der Zeilen} \index{Äquilibrierung!Zeilen-}
 Alle Zeilen von $D_zA$ haben die gleiche Norm, z.B. $\nn{\,\cdot\,} =1$, wofür 
 \begin{gather}
-D_z = \begin{pmatrix}
-\sigma_1 & & 0 \\
-&\ddots & \\ 
-0 && \sigma_n
-\end{pmatrix}
-\quad \text{ mit }\sigma_i\coloneqq \frac{1}{\nn{(a_{i1}, \dots , a_{im})}}
-\label{IV.1.1}
+  D_z = \begin{pmatrix}
+    \sigma_1 & & 0 \\
+    &\ddots & \\ 
+    0 && \sigma_n
+  \end{pmatrix}
+  \quad \text{ mit }\sigma_i\coloneqq \frac{1}{\nn{(a_{i1}, \dots , a_{im})}}
+  \label{IV.1.1}
 \end{gather}
 gesetzt wird.
 
@@ -46,15 +46,15 @@ gesetzt wird.
 \subsectione{Äquilibrierung der Spalten} \index{Äquilibrierung!Spalten-}
 Alle Spalten von $AD_s$ haben die gleiche Norm, z.B. $\nn{\,\cdot\,} =1$, wofür 
 \begin{gather}
-D_s = \begin{pmatrix}
-\tau_1 & & 0 \\
-&\ddots & \\ 
-0 && \tau_m
-\end{pmatrix}
-\quad \text{ mit }\tau_j\coloneqq \nn{\begin{pmatrix}
-	a_{1j} \\ \vdots \\ a_{nj}
-	\end{pmatrix}}^{-1}
-\label{IV.1.2}
+  D_s = \begin{pmatrix}
+    \tau_1 & & 0 \\
+    &\ddots & \\ 
+    0 && \tau_m
+  \end{pmatrix}
+  \quad \text{ mit }\tau_j\coloneqq \nn{\begin{pmatrix}
+      a_{1j} \\ \vdots \\ a_{nj}
+    \end{pmatrix}}^{-1}
+  \label{IV.1.2}
 \end{gather}
 gesetzt wird.
 
@@ -63,16 +63,16 @@ gesetzt wird.
 
 % \subsectione{Lemma}
 \begin{Leme}
-	\label{4.3.1}
-	Sei $A$ zeilenäquilibriert bzgl. der $l_1$-Norm, dann gilt:
-	\begin{gather}
-	cond_{\infty}(A) \leq cond_{\infty}(DA)  \label{IV.1.3}
-	\end{gather}
-	für alle regulären Diagonalmatrizen $D$.
+  \label{4.3.1}
+  Sei $A$ zeilenäquilibriert bzgl. der $l_1$-Norm, dann gilt:
+  \begin{gather}
+    cond_{\infty}(A) \leq cond_{\infty}(DA)  \label{IV.1.3}
+  \end{gather}
+  für alle regulären Diagonalmatrizen $D$.
 \end{Leme} 
 
 \begin{proof}
-	siehe Übungsaufgabe
+  siehe Übungsaufgabe
 \end{proof}
 
 Wie in Kapitel \ref{3} gesehen, kann die Näherungslösung $\widetilde{x}$ 
@@ -83,16 +83,16 @@ trotz Pivotisierung und Äquilibrierung noch sehr ungenau sein.
 Die Näherung $\widetilde{x}$ kann durch Nachiteration verbessert werden. \\
 Falls $\widetilde{x}$ exakt ist, gilt:
 \begin{gather}
-r(\widetilde{x}) \coloneqq b-A\widetilde{x} =0 \label{IV.1.4}
+  r(\widetilde{x}) \coloneqq b-A\widetilde{x} =0 \label{IV.1.4}
 \end{gather}
 ansonsten ist $A(x-\widetilde{x})=r(\widetilde{x}).$ \ \
 Also löse die Korrekturgleichung
 \begin{gather}
-A\Delta x = r(\widetilde{x}) 	\label{IV.1.5}
+  A\Delta x = r(\widetilde{x}) 	\label{IV.1.5}
 \end{gather}
 und setze
 \begin{gather*}
-x^{(1)} \coloneqq \widetilde{x} +\Delta x
+  x^{(1)} \coloneqq \widetilde{x} +\Delta x
 \end{gather*}
 Wiederhole dies sooft, bis $x^{(i)}$ \enquote{genau genug} ist.
 Die Lösung $\widetilde{x}$ wird durch Nachiteration meist mit sehr gutem Erfolg verbessert
@@ -104,8 +104,8 @@ mit $\mathcal{O}(n^2)$ flops.
 
 % \subsectione{Bemerkung (nach Skeel 1980)}
 \begin{Beme}[nach Skeel 1980]
-	Die Gauß-Elimination mit Spaltenpivotsuche und einer Nachiteration
-	ist komponentenweise stabil.
+  Die Gauß-Elimination mit Spaltenpivotsuche und einer Nachiteration
+  ist komponentenweise stabil.
 \end{Beme}
 
 
@@ -116,81 +116,81 @@ $A=A^T$ und $\langle x, Ax \rangle = x^TAx > 0 \quad $ für alle $ x\neq 0$. \\
 
 % \subsectione{Satz (Eigenschaften von symm., pos. def. Matrizen)} 
 \begin{Satze}
-	\label{4.2.1}
-	Für jede spd Matrix $A\in \Renn $ gilt:
-	\begin{enumerate}[i)]	
-		\item $A$ ist invertierbar
-		\item $a_{ii}>0$ für $i=1, \dots , n$
-		\item $\max_{ij}|a_{ij}| = \max_{i}a_{ii}$
-		\item Bei der Gauß-Elimination ohne Pivotsuche ist jede Restmatrix wieder eine spd Matrix.
-	\end{enumerate}
+  \label{4.2.1}
+  Für jede spd Matrix $A\in \Renn $ gilt:
+  \begin{enumerate}[i)]	
+  \item $A$ ist invertierbar
+  \item $a_{ii}>0$ für $i=1, \dots , n$
+  \item $\max_{ij}|a_{ij}| = \max_{i}a_{ii}$
+  \item Bei der Gauß-Elimination ohne Pivotsuche ist jede Restmatrix wieder eine spd Matrix.
+  \end{enumerate}
 \end{Satze}
 
 \begin{proof}~
-	\begin{enumerate}[i)]
-		\item Es gilt $x^TAx\neq 0\Rightarrow Ax\neq 0$. 
-		Nach ii) ist $Ax\neq 0~\forall x\in\Ren\backslash \{0\}$
-		also $ker(A)=0$. %folgt aus \eqref{IV.2.1}
-		\item Sei $e_i$ der i-te Einheitsvektor, so folgt $a_{ii} = e_{i}^TAe_i > 0$.
-		\item siehe Übungsaufgabe
-		\item Es gilt:
-		\begin{align*}
-		A^{(1)} &\coloneqq A = \begin{pmatrix}
-		a_{11} & z^T \\ 
-		z			& B^{(1)}
-		\end{pmatrix} \\
-		A^{(2)}	&\coloneqq L_1 A^{(1)} 
-		= \begin{pmatrix}
-		1 & 0 & \dotsm & 0 \\ \\
-		-\frac{z}{a_{ii}} && I \\ ~
-		\end{pmatrix} 
-		= \begin{pmatrix}
+  \begin{enumerate}[i)]
+  \item Es gilt $x^TAx\neq 0\Rightarrow Ax\neq 0$. 
+    Nach ii) ist $Ax\neq 0~\forall x\in\Ren\backslash \{0\}$
+    also $ker(A)=0$. %folgt aus \eqref{IV.2.1}
+  \item Sei $e_i$ der i-te Einheitsvektor, so folgt $a_{ii} = e_{i}^TAe_i > 0$.
+  \item siehe Übungsaufgabe
+  \item Es gilt:
+    \begin{align*}
+      A^{(1)} &\coloneqq A = \begin{pmatrix}
+        a_{11} & z^T \\ 
+        z			& B^{(1)}
+      \end{pmatrix} \\
+      A^{(2)}	&\coloneqq L_1 A^{(1)} 
+                  = \begin{pmatrix}
+                    1 & 0 & \dotsm & 0 \\ \\
+                    -\frac{z}{a_{ii}} && I \\ ~
+                  \end{pmatrix} 
+      = \begin{pmatrix}
+        a_{11} &  & z^T & ~ \\ 
+        0 \\
+        \vdots && B^{(2)} \\ 
+        0
+      \end{pmatrix} \\
+      \Rightarrow L_1A^{(1)}L_1^T  
+              &= \begin{pmatrix}
 		a_{11} &  & z^T & ~ \\ 
 		0 \\
 		\vdots && B^{(2)} \\ 
 		0
-		\end{pmatrix} \\
-		\Rightarrow L_1A^{(1)}L_1^T  
-		&= \begin{pmatrix}
-		a_{11} &  & z^T & ~ \\ 
-		0 \\
-		\vdots && B^{(2)} \\ 
-		0
-		\end{pmatrix} 
-		\cdot  \begin{pmatrix}
-		1 &  &	-\frac{z}{a_{11}} & ~ \\ 
-		0 \\
-		\vdots && I \\ 
-		0
-		\end{pmatrix}\\
-		&= \begin{pmatrix}
+              \end{pmatrix} 
+      \cdot  \begin{pmatrix}
+        1 &  &	-\frac{z}{a_{11}} & ~ \\ 
+        0 \\
+        \vdots && I \\ 
+        0
+      \end{pmatrix}\\
+              &= \begin{pmatrix}
 		a_{11} & 0 & \cdots & 0\\ 
 		0 \\
 		\vdots && B^{(2)} \\ 
 		0
-		\end{pmatrix} 
-		\end{align*}
-		Weiterhin gilt:
-		\begin{gather*}
-		x\neq 0 \Leftrightarrow L_1 x\neq 0 \,
-		\end{gather*}
-		da $L_1$ invertierbar. Also gilt insgesamt:
-		\begin{align*}
-		\widetilde{x}^TB^{(2)} \widetilde{x} &= x^T L_1A^{(1)}L_1^Tx
-		&&  \text{für } x\coloneqq \begin{pmatrix}	0 \\ \widetilde{x}\end{pmatrix}\\
-		&= (L_1^Tx)^TA(L_1^Tx) > 0
-		&& \forall \widetilde{x}\neq 0 
-		\end{align*}
-		und damit ist auch $B^{(2)}$ spd.
-		
-		Induktiv folgt hiermit iv).
-	\end{enumerate}
+              \end{pmatrix} 
+    \end{align*}
+    Weiterhin gilt:
+    \begin{gather*}
+      x\neq 0 \Leftrightarrow L_1 x\neq 0 \,
+    \end{gather*}
+    da $L_1$ invertierbar. Also gilt insgesamt:
+    \begin{align*}
+      \widetilde{x}^TB^{(2)} \widetilde{x} &= x^T L_1A^{(1)}L_1^Tx
+      &&  \text{für } x\coloneqq \begin{pmatrix}	0 \\ \widetilde{x}\end{pmatrix}\\
+                                           &= (L_1^Tx)^TA(L_1^Tx) > 0
+      && \forall \widetilde{x}\neq 0 
+    \end{align*}
+    und damit ist auch $B^{(2)}$ spd.
+    
+    Induktiv folgt hiermit iv).
+  \end{enumerate}
 \end{proof}
 
 Insbesondere ergibt sich: 
 \begin{gather*}
-(L_{n-1}\cdot \cdots\cdot L_1)A^{(1)}(L_1^T\cdot \cdots \cdot L_{n-1}^T) 
-= \begin{pmatrix} d_1 & & 0 \\ &\vdots& \\ 0&& d_n\end{pmatrix} \, ,
+  (L_{n-1}\cdot \cdots\cdot L_1)A^{(1)}(L_1^T\cdot \cdots \cdot L_{n-1}^T) 
+  = \begin{pmatrix} d_1 & & 0 \\ &\vdots& \\ 0&& d_n\end{pmatrix} \, ,
 \end{gather*}
 wobei $d_i$ das i-te Diagonalelement von $A^{(i)}$ ist und somit $d_i>0$ für $ i= 1, \cdots , n$ gilt. \\
 
@@ -200,48 +200,48 @@ Sei $L\coloneqq (L_1^{-1}\cdot \cdots \cdot L_{n-1}^{-1})$ wie in \eqref{II.1.8}
 
 % \subsectione{Folgerung}
 \begin{Fole}[Cholesky-Zerlegung]
-	\label{4.2.2}
-	Für jede spd Matrix $A$ existiert eine eindeutige Zerlegung der Form 
-	\begin{gather*}
-	A= LDL^T
-	\end{gather*}
-	wobei $L$ eine reelle unipotente (d.h. $l_{ii}=1$) \index{unipotent} (, normierte)  untere 
-	Dreiecksmatrix  und $D$ eine positive Diagonalmatrix ist. 
-	Diese Zerlegung heißt \textbf{rationale Cholesky-Zerlegung}. Die Zerlegung
-	\begin{gather}
-	A= \bar{L}\bar{L}^T 
-	\label{IV.2.2}
-	\end{gather}
-	mit der reellen unteren Dreiecksmatrix
-	\begin{gather*}
-	\bar{L} = L \begin{pmatrix}
-	\sqrt{d_1} &&0 \\
-	& \ddots & \\
-	0&& \sqrt{d_n}
-	\end{pmatrix} = LD^{\frac{1}{2}}
-	\end{gather*}
-	heißt \textbf{Cholesky-Zerlegung.} \index{Cholesky-Zerlegung}.
-	
-	Wegen \eqref{IV.2.2} gilt: 
-	\begin{align}
-	a_{kk} &= \bar{l}_{k1}^{2} + \cdots +  \bar{l}_{kk}^2  \label{IV.2.3} \\
-	a_{ik} &= \bar{l}_{i1} \bar{l}_{k1} + \cdots + \bar{l}_{ik} \bar{l}_{kk}  \label{IV.2.4}
-	\end{align}
-	Demnach funktioniert spaltenweises und zeilenweises Berechnen. 
-		
-	\begin{gather*}
-		\begin{tikzpicture}
-		%Dreiecke zeichnen
-		\foreach \x in {0,5}
-		{
-			\draw (\x,0) -- (\x+4,0) -- (\x,4) -- cycle;
-			\draw (\x,2.5) node[left] {$k$} -- (\x+1.5,2.5);
-			\draw (\x+1.5,4.5) node {$k$};
-		}
-		\draw[dash pattern=on 3pt off 3pt] (6.5,0) -- (6.5,4);
-		\draw (5,1) node[left] {$i$} -- (8,1);
-		\end{tikzpicture}
-	\end{gather*}
+  \label{4.2.2}
+  Für jede spd Matrix $A$ existiert eine eindeutige Zerlegung der Form 
+  \begin{gather*}
+    A= LDL^T
+  \end{gather*}
+  wobei $L$ eine reelle unipotente (d.h. $l_{ii}=1$) \index{unipotent} (, normierte)  untere 
+  Dreiecksmatrix  und $D$ eine positive Diagonalmatrix ist. 
+  Diese Zerlegung heißt \textbf{rationale Cholesky-Zerlegung}. Die Zerlegung
+  \begin{gather}
+    A= \bar{L}\bar{L}^T 
+    \label{IV.2.2}
+  \end{gather}
+  mit der reellen unteren Dreiecksmatrix
+  \begin{gather*}
+    \bar{L} = L \begin{pmatrix}
+      \sqrt{d_1} &&0 \\
+      & \ddots & \\
+      0&& \sqrt{d_n}
+    \end{pmatrix} = LD^{\frac{1}{2}}
+  \end{gather*}
+  heißt \textbf{Cholesky-Zerlegung.} \index{Cholesky-Zerlegung}.
+  
+  Wegen \eqref{IV.2.2} gilt: 
+  \begin{align}
+    a_{kk} &= \bar{l}_{k1}^{2} + \cdots +  \bar{l}_{kk}^2  \label{IV.2.3} \\
+    a_{ik} &= \bar{l}_{i1} \bar{l}_{k1} + \cdots + \bar{l}_{ik} \bar{l}_{kk}  \label{IV.2.4}
+  \end{align}
+  Demnach funktioniert spaltenweises und zeilenweises Berechnen. 
+  
+  \begin{gather*}
+    \begin{tikzpicture}
+      % Dreiecke zeichnen
+      \foreach \x in {0,5}
+      {
+        \draw (\x,0) -- (\x+4,0) -- (\x,4) -- cycle;
+        \draw (\x,2.5) node[left] {$k$} -- (\x+1.5,2.5);
+        \draw (\x+1.5,4.5) node {$k$};
+      }
+      \draw[dash pattern=on 3pt off 3pt] (6.5,0) -- (6.5,4);
+      \draw (5,1) node[left] {$i$} -- (8,1);
+    \end{tikzpicture}
+  \end{gather*}
 \end{Fole}
 
 Es ergibt sich folgender Algorithmus:
@@ -251,12 +251,12 @@ Es ergibt sich folgender Algorithmus:
 Der Algorithmus der Cholesky-Zerlegung ist wie folgt:
 
 \begin{pseudocode}{0.55\linewidth}
-	for  $k=1, \cdots , n$\\
-	~|\> $l_{kk} = (a_{kk}-\sum_{j=1}^{k-1}l_{kj})^{\frac{1}{2}}$ \\
-	~|\> for $i= k+1, \cdots , n$ \\
-	~|\>~|\> $l_{ik} = ( a_{ik}- \sum_{j=1}^{k-1}l_{ij} l_{kj})/{l_{kk}}$  \\
-	~|\>end\\
-	end
+  for  $k=1, \cdots , n$\\
+  ~|\> $l_{kk} = (a_{kk}-\sum_{j=1}^{k-1}l_{kj})^{\frac{1}{2}}$ \\
+  ~|\> for $i= k+1, \cdots , n$ \\
+  ~|\>~|\> $l_{ik} = ( a_{ik}- \sum_{j=1}^{k-1}l_{ij} l_{kj})/{l_{kk}}$  \\
+  ~|\>end\\
+  end
 \end{pseudocode}
 
 
@@ -264,66 +264,66 @@ Der Algorithmus der Cholesky-Zerlegung ist wie folgt:
 \subsectione{Rechenaufwand in flops}
 Es sind je 
 \begin{enumerate}
-	\item[] $\frac{1}{6}(n^2-n) $ Additionen sowie Multiplikationen und 
-	\item[]  $\frac{1}{6}(3n^2-3n) $ Divisionen 
+\item[] $\frac{1}{6}(n^2-n) $ Additionen sowie Multiplikationen und 
+\item[]  $\frac{1}{6}(3n^2-3n) $ Divisionen 
 \end{enumerate}
 also ca. $\frac{2}{3} n^2$ flops für große $n$ notwendig. \\
 Im Vergleich zur LR-Zerlegung halbiert sich in etwa der Aufwand.
 
 % \subsectione{Bemerkung}
 \begin{Beme}~
-	\begin{enumerate}[a)]
-		\item Wegen \eqref{IV.2.3} gilt $|\overline{l}_{kj}| \leq \sqrt{a_{kk}}$,
-		d.h. die Matrizeneinträge können nicht zu groß werden.
-		\item Für spd Matrizen ist der Cholesky-Algorithmus stabil nach \eqref{III.3.13}
-		\item Da $A$ symmetrisch ist, muss nur die untere Dreiecksmatrix gespeichert werden.
-		In Algorithmen kann $\bar{L}$ in eine Kopie dieser Dreiecksmatrix geschrieben werden.
-		\item Fast singuläre Matrizen können durch die Diagonale erkannt werden.
-	\end{enumerate}
+  \begin{enumerate}[a)]
+  \item Wegen \eqref{IV.2.3} gilt $|\overline{l}_{kj}| \leq \sqrt{a_{kk}}$,
+    d.h. die Matrizeneinträge können nicht zu groß werden.
+  \item Für spd Matrizen ist der Cholesky-Algorithmus stabil nach \eqref{III.3.13}
+  \item Da $A$ symmetrisch ist, muss nur die untere Dreiecksmatrix gespeichert werden.
+    In Algorithmen kann $\bar{L}$ in eine Kopie dieser Dreiecksmatrix geschrieben werden.
+  \item Fast singuläre Matrizen können durch die Diagonale erkannt werden.
+  \end{enumerate}
 \end{Beme}
 
-%------------------------------------------------------------------------------------
+% ------------------------------------------------------------------------------------
 
 \sectione{Lineare Ausgleichsprobleme} \index{Ausgleichsproblem!linear}
 \marginpar{10.11.2014}
 
 % \subsectione{Beispiel}
 \begin{Bspe}
-	(s. Einführung)
-	
-	Seien $m$ Messungen $(I_i, U_i)$ für die Stromstärke $I$ und die Spannung $U$ gegeben. \\
-	
-	\begin{figure}
-		\parbox{\linewidth}{
-			\centering
-			\includegraphics{images/ohmsche.jpeg}
-		}
-		\caption{Schaltplan einer einfachen U-I-Messung}
-	\end{figure}
-	
-	Das Ohmsche Gesetz liefert hierfür:
-	\begin{gather*}
-	U=R\cdot I
-	\end{gather*}
-	Gesucht ist der zugehörige Widerstand $R$.\\
-	
-	\begin{figure}
-		\parbox{\linewidth}{
-			\centering
-			\includegraphics[width=0.5\linewidth]{images/linausgl2.png}
-		}
-		\caption{Linearausgleich einer U-I-Messung mit Ursprungsgerade als Modellfunktion}
-	\end{figure}
-	
-	Wird jetzt davon ausgegangen dass die $I_i$ exakt sind, wird das $R$ gesucht, 
-	für das $RI_i$ im Mitttel den minimalen Abstand zu $U_i$ hat.
-	Genauer gesagt berechne
-	\begin{gather*}
-	\min_{r\in\R} \sum_{i=1}^{m}(U_i-rI_i)^2
-	\end{gather*}
-	\textbf{Vorsicht: } Es wird \textbf{nicht} die Gerade (bzw. der lineare Untervektorraum) mit 
-	minimalem euklidischem Abstand zu $(I_i,U_i)$ gesucht! \\
-	Dieses Problem ist nichtlinear und aufwendig zu lösen.
+  (s. Einführung)
+  
+  Seien $m$ Messungen $(I_i, U_i)$ für die Stromstärke $I$ und die Spannung $U$ gegeben. \\
+  
+  \begin{figure}
+    \parbox{\linewidth}{
+      \centering
+      \includegraphics{images/ohmsche.jpeg}
+    }
+    \caption{Schaltplan einer einfachen U-I-Messung}
+  \end{figure}
+  
+  Das Ohmsche Gesetz liefert hierfür:
+  \begin{gather*}
+    U=R\cdot I
+  \end{gather*}
+  Gesucht ist der zugehörige Widerstand $R$.\\
+  
+  \begin{figure}
+    \parbox{\linewidth}{
+      \centering
+      \includegraphics[width=0.5\linewidth]{images/linausgl2.png}
+    }
+    \caption{Linearausgleich einer U-I-Messung mit Ursprungsgerade als Modellfunktion}
+  \end{figure}
+  
+  Wird jetzt davon ausgegangen dass die $I_i$ exakt sind, wird das $R$ gesucht, 
+  für das $RI_i$ im Mitttel den minimalen Abstand zu $U_i$ hat.
+  Genauer gesagt berechne
+  \begin{gather*}
+    \min_{r\in\R} \sum_{i=1}^{m}(U_i-rI_i)^2
+  \end{gather*}
+  \textbf{Vorsicht: } Es wird \textbf{nicht} die Gerade (bzw. der lineare Untervektorraum) mit 
+  minimalem euklidischem Abstand zu $(I_i,U_i)$ gesucht! \\
+  Dieses Problem ist nichtlinear und aufwendig zu lösen.
 \end{Bspe}
 
 
@@ -333,34 +333,34 @@ und die Abhängigkeit $b(t)$ werde beschrieben durch eine Modellfunktion,
 welche linear von den unbekannten Parametern $x_1, \cdots, x_n$ des Modells abhängt,
 d.h.
 \begin{gather*}
-b(t) = a_1(t)x_1 + \dots + a_n(t) x_n
+  b(t) = a_1(t)x_1 + \dots + a_n(t) x_n
 \end{gather*}
 Für exakte Messdaten $b_i$ würde 
 \begin{gather*}
-b(t_i) = b_i \quad \forall i\in\{1,\cdots , m\}
+  b(t_i) = b_i \quad \forall i\in\{1,\cdots , m\}
 \end{gather*}
 gelten.\\
 Im Allgemeinen werden jedoch $m\geq n $ Messwerte $b_i$ bestimmt,
 und hiermit die $n$ Parameter $x_i$ so gewählt, dass die kleinsten
 \textbf{Fehlerquadrate auftreten}:
 \begin{gather}
-\min_{x_1, \dots x_n} \sum_{i=1}^{m} (b_i-b(t_i))^2 \label{IV.3.1}
+  \min_{x_1, \dots x_n} \sum_{i=1}^{m} (b_i-b(t_i))^2 \label{IV.3.1}
 \end{gather}
 (Nach Gauß kann \eqref{IV.3.1} auch aus der Maximum-Likelihood-Methode\index{Maximum-Likelihood-Methode}
 für einen stochastischen Ansatz hergeleitet werden.)\\
 
 Definiere:
 \begin{align*}
-b &= (b_i)_{i=1,\dots, m}\in \R^m \\
-x &= (x_j)_{j=1,\dots, n}\in \R^n \\
-A &= (a_j(t_i)) _{\substack{i=1,\dots, m \\ j= 1, \dots, n}} \in \R^{m\times n}
+  b &= (b_i)_{i=1,\dots, m}\in \R^m \\
+  x &= (x_j)_{j=1,\dots, n}\in \R^n \\
+  A &= (a_j(t_i)) _{\substack{i=1,\dots, m \\ j= 1, \dots, n}} \in \R^{m\times n}
 \end{align*}
 Damit ist \eqref{IV.3.1} äquivalent zum \textbf{linearen Ausgleichsproblem}:\\
 Zu gegebenem $b\in\R^m$ und $A\in\R^{m\times n}$ mit $m\geq n$
 ist das $\overline{x} \in \R^n$ gesucht mit 
 \begin{gather}
-\nn{b-A\overline{x}}_2 = \min_{x\in\R^n} \nn{b-Ax}_2
-\label{IV.3.2}
+  \nn{b-A\overline{x}}_2 = \min_{x\in\R^n} \nn{b-Ax}_2
+  \label{IV.3.2}
 \end{gather}
 Das entspricht der \enquote{Lösung} eines überbestimmten, i.A. nicht erfüllbaren
 GLS $Ax=b$.\\
@@ -368,126 +368,126 @@ Aufgrund der $l_2$-Norm ist $\overline{x}$ gegeben durch die
 orthogonale Projektion von $b$ auf den Bildraum $R(A) $ \index{Bildraum}, wie gleich gezeigt wird. \\
 
 \begin{tikzpicture}[rotate=0,line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
-% Draw region settings
-\clip(1.8,-3.2) rectangle (13.5,3);
-% Right angle
-\draw [shift={(8,0)}] (90:0.6) arc (90:180:0.6);
-\fill (7.75,0.25) circle (1pt);
-% Plane
-\draw (2,2)-- (10,2)-- (13,-2)-- (5,-2)-- cycle;
-\draw[<-] (9,1)-- (12,2) node [anchor=west] {$R(A)$};		
-% vectors
-\draw[->] (6,0) node[anchor=north east] {0} -- (8,0) node[anchor=north west] {$A\overline{x}$};
-\draw[->] (6,0)--(8,2.46) node[anchor=south west] {$b$};
-\draw[dashed] (8,0)-- (8,2.46);
-\fill  (6,0) circle (2pt);
-\fill  (8,0) circle (2pt);	
-\fill  (8,2.46) circle (2pt);
+  % Draw region settings
+  \clip(1.8,-3.2) rectangle (13.5,3);
+  % Right angle
+  \draw [shift={(8,0)}] (90:0.6) arc (90:180:0.6);
+  \fill (7.75,0.25) circle (1pt);
+  % Plane
+  \draw (2,2)-- (10,2)-- (13,-2)-- (5,-2)-- cycle;
+  \draw[<-] (9,1)-- (12,2) node [anchor=west] {$R(A)$};		
+  % vectors
+  \draw[->] (6,0) node[anchor=north east] {0} -- (8,0) node[anchor=north west] {$A\overline{x}$};
+  \draw[->] (6,0)--(8,2.46) node[anchor=south west] {$b$};
+  \draw[dashed] (8,0)-- (8,2.46);
+  \fill  (6,0) circle (2pt);
+  \fill  (8,0) circle (2pt);	
+  \fill  (8,2.46) circle (2pt);
 \end{tikzpicture}
 
 % \subsectione{Projektionssatz} 
 \begin{Satze}[Projektionssatz]
-	\index{Projektionssatz} \label{4.3.3}
-	Sei $V$ ein reeller Vektorraum mit einem Skalarprodukt $\scp{\cdot}{\cdot}$
-	und der induzierten Norm $\nn{v}\coloneqq \sqrt{\scp{v}{v}}$.
-	Sei $U\subset V$ ein endlich dimensionaler Untervektorraum und sei
-	\begin{gather*}
-	U^\bot \coloneqq \left\{ v\in V  \, \middle\vert \, \scp{v}{u} = 0 ~~ \forall u\in U \right\}
-	\end{gather*}
-	Dann gilt:
-	\begin{enumerate}[1)]
-		\item Zu jedem $v\in V$ existiert genau ein $\overline{u}\in U$, 
-		so dass $v-\overline{u}\in U^\bot$, d.h.
-		\begin{gather*}
-		\scp{v-\overline{u}}{u} = 0 \quad \forall u \in U
-		\end{gather*}
-		Dies definiert die \textbf{orthogonale Projektion} \index{orthogonale Projektion}
-		\begin{gather*}
-		P:V\rightarrow U, \quad v\mapsto \overline{u}= Pv
-		\end{gather*}
-		\item Zu jedem $v\in V $ bestimmt $P\cdot v$ die eindeutige Lösung
-		\begin{gather*}
-		\nn{v-Pv}= \min_{u\in U} \nn{v-u}
-		\end{gather*}
-		Also gilt mit einem eindeutigen $\overline{u}= Pv$, dass 
-		\begin{gather}
-		\nn{v-\overline{u}} = \min_{u\in U} \nn{v-u} 
-		\Longleftrightarrow \scp{v-\overline{u}}{u} = 0 \quad \forall u\in U
-		\label{IV.3.3}
-		\end{gather}
-	\end{enumerate} 	
+  \index{Projektionssatz} \label{4.3.3}
+  Sei $V$ ein reeller Vektorraum mit einem Skalarprodukt $\scp{\cdot}{\cdot}$
+  und der induzierten Norm $\nn{v}\coloneqq \sqrt{\scp{v}{v}}$.
+  Sei $U\subset V$ ein endlich dimensionaler Untervektorraum und sei
+  \begin{gather*}
+    U^\bot \coloneqq \left\{ v\in V  \, \middle\vert \, \scp{v}{u} = 0 ~~ \forall u\in U \right\}
+  \end{gather*}
+  Dann gilt:
+  \begin{enumerate}[1)]
+  \item Zu jedem $v\in V$ existiert genau ein $\overline{u}\in U$, 
+    so dass $v-\overline{u}\in U^\bot$, d.h.
+    \begin{gather*}
+      \scp{v-\overline{u}}{u} = 0 \quad \forall u \in U
+    \end{gather*}
+    Dies definiert die \textbf{orthogonale Projektion} \index{orthogonale Projektion}
+    \begin{gather*}
+      P:V\rightarrow U, \quad v\mapsto \overline{u}= Pv
+    \end{gather*}
+  \item Zu jedem $v\in V $ bestimmt $P\cdot v$ die eindeutige Lösung
+    \begin{gather*}
+      \nn{v-Pv}= \min_{u\in U} \nn{v-u}
+    \end{gather*}
+    Also gilt mit einem eindeutigen $\overline{u}= Pv$, dass 
+    \begin{gather}
+      \nn{v-\overline{u}} = \min_{u\in U} \nn{v-u} 
+      \Longleftrightarrow \scp{v-\overline{u}}{u} = 0 \quad \forall u\in U
+      \label{IV.3.3}
+    \end{gather}
+  \end{enumerate} 	
 \end{Satze}
 
 \begin{proof}
-	\begin{enumerate}[1)]
-		\item Sei $\{u_1, \dots , u_n \}$ eine Orthonormalbasis von $U$ 
-		und $\overline{u}\in U $. \\
-		Daraus folgt:
-		\begin{gather*}
-		\exists ! \, (\alpha_i)_{i=1,\dotsc,n} \subset \R: \overline{u} = \sum_{i=1}^{n} \alpha_i u_i
-		\end{gather*}
-		Damit gilt:
-		\begin{alignat*}{3}
-		&&0 &= \scp{v-\overline{u}}{u} &\quad& \forall u \in U \\
-		&\Longleftrightarrow \quad& 0 &= \scp{v- \sum_{i=1}^{n} \alpha_i u_i}{u_i} &\quad &\forall j=1, \dots , n\\
-		&\Longleftrightarrow  & \scp{v}{u_j} &= \sum_{i=1}^{n} \alpha_i \scp{u_i}{u_j} = \alpha_j
-		\end{alignat*}
-		Setze also 
-		\begin{align}
-		\nonumber
-		P\cdot v &= \overline{u} \\
-		& = \sum_{i=1}^{n} \scp{v}{u_i} u_i \in U
-		\label{IV.3.4}
-		\end{align}
-		dann ist $\overline{u}$ die eindeutig bestimmte Lösung für $ v-\overline{u} \in U^\bot$
-		
-		\imagemissing{}\label{im4.3.3}
-		
-		Sei  $u\in U$. Dann gilt:
-		\begin{align}
-		\nonumber
-		\nn{v-u}^2 &= \nn{v-\overline{u}+\overline{u} -u}^2 \\ \nonumber
-		&= \nn{v-\overline{u}}^2 +
-		\underbrace{\scp{v-\overline{u}}{\overbrace{\overline{u}-u}^{~~\in U}}}_{=0}
-		+ \nn{u-\overline{u}}^2 \\
-		&= \nn{v-\overline{u}}^2 + \nn{u-\overline{u}}^2
-		\label{IV.3.5}
-		\end{align}
-		(Dies ist anschaulich der Satz des Pythagoras.)
-	\end{enumerate}
+  \begin{enumerate}[1)]
+  \item Sei $\{u_1, \dots , u_n \}$ eine Orthonormalbasis von $U$ 
+    und $\overline{u}\in U $. \\
+    Daraus folgt:
+    \begin{gather*}
+      \exists ! \, (\alpha_i)_{i=1,\dotsc,n} \subset \R: \overline{u} = \sum_{i=1}^{n} \alpha_i u_i
+    \end{gather*}
+    Damit gilt:
+    \begin{alignat*}{3}
+      &&0 &= \scp{v-\overline{u}}{u} &\quad& \forall u \in U \\
+      &\Longleftrightarrow \quad& 0 &= \scp{v- \sum_{i=1}^{n} \alpha_i u_i}{u_i} &\quad &\forall j=1, \dots , n\\
+      &\Longleftrightarrow  & \scp{v}{u_j} &= \sum_{i=1}^{n} \alpha_i \scp{u_i}{u_j} = \alpha_j
+    \end{alignat*}
+    Setze also 
+    \begin{align}
+      \nonumber
+      P\cdot v &= \overline{u} \\
+               & = \sum_{i=1}^{n} \scp{v}{u_i} u_i \in U
+                 \label{IV.3.4}
+    \end{align}
+    dann ist $\overline{u}$ die eindeutig bestimmte Lösung für $ v-\overline{u} \in U^\bot$
+    
+    \imagemissing{}\label{im4.3.3}
+    
+    Sei  $u\in U$. Dann gilt:
+    \begin{align}
+      \nonumber
+      \nn{v-u}^2 &= \nn{v-\overline{u}+\overline{u} -u}^2 \\ \nonumber
+                 &= \nn{v-\overline{u}}^2 +
+                   \underbrace{\scp{v-\overline{u}}{\overbrace{\overline{u}-u}^{~~\in U}}}_{=0}
+                   + \nn{u-\overline{u}}^2 \\
+                 &= \nn{v-\overline{u}}^2 + \nn{u-\overline{u}}^2
+                   \label{IV.3.5}
+    \end{align}
+    (Dies ist anschaulich der Satz des Pythagoras.)
+  \end{enumerate}
 \end{proof}
 
 
 % \subsectione{Satz}
 \begin{Satze}
-	Der Vektor $\overline{x} \in\R^n$ ist genau dann Lösung des linearen Ausgleichsproblems
-	\begin{gather*}
-	\min_{x\in\Ren} \nn{b-Ax}_2 \, ,
-	\end{gather*}
-	falls er die Normalengleichung
-	\begin{gather}
-	A^TA\overline{x} = A^Tb
-	\label{IV.3.6}
-	\end{gather}
-	erfüllt. \\
-	Insbesondere ist $\overline{x}$ eindeutig,
-	falls $A\in \R^{m\times n}$ maximalen Rang $n\leq m$ hat.
+  Der Vektor $\overline{x} \in\R^n$ ist genau dann Lösung des linearen Ausgleichsproblems
+  \begin{gather*}
+    \min_{x\in\Ren} \nn{b-Ax}_2 \, ,
+  \end{gather*}
+  falls er die Normalengleichung
+  \begin{gather}
+    A^TA\overline{x} = A^Tb
+    \label{IV.3.6}
+  \end{gather}
+  erfüllt. \\
+  Insbesondere ist $\overline{x}$ eindeutig,
+  falls $A\in \R^{m\times n}$ maximalen Rang $n\leq m$ hat.
 \end{Satze}
 
 \begin{proof} Bezeichne
-	$V= \R^m, U= R(A) = \left\{Ax \, \middle|  \, x \in\Ren \right\}, b \in \R^m$.\\
-	Nach \eqref{IV.3.3} gilt:
-	\begin{alignat*}{2}
-	&&\nn{b-A\overline{x}}_2 &= \min_{x\in\Ren} \nn{b-Ax}_2 \\
-	&\Leftrightarrow \quad & \scp{b-A \overline{x}}{Ax} &= 0 \quad \forall x\in \Ren \\
-	&\Leftrightarrow & \scp{A^T(b-A\overline{x})}{x} &= 0 \quad  \forall x\in\Ren \\
-	&\Leftrightarrow & A^T(b-A\overline{x}) &= 0 \\
-	&\Leftrightarrow & A^TA\overline{x} &= A^Tb
-	\end{alignat*}
-	Nach dem Projektionssatz \ref{4.3.3} existiert mindestens ein eindeutiges
-	$\overline{y} = P b$.
-	Für dieses $\overline{y}$ ist $\overline{x}\in \Ren $ mit $\overline{y} = A\overline{x}$
-	eindeutig bestimmt, falls $A$ injektiv ist, d.h. falls $rang(A) = n$. 
+  $V= \R^m, U= R(A) = \left\{Ax \, \middle|  \, x \in\Ren \right\}, b \in \R^m$.\\
+  Nach \eqref{IV.3.3} gilt:
+  \begin{alignat*}{2}
+    &&\nn{b-A\overline{x}}_2 &= \min_{x\in\Ren} \nn{b-Ax}_2 \\
+    &\Leftrightarrow \quad & \scp{b-A \overline{x}}{Ax} &= 0 \quad \forall x\in \Ren \\
+    &\Leftrightarrow & \scp{A^T(b-A\overline{x})}{x} &= 0 \quad  \forall x\in\Ren \\
+    &\Leftrightarrow & A^T(b-A\overline{x}) &= 0 \\
+    &\Leftrightarrow & A^TA\overline{x} &= A^Tb
+  \end{alignat*}
+  Nach dem Projektionssatz \ref{4.3.3} existiert mindestens ein eindeutiges
+  $\overline{y} = P b$.
+  Für dieses $\overline{y}$ ist $\overline{x}\in \Ren $ mit $\overline{y} = A\overline{x}$
+  eindeutig bestimmt, falls $A$ injektiv ist, d.h. falls $rang(A) = n$. 
 \end{proof}
 
 Ähnlich zum Skalarprodukt ist die relative Kondition von $(P,b) $ schlecht, 
@@ -499,20 +499,20 @@ Die relative Kondition des linearen Ausgleichsproblems hängt zusätzlich von $c
 Falls $rang(A) = n$, ist $A^TA$ spd und das Cholesky-Verfahren ist anwendbar. \\
 Dafür ist
 \begin{enumerate}[1.]
-	\item $A^TA$ zu berechnen:
-	\begin{description}
-		\item[Aufwand] ca. $\frac{1}{2}n^2m$ Multiplikationen 
-		\item[Kondition] häufig schlecht, da $\frac{1}{2}n^2$ Skalarprodukte berechnet werden
-	\end{description}
-	\item die Cholesky-Zerlegung von $A^TA $ durchzuführen:
-	\begin{description}
-		\item[Aufwand] ca. $\frac{1}{6}n^3$ Multiplikationen 
-		\item[Kondition] Für $A\in\R^{m\times n}$ mit $m\geq n$ und $rang(A)=n$ gilt:
-		\begin{gather}
-		cond_2(A^TA) = cond_2(A)^2 \label{IV.3.7}
-		\end{gather}
-		(siehe Übungsaufgabe 19)
-	\end{description}
+\item $A^TA$ zu berechnen:
+  \begin{description}
+  \item[Aufwand] ca. $\frac{1}{2}n^2m$ Multiplikationen 
+  \item[Kondition] häufig schlecht, da $\frac{1}{2}n^2$ Skalarprodukte berechnet werden
+  \end{description}
+\item die Cholesky-Zerlegung von $A^TA $ durchzuführen:
+  \begin{description}
+  \item[Aufwand] ca. $\frac{1}{6}n^3$ Multiplikationen 
+  \item[Kondition] Für $A\in\R^{m\times n}$ mit $m\geq n$ und $rang(A)=n$ gilt:
+    \begin{gather}
+      cond_2(A^TA) = cond_2(A)^2 \label{IV.3.7}
+    \end{gather}
+    (siehe Übungsaufgabe 19)
+  \end{description}
 \end{enumerate}
 Also überwiegt für $m\gg n$ der Aufwand $A^tA$ zu berechnen.
 Die auftretenden Konditionen entsprechen i.d.R. nicht dem des Ausgangsproblems.\\
@@ -522,113 +522,113 @@ Damit ist die
 
 % \subsectione{Satz}
 \begin{Satze}
-	Sei $A\in \R^{m\times n} $ mit $m\geq n$ und $rang(A) = n$,
-	sei $b\in\R^m$ und besitze $A$ eine Zerlegung
-	\begin{gather*}
-	A= Q\begin{pmatrix}R\\0\end{pmatrix}
-	\end{gather*}
-	mit einer orthogonalen Matrix $Q\in R^{m\times m}$ und 
-	einer oberen Dreiecksmatrix $R\in \R^{n\times n}$. \\
-	Dann ist $R$ invertierbar. \\
-	Bezeichne 
-	\begin{gather}
-	\begin{pmatrix} \overline{b}_1 \\ \overline{b}_2\end{pmatrix}
-	\coloneqq Q^T\cdot b
-	\label{IV.3.9}
-	\end{gather}
-	dann ist
-	\begin{gather}
-	\overline{x} = R^{-1} \overline{b}_1 
-	\label{IV.3.10}
-	\end{gather}
-	die Lösung des linearen Ausgleichsproblems und
-	\begin{align*}
-	\nn{\overline{b}_2} &= \nn{b-A\overline{x}} \\
-	& = \min_{x\in \Ren }\nn{b-Ax}
-	\end{align*}
+  Sei $A\in \R^{m\times n} $ mit $m\geq n$ und $rang(A) = n$,
+  sei $b\in\R^m$ und besitze $A$ eine Zerlegung
+  \begin{gather*}
+    A= Q\begin{pmatrix}R\\0\end{pmatrix}
+  \end{gather*}
+  mit einer orthogonalen Matrix $Q\in R^{m\times m}$ und 
+  einer oberen Dreiecksmatrix $R\in \R^{n\times n}$. \\
+  Dann ist $R$ invertierbar. \\
+  Bezeichne 
+  \begin{gather}
+    \begin{pmatrix} \overline{b}_1 \\ \overline{b}_2\end{pmatrix}
+    \coloneqq Q^T\cdot b
+    \label{IV.3.9}
+  \end{gather}
+  dann ist
+  \begin{gather}
+    \overline{x} = R^{-1} \overline{b}_1 
+    \label{IV.3.10}
+  \end{gather}
+  die Lösung des linearen Ausgleichsproblems und
+  \begin{align*}
+    \nn{\overline{b}_2} &= \nn{b-A\overline{x}} \\
+                        & = \min_{x\in \Ren }\nn{b-Ax}
+  \end{align*}
 \end{Satze}
 
 Zur Erinnerung:
 \begin{align*}
-Q \text{ orthogonal} &:\Leftrightarrow QQ^T = I \\
-&\, \Leftrightarrow Q^{-1} = Q^T
+  Q \text{ orthogonal} &:\Leftrightarrow QQ^T = I \\
+                       &\, \Leftrightarrow Q^{-1} = Q^T
 \end{align*}
 Weiterhin ist $Q$ längenerhaltend\index{längenerhaltend}, d.h. $\nn{Qv}_2 = \nn{v}_2$ 
 und somit folgt
 \begin{gather}
-\nonumber
-\nn{Q}_2 = \nn{Q^{-1}}_2 = 1 \quad \text{und} \\
-cond_2(Q) = 1
-\label{IV.3.11}
+  \nonumber
+  \nn{Q}_2 = \nn{Q^{-1}}_2 = 1 \quad \text{und} \\
+  cond_2(Q) = 1
+  \label{IV.3.11}
 \end{gather}
 
 \begin{proof} $R$ ist invertierbar, da 
-	\begin{align*}
-	rang(R) &= rang(Q^{-1}\cdot A) \\	
-	& = rang(A) \\
-	&= n
-	\end{align*}
-	Außerdem gilt:
-	\begin{align*}
-	\nn{b-Ax}_2^2 & = \nn{Q(Q^Tb-\begin{pmatrix}R\\0\end{pmatrix}x)}_2^2 \\
-	&=  \nn{Q^Tb-\begin{pmatrix}Rx\\0\end{pmatrix}}_2^2  \\
-	&\overset{\mathllap{\text{$Q$ längenerhaltend}}}{=}
-	\nn{\overline{b}_1 - Rx}_2^2  + \nn{\overline{b}_2^2}
-	\end{align*}
-	wird minimal für $R\overline{x} = \overline{b}_1$
+  \begin{align*}
+    rang(R) &= rang(Q^{-1}\cdot A) \\	
+            & = rang(A) \\
+            &= n
+  \end{align*}
+  Außerdem gilt:
+  \begin{align*}
+    \nn{b-Ax}_2^2 & = \nn{Q(Q^Tb-\begin{pmatrix}R\\0\end{pmatrix}x)}_2^2 \\
+                  &=  \nn{Q^Tb-\begin{pmatrix}Rx\\0\end{pmatrix}}_2^2  \\
+                  &\overset{\mathllap{\text{$Q$ längenerhaltend}}}{=}
+                    \nn{\overline{b}_1 - Rx}_2^2  + \nn{\overline{b}_2^2}
+  \end{align*}
+  wird minimal für $R\overline{x} = \overline{b}_1$
 \end{proof}
 
 Da $Q$ längenerhaltend ist, folgt mit \ref{3.2.13} b)
 ($cond_A \coloneqq \frac{\max \nn{Ax}}{\min \nn{Ax}}$)
 sofort:
 \begin{gather*}
-cond_2(A) = cond_2(R)
+  cond_2(A) = cond_2(R)
 \end{gather*}
 Die auftretende Kondition entspricht also der des Ausgleichsproblems.
 
 
 % \subsectione{Bemerkung}
 \begin{Beme}
-	Sei $A\in \Renn$ invertierbar und habe ein QR-Zerlegung, d.h. es existiert
-	eine orthogonale Matrix $Q$ und eine obere Dreiecksmatrix $R$, so dass:
-	\begin{gather*}
-	A= Q\cdot R
-	\end{gather*}
-	Dann kann das Gleichungssystem $Ax=b$ wie folgt gelöst werden:
-	\begin{enumerate}[1.]
-		\item Setze $z=Q^Tb$, was Kondition 1 hat.
-		\item Löse durch Rückwärtssubstitution $Rx=z$.
-	\end{enumerate}
+  Sei $A\in \Renn$ invertierbar und habe ein QR-Zerlegung, d.h. es existiert
+  eine orthogonale Matrix $Q$ und eine obere Dreiecksmatrix $R$, so dass:
+  \begin{gather*}
+    A= Q\cdot R
+  \end{gather*}
+  Dann kann das Gleichungssystem $Ax=b$ wie folgt gelöst werden:
+  \begin{enumerate}[1.]
+  \item Setze $z=Q^Tb$, was Kondition 1 hat.
+  \item Löse durch Rückwärtssubstitution $Rx=z$.
+  \end{enumerate}
 \end{Beme}
 
 
-%-------------------------------------------------------------
+% -------------------------------------------------------------
 
 \sectione{Orthogonalisierungsverfahren}\index{Orthogonalisierung}
 \marginpar{12.11.2014}
 Konsturiere eine QR-Zerlegung
 \begin{gather}
-A= Q\cdot \begin{pmatrix} R\\0 \end{pmatrix}
-\label{IV.4.1}
+  A= Q\cdot \begin{pmatrix} R\\0 \end{pmatrix}
+  \label{IV.4.1}
 \end{gather}
 durch einen Eliminationsprozess:
 \begin{gather}
-A \rightarrow Q^{(1)}A \rightarrow Q^{(2)} Q^{(1)}A \rightarrow Q^{(p)}\cdot \dotsc \cdot Q^{(1)}A
-= \begin{pmatrix} R\\0 \end{pmatrix}\, .
-\label{IV.4.2}
+  A \rightarrow Q^{(1)}A \rightarrow Q^{(2)} Q^{(1)}A \rightarrow Q^{(p)}\cdot \dotsc \cdot Q^{(1)}A
+  = \begin{pmatrix} R\\0 \end{pmatrix}\, .
+  \label{IV.4.2}
 \end{gather}
 mit orthogonalen Matrizen $Q^{(i)}$.
 Dann gilt
 \begin{gather}
-Q= Q^{(1)T}\cdot \dotsc \cdots {Q^{(p)T}}
-\label{IV.4.3}
+  Q= Q^{(1)T}\cdot \dotsc \cdots {Q^{(p)T}}
+  \label{IV.4.3}
 \end{gather}
 Dies ist im Gegensatz zur $LR$-Zerlegung aufgrund von $cond(Q^{(i)})= 1$ immer stabil.\\
 
 Für $Q\in\R^{2\times 2}$ gibt es zwei mögliche Anschauungen, nämlich:
 \begin{enumerate}[a)]
-	\item Drehung ~~~ IMAGE~MISSING\label{im4.4(1)}
-	\item Spiegelung ~~~ IMAGE~MISSING\label{im4.4(2)}
+\item Drehung ~~~ IMAGE~MISSING\label{im4.4(1)}
+\item Spiegelung ~~~ IMAGE~MISSING\label{im4.4(2)}
 \end{enumerate}
 
 \extrasection{a)}{Givens-Rotation}
@@ -636,102 +636,102 @@ Es wird eine Drehung auf den 1. Einheitsvektor durchgeführt:
 \imagemissing{Drehung auf den Einheitsvektor}\label{im4.4.a}
 
 \begin{gather*}
-a=\begin{pmatrix}a_1 \\ a_2\end{pmatrix} \rightarrow \begin{pmatrix}\alpha \\ 0 \end{pmatrix}
-= \alpha e_1
+  a=\begin{pmatrix}a_1 \\ a_2\end{pmatrix} \rightarrow \begin{pmatrix}\alpha \\ 0 \end{pmatrix}
+  = \alpha e_1
 \end{gather*}
 d.h. Elimination von $a_2$ mit
 \begin{gather*}
-\nn{\alpha e_1}_2 = \nn{a}_2
+  \nn{\alpha e_1}_2 = \nn{a}_2
 \end{gather*}
 Also gilt für $\alpha$
 \begin{gather*}
-\alpha=\pm \nn{a}_2
+  \alpha=\pm \nn{a}_2
 \end{gather*}
 Drehuungen werden beschrieben durch
 \begin{gather*}
-Q = \begin{pmatrix}
-cos(\theta) & sin(\theta)\\
--sin(\theta) & cos(\theta)
-\end{pmatrix}
-\eqqcolon \begin{pmatrix}
-c & s\\
--s & c
-\end{pmatrix}\qquad \theta \in[0,2\pi)
+  Q = \begin{pmatrix}
+    cos(\theta) & sin(\theta)\\
+    -sin(\theta) & cos(\theta)
+  \end{pmatrix}
+  \eqqcolon \begin{pmatrix}
+    c & s\\
+    -s & c
+  \end{pmatrix}\qquad \theta \in[0,2\pi)
 \end{gather*}
 und es muss gelten
 \begin{gather*}
-Qa = \begin{pmatrix}\alpha \\ 0 \end{pmatrix}
+  Qa = \begin{pmatrix}\alpha \\ 0 \end{pmatrix}
 \end{gather*}
 Hiermit folgt für $\nn{a}= 0$
 \begin{align}
-\nonumber
-c&=1, s=0\\ \nonumber
-c&=\frac{a_1}{\alpha},  s= \frac{a_2}{\alpha}\quad \text{mit}\\
-\alpha & = \pm \sqrt{a_1^2+a_2^2}
-\label{IV.4.4}
+  \nonumber
+  c&=1, s=0\\ \nonumber
+  c&=\frac{a_1}{\alpha},  s= \frac{a_2}{\alpha}\quad \text{mit}\\
+  \alpha & = \pm \sqrt{a_1^2+a_2^2}
+           \label{IV.4.4}
 \end{align}
 für $\nn{a}\neq 0$.\\
 Im Folgenden wird dies kurz mit
 \begin{gather*}
-[c,s] = givens(a_1, a_2)
+  [c,s] = givens(a_1, a_2)
 \end{gather*}
 bezeichnet. \\
 Als \textbf{Givens-Rotation}\index{Givens-Rotation} wird eine Matrix der Form
 \begin{gather}
-\Omega _{k,l} = \begin{pmatrix}
-1 &&&&&&&&& \\
-& \ddots\\
-&& 1\\
-&&& \mathbf{c} &&&& \mathbf{s} \\
-&&&& 1\\
-&&&&& \ddots \\
-&&&&&& 1\\
-&&& -\mathbf{s} &&&& \mathbf{c} \\
-&&&&&&&& \ddots \\
-&&&&&&&&& 1\\
-\end{pmatrix}
-\begin{array}{l}
-\\   \leftarrow \text{$k$-te Zeile}
-\\ \\ \\ \\ \leftarrow \text{$l$-te Zeile}
-\end{array}
-\label{IV.4.5}
+  \Omega _{k,l} = \begin{pmatrix}
+    1 &&&&&&&&& \\
+    & \ddots\\
+    && 1\\
+    &&& \mathbf{c} &&&& \mathbf{s} \\
+    &&&& 1\\
+    &&&&& \ddots \\
+    &&&&&& 1\\
+    &&& -\mathbf{s} &&&& \mathbf{c} \\
+    &&&&&&&& \ddots \\
+    &&&&&&&&& 1\\
+  \end{pmatrix}
+  \begin{array}{l}
+    \\   \leftarrow \text{$k$-te Zeile}
+    \\ \\ \\ \\ \leftarrow \text{$l$-te Zeile}
+  \end{array}
+  \label{IV.4.5}
 \end{gather}
 mit $c^2+s^2=1$ und $k<l$ bezeichnet.\\
 Es folgt:
 \begin{align*}
-\Omega_{kl} A &= \widetilde{A} \quad \text{mit} \\
-\widetilde{a}_{ij}  &= a_{ij} \quad \text{ für } i\neq k,l \\
-\widetilde{a}_{kj} & = ca_{kj}+sa_{lj} \\
-\widetilde{a}_{lj} & = -sa_{kj} + ca_{lj}
+  \Omega_{kl} A &= \widetilde{A} \quad \text{mit} \\
+  \widetilde{a}_{ij}  &= a_{ij} \quad \text{ für } i\neq k,l \\
+  \widetilde{a}_{kj} & = ca_{kj}+sa_{lj} \\
+  \widetilde{a}_{lj} & = -sa_{kj} + ca_{lj}
 \end{align*}
 Demnach werden nur die $k$-te und $l$-te Zeile werden verändert. \\
 Falls nun $[c,s] = givens(x_k, x_l)$ gilt
 \begin{gather}
-\Omega_{k,l}\cdot x = \begin{pmatrix}
-x_1 \\ \vdots \\x_{k-1} \\\alpha \\ x_{k+1}
-\\\vdots \\
-x_{l-1} \\ 0 \\x_{l+1} \\\vdots \\x_n
-\end{pmatrix}
-\qquad
-\quad \text{mit~~}
-\alpha = \pm \nn{  \begin{pmatrix} x_k \\ x_l\end{pmatrix}}_2
-\label{IV.4.6}
+  \Omega_{k,l}\cdot x = \begin{pmatrix}
+    x_1 \\ \vdots \\x_{k-1} \\\alpha \\ x_{k+1}
+    \\\vdots \\
+    x_{l-1} \\ 0 \\x_{l+1} \\\vdots \\x_n
+  \end{pmatrix}
+  \qquad
+  \quad \text{mit~~}
+  \alpha = \pm \nn{  \begin{pmatrix} x_k \\ x_l\end{pmatrix}}_2
+  \label{IV.4.6}
 \end{gather}
 d.h. eine Givens-Rotation erzeugt eine Null.\\
 Da nun
 \begin{gather*}
-\R^{m\times n}\ni \begin{pmatrix}
-* & * &* & \dots   \\
-0 & * &     \\
-0 & 0 & \ddots \\
-\vdots \\
-0 & 0 & 0 & \dots & *		
-\end{pmatrix}
-= \begin{pmatrix} R\\0\end{pmatrix}
+  \R^{m\times n}\ni \begin{pmatrix}
+    * & * &* & \dots   \\
+    0 & * &     \\
+    0 & 0 & \ddots \\
+    \vdots \\
+    0 & 0 & 0 & \dots & *		
+  \end{pmatrix}
+  = \begin{pmatrix} R\\0\end{pmatrix}
 \end{gather*}
 gilt, sind
 \begin{gather*}
-p=\sum_{j=1}^{n}(m-j)
+  p=\sum_{j=1}^{n}(m-j)
 \end{gather*}
 Givens-Rotationen nötig, um eine QR-Zerlegung nach \eqref{IV.4.1} zu erzeugen.
 Und eine Rotation, welche $a_{ij} $ auf 0 setzt, ist durch zugehörige 
@@ -740,57 +740,57 @@ $(c_{ij}, s_{ij}) $ gegeben.\\
 Für eine 3x4-Matrix sieht das Verfahren folgendermaßen aus:
 
 \begin{align*}
-A= &
-\left(\begin{array}{lccc}
-*~ &&&\\
-* &&* \\
-* \rcurvearrownw \\ * \lcurvearrowsw
-\end{array}\right)
-\quad \overset{\Omega_{3,4}}{\longrightarrow} \quad
-\left(\begin{array}{lccc}
-*~ &&&\\
-* \rcurvearrownw && *\\
-* \lcurvearrowsw \\
-0
-\end{array}\right)
-\quad \overset{\Omega_{1,2}}{\longrightarrow} \quad
-\left(\begin{array}{lccc}
-* \rcurvearrownw\\
-* \lcurvearrowsw && *& \\
-0 \\
-0
-\end{array}\right)\\
-\quad \overset{\Omega_{2,3}}{\longrightarrow} \quad
-&\left(\begin{array}{lccc}
-*~~ \\
-0 && *&~ \\
-0 \\
-0
-\end{array}\right)
-\quad \overset{\Omega_{3,4}}{\longrightarrow} \quad	
-\left(\begin{array}{clcc}
-* & *\\
-0 & *  \rcurvearrownw  & *& \\
-0 & * \lcurvearrowsw \\
-0 & 0
-\end{array}\right)
-\quad \overset{\Omega_{2,3}}{\longrightarrow} \quad	
-\left(\begin{array}{cccl}
-* & *  & * \\
-0 & *  & * \\ 
-0 & 0 & * \rcurvearrownw\\
-0 & 0 & *  \lcurvearrowsw 
-\end{array}\right) \\
-\quad \overset{\Omega_{3,4}}{\longrightarrow} \quad	
-& \left(\begin{array}{cccc}
-* & *  & *  \\
-0 & *  & * \\ 
-0 & 0 & * \\
-0 & 0 & 0
-\end{array}\right)
-= \begin{pmatrix}
-R \\ 0 
-\end{pmatrix}
+  A= &
+       \left(\begin{array}{lccc}
+               *~ &&&\\
+               * &&* \\
+               * \rcurvearrownw \\ * \lcurvearrowsw
+             \end{array}\right)
+  \quad \overset{\Omega_{3,4}}{\longrightarrow} \quad
+  \left(\begin{array}{lccc}
+          *~ &&&\\
+          * \rcurvearrownw && *\\
+          * \lcurvearrowsw \\
+          0
+        \end{array}\right)
+  \quad \overset{\Omega_{1,2}}{\longrightarrow} \quad
+  \left(\begin{array}{lccc}
+          * \rcurvearrownw\\
+          * \lcurvearrowsw && *& \\
+          0 \\
+          0
+        \end{array}\right)\\
+  \quad \overset{\Omega_{2,3}}{\longrightarrow} \quad
+     &\left(\begin{array}{lccc}
+              *~~ \\
+              0 && *&~ \\
+              0 \\
+              0
+            \end{array}\right)
+  \quad \overset{\Omega_{3,4}}{\longrightarrow} \quad	
+  \left(\begin{array}{clcc}
+          * & *\\
+          0 & *  \rcurvearrownw  & *& \\
+          0 & * \lcurvearrowsw \\
+          0 & 0
+        \end{array}\right)
+              \quad \overset{\Omega_{2,3}}{\longrightarrow} \quad	
+              \left(\begin{array}{cccl}
+                      * & *  & * \\
+                      0 & *  & * \\ 
+                      0 & 0 & * \rcurvearrownw\\
+                      0 & 0 & *  \lcurvearrowsw 
+                    \end{array}\right) \\
+  \quad \overset{\Omega_{3,4}}{\longrightarrow} \quad	
+     & \left(\begin{array}{cccc}
+               * & *  & *  \\
+               0 & *  & * \\ 
+               0 & 0 & * \\
+               0 & 0 & 0
+             \end{array}\right)
+                       = \begin{pmatrix}
+                         R \\ 0 
+                       \end{pmatrix}
 \end{align*}
 
 
@@ -799,240 +799,253 @@ Es ergibt sich:
 \subsectione{Givens-QR-Algorithmus} \index{Givens-QR-Algorithmus}
 
 \begin{pseudocode}{0.7\linewidth}
-	\textbf{for} $j=1, \dotsc , n$ \\
-	|~	\>	\textbf{for} $i=m, m-1, \dotsc , j+1$ \\
-	|~	\>		|~	\>\% \textit{setze $a_{ij}$ auf 0} \\
-	|~	\>		|~	\>$[c,s] = givens(a_{i-1,j}, \dotsc, a_{ij}) $\\
-	|~	\>		|~	\>speichere $c$ und $s$ für $a_{ij}$ \\
-	|~	\>		|~	\>$A(i-1:j, j:h) =\left( \begin{smallmatrix}c & s\\ -s & c	\end{smallmatrix}\right) * A(i-1:j, j:n)$ \\
-	|~	\> \textbf{end}\\
-	\textbf{end}							
+  \textbf{for} $j=1, \dotsc , n$ \\
+  |~	\>	\textbf{for} $i=m, m-1, \dotsc , j+1$ \\
+  |~	\>		|~	\>\% \textit{setze $a_{ij}$ auf 0} \\
+  |~	\>		|~	\>$[c,s] = givens(a_{i-1,j}, \dotsc, a_{ij}) $\\
+  |~	\>		|~	\>speichere $c$ und $s$ für $a_{ij}$ \\
+  |~	\>		|~	\>$A(i-1:j, j:h) =\left( \begin{smallmatrix}c & s\\ -s & c	\end{smallmatrix}\right) * A(i-1:j, j:n)$ \\
+  |~	\> \textbf{end}\\
+  \textbf{end}							
 \end{pseudocode}
 
 % \subsectione{Bemerkungen} 
 \begin{Beme}~
-	\begin{enumerate}[a)]
-		\item $A(i-1 : i, 1 : j-1) = 0$ und ist daher nicht zu berechnen oder
-		zu speichern. Der Speicherplatz kann für die Speicherung der
-		Givensrotationen benutzt werden.
-		\item  $R$ steht anschließend in $A$.
-		\item Die Bestimmung der Länge $|\alpha|$ wird so ausgeführt, dass over- ¨
-		oder underflow vermieden wird. Weiterhin wird das Vorzeichen
-		von $c$ oder $s$ festgelegt, so dass aufgrund von $c^2+s^2=1$ nur
-		ein Wert $\rho$ gespeichert werden muss. Hiermit wird auch das
-		Vorzeichen von $\alpha$ festgelegt:\\
-		\begin{description}
-			\item[$a_2=0$:] Setze $c=1, s=0, \alpha = a_1$, merke $\rho=1$.
-			\item[$|a_2|>|a_1|$:] Setze $\tau= \frac{a_1}{a_2}, s=\frac{1}{\sqrt{1+\tau^2}}, c=s\cdot\tau, \alpha =a_2\sqrt{1+\tau^2}$, merke $\rho=\frac{c}{2}$.
-			\item[$|a_1|\geq|a_2|$:] Setze $\tau= \frac{a_2}{a_1}, c=\frac{1}{\sqrt{1+\tau^2}}, s=c\cdot\tau, \alpha =a_1\sqrt{1+\tau^2}$, merke $\rho=\frac{2}{s}$.
-		\end{description}
-		\item Aufgrund von c) muss nur $\rho$ gespeichert werden:
-		\begin{description}
-			\item[$\rho=1$:] Setze $c=1, s=0$.
-			\item[$|\rho|<1$:] Setze $c=2\rho , s= \sqrt{1-c^2}$.
-			\item[$|\rho|>1$:] Setze $s=\frac{2}{\rho}, c=\sqrt{1-s^2}$.
-		\end{description}
-	\end{enumerate}
-	Hiermit können alle notwendigen Givens-Rotationen als untere
-	Dreiecksmatrix zusammen mit $R$ in $A$ gespeichert werden.
+  \begin{enumerate}[a)]
+  \item $A(i-1 : i, 1 : j-1) = 0$ und ist daher nicht zu berechnen oder
+    zu speichern. Der Speicherplatz kann für die Speicherung der
+    Givensrotationen benutzt werden.
+  \item  $R$ steht anschließend in $A$.
+  \item Die Bestimmung der Länge $|\alpha|$ wird so ausgeführt, dass over- ¨
+    oder underflow vermieden wird. Weiterhin wird das Vorzeichen
+    von $c$ oder $s$ festgelegt, so dass aufgrund von $c^2+s^2=1$ nur
+    ein Wert $\rho$ gespeichert werden muss. Hiermit wird auch das
+    Vorzeichen von $\alpha$ festgelegt:\\
+    \begin{description}
+    \item[$a_2=0$:] Setze $c=1, s=0, \alpha = a_1$, merke $\rho=1$.
+    \item[$|a_2|>|a_1|$:] Setze $\tau= \frac{a_1}{a_2}, s=\frac{1}{\sqrt{1+\tau^2}}, c=s\cdot\tau, \alpha =a_2\sqrt{1+\tau^2}$, merke $\rho=\frac{c}{2}$.
+    \item[$|a_1|\geq|a_2|$:] Setze $\tau= \frac{a_2}{a_1}, c=\frac{1}{\sqrt{1+\tau^2}}, s=c\cdot\tau, \alpha =a_1\sqrt{1+\tau^2}$, merke $\rho=\frac{2}{s}$.
+    \end{description}
+  \item Aufgrund von c) muss nur $\rho$ gespeichert werden:
+    \begin{description}
+    \item[$\rho=1$:] Setze $c=1, s=0$.
+    \item[$|\rho|<1$:] Setze $c=2\rho , s= \sqrt{1-c^2}$.
+    \item[$|\rho|>1$:] Setze $s=\frac{2}{\rho}, c=\sqrt{1-s^2}$.
+    \end{description}
+  \end{enumerate}
+  Hiermit können alle notwendigen Givens-Rotationen als untere
+  Dreiecksmatrix zusammen mit $R$ in $A$ gespeichert werden.
 \end{Beme}
 
 
 
 \subsectione{Aufand des Givens-QR-Algorithmus}
 \begin{enumerate}[a)]
-	\item $m\approx n$\\ $\rightarrow $  ca. $\frac{4}{3}n^3$ Multiplikationen
-	und $\frac{1}{2}n^2$ Quadratwurzeln nötig \\
-	Die Givens-QR-Zerlegung ist somit ungefähr viermal so aufwändig
-	wie die Gauß-Elimination, dafür jedoch stabil.
-	\item $m\gg n$\\ $\rightarrow $ ca. $2n^2m$ Multiplikationen und 
-	$mn$ Quadratwurzeln nötig \\
-	Das Verfahren ist daher zwei- bis viermal so aufwändig wie das
-	Cholesky-Verfahren für die Normalgleichungen, aber stabil.
-	\item Bei Hessenberg-Matrizen, d.h. Matrizen mit der Gestalt
-	\begin{gather}
-	A= \begin{pmatrix}
-	* & \dots&& * \\
-	*&* \\
-	&\ddots& \ddots \\
-	\\
-	0 &&& * 
-	\end{pmatrix}
-	\label{IV.4.7} \, ,
-	\end{gather}
-	also $a_{ik} = 0 \forall i<k+1$,
-	sind nur $(n-1)$ Givens-Rotationen auszuführen. \\
-	Diese Matrizen tauchen z.B. bei Eigenwertberechungen auf
-	und sind dort ein wichtiger Bestandteil der Verfahren.
+\item $m\approx n$\\ $\rightarrow $  ca. $\frac{4}{3}n^3$ Multiplikationen
+  und $\frac{1}{2}n^2$ Quadratwurzeln nötig \\
+  Die Givens-QR-Zerlegung ist somit ungefähr viermal so aufwändig
+  wie die Gauß-Elimination, dafür jedoch stabil.
+\item $m\gg n$\\ $\rightarrow $ ca. $2n^2m$ Multiplikationen und 
+  $mn$ Quadratwurzeln nötig \\
+  Das Verfahren ist daher zwei- bis viermal so aufwändig wie das
+  Cholesky-Verfahren für die Normalgleichungen, aber stabil.
+\item Bei Hessenberg-Matrizen, d.h. Matrizen mit der Gestalt
+  \begin{gather}
+    A= \begin{pmatrix}
+      * & \dots&& * \\
+      *&* \\
+      &\ddots& \ddots \\
+      \\
+      0 &&& * 
+    \end{pmatrix}
+    \label{IV.4.7} \, ,
+  \end{gather}
+  also $a_{ik} = 0 \forall i<k+1$,
+  sind nur $(n-1)$ Givens-Rotationen auszuführen. \\
+  Diese Matrizen tauchen z.B. bei Eigenwertberechungen auf
+  und sind dort ein wichtiger Bestandteil der Verfahren.
 \end{enumerate}
 
 
 \extrasection{b)}{Householder-Reflexion}
 
-Es sei $H$ eine Hyperebene im $\R^m$ und zusätzlich ein Vektor $a\in\R^m$ gegeben.
-\imagemissing{}\label{im4.4.b}
+Es sei $H$ eine Hyperebene im $\R^m$ und zusätzlich ein Vektor
+$a\in\R^m$ gegeben.\\
+
+% IV.4.b Householder-Reflexion
+\begin{tikzpicture}[rotate=30, >=triangle 45,scale=4]
+  \draw (0,0) -- (2,0) node[below] {$H$};
+  \draw[->] (0.5,0) -- (1,0.7);
+  \draw[->] (0.5,0) -- (1,-0.7);
+  \draw (1,0.7) -- (1,-0.7);
+  \draw[anchor=east] (0.8,0.4) node {$a\in \R^m$};
+  \draw[anchor=east] (0.8,-0.5) node {$\alpha e_1$};
+  \draw (0.9,0) arc (180:90:1mm);
+  \draw[fill=black] (0.96,0.04) circle (0.05mm);
+\end{tikzpicture}
+\label{im4.4.b}
 
 Gesucht ist nun die Reflexion $Q$, so dass
 \begin{gather*}
-Qa = \alpha e_1 = \begin{pmatrix} \alpha \\ 0\\\vdots\\0\end{pmatrix}
-\qquad \text{mit } \alpha = \pm \nn{a}
+  Qa = \alpha e_1 = \begin{pmatrix} \alpha \\ 0\\\vdots\\0\end{pmatrix}
+  \qquad \text{mit } \alpha = \pm \nn{a}
 \end{gather*}
 Mit \begin{gather}
-v=a-\alpha e_1 
-\label{IV.4.8}
+  v=a-\alpha e_1 
+  \label{IV.4.8}
 \end{gather}
 gegeben, welches senkrecht zu $H$ steht.\\
 Damit Stellenauslöschungen in $v$, d.h. in $v_1$, vermieden werden,
 wähle ein entsprechendes Vorzeichen für $\alpha$, also 
 \begin{gather}
-\alpha = -sign(a_1)\nn{a}_2 
-\label{IV.4.9}
+  \alpha = -sign(a_1)\nn{a}_2 
+  \label{IV.4.9}
 \end{gather}
 Die zugehörige Reflexion $Q$ ist  gegeben durch \\
 \begin{center}
-	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
-	\clip(0.7,1) rectangle (6,5);
-	\draw [shift={(4.32,3.49)}] (0,0) -- (36.87:0.6) arc 	(36.87:126.87:0.6) -- cycle;
-	\draw [shift={(1.53,2.76)}] (0,0) -- (-53.13:0.6) arc (-53.13:36.87:0.6) -- cycle;
-	\draw [domain=0.7:6] plot(\x,{(--1--3*\x)/4});
-	\draw (5.26,4.38) node[anchor=north west] {$$H$$};
-	\draw [->] (2.18,1.89) -- (0.84,3.68);
-	\draw [->] (2.18,1.89) -- (3.66,4.36);
-	\draw [->] (2.18,1.89) -- node[anchor=north east] {$w$} (1.53,2.76);
-	\draw [->,dash pattern=on 2pt off 2pt] (2.18,1.89) -- node[anchor=north] {$Qx$} (4.97,2.61);
-	\draw [->] (3.66,4.36) -- (4.97,2.61);
-	\fill(4.37,3.84) circle (0.02);
-	\draw [dash pattern=on 2pt off 2pt] (1.53,2.76)-- (3.66,4.36);
-	\fill(1.88,2.71) circle (0.02);
-	
-	\draw (1.26,3.46) node {$v$};
-	\draw (4.3,3.1) node {$2w$};
-	\end{tikzpicture}
+  \begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+    \clip(0.7,1) rectangle (6,5);
+    \draw [shift={(4.32,3.49)}] (0,0) -- (36.87:0.6) arc 	(36.87:126.87:0.6) -- cycle;
+    \draw [shift={(1.53,2.76)}] (0,0) -- (-53.13:0.6) arc (-53.13:36.87:0.6) -- cycle;
+    \draw [domain=0.7:6] plot(\x,{(--1--3*\x)/4});
+    \draw (5.26,4.38) node[anchor=north west] {$$H$$};
+    \draw [->] (2.18,1.89) -- (0.84,3.68);
+    \draw [->] (2.18,1.89) -- (3.66,4.36);
+    \draw [->] (2.18,1.89) -- node[anchor=north east] {$w$} (1.53,2.76);
+    \draw [->,dash pattern=on 2pt off 2pt] (2.18,1.89) -- node[anchor=north] {$Qx$} (4.97,2.61);
+    \draw [->] (3.66,4.36) -- (4.97,2.61);
+    \fill(4.37,3.84) circle (0.02);
+    \draw [dash pattern=on 2pt off 2pt] (1.53,2.76)-- (3.66,4.36);
+    \fill(1.88,2.71) circle (0.02);
+    
+    \draw (1.26,3.46) node {$v$};
+    \draw (4.3,3.1) node {$2w$};
+  \end{tikzpicture}
 \end{center}		
 
 wobei
 \begin{align}
-\nonumber
-w &= \scp{\frac{v}{\nn{v}}}{x} \cdot \frac{v}{\nn{v}} \\ %\nonumber
-Qx &= x-2w = x-2\frac{v^Tx}{v^Tv}v 
-= (I-2\frac{vv^T}{v^Tv})x 
-\label{IV.4.10}\\
-Q  &= I-2\frac{vv^T}{v^Tv}&& vv^T \in \Renn,\,\, v^Tv\in\R
-\label{IV.4.11}
+  \nonumber
+  w &= \scp{\frac{v}{\nn{v}}}{x} \cdot \frac{v}{\nn{v}} \\ %\nonumber
+  Qx &= x-2w = x-2\frac{v^Tx}{v^Tv}v 
+       = (I-2\frac{vv^T}{v^Tv})x 
+       \label{IV.4.10}\\
+  Q  &= I-2\frac{vv^T}{v^Tv}&& vv^T \in \Renn,\,\, v^Tv\in\R
+                               \label{IV.4.11}
 \end{align}
 und heißt \textbf{Householder Reflexion} \index{Householder Reflexion}
 (wurde  1958 von Householder eingeführt).  \\
 Für die spezielle Wahl \eqref{IV.4.8} mit \eqref{IV.4.9} vom Vektor $v$ folgt
 \begin{align}\nonumber
-vv^T = \nn{v}^2 &= \nn{a}^2 - 2\alpha\scp{a}{e_1} + \alpha^2 \\ \nonumber
-&= -2\alpha(a_1-\alpha) \\
-& = -2\alpha v
-\label{IV.4.12}
+  vv^T = \nn{v}^2 &= \nn{a}^2 - 2\alpha\scp{a}{e_1} + \alpha^2 \\ \nonumber
+                  &= -2\alpha(a_1-\alpha) \\
+                  & = -2\alpha v
+                    \label{IV.4.12}
 \end{align}
 
 
 % \subsectione{Bemerkung}
 \begin{Beme}
-	\label{4.4.4}~
-	\begin{enumerate}[a)]
-		\item Q ist symmetrisch
-		\item Q ist orthogonal
-		\item Q ist involutorisch, d.h. $Q^2 = I$ ~~(bzw. gilt $Q^{-1}= Q^T=Q$)
-	\end{enumerate}
-	Die Householder Reflexion setzt nicht nur eine Null,
-	sondern im Vektor gleich alle gewünschten Nullen
-	\begin{align*}
-	\text{\textbf{Rotation: }}&
-	\quad \begin{pmatrix} * \\ * \\ *	\end{pmatrix}
-	\rightarrow \begin{pmatrix} * \\ * \\0	\end{pmatrix}
-	\rightarrow \begin{pmatrix} * \\0\\0	\end{pmatrix} \\
-	\text{\textbf{Reflexion: }}&
-	\quad \begin{pmatrix} * \\ * \\ *	\end{pmatrix}
-	\rightarrow \begin{pmatrix} *\\0\\0	\end{pmatrix}
-	\end{align*}
-	Um die erste Spalte in $A$ auf die gewünschte Gestalt zu bringen,
-	bestimme $Q^{(1)}$ wie oben, indem die erste Spalte als $a$ gewählt wird:
-	\begin{gather*}
-	A\rightarrow A^{(1)} = Q^{(1)} A =
-	\begin{pmatrix}
-	\alpha^{(1)} \\
-	0 &*&~~\\
-	\vdots \\
-	0
-	\end{pmatrix}
-	\end{gather*}
-	In der $k$-ten Spalte sollen nun die $(k-1)$-ten Zeilen und die $(k-1)$-ten Spalten
-	bleiben und die Restmatrix verändert werden.\\
-	
-	\begin{align*}
-	A^{(k-1)} &=
-	\begin{pmatrix}
-	*  &&&&&\\
-	&\ddots &&&& * \\
-	&&*&&\_&\_&\_ \\
-	&&0&|&\\
-	&0&\vdots&| &&T^{(k-1)}\\
-	&&\vdots&  |\\
-	&&0&  |
-	\end{pmatrix}
-	\begin{array}{l}
-	\\
-	\shortleftarrow (k-1) \text{-te Zeile} \\
-	\\\\\\\\
-	\end{array}\\
-	&\phantom{= \, (} \begin{array}{ccl}
-	~&~&~ \uparrow (k-1)\text{-te Spalte}
-	\end{array}
-	\end{align*}
-	
-	Setze also
-	\begin{gather}
-	Q^{(k)} = \begin{pmatrix}
-	I_{k-1} & 0 \\
-	0 & \overline{Q}^{(k)} \, ,
-	\label{IV.4.13}
-	\end{pmatrix}
-	\end{gather}
-	wobei $\overline{Q}^{(k)} $ durch die erste Spalte von $T^{(k)}$, d.h.
-	\begin{gather}
-	a= (a_{i,k}^{k-1})_{i=k,\dotsc, m} \subset \R^{m+1-k}
-	\label{IV.4.14}
-	\end{gather}
-	bestimmt wird. Dann gilt
-	\begin{gather*}
-	Q^{(k)}A^{(k-1)} =
-	\begin{pmatrix}
-	*  &&&&&\\
-	&\ddots &&&& * \\
-	&&*&&\_&\_&\_&\_ \\
-	&&0&|&* \\
-	&0&\vdots&|&0&* \\
-	&&\vdots&  |&\vdots &&\ddots\\
-	&&0&  |&0&&&*
-	\end{pmatrix}
-	\end{gather*}
-	Nach insgesamt 
-	\begin{gather}
-	p=\min (m-1, n)
-	\label{IV.4.15}
-	\end{gather}
-	Schritten erhalten wir für $A\in \R^{m\times n}$
-	\begin{gather}
-	Q^TA = Q^{(p)}\cdot \dotsc \cdot Q^{(1)}A 
-	= \begin{pmatrix} R\\0\end{pmatrix}\, ,
-	\end{gather}
-	wobei Bemerkung \ref{4.4.4} auch für 
-	$Q^T= Q^{(p)}\cdot \dotsc \cdot Q^{(1)} $ und somit auch für
-	\begin{gather}
-	Q = Q^{(1)}\cdot \dotsc \cdot Q^{(p)}
-	\label{IV.4.16}
-	\end{gather}
-	gilt.
+  \label{4.4.4}~
+  \begin{enumerate}[a)]
+  \item Q ist symmetrisch
+  \item Q ist orthogonal
+  \item Q ist involutorisch, d.h. $Q^2 = I$ ~~(bzw. gilt $Q^{-1}= Q^T=Q$)
+  \end{enumerate}
+  Die Householder Reflexion setzt nicht nur eine Null,
+  sondern im Vektor gleich alle gewünschten Nullen
+  \begin{align*}
+    \text{\textbf{Rotation: }}&
+                                \quad \begin{pmatrix} * \\ * \\ *	\end{pmatrix}
+    \rightarrow \begin{pmatrix} * \\ * \\0	\end{pmatrix}
+    \rightarrow \begin{pmatrix} * \\0\\0	\end{pmatrix} \\
+    \text{\textbf{Reflexion: }}&
+                                 \quad \begin{pmatrix} * \\ * \\ *	\end{pmatrix}
+    \rightarrow \begin{pmatrix} *\\0\\0	\end{pmatrix}
+  \end{align*}
+  Um die erste Spalte in $A$ auf die gewünschte Gestalt zu bringen,
+  bestimme $Q^{(1)}$ wie oben, indem die erste Spalte als $a$ gewählt wird:
+  \begin{gather*}
+    A\rightarrow A^{(1)} = Q^{(1)} A =
+    \begin{pmatrix}
+      \alpha^{(1)} \\
+      0 &*&~~\\
+      \vdots \\
+      0
+    \end{pmatrix}
+  \end{gather*}
+  In der $k$-ten Spalte sollen nun die $(k-1)$-ten Zeilen und die $(k-1)$-ten Spalten
+  bleiben und die Restmatrix verändert werden.\\
+  
+  \begin{align*}
+    A^{(k-1)} &=
+                \begin{pmatrix}
+                  *  &&&&&\\
+                  &\ddots &&&& * \\
+                  &&*&&\_&\_&\_ \\
+                  &&0&|&\\
+                  &0&\vdots&| &&T^{(k-1)}\\
+                  &&\vdots&  |\\
+                  &&0&  |
+                \end{pmatrix}
+                       \begin{array}{l}
+                         \\
+                         \shortleftarrow (k-1) \text{-te Zeile} \\
+                         \\\\\\\\
+                       \end{array}\\
+              &\phantom{= \, (} \begin{array}{ccl}
+                                  ~&~&~ \uparrow (k-1)\text{-te Spalte}
+                                \end{array}
+  \end{align*}
+  
+  Setze also
+  \begin{gather}
+    Q^{(k)} = \begin{pmatrix}
+      I_{k-1} & 0 \\
+      0 & \overline{Q}^{(k)} \, ,
+      \label{IV.4.13}
+    \end{pmatrix}
+  \end{gather}
+  wobei $\overline{Q}^{(k)} $ durch die erste Spalte von $T^{(k)}$, d.h.
+  \begin{gather}
+    a= (a_{i,k}^{k-1})_{i=k,\dotsc, m} \subset \R^{m+1-k}
+    \label{IV.4.14}
+  \end{gather}
+  bestimmt wird. Dann gilt
+  \begin{gather*}
+    Q^{(k)}A^{(k-1)} =
+    \begin{pmatrix}
+      *  &&&&&\\
+      &\ddots &&&& * \\
+      &&*&&\_&\_&\_&\_ \\
+      &&0&|&* \\
+      &0&\vdots&|&0&* \\
+      &&\vdots&  |&\vdots &&\ddots\\
+      &&0&  |&0&&&*
+    \end{pmatrix}
+  \end{gather*}
+  Nach insgesamt 
+  \begin{gather}
+    p=\min (m-1, n)
+    \label{IV.4.15}
+  \end{gather}
+  Schritten erhalten wir für $A\in \R^{m\times n}$
+  \begin{gather}
+    Q^TA = Q^{(p)}\cdot \dotsc \cdot Q^{(1)}A 
+    = \begin{pmatrix} R\\0\end{pmatrix}\, ,
+  \end{gather}
+  wobei Bemerkung \ref{4.4.4} auch für 
+  $Q^T= Q^{(p)}\cdot \dotsc \cdot Q^{(1)} $ und somit auch für
+  \begin{gather}
+    Q = Q^{(1)}\cdot \dotsc \cdot Q^{(p)}
+    \label{IV.4.16}
+  \end{gather}
+  gilt.
 \end{Beme}
 
 
 
-%----------------------------------------------------------------
+% ----------------------------------------------------------------
 
 \subsectione{Speicherung}
 \marginpar{17.11.2014}
@@ -1042,18 +1055,18 @@ $v^{(i)}\in \R{m+1-i}$.
 Die Diagonalelemente von $R$ sind $r_{ii} = \alpha^{(i)}$. \\
 Folgende Speicheraufteilung ist möglich:
 \begin{gather*}
-A \longrightarrow \left(
-\begin{array}{rrrrr}
-|&&& R \\
-|&| \\
-v^{(1)}| & v^{(2)}|&\ddots ~~\\
-| &|&\phantom{v^{(i)}}|& v^{(p)}			
-\end{array}
-\right)
-\quad \text{und} \quad 
-\begin{pmatrix}
-\alpha^{(1)} \\ \vdots \\ \\ \alpha^{(p)}
-\end{pmatrix}
+  A \longrightarrow \left(
+    \begin{array}{rrrrr}
+      |&&& R \\
+      |&| \\
+      v^{(1)}| & v^{(2)}|&\ddots ~~\\
+      | &|&\phantom{v^{(i)}}|& v^{(p)}			
+    \end{array}
+  \right)
+  \quad \text{und} \quad 
+  \begin{pmatrix}
+    \alpha^{(1)} \\ \vdots \\ \\ \alpha^{(p)}
+  \end{pmatrix}
 \end{gather*}
 
 Wohlgemerkt kann so auch $A\in \R{m\times n}$ mit $m<n$ bearbeitet werden,
@@ -1069,22 +1082,22 @@ und $R$ kann komplett in $A$ gespeichert werden.
 
 \subsectione{Householder QR-Algorithmus}
 \begin{pseudocode}{\linewidth}
-	\textbf{for} $j = 1,\dots, \min(m - 1, n)$ \\
-	|	\>	// berechne $\alpha$ für $a = A(j : m, j)$ \\
-	|	\>	$\alpha(j) = -sign(A(j, j))\sqrt{A(j:m, j)^T A(j:m, j)}$ \>\>\>\> siehe \eqref{IV.4.9}\\
-	|	\>  // berechne $A(j:m,j)=v=a-\alpha e_1$ \\
-	|	\>	$A(j,j)=A(j,j)-\alpha(j)$ \>\>\>\> siehe \eqref{IV.4.8}\\
-	|	\> // berechne $-\scp{v}{v} = \alpha(a_1 - \alpha) = \alpha v_1$ \\
-	|	\> $\beta = \alpha(j)A(j, j)$\>\>\>\> siehe \eqref{IV.4.12}\\
-	|	\> // berechne $\overline{Q}^{(j)}T^{(j)}$ 
-			aber nicht mehr die erste Spalte, welche $\alpha(j)e_1$ ist\\
-	|	\> \textbf{for} $l = j + 1 : n$\\
-	|		\>\> // setze $v_x = -2{(v^Tx)}{(v^Tv)}^{-1}$\\
-	|		\>\> $v_x = A(j : m, j)^TA(j:m,l)\cdot \frac{1}{\beta}$ \>\>\>siehe \eqref{IV.4.10}\\
-	|		\>\> // berechne  $\overline{Q}^{(j)}x=x+v_x\cdot v$\\
-	|		\>\> $A(j:m,l) = A(j:m,l)+v_xA(j:m,l)$ \>\>\> siehe \eqref{IV.4.10}\\
-	|	\>\textbf{end}\\
-	\textbf{end}
+  \textbf{for} $j = 1,\dots, \min(m - 1, n)$ \\
+  |	\>	// berechne $\alpha$ für $a = A(j : m, j)$ \\
+  |	\>	$\alpha(j) = -sign(A(j, j))\sqrt{A(j:m, j)^T A(j:m, j)}$ \>\>\>\> siehe \eqref{IV.4.9}\\
+  |	\>  // berechne $A(j:m,j)=v=a-\alpha e_1$ \\
+  |	\>	$A(j,j)=A(j,j)-\alpha(j)$ \>\>\>\> siehe \eqref{IV.4.8}\\
+  |	\> // berechne $-\scp{v}{v} = \alpha(a_1 - \alpha) = \alpha v_1$ \\
+  |	\> $\beta = \alpha(j)A(j, j)$\>\>\>\> siehe \eqref{IV.4.12}\\
+  |	\> // berechne $\overline{Q}^{(j)}T^{(j)}$ 
+  aber nicht mehr die erste Spalte, welche $\alpha(j)e_1$ ist\\
+  |	\> \textbf{for} $l = j + 1 : n$\\
+  |		\>\> // setze $v_x = -2{(v^Tx)}{(v^Tv)}^{-1}$\\
+  |		\>\> $v_x = A(j : m, j)^TA(j:m,l)\cdot \frac{1}{\beta}$ \>\>\>siehe \eqref{IV.4.10}\\
+  |		\>\> // berechne  $\overline{Q}^{(j)}x=x+v_x\cdot v$\\
+  |		\>\> $A(j:m,l) = A(j:m,l)+v_xA(j:m,l)$ \>\>\> siehe \eqref{IV.4.10}\\
+  |	\>\textbf{end}\\
+  \textbf{end}
 \end{pseudocode}
 
 
@@ -1093,21 +1106,21 @@ Zur Lösung eines Gleichungssystems oder eines linearen Ausgleichsproblems
 muss noch $Q^Tb=Q^{(p)}\cdot \dots \cdot Q^{(1)}$ berechnet werden.
 
 \begin{pseudocode}{0.7\linewidth}
-	\textbf{for} $j=1,\dots, \min\{m-1,n\}$\\
-	|	\> // beachte \eqref{IV.4.13}, also $b(1:j-1)$ bleibt gleich\\
-	|	\> // setze $v_x=-2(v^Tb)(v^Tv)^{-1}$\\
-	|	\> $v_x=\big(A(j:m,j)^Tb(j:m)\big)\cdot \big(\alpha(j)A(j,j)\big)^{-1}$ \\
-	|	\> // berechne $\overline{Q}^{(j)} b=b+v_xv$\\
-	|	\> $b(j:m) = b(j:m)+v_xA(j:m,j)$\\
-	\textbf{end}
+  \textbf{for} $j=1,\dots, \min\{m-1,n\}$\\
+  |	\> // beachte \eqref{IV.4.13}, also $b(1:j-1)$ bleibt gleich\\
+  |	\> // setze $v_x=-2(v^Tb)(v^Tv)^{-1}$\\
+  |	\> $v_x=\big(A(j:m,j)^Tb(j:m)\big)\cdot \big(\alpha(j)A(j,j)\big)^{-1}$ \\
+  |	\> // berechne $\overline{Q}^{(j)} b=b+v_xv$\\
+  |	\> $b(j:m) = b(j:m)+v_xA(j:m,j)$\\
+  \textbf{end}
 \end{pseudocode}
 
 
 \subsectione{Aufwand für den Householder-QR-Algorithmus}
 \begin{enumerate}[a)]
-	\item Falls $m\approx n$ sind ungefähr $\frac{2}{3}n^3$ Multiplikationen notwendig
-	und ist somit ungefähr doppelt so teuer wie die LR-Zerlegung, ist aber stabil.
-	\item Falls $m\gg n$ sind ungefähr $2mn^2$ Multiplikationen notwendig.
-	Der Aufwand ist daher ungefähr so hoch wie beim Cholesky-Verfahren für Normalgleichungen,
-	aber stabil.
+\item Falls $m\approx n$ sind ungefähr $\frac{2}{3}n^3$ Multiplikationen notwendig
+  und ist somit ungefähr doppelt so teuer wie die LR-Zerlegung, ist aber stabil.
+\item Falls $m\gg n$ sind ungefähr $2mn^2$ Multiplikationen notwendig.
+  Der Aufwand ist daher ungefähr so hoch wie beim Cholesky-Verfahren für Normalgleichungen,
+  aber stabil.
 \end{enumerate}

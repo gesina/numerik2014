@@ -1,0 +1,207 @@
+% % % % % % % % % % % % % % 
+%
+%     Skript zu NUMERIK I
+%           WS14/15
+%           von Prof. Dr. Blank
+% Universität Regensburg
+%
+%
+%	Config Datei: Definitionen etc.
+%
+% % % % % % % % % % % % % %
+
+
+% ESSENTIAL PACKAGES
+% ---------------------------------------------------------------
+%% encodings
+\usepackage[T1]{fontenc}      %font-encoding WITH e.g. ö (default is OT1 with 7- instead of 8-bit)
+\usepackage[utf8]{inputenc}   %input-encoding WITH e.g. ö (depends on system), better after fontenc
+% ..................................................
+%% language
+\usepackage{babel}	       %rules typical for chosen language(s)
+% ..................................................
+%% font-settings
+\usepackage{lmodern}	       %font: latin modern
+\usepackage{microtype}	       %micro-typographic optimizing, e.g. ligatures
+% 
+% EXTRA PACKAGES
+% ---------------------------------------------------------------
+%% pagestyle
+\usepackage{scrpage2}		%KOMA pagestyles scrheadings, scrplain
+% \usepackage{enumitem}		% numeration items like \alpha*)
+\usepackage{enumerate}		% easy numeration
+% ..................................................
+%% quotes
+\usepackage{csquotes}		%easy quotes with \enquote{...}
+% ..................................................
+%% maths
+\usepackage{amsmath}		%improves maths-sections
+\usepackage{mathtools}          %provides tools like \DeclareParedDelimiter or \DefineMathOperator
+\usepackage{amsthm}		%for proofs etc.
+\usepackage{amssymb}		%further maths symbols like \square for proofs
+\usepackage{dsfont}		%for \mathds{letter} to create e.g. the rational numbers symbol Q
+\usepackage{stmaryrd}		%for math symbols like lightning bold
+\usepackage{MnSymbol}
+% \usepackage{bm}		% nicer bold math symbols with \boldsymbol
+% \usepackage{siunitx}		%units
+% ..................................................
+%% colors
+% \usepackage{color}		%to set/define colors,
+% predefined: white , black, red, green, blue, cyan, magenta, yellow
+% ..................................................
+%% objects
+\usepackage{wrapfig,graphicx}	%inclusion of graphics with \includegraphics{name}
+\usepackage{tikz,pgf}
+\usetikzlibrary{arrows}
+\usetikzlibrary{matrix}
+\usetikzlibrary{decorations.pathmorphing}
+\usepackage{framed}
+% ..................................................
+%% index/bibliography
+\usepackage{makeidx}		%create an index with \makeindex in head
+% (creates *.idx file)
+\makeindex			%if index is required (after {makeidx})
+\usepackage[backend=biber,style=alphabetic]{biblatex}	% print bibliography with \printbibliography
+\bibliography{numerik_script.bib} % loads .bib-file for
+% biber-bibliography; after {biblatex}
+% ..................................................
+%% (nicer)tables
+\usepackage{booktabs} 	%enables better spacing and lines in tables
+% \usepackage{multirow}	%option multirow for tables (centers text vertically)
+% \usepackage{tabulary}	%table-width matches content
+% ..................................................
+%% font
+\usepackage{ulem}         % strike text out
+% ..................................................
+%% hyperlinks
+\usepackage{hyperref}
+% options: colorlink=true (-> no boxes but colored hyperlinks), color of all link
+% ..................................................
+%% fonts
+% \usepackage{anyfontsize}	%any fontsize with \fontsize{size}{baselineskip}\selectfont
+\usepackage{tabularx}  %table with extendable X-column
+
+% DEFINITIONS
+% ---------------------------------------------------------------
+% math (theorems)
+\theoremstyle{definition}
+\newtheorem{Def}{Definition}[section]		%definition with \begin{Def}
+\newtheorem{Bsp}[Def]{Beispiel}
+% \theoremstyle{remark}
+\newtheorem{Bem}[Def]{Bemerkung}	%corollary with \begin{Korr}
+\newtheorem{Wdh}[Def]{Wiederholung}
+\theoremstyle{plain}
+\newtheorem{Satz}[Def]{Satz}		%theorem with \begin{Satz}
+\newtheorem*{satz}{Satz}
+\newtheorem{Lem}[Def]{Lemma}		%lemma with \begin{Lem}
+\newtheorem{Kor}[Def]{Korollar}		%theorem with \begin{Satz}
+\newtheorem{Fol}[Def]{Folgerung}
+% \newtheorem{Ax}[Def]{Axiom}		%axiom with \begin{Ax}
+% \newtheorem{Prop}[Def]{Proposition}%proposition with \begin{Prop}
+
+% colors
+% \definecolor{ashgrey}{rgb}{0.7, 0.75, 0.71}
+
+
+% NEW COMMANDS
+% ---------------------------------------------------------------
+% symbols
+\newcommand{\R}{\mathds{R}}
+\newcommand{\Ren}{\mathds{R}^{n}}
+\newcommand{\Renn}{\mathds{R}^{n\times n}}
+\newcommand{\Renm}{\mathds{R}^{n\times m}}
+\newcommand{\Q}{\mathds{Q}}
+\newcommand{\N}{\mathds{N}}
+\newcommand{\Z}{\mathds{Z}}
+\newcommand{\F}{\mathds{F}}
+\newcommand{\p}{\mathcal{P}}
+\newcommand{\K}{\mathcal{K}}
+
+% for the three boxes to show float numbers
+\newcommand{\floatbox}[3]{ %
+  \begin{array}{|c|c|c|}
+    \cline{1-3} 	
+    #1 & #2 & #3\\
+    \cline{1-3}
+  \end{array}
+}
+
+\newcommand{\nn}[1]{\left\| #1 \right\|}	% norm
+\newcommand{\scp}[2]{\langle #1, #2 \rangle}	% scalar prod. 
+
+% inserted sections a), b)
+\newcommand{\extrasection}[2]{\vspace{1.5eM}\minisec{\Large\itshape \thesection #1 #2}\vspace{1eM}}
+
+% EVIL HACKS to go along with numeration
+% equation numeration
+\newcommand{\sectione}[1]{ \setcounter{equation}{0}\section{#1}}
+% theorem numeration
+\newcommand{\subsectione}[1]{\addtocounter{Def}{1}\subsection{#1}}
+\newenvironment{Satze}[1][]{ %
+  \begin{Satz}[#1]  }
+  { \end{Satz}
+  \addtocounter{subsection}{1}}
+\newenvironment{Leme}[1][]{ %
+  \begin{Lem}[#1] }
+  {\end{Lem}
+  \addtocounter{subsection}{1}}
+\newenvironment{Kore}[1][]{ %
+  \begin{Kor}[#1]}
+  {\end{Kor}
+  \addtocounter{subsection}{1}}
+\newenvironment{Fole}[1][]{ %
+  \begin{Fol}[#1]}
+  {\end{Fol}
+  \addtocounter{subsection}{1}}
+\newenvironment{Bspe}[1][]{ %
+  \begin{Bsp}[#1]}
+  {\end{Bsp}
+  \addtocounter{subsection}{1}}
+\newenvironment{Beme}[1][]{ %
+  \begin{Bem}[#1]}
+  {\end{Bem}
+  \addtocounter{subsection}{1}}
+\newenvironment{Defe}[1][]{ %
+  \begin{Def}[#1]}
+  {\end{Def}
+  \addtocounter{subsection}{1}}
+\newenvironment{Wdhe}[1][]{ %
+  \begin{Wdh}[#1]}
+  {\end{Wdh}
+  \addtocounter{subsection}{1}}
+
+% Pseudocode
+\newenvironment{pseudocode}[1]{ %
+  \begin{minipage}{#1}
+    \begin{framed}
+      \hspace*{1em}	
+      \begin{minipage}{#1}
+        \begin{tabbing}
+          for~~\= for~~\= for~~\= for~~\= some really really large amount of text \= \kill
+	}
+	{ %
+        \end{tabbing}
+      \end{minipage}
+      \hspace*{1em}
+    \end{framed}
+  \end{minipage}
+}
+
+% missing images
+\newcommand{\imagemissing}[1]{
+  \begin{center}~\\
+    \centering 
+    \includegraphics[width=2cm]{images/image_missing.jpg}\\
+    \textit{#1} \\
+  \end{center}
+}	
+
+% existing images
+%\newcommand{\image#
+
+
+% STYLE SETTINGS
+% ---------------------------------------------------------------
+% \cfoot[<text for scrplain>]{<text for scrheadings>}	
+% \allowdisplaybreaks              %allow multipage for equations
+\renewcommand{\theequation}{\thesection.\arabic{equation}}

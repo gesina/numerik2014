@@ -1,0 +1,22 @@
+\input{praeambel_gesina.tex}
+
+\usepackage{pgf,tikz}
+\usetikzlibrary{arrows}
+
+\begin{document}
+\centering
+
+% IV.4.b Householder-Reflexion (Bild unter Überschrift)
+	\begin{tikzpicture}[rotate=30, >=triangle 45,scale=4]
+		\draw (0,0) -- (2,0) node[below] {$H$};
+		\draw[->] (0.5,0) -- (1,0.7);
+		\draw[->] (0.5,0) -- (1,-0.7);
+		\draw (1,0.7) -- (1,-0.7);
+		\draw[anchor=east] (0.8,0.4) node {$a\in \R^m$};
+		\draw[anchor=east] (0.8,-0.5) node {$\alpha e_1$};
+		\draw (0.9,0) arc (180:90:1mm);
+		\draw[fill=black] (0.96,0.04) circle (0.05mm);
+	\end{tikzpicture}
+
+
+\end{document}

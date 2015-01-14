@@ -46,13 +46,13 @@ Es bietet sich z.B. an
 \sectione{Polynom-Iterpolation}
 Wir definieren als 
 \begin{gather}
-  \mathcal{P}_n \coloneqq \left\{ p \in \R[x]\,\middle\vert\,
+  \p_n \coloneqq \left\{ p \in \R[x]\,\middle\vert\,
     p= \sum_{i=0}^{n} a_ix^i \text{ mit } a_i\in\R \right\}
   \label{VI.1.1}
 \end{gather}
 den Raum aller Polynome\index{Polynomraum} mit $deg(p)\leq n$.\\
-Die Monome $1,x, \dots , x^n$ bilden eine Basis von $\mathcal{P}_n$
-und es gilt $dim\mathcal{P}_n = n+1$.
+Die Monome $1,x, \dots , x^n$ bilden eine Basis von $\p_n$
+und es gilt $dim\p_n = n+1$.
 
 \extrasection{a)}{Lagrangesche Interpolationsformel und Lemma von Aitken}
 
@@ -60,7 +60,7 @@ und es gilt $dim\mathcal{P}_n = n+1$.
 \begin{Satze}\label{6.1.1}
   Zu beliebigen $n+1$ Stützpunkten $(x_i, f_i)_{i=0, \dots n}$ 
   mit $x_i\neq x_k$ für $i\neq k$,
-  gibt es genau ein $p\in \mathcal{P}$ mit $p(x_i) = f_i$ für $i=0,
+  gibt es genau ein $p\in \p$ mit $p(x_i) = f_i$ für $i=0,
   \dots ,n$.\\
   $p$ heißt \textbf{Interpolationspolynom}\index{Interpolation!-polynom}
   und wird mit $p(f|x_0, \dots, x_n) $ bezeichnet.
@@ -69,14 +69,14 @@ und es gilt $dim\mathcal{P}_n = n+1$.
 \begin{proof}~
   \begin{enumerate}[a)]
   \item \textit{Eindeutigkeit}:
-    Seien $p_1, p_2\in \mathcal{P}_n$ mit $p_1(x_i)=p_2(x_i) = f_i$
+    Seien $p_1, p_2\in \p_n$ mit $p_1(x_i)=p_2(x_i) = f_i$
     für $i=0, \dots, n$.
-    Dann ist $p\coloneqq p_1-p_2 \in\mathcal{P}_n$
+    Dann ist $p\coloneqq p_1-p_2 \in\p_n$
     mit mindestens $n+1$ Nullstellen. \\
     Daraus folgt bereits, dass $p\equiv 0$, also $p_1\equiv p_2$.
 
   \item \textit{Existenz}: 
-    Betrachte die Polynome $L_i\in\mathcal{P}_n$ für $i=0, \dots, n$
+    Betrachte die Polynome $L_i\in\p_n$ für $i=0, \dots, n$
     mit 
     \begin{gather}
       L_i(x_k) = \delta_{ik}\quad \text{für } i,k=0, \dots, n 
@@ -100,32 +100,32 @@ und es gilt $dim\mathcal{P}_n = n+1$.
     p(x) = \sum_{i=0}^{n} f_iL_i(x)
     \label{VI.1.4}
   \end{gather}
-  bestimmt somit $p(f\,|\,x_0, \dots, x_n)$,
-  da $p\in\mathcal{P}_n$ und $p(x_i) = f_i$ für $i=0,\dots, n$.
+  bestimmt somit $p(f\mid x_0, \dots, x_n)$,
+  da $p\in\p_n$ und $p(x_i) = f_i$ für $i=0,\dots, n$.
 \end{proof}
 
 Mit \eqref{VI.1.4} folgt weiterhin
 \begin{enumerate}[a)]
 \item $p$ hängt linear von den Stützwerten $f_i$ ab.
-\item Die Lagrange-Polynome bilden eine Basis des $\mathcal{P}_n$.
+\item Die Lagrange-Polynome bilden eine Basis des $\p_n$.
 \end{enumerate}
 
 Die Lagrange-Interpolationsformel ist,
 wenn auch für theoretische Fragen günstig,
 für praktische Zwecke zu rechenaufwändig.
 
-Zur Auswertung des Interpolationspolynoms $p(f\,|\,x_0,\dots, x_n)$
+Zur Auswertung des Interpolationspolynoms $p(f\mid x_0,\dots, x_n)$
 an einer festen Stelle $\overline{x}$, d.h.
 um den Wert $p(\overline{x} ) $ zu berechnen,
 benötigt man:
 
 % \subsectione{Lemma von Aitken}
 \begin{Leme}[Lemma von Aitken]\index{Lemma von Aitken}
-  Für das Interpolationspolynom $p(f\,|\,x_0, \dots, x_n)$ gilt die 
+  Für das Interpolationspolynom $p(f\mid x_0, \dots, x_n)$ gilt die 
   Rekursionsformel
   \begin{gather}
-    p(f\,|\,x_0, \dots, x_n) (x) = \frac{(x_0-x)p(f\,|\,x_1,\dots, x_n)(x) -
-      (x_n-x)p(f\,|\,x_0,\dots, x_{n-1})(x)}
+    p(f\mid x_0, \dots, x_n) (x) = \frac{(x_0-x)p(f\mid x_1,\dots, x_n)(x) -
+      (x_n-x)p(f\mid x_0,\dots, x_{n-1})(x)}
     {(x_0-x_n)}
     \label{VI.1.5}
   \end{gather}
@@ -134,7 +134,7 @@ benötigt man:
 
 \begin{proof}
   Sei die rechte Seite von \eqref{VI.1.5} definiert als $\varphi(x)$.
-  Dann ist $\varphi\in\mathcal{P}_n$ und 
+  Dann ist $\varphi\in\p_n$ und 
   \begin{alignat*}{3}
     \varphi(x_i) &= \frac{(x_0-x_i)f_i-(x_n-x_i)f_i}{x_0-x_n}= f_i\quad
     &&&\text{für } i&=1,\dots , n-1\\
@@ -143,7 +143,7 @@ benötigt man:
     \varphi(x_n) &= \frac{(x_0-x_n)f_n-0}{x_0-x_n} = f_n
     &&&\text{für } i&=n\\
   \end{alignat*}
-  Damit ist $p(f\,|\,x_0, \dots, x_n) = \varphi$ aufgrund der Eindeutigkeit.
+  Damit ist $p(f\mid x_0, \dots, x_n) = \varphi$ aufgrund der Eindeutigkeit.
 \end{proof}
 
 
@@ -152,17 +152,17 @@ benötigt man:
 Weiterhin gilt
 \marginpar{03.12.2014}
 \begin{gather}
-  p(f\,|\, x_i)(x) = f_i\quad \forall x\in\R
+  p(f\mid  x_i)(x) = f_i\quad \forall x\in\R
   \label{VI.1.6}
 \end{gather}
 Definiere nun für ein festes $\overline{x}$
 \begin{gather}
-  P_{ik} \coloneqq p(f\,|\, x_{i-k}, \dots, x_{i})(\overline{x})
+  P_{ik} \coloneqq p(f\mid  x_{i-k}, \dots, x_{i})(\overline{x})
   \label{VI.1.7}
 \end{gather}
 Dann lässt sich der Wert
 \begin{gather*}
-  p(\overline{x}) = p(f\,|\, x_0, \dots , x_n)(\overline{x})= P_{nn}
+  p(\overline{x}) = p(f\mid  x_0, \dots , x_n)(\overline{x})= P_{nn}
 \end{gather*}
 nach \eqref{VI.1.5} wie folgt berechnen:
 
@@ -196,7 +196,7 @@ Soll das Interpolationspolynom an mehreren Stellen ausgewertet werden,
 ist das Schema von Neville zu teuer.
 
 \extrasection{b)}{Newtonsche Interpolationsformel}
-Betrachte folgende Basisdarstellung eines Polynoms $p\in\mathcal{P}_n$
+Betrachte folgende Basisdarstellung eines Polynoms $p\in\p_n$
 \begin{align}
   p(x) = \sum_{i=0}^{n}a_i \prod_{j=0}^{i-1} (x-x_j)
   \label{VI.1.9}
@@ -221,7 +221,7 @@ Es ergibt sich für bekannte $a_i\in\R$:
 
 Pro Auswertung benötigt es $n$ Multiplikationen.\\
 Zur Bestimmung der notwendigen Koeffizienten $a_0, \dots, a_n$
-von $p(f\,|\, x_0, \dots , x_n)$ kann folgende 
+von $p(f\mid  x_0, \dots , x_n)$ kann folgende 
 Vorwärtssubstitution verwendet werden
 \begin{align*}
   f_0 &= p(x_0) = a_0\\
@@ -257,7 +257,7 @@ Es geht jedoch noch billiger, wie gleich zu sehen ist.
 
 
 \begin{Satze}\label{6.1.6}
-  Sei $p(f\,|\, x_0,\dots ,x_n)(x)=\sum_{i=0}^{n}a_iw_i(x) = 
+  Sei $p(f\mid  x_0,\dots ,x_n)(x)=\sum_{i=0}^{n}a_iw_i(x) = 
   a_nx^n+ \sum_{i=0}^{n-1}c_ix^i$, dann gilt
   \begin{gather*}
     a_n= [x_0, \dots, x_n]f
@@ -274,7 +274,7 @@ Es geht jedoch noch billiger, wie gleich zu sehen ist.
     {x_l-x_j}
     \label{VI.1.12}
   \end{gather}
-  wobei $\widehat{\,\cdot\,}$ bedeutet, dass dieser Knoten
+  wobei $\widehat{\bullet}$ bedeutet, dass dieser Knoten
   weggelassen wird.
 \end{Satze}
 
@@ -282,14 +282,14 @@ Es geht jedoch noch billiger, wie gleich zu sehen ist.
   Wir zeigen den Satz per Induktion.\\
   Induktionsanfang mit $n=0$:
   \begin{gather*}
-    p(f\,|\,x_0) (x) = f_0 = a_0 = [x_0]f
+    p(f\mid x_0) (x) = f_0 = a_0 = [x_0]f
   \end{gather*}
   Induktionsschritt $n \rightarrow n+1$:
   Nach dem Lemma von Aitken gilt \eqref{VI.1.5}, also 
   \begin{gather*}
-    p(f\,|\,x_0, \dots, x_{n+1}) (x) 
-    = \frac{(x_0-{\boldsymbol x}){\boldsymbol p}(f\,|\,x_1,\dots, x_{n+1})(x) -
-      (x_{n+1}-{\boldsymbol x}){\boldsymbol p}(f\,|\,x_0,\dots, x_{n})(x)}
+    p(f\mid x_0, \dots, x_{n+1}) (x) 
+    = \frac{(x_0-{\boldsymbol x}){\boldsymbol p}(f\mid x_1,\dots, x_{n+1})(x) -
+      (x_{n+1}-{\boldsymbol x}){\boldsymbol p}(f\mid x_0,\dots, x_{n})(x)}
     {(x_0-x_{n+1})}
   \end{gather*}
   Nach Induktionsvoraussetzung gilt also 
@@ -306,31 +306,31 @@ Es geht jedoch noch billiger, wie gleich zu sehen ist.
   \index{Polynomraum!Newtonsche Darstellung}
   Es gilt 
   \begin{gather}
-    p(f\,|\, x_0, \dots , x_n)(x) 
+    p(f\mid  x_0, \dots , x_n)(x) 
     = \sum_{i=0}^{n}[x_0,\dots, x_i]f\cdot w_i(x)
     \label{VI.1.13}
   \end{gather}
   und $\left\{w_k\middle\vert k\in \{0,\dots,n\}\right\}$
-  bildet Basis von $\mathcal{P}_n$.
+  bildet Basis von $\p_n$.
 \end{Satze}
 
 \begin{proof}
   Wir zeigen \eqref{VI.1.10} per Induktion.\\
   $n=0$ ist klar.\\
-  $n-1\rightarrow n$: Sei $p_n(x)\coloneqq p(f\,|\, x_0,\dots,x_n)(x)
+  $n-1\rightarrow n$: Sei $p_n(x)\coloneqq p(f\mid  x_0,\dots,x_n)(x)
   = [x_0,\dots, x_n]f \cdot w_n(x) + q_{n-1}(x)$ mit
-  $q_{n-1}\in\mathcal{P}_{n-1}$ und $q_{n-1}(x_i)=p_{n-1}(x_i)=f_i$
+  $q_{n-1}\in\p_{n-1}$ und $q_{n-1}(x_i)=p_{n-1}(x_i)=f_i$
   für $i=0,\dots ,n-1$, da $w_n(x_i)=0$.\\
   Damit folgt
   \begin{gather*}
-    q_{n-1} = p(f\,|\,x_0, \dots, x_{n-1})
+    q_{n-1} = p(f\mid x_0, \dots, x_{n-1})
     =\sum_{i=0}^{n-1}[x_0,\dots, x_i]f\cdot w_i(x)
   \end{gather*}
   nach Induktionsvoraussetzung. 
   Es folgt Gleichung  \eqref{VI.1.13}.\\
   $\left\{w_0, \dots,w_n\right\}$ sind linear unabhängig
-  und jedes Polynom $\varphi\in\mathcal{P}_n$
-  lässt sich wegen $q(x)=p(q\,|\,x_0,\dots,x_n)(x)$
+  und jedes Polynom $\varphi\in\p_n$
+  lässt sich wegen $q(x)=p(q\mid x_0,\dots,x_n)(x)$
   durch \eqref{VI.1.13} darstellen.
 \end{proof}
 
@@ -367,10 +367,10 @@ Das Schema von Neville benötigt dagegen
 \end{gather*}
 
 \begin{Beme}
-  Da $p(f\,|\, x_0,\dots, x_n)$ linear von den Stützwerten $f_i$
+  Da $p(f\mid  x_0,\dots, x_n)$ linear von den Stützwerten $f_i$
   abhängt,
-  d.h. $p(\alpha f+\beta g\,|\, x_0,\dots, x_n)= 
-  \alpha p(f\,|\, x_0,\dots, x_n)+\beta p(g\,|\, x_0,\dots, x_n)$
+  d.h. $p(\alpha f+\beta g\mid  x_0,\dots, x_n)= 
+  \alpha p(f\mid  x_0,\dots, x_n)+\beta p(g\mid  x_0,\dots, x_n)$
   gilt, folgt somit auch
   \begin{gather*}
     [x_i,\dots, x_k](\alpha f+\beta g)
@@ -393,19 +393,19 @@ Das Schema von Neville benötigt dagegen
   Es seien
   \begin{align*}
     G(x) &\coloneqq \sum_{i=0}^{n} [x_0,\dots,x_i]g\cdot w_i(x)
-           = p(g\,|\,x_0,\dots x_n)(x)\\
+           = p(g\mid x_0,\dots x_n)(x)\\
     H(x) &\coloneqq \sum_{j=0}^{n}[x_j,\dots, x_n]h\cdot\widetilde{w}_j(x)
-           =p(h\,|\,x_n,\dots,x_0)(x)
+           =p(h\mid x_n,\dots,x_0)(x)
   \end{align*}
   mit $\widetilde{w}_j(x) =
-  \prod_{l=j+1}^{n}(x-x_l)\in\mathcal{P}_{n-j}$.\\
+  \prod_{l=j+1}^{n}(x-x_l)\in\p_{n-j}$.\\
   Dann folgt 
   \begin{align*}
     (G\cdot H)(x_i) &= g(x_i)h(x_i) \quad \forall i\leq n
                       \intertext{und}
                       G\cdot H &= \sum_{i,j=0}^{n}[x_0,\dots,x_i]g\cdot
                                  [x_j,\dots,x_n]h\cdot w_i\widetilde{w}_j
-                                 \in\mathcal{P}_{2n}
+                                 \in\p_{2n}
   \end{align*}
   Wegen 
   \begin{gather*}
@@ -416,14 +416,14 @@ Das Schema von Neville benötigt dagegen
   \begin{gather*}
     P\coloneqq \sum_{0\leq i\leq j\leq n}[x_0,\dots, x_i]g
     \cdot [x_j,\dots, x_n]h
-    \underbrace{w_i\widetilde{w}_j}_{\in\mathcal{P}_{n+i-j}}
-    \in\mathcal{P}_n
+    \underbrace{w_i\widetilde{w}_j}_{\in\p_{n+i-j}}
+    \in\p_n
   \end{gather*}
   die Werte $g(x_k),h(x_k)$ für $k=0,\dots,n$
-  und es gilt $P\in\mathcal{P}_n$.\\
+  und es gilt $P\in\p_n$.\\
   Aufgrund der Eindeutigkeit gilt
   \begin{gather*}
-    p(g\cdot h\,|\, x_0,\dots, x_n) = P 
+    p(g\cdot h\mid  x_0,\dots, x_n) = P 
     = \sum_{i=0}^{n}[x_0,\dots, x_i]g\cdot [x_i,\dots,x_n]h\cdot x^n
     + \sum_{l=0}^{n-1}c_lx^l
   \end{gather*}
@@ -445,7 +445,7 @@ Dann sind
 Werte gegeben.
 
 \begin{Defe}\index{Hermite-Interpolationspolynom}
-  Ein Polynom $p$ mit $p\in \mathcal{P}_n$
+  Ein Polynom $p$ mit $p\in \p_n$
   und der Interpolationseigenschaft 
   \begin{gather}
     p^{(k)}(x_i) = f_i^{(k)}
@@ -461,8 +461,8 @@ Werte gegeben.
 
   \begin{proof}~
     \begin{description}
-    \item[Eindeutigkeit:] Seien $p_1,p_2\in\mathcal{P}_n$ mit
-      \eqref{VI.1.15}, dann gilt $q=p_1-p_2\in\mathcal{P}_n$
+    \item[Eindeutigkeit:] Seien $p_1,p_2\in\p_n$ mit
+      \eqref{VI.1.15}, dann gilt $q=p_1-p_2\in\p_n$
       und $q$ hat mit Vielfachheit gezählt mindestens
       $(n+1)$ Nullstellen.\\
       Damit folgt bereits $q\equiv 0$.
@@ -516,7 +516,7 @@ dann gilt
     \end{array}
   \end{gather*}
   Bezeichne wiederum mit $p(f\,| \, t_0,\dots, t_n)$
-  das Interpolationspolynom in $\mathcal{P}_n$,
+  das Interpolationspolynom in $\p_n$,
   welches \eqref{VI.1.17} erfüllt.
 \end{Bspe}
 
@@ -526,15 +526,15 @@ dann gilt
   \begin{enumerate}[a)]
   \item falls $t_i=\dots = t_{i+k}=x_l$:
     \begin{gather}
-      p(f\,|\, t_i,\dots, t_{i+k})(x) 
+      p(f\mid  t_i,\dots, t_{i+k})(x) 
       = \sum_{r=0}^{k}\frac{f^{(r)}(x_l)}{r}(x-x_l)^r
       \label{VI.1.19}
     \end{gather}
   \item falls $t_i<t_{i+k} $:
     \begin{gather}
-      p(f\,|\, t_i,\dots, t_{i+k})(x) 
-      = \frac{(x-t_i)\cdot p(f\,|\, t_{i+1},\dots, t_{i+k})(x)
-        - (x-t_{i+k})\cdot p(f\,|\,t_k,\dots, t_{i+k-1})(x)}
+      p(f\mid  t_i,\dots, t_{i+k})(x) 
+      = \frac{(x-t_i)\cdot p(f\mid  t_{i+1},\dots, t_{i+k})(x)
+        - (x-t_{i+k})\cdot p(f\mid t_k,\dots, t_{i+k-1})(x)}
       {t_{i+k}-t_i}
       \label{VI.1.20}
     \end{gather}
@@ -544,7 +544,7 @@ dann gilt
 \begin{proof}
   In beiden Fällen wird nachgewiesen, dass die rechte Seite
   das zugehörige Hermite-Interpolationsproblem löst.\\
-  Aufgrund der Eindeutigkeit von $p\in\mathcal{P}_k$
+  Aufgrund der Eindeutigkeit von $p\in\p_k$
   folgt dann die Behauptung.
 \end{proof}
 
@@ -566,7 +566,7 @@ dann gilt
   Wie in \ref{6.1.6} und \ref{6.1.7} folgt aus dem \nameref{6.1.14}
   die \textbf{Newtonsche-Darstellung} \eqref{VI.1.13}
   \begin{gather*}
-    p(f\,|\, t_0,\dots, t_{n})(x) = \sum_{i=0}^{n}[t_0,\dots,t_i]f\cdot w_i(x) 
+    p(f\mid  t_0,\dots, t_{n})(x) = \sum_{i=0}^{n}[t_0,\dots,t_i]f\cdot w_i(x) 
   \end{gather*}
   mit $w_i(x) =\prod_{j=0}^{i-1}(x-t_j)$.\\
   Ebenso folgt die Leibnizformel für $t_0\leq t_1\leq\dots\leq t_n$
@@ -589,7 +589,7 @@ dann gilt
   \end{align*}
   Damit folgt für $p$
   \begin{align*}
-    p(f\,|\,t_0,\dots, t_4)(x) 
+    p(f\mid t_0,\dots, t_4)(x) 
     =& -1\\
      &-2(x-0)\\
      & +3(x-0)(x-0)\\
@@ -607,7 +607,7 @@ falls nicht mehr als die Funktionswerte $f_i$ von f bekannt sind.
   \index{dividierte Differenzen!Fehlerdarstellung}
   Es gilt die Fehlerdarstellung für alle $f$
   \begin{gather}
-    f(\overline{x})-p(f\,|\,t_0,\dots, t_n)(\overline{x})
+    f(\overline{x})-p(f\mid t_0,\dots, t_n)(\overline{x})
     = [t_o,\dots,t_n,\overline{x}]f\cdot w_{n+1}(\overline{x})
     \label{VI.1.22}
   \end{gather}
@@ -615,8 +615,8 @@ falls nicht mehr als die Funktionswerte $f_i$ von f bekannt sind.
 
 \begin{proof}
   \begin{gather*}
-    f(\overline{x})- p(f\,|\,t_0,\dots, t_n)(\overline{x})
-    = p(f\,|\, t_0,\dots, t_n)(\overline{x})
+    f(\overline{x})- p(f\mid t_0,\dots, t_n)(\overline{x})
+    = p(f\mid  t_0,\dots, t_n)(\overline{x})
     + [t_0,\dots, t_n,\overline{x}]f\cdot w_{n+1}(\overline{x})
   \end{gather*}
   aufgrund der Newtonschen Darstellung \eqref{VI.1.13}.
@@ -630,7 +630,7 @@ falls nicht mehr als die Funktionswerte $f_i$ von f bekannt sind.
   aus dem kleinsten Intervall $I$, welches $x_0,\dots, x_m$ enthält,
   so dass 
   \begin{gather}
-    f(\overline{x})-p(f\,|\,t_0,\dots,t_n)(\overline{x})
+    f(\overline{x})-p(f\mid t_0,\dots,t_n)(\overline{x})
     = \frac{f^{(n+1)}(\xi)}{(n+1)!}\cdot w_{n+1}(\overline{x})
     \label{VI.1.21}
   \end{gather}
@@ -645,7 +645,7 @@ falls nicht mehr als die Funktionswerte $f_i$ von f bekannt sind.
   \marginpar{10.12.2014}
   Definiere
   \begin{gather}
-    F(x) \coloneqq f(x)-p(f\,|\, t_0,\dots , t_n)(x) - Kw_{n+1}(x)
+    F(x) \coloneqq f(x)-p(f\mid  t_0,\dots , t_n)(x) - Kw_{n+1}(x)
     \label{IV.1.22}
   \end{gather}
   mit $K=const$ so gewählt, dass $F(\overline{x})=0$.\\
@@ -720,7 +720,7 @@ $[t_0,\dots,t_n, \overline{x}]f$ eine Rolle für den Fehler,
 sondern mit $w_{n+1}(\overline{x})$ auch die Verteilung der Knoten.\\
 Falls die Knoten frei wählbar sind und
 \begin{gather*}
-  \nn{f-p(f\,|\,t_0,\dots,t_n)}_{C([a,b])}
+  \nn{f-p(f\mid t_0,\dots,t_n)}_{C([a,b])}
 \end{gather*}
 klein ist, wird gewünscht, dass
 \begin{gather*}\index{Norm}
@@ -740,7 +740,7 @@ dass für $[a,b]=[-1,1]$ das zugehörige $w_{n+1}$,
 das sogenannte
 \textbf{Tschebyscheff-Polynom}\index{Tschebyscheff-Polynom}
 \begin{gather}
-  T_{n+1}(x)\coloneqq \cos\big((n+1)\arccos(x)\big)\in\mathcal{P}_{n+1}
+  T_{n+1}(x)\coloneqq \cos\big((n+1)\arccos(x)\big)\in\p_{n+1}
   \label{VI.1.24}
 \end{gather}
 ist. Dessen Nullstellen, die 
@@ -781,7 +781,7 @@ als minimal \cite{haemmerlinhoffmann}, wobei
 die sich bei gleichmäßiger Knotenverteilung ergeben,
 konvergieren \textbf{nicht} gegen f mit wachsender Anzahl der Knoten!\\
 Ein Gegenbeispiel ist $f(x)=|x|$ in $[-1,1]$:\\
-Die Folge $\left\{p(f\,|\,x_0,\dots,x_n)(x)\right\}_{n\in\N}$
+Die Folge $\left\{p(f\mid x_0,\dots,x_n)(x)\right\}_{n\in\N}$
 mit $x_i$ gleichmäßig verteilt,
 divergiert für alle Werte $0<|x|<1$.
 
@@ -831,7 +831,7 @@ gilt für die $\nn{\,\cdot\,}_2$-Norm \cite[siehe][]{haemmerlinhoffmann}:
   Sei $f\in C([-1,1])$ und seien $x_0,\dots, x_n$ die Nullstellen
   des	Legendre-Polynoms $L_n+1$. Dann gilt
   \begin{gather*}
-    \lim\limits_{n\rightarrow \infty}\nn{f-p(f\,|\,x_0,\dots, x_n)}_2 = 0
+    \lim\limits_{n\rightarrow \infty}\nn{f-p(f\mid x_0,\dots, x_n)}_2 = 0
   \end{gather*}
 \end{Satze}
 
@@ -844,7 +844,39 @@ die unerwünscht sind.
 Die Idee der stückweisen polynomialen Approximation ist,
 jeweils einige wenige Stützwerte polynomial zu interpolieren
 und diese \enquote{glatt} zusammenzusetzen.
-\imagemissing{Veranschaulichung stückweiser polynomialer Approximation}\label{im6.2}
+
+% Erste Grafik (Veranschaulichung stückweiser polynomialer Approximation) in 6.2 (Anfang)
+\begin{tikzpicture}[>=triangle 45]
+  \draw[->,color=black] (0,0) -- (10,0);
+  \draw[->,color=black] (0,0) -- (0,8);
+  \clip(-0.5,-0.5) rectangle (10,8);
+  
+  \foreach \x/\text in {0.5/$a=x_0$,3.5/$x_1$,4.5/$x_2$,6/$x_3$,8.5/$x_4=b$}
+  \draw (\x,0.1) -- (\x,-0.1) node[below] {\text};
+  
+  % k=1
+  \foreach \x/\y/\wert in {0.5/3.5/4.5,3.5/4.5/1,4.5/6/1.5,6/8.5/5}
+  {
+    % Waagrechte Linien (chi-Funktionen)
+    \draw(\x,\wert)--(\y,\wert);	
+    % Beginn und Ende der Linien
+    \draw(\x+0.1,\wert-0.2)--(\x,\wert-0.2)--(\x,\wert+0.2)--(\x+0.1,\wert+0.2);	
+    \draw (\y-0.1,\wert-0.2) arc (-90:90:0.1 and .2);
+  }
+  
+  % k=2 (linear)
+  \foreach \x/\y/\wertx/\werty in {0.5/3.5/4.5/1,3.5/4.5/1/1.5,4.5/6/1.5/5,6/8.5/5/3.5}
+  % Gerade zwischen den beiden Punkten
+  \draw[color = blue] (\x,\wertx) -- (\y,\werty);
+  
+  \draw[color=red,smooth,samples=200,domain=0.5:6] plot(\x,{0.058*\x^3-0.073*\x^2-1.696*\x+5.359});
+  \draw[color=red,smooth,samples=200,domain=6:8.55] plot(\x,{-0.293*\x^3+4.84*\x^2-24.067*\x+38.52});
+\end{tikzpicture}\\
+{\centering
+  \textit{Veranschaulichung stückweiser polynomialer Approximation}
+}
+\label{im6.2}
+
 \begin{itemize}
 \item stückweise linear und stetig ist am einfachsten
 \item stückweise kubisch und global zweimal stetig differenzierbar
@@ -860,7 +892,7 @@ und diese \enquote{glatt} zusammenzusetzen.
   Ein (Polynom-)\textbf{Spline von Ordnung $k$}$\geq 2$ 
   (d.h. der Grad der Teilstückpolynome ist maximal $(k-1)$)
   ist eine Funktion $s$ mit $s\in C^{(k-2)}([a,b])$
-  und $s\in\mathcal{P}_{k-1}([x_i,x_{i+1}])$
+  und $s\in\p_{k-1}([x_i,x_{i+1}])$
   für $i=0,\dots,n-1$.\\
   Der Raum der Splines von Ornung $k$ bzgl. $\Delta$ sei
   mit $S_{k,\Delta}$ bezeichnet.\\
@@ -869,7 +901,7 @@ und diese \enquote{glatt} zusammenzusetzen.
     S_{1,\Delta} \coloneqq 
     \left\{
       s:[a,b]\rightarrow\R\,\middle\vert\,
-      s|_{[x_i,x_{i+1}]}\in\mathcal{P}_0
+      s|_{[x_i,x_{i+1}]}\in\p_0
       \text{ für } 0\leq i\leq n
     \right\}
   \end{gather*}
@@ -878,7 +910,7 @@ und diese \enquote{glatt} zusammenzusetzen.
   Offensichtlich gilt
   \begin{enumerate}[a)]
   \item $S_{k,\Delta}$ ist ein linearer Vektorraum.
-  \item $\mathcal{P}_{k-1}\subseteq S_{k,\Delta}$
+  \item $\p_{k-1}\subseteq S_{k,\Delta}$
   \end{enumerate}
   Natürlich lässt sich ein Spline stückweise als Polynom darstellen,
   es hat also $n\cdot k$ Koeffizienten.
@@ -936,8 +968,36 @@ Das Ziel ist nun eine bessere Basis zu konstruieren.
   \begin{enumerate}[a)]
   \item \index{Splineraumbasis!$S_{1,\Delta}$-Basis}
     $S_{1,\Delta}$ sind stückweise konstante Funktionen
-    \imagemissing{Basis eines $S_{1,\Delta}$-Splines aus stückweise
-      konstanten Elementen}\label{im6.2.4(1)}
+
+    % Grafik zu Beispiel 6.2.4
+    \begin{tikzpicture}[>=triangle 45]
+      \draw[->,color=black] (0,0) -- (10,0);
+      \draw[->,color=black] (0,0) -- (0,5);
+      \clip(-0.5,-0.5) rectangle (10,5);
+      
+      \foreach \x/\text in {0.5/$x_0$,3.5/$x_1$,4.5/$x_2$,6/$x_3$,8.5/$x_4$}
+      \draw (\x,0.1) -- (\x,-0.1) node[below] {\text};
+      
+      % k=1
+      \foreach \x/\y/\wert in {0.5/3.5/3.5,3.5/4.5/1,4.5/6/1.5}
+      {
+        % Waagrechte Linien (chi-Funktionen)
+        \draw(\x,\wert)--(\y,\wert);	
+        % Beginn und Ende der Linien
+        \draw(\x+0.1,\wert-0.2)--(\x,\wert-0.2)--(\x,\wert+0.2)--(\x+0.1,\wert+0.2);	
+        \draw (\y-0.1,\wert-0.2) arc (-90:90:0.1 and .2);
+      }
+      
+      \draw (6,4)--(8.5,4);
+      \draw(6+0.1,4-0.2)--(6,4-0.2)--(6,4+0.2)--(6+0.1,4+0.2);
+      \draw(8.5-0.1,4-0.2)--(8.5,4-0.2)--(8.5,4+0.2)--(8.5-0.1,4+0.2);
+    \end{tikzpicture}\\
+    {\centering
+      \textit{Basis eines $S_{1,\Delta}$-Splines aus stückweise
+        konstanten Elementen}
+    }
+    \label{im6.2.4(1)}
+
     Die zugehörige Basis wie oben beschrieben wäre
     \begin{gather*}
       \left\{ 1,(x-x_i)_+^0\right\}
@@ -1034,7 +1094,7 @@ $k-1$ entspricht dem Polynomgrad.
         \, N_{j,k}(x)\neq 0\right\}} \subset [t_j, t_{j+1}]$
     (lokaler Träger)
   \item $N_{j,k}>0 ~\forall x\in(t_j,t_{j+1})$ (nicht negativ)
-  \item $N_{j,k}\vert_{[t_l,t_{l+1})}\in \mathcal{P}_{k-1}$
+  \item $N_{j,k}\vert_{[t_l,t_{l+1})}\in \p_{k-1}$
   \end{enumerate}
 
   \begin{proof}
@@ -1124,7 +1184,7 @@ Setzt man nun
   \marginpar{17.12.2014}
   \begin{enumerate}
   \item Es gilt 
-    $\mathcal{P}_{k-1}\subset
+    $\p_{k-1}\subset
     span\left\{N_{1,k}, \dots, N_{n+k-1,k}\right\}$
   \item Die B-Splines bilden eine Zerlegung der Eins auf $[a,b]$,
     d.h. 
@@ -1149,9 +1209,9 @@ Setzt man nun
     \item[c)] O.B.d.A. enthalte $(c,d)$ keine Knoten $t_i$
       (sonst zerlege $(c,d)$ in Teilintervalle).
       Dann folgt $(c,d)\subseteq (t_l, t_{l+1})$.
-      Nach a) lässt sich jedes Polynom $p\in \mathcal{P}_{k-1}$
+      Nach a) lässt sich jedes Polynom $p\in \p_{k-1}$
       durch die B-Splines $N_{l,k}$ darstellen.
-      Auf $(c,d)$ sind nur $k=dim\mathcal{P}_{k-1}$
+      Auf $(c,d)$ sind nur $k=dim\p_{k-1}$
       B-Splines von Null verschieden.
       Daher müssen diese linear unabhängig sein.
     \end{description}
@@ -1323,7 +1383,7 @@ Obige Splines haben gerade diese Eigenschaft, denn:
       \intertext{($S_{4,\Delta}\subseteq C^2([a,b])$, 
       $s'''(x)\equiv d_{i-1}=const$, 
       da 
-      $s\in\mathcal{P}_3([x_{i-1},x_i])$ )
+      $s\in\p_3([x_{i-1},x_i])$ )
       }
                                   &= \underbrace{\left[ s''(y'-s')\right]_{a}^{b}}_{
                                     \mathclap{\substack{ =0 \\ \text{ nach Voraussetzung } }}
