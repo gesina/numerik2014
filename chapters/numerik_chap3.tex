@@ -9,6 +9,8 @@
 %	Kap. 3: Fehleranalyse
 %
 % % % % % % % % % % % % % %
+
+
 \chapter{Fehleranalyse} \index{Fehler}\label{3}
 \marginpar{15.10.2014}
 \begin{align*}
@@ -132,27 +134,26 @@ Die Maschinenzahlen sind ungleichmäßig im Dezimalsystem verteilt, z. B.
 \begin{align*}
   x &= \pm a_1 . a_2 a_3 \cdot 2^e  &\text{mit } -2\leq e\leq 1 \text{ und } a_i  \in \{0,1\} 
 \end{align*}
-\begin{gather*}
-%Abbildung 3.1
-\begin{tikzpicture}[scale=3]
-\draw(0,0)--(4,0);
-%Vertikale Striche
-\foreach \x/\xtext in {0/0,0.25/{1/4},0.5/{1/2},1/1,2/2,4/4}
-\draw(\x,2pt)--(\x,-2pt) node[below] {\xtext};
-%Rote Kreise zeichnen
-\foreach \x in {0.3125,0.375,0.4375,0.625,0.75,0.875,1.25,1.5,1.75,2.5,3,3.5}
-\draw[fill,red] (\x,0) circle (1pt);
-\end{tikzpicture}
- \end{gather*}
+\begin{image}{}
+  \begin{tikzpicture}[scale=3]
+    \draw(0,0)--(4,0);
+    % Vertikale Striche
+    \foreach \x/\xtext in {0/0,0.25/{1/4},0.5/{1/2},1/1,2/2,4/4}
+    \draw(\x,2pt)--(\x,-2pt) node[below] {\xtext};
+    % Rote Kreise zeichnen
+    \foreach \x in {0.3125,0.375,0.4375,0.625,0.75,0.875,1.25,1.5,1.75,2.5,3,3.5}
+    \draw[fill,red] (\x,0) circle (1pt);
+  \end{tikzpicture}
+\end{image}
 ist im Dualsystem gleichmäßig, jedoch im Dezimalsystem sehr ungleichmäßig verteilt.
 
 % \subsection{Bezeichnungen}
 \begin{Defe}
   \label{3.1.5}~
-  \begin{itemize}
-  \item[\textbf{overflow}] es ergibt sich eine Zahl, die betragsmäßig größer ist als die größte maschinendarstellbare Zahl
-  \item[\textbf{underflow}] entsprechend, betragsmäßig kleiner als die kleinste positive Zahl
-  \end{itemize}
+  \begin{description}
+  \item[\textbf{overflow}:] Es ergibt sich eine Zahl, die betragsmäßig größer ist als die größte maschinendarstellbare Zahl.
+  \item[\textbf{underflow}:] Entsprechend, betragsmäßig kleiner als die kleinste positive Zahl.
+  \end{description}
   Bsp.: overflow beim integer $b=e+127$
   \begin{align*}
     \begin{array}{rrr@{}}
@@ -200,8 +201,8 @@ Weiterhin gilt:
 \item Die kleinste Zahl am Rechner, welche größer als 1 ist, ist
   \[ 1 + eps \]
 \item Eine Maschinenzahl x repräsentiert eine Eingabemenge
-  \begin{gather*}
-    E(x) = \{\widetilde{x} \in \R : |\widetilde{x}-x| \leq \tau|x|\} \\
+  \begin{image}{}
+    $E(x) = \{\widetilde{x} \in \R : |\widetilde{x}-x| \leq \tau|x|\}$ \\
 %
 	\begin{tikzpicture}[scale=3]
 	\draw(0,0)--(3,0);
@@ -212,7 +213,7 @@ Weiterhin gilt:
 	\node at (\x,0) {\bfseries \xtext};
 	\node at (1,0.2) {$E(x)$};
 	\end{tikzpicture}
-  \end{gather*}
+  \end{image}
 \end{enumerate}
 
 % \subsection{Bemerkung} 
@@ -290,10 +291,9 @@ untersucht.
 
 
 % \subsectione{Wiederholung: Normen} 
-\begin{Wdhe}[Normen]
+\begin{Wdhe}[Normen]~
   \label{3.2.3}\index{Norm}
-  \begin{figure}
-    \centering
+  \begin{image}{Sphären mit gleichem Normbetrag}
     \begin{tikzpicture}[scale=2, line cap=round, x=1.0cm,y=1.0cm]
       \clip (-1.5,-1.5) rectangle (2.3,1.5);
       \draw[->] (-1.3,0) -- (1.3,0) node [anchor=north west]{$x$};
@@ -305,8 +305,7 @@ untersucht.
       \draw (1.3,1.0) -- (1.5,1.0) node [anchor=west]{$\|x\|_{2} = 1$};
       \draw [dashed] (1.3,0.7) -- (1.5,0.7) node [anchor=west]{$\|x\|_{\infty} = 1$};
     \end{tikzpicture}
-    \caption{Sphären mit gleichem Normbetrag}
-  \end{figure}
+  \end{image}
   
   \begin{align*}
     \text{Summennorm ($l_1$-Norm):} &&	\nn{x}_1 &\coloneqq \sum_{i=1}^{n}|x_i| 
@@ -741,44 +740,38 @@ untersucht.
   Falls $|f'(x)|\longrightarrow 0$ ist es eine schlechte absolute Kondition. \\
   Für $|f'(x)| \gg 0$ ist es eine gute absolute Kondition.\\
   Damit bedeutet eine kleine Störung in $y$ eine große Störung in $x$.\\
-  \begin{minipage}{0.48\linewidth}
-  	\centering
-  	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
-  	\draw[->,color=black] (0,0) -- (6,0);
-  	\draw[->,color=black] (0,0) -- (0,4.5);
-  	\clip(-1,-0.6) rectangle (6,6.5);
-  	\draw[smooth,samples=100,domain=0.5:5.5] plot(\x,{1/10*((\x)-3)^3+2});
-  	\draw [dash pattern=on 3pt off 3pt] (1.1,1.31)-- (1.1,0);
-  	\draw [dash pattern=on 3pt off 3pt] (0,1.31)-- (1.1,1.31);
-  	\draw [dash pattern=on 3pt off 3pt] (0,2.8)-- (5,2.8);
-  	\draw [dash pattern=on 3pt off 3pt] (5,2.8)-- (5,0);
-  	\draw (2.86,0) node[anchor=north west] {$x$};
-  	\draw (-0.6,2.18) node[anchor=north west] {$y$};
-  	\draw [color=black] (3,2)-- ++(-2pt,-2pt) -- ++(4pt,4pt) ++(-4pt,0) -- ++(4pt,-4pt);
-  	\fill  (0,2) circle (1.5pt);
-  	\fill  (3,0) circle (1.5pt);
-  	\end{tikzpicture}
-  	Schlechte Kondition
-  \end{minipage}\hfill
-  \begin{minipage}{0.48\linewidth}
-  	\centering 
-  	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
-  	\draw[->,color=black] (0,0) -- (6,0);
-  	\draw[->,color=black] (0,0) -- (0,4.5);
-  	\clip(-1,-0.6) rectangle (6,6.5);
-  	\draw[smooth,samples=100,domain=1.0:5.0] plot(\x,{1/100*((\x)+2)^3+0.5});
-  	\draw [dash pattern=on 3pt off 3pt] (2.66,1.51)-- (2.66,0);
-  	\draw [dash pattern=on 3pt off 3pt] (4,0)-- (4,2.66);
-  	\draw [dash pattern=on 3pt off 3pt] (4,2.66)-- (0,2.66);
-  	\draw [dash pattern=on 3pt off 3pt] (0,1.51)-- (2.66,1.51);
-  	\draw (3.26,0) node[anchor=north west] {$x$};
-  	\draw (-0.6,2.38) node[anchor=north west] {$y$};
-  	\fill  (0,2.16) circle (1.5pt);
-  	\fill  (3.5,0) circle (1.5pt);	
-  	\draw [color=black] (3.5,2.16)-- ++(-2pt,-2pt) -- ++(4pt,4pt) ++(-4pt,0) -- ++(4pt,-4pt);
-  	\end{tikzpicture}
-  	Gute Kondition
-  \end{minipage}	
+  \begin{image}{gute (links) und schlechte (rechts) Kondition im Vergleich}
+    \begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+      \draw[->,color=black] (0,0) -- (6,0);
+      \draw[->,color=black] (0,0) -- (0,4.5);
+      \clip(-1,-0.6) rectangle (6,6.5);
+      \draw[smooth,samples=100,domain=0.5:5.5] plot(\x,{1/10*((\x)-3)^3+2});
+      \draw [dash pattern=on 3pt off 3pt] (1.1,1.31)-- (1.1,0);
+      \draw [dash pattern=on 3pt off 3pt] (0,1.31)-- (1.1,1.31);
+      \draw [dash pattern=on 3pt off 3pt] (0,2.8)-- (5,2.8);
+      \draw [dash pattern=on 3pt off 3pt] (5,2.8)-- (5,0);
+      \draw (2.86,0) node[anchor=north west] {$x$};
+      \draw (-0.6,2.18) node[anchor=north west] {$y$};
+      \draw [color=black] (3,2)-- ++(-2pt,-2pt) -- ++(4pt,4pt) ++(-4pt,0) -- ++(4pt,-4pt);
+      \fill  (0,2) circle (1.5pt);
+      \fill  (3,0) circle (1.5pt);
+    \end{tikzpicture}
+    \begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+      \draw[->,color=black] (0,0) -- (6,0);
+      \draw[->,color=black] (0,0) -- (0,4.5);
+      \clip(-1,-0.6) rectangle (6,6.5);
+      \draw[smooth,samples=100,domain=1.0:5.0] plot(\x,{1/100*((\x)+2)^3+0.5});
+      \draw [dash pattern=on 3pt off 3pt] (2.66,1.51)-- (2.66,0);
+      \draw [dash pattern=on 3pt off 3pt] (4,0)-- (4,2.66);
+      \draw [dash pattern=on 3pt off 3pt] (4,2.66)-- (0,2.66);
+      \draw [dash pattern=on 3pt off 3pt] (0,1.51)-- (2.66,1.51);
+      \draw (3.26,0) node[anchor=north west] {$x$};
+      \draw (-0.6,2.38) node[anchor=north west] {$y$};
+      \fill  (0,2.16) circle (1.5pt);
+      \fill  (3.5,0) circle (1.5pt);	
+      \draw [color=black] (3.5,2.16)-- ++(-2pt,-2pt) -- ++(4pt,4pt) ++(-4pt,0) -- ++(4pt,-4pt);
+    \end{tikzpicture}
+\end{image}
 \end{Bspe}
 
 
@@ -918,24 +911,26 @@ untersucht.
     Zum Beispiel für $x=\widetilde{x} = \begin{pmatrix} 1 \\1 \end{pmatrix}$
     und $y=\begin{pmatrix} 1+10^{-10} \\-1 \end{pmatrix},
     \, \widetilde{y}=\begin{pmatrix} 1 \\-1 \end{pmatrix}$. \\
-    \begin{gather*}
+    \begin{image}{Vektoren mit nahezu gleichem komponentenweisen Betrag}
       \begin{tikzpicture}[>=triangle 45]
       \draw[->] (0,-2.2) -- (0,2.1);
       \draw[->] (0,0) -- (3,0);
       \draw[->] (0,0) -- (1.5,-1.5) node[anchor=west] {$y$};
       \draw[->] (0,0) -- (1.5,1.5) node[anchor=west] {$x=\tilde{x}=|\tilde{y}|\approx|y|$};
       \end{tikzpicture}
-    \end{gather*}
+    \end{image}
   \end{enumerate}	
 \end{Bspe}
 
 \sectione{Stabilität von Algorithmen}
 Bislang: Kondition eines gegebenen Problems $(f,x)$. \\
 Nun stellt sich die Frage: \textit{Was passiert durch das Implementieren am Rechner? }\\
-Ein \enquote{stabiler} Algorithmus sollte ein gut konditioniertes Problem nicht \enquote{kaputt machen}.\\
+Ein \enquote{stabiler} Algorithmus sollte ein gut konditioniertes
+Problem nicht \enquote{kaputt machen}.
 
-	\begin{minipage}{0.73\linewidth}
-	\begin{tikzpicture}[>=triangle 45]
+\begin{image}{Bildbereiche eines stabilen und eines instabilen Algorithmus}
+  \begin{minipage}{0.7\linewidth}
+  \begin{tikzpicture}[>=triangle 45]
 	%Linker Kreis mit allen Objekten
 	\draw (0,0) circle (1);
 	\draw (-0.7,0.4) node {$f$};
@@ -961,6 +956,7 @@ Ein \enquote{stabiler} Algorithmus sollte ein gut konditioniertes Problem nicht 
 	\tilde{R} &= \tilde{f}(E)\qquad\text{instabil}\\
 	\end{align*}
 	\end{minipage}
+\end{image}
 
 % \minisec{\Large3.3 a) Vorwärtsanalyse} \label{3.3a}\vspace{1eM}
 \extrasection{a)}{Vorwärtsanalyse}
@@ -1221,6 +1217,7 @@ bzw. für nicht injektive $f$
 \end{gather*} 
 ab. 
 
+\begin{image}{}
 \begin{tikzpicture}[scale=1,line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
   \matrix (m) [matrix of math nodes,row sep=0.4cm,column sep=3cm,minimum width=3em]
   {
@@ -1237,6 +1234,7 @@ ab.
   edge [->,decorate,decoration=zigzag](m-3-3)
   (m-3-1) edge [<-] (m-3-3);
 \end{tikzpicture}
+\end{image}
 
 Ein Anwendungsbeispiel:\\
 Die Eingangsdaten seien Messdaten $\tilde{x}$  mit 1 \% relativer Genauigkeit. 
@@ -1412,3 +1410,8 @@ Für große $cond(A)$ ist dieser Quotient jedoch weiterhin ungeeignet.
     { \| A\| \|\tilde{ x} \| + \| b\| } .
   \end{gather*}
 \end{Satze}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../numerik_script"
+%%% End:

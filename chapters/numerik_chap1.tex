@@ -223,8 +223,11 @@ für welches die Methode völlig versagt. \\
     Schritten ist die \textbf{exakte Lösung} bis auf
     Rundungsfehler berechnet (z.B. Gauß-Elimination)
   \item strukturierte Matrizen \\
-    Symmetrie oder sogar Bandstruktur: \hspace*{1cm}  
-    \includegraphics[width=2cm]{images/band.jpg}
+    Symmetrie oder sogar Bandstruktur:
+    \begin{image}{}
+      \includegraphics[width=5cm]{images/band.jpg}  
+    \end{image}
+    
     
   \item große Matrizen (mit zusätzlichen Eigenschaften)\\
     $\rightarrow$ \textbf{iterative Methoden:} kenne Startwert
@@ -236,9 +239,13 @@ für welches die Methode völlig versagt. \\
 \item \textbf{Lineare Ausgleichsprobleme}\\
   Beispiel:\\
   Wir messen den Zusammenhang zwischen Spannung U und
-  Stromstärke I\\
+  Stromstärke I
+\begin{image}{Einfacher Stromkreis}
   \parbox[c]{3cm}{\includegraphics[width=2cm]{images/ohmsche.jpeg} }
-  \parbox[c]{6cm}{\includegraphics[width=5cm]{images/linausgl2.png}} \\
+\end{image}
+\begin{image}{Linearausgleich von Messwerten}
+  \parbox[c]{6cm}{\includegraphics[width=5cm]{images/linausgl2.png}}
+\end{image}
   Ohmsches Gesetz: $U = R \cdot I$\\
   Gesucht ist der Widerstand R. \\
   ($U_i, I_i$) seien die Messdaten mit möglichen Messfehlern.\\
@@ -269,3 +276,8 @@ für welches die Methode völlig versagt. \\
 
 Bei allem spielt die \textbf{Fehleranalyse} eine große Rolle und
 ihre Grundbegriffe werden in einem extra Abschnitt behandelt.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../numerik_script"
+%%% End:

@@ -229,7 +229,7 @@ Sei $L\coloneqq (L_1^{-1}\cdot \cdots \cdot L_{n-1}^{-1})$ wie in \eqref{II.1.8}
   \end{align}
   Demnach funktioniert spaltenweises und zeilenweises Berechnen. 
   
-  \begin{gather*}
+  \begin{image}{}
     \begin{tikzpicture}
       % Dreiecke zeichnen
       \foreach \x in {0,5}
@@ -241,7 +241,7 @@ Sei $L\coloneqq (L_1^{-1}\cdot \cdots \cdot L_{n-1}^{-1})$ wie in \eqref{II.1.8}
       \draw[dash pattern=on 3pt off 3pt] (6.5,0) -- (6.5,4);
       \draw (5,1) node[left] {$i$} -- (8,1);
     \end{tikzpicture}
-  \end{gather*}
+  \end{image}{}
 \end{Fole}
 
 Es ergibt sich folgender Algorithmus:
@@ -293,13 +293,9 @@ Im Vergleich zur LR-Zerlegung halbiert sich in etwa der Aufwand.
   
   Seien $m$ Messungen $(I_i, U_i)$ für die Stromstärke $I$ und die Spannung $U$ gegeben. \\
   
-  \begin{figure}
-    \parbox{\linewidth}{
-      \centering
-      \includegraphics{images/ohmsche.jpeg}
-    }
-    \caption{Schaltplan einer einfachen U-I-Messung}
-  \end{figure}
+  \begin{image}{Schaltplan einer einfachen U-I-Messung}
+    \includegraphics{images/ohmsche.jpeg}
+  \end{image}
   
   Das Ohmsche Gesetz liefert hierfür:
   \begin{gather*}
@@ -307,13 +303,9 @@ Im Vergleich zur LR-Zerlegung halbiert sich in etwa der Aufwand.
   \end{gather*}
   Gesucht ist der zugehörige Widerstand $R$.\\
   
-  \begin{figure}
-    \parbox{\linewidth}{
-      \centering
-      \includegraphics[width=0.5\linewidth]{images/linausgl2.png}
-    }
-    \caption{Linearausgleich einer U-I-Messung mit Ursprungsgerade als Modellfunktion}
-  \end{figure}
+  \begin{image}{Linearausgleich einer U-I-Messung mit Ursprungsgerade als Modellfunktion}
+    \includegraphics[width=0.5\linewidth]{images/linausgl2.png}
+  \end{image}
   
   Wird jetzt davon ausgegangen dass die $I_i$ exakt sind, wird das $R$ gesucht, 
   für das $RI_i$ im Mitttel den minimalen Abstand zu $U_i$ hat.
@@ -367,23 +359,25 @@ GLS $Ax=b$.\\
 Aufgrund der $l_2$-Norm ist $\overline{x}$ gegeben durch die 
 orthogonale Projektion von $b$ auf den Bildraum $R(A) $ \index{Bildraum}, wie gleich gezeigt wird. \\
 
-\begin{tikzpicture}[rotate=0,line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
-  % Draw region settings
-  \clip(1.8,-3.2) rectangle (13.5,3);
-  % Right angle
-  \draw [shift={(8,0)}] (90:0.6) arc (90:180:0.6);
-  \fill (7.75,0.25) circle (1pt);
-  % Plane
-  \draw (2,2)-- (10,2)-- (13,-2)-- (5,-2)-- cycle;
-  \draw[<-] (9,1)-- (12,2) node [anchor=west] {$R(A)$};		
-  % vectors
-  \draw[->] (6,0) node[anchor=north east] {0} -- (8,0) node[anchor=north west] {$A\overline{x}$};
-  \draw[->] (6,0)--(8,2.46) node[anchor=south west] {$b$};
-  \draw[dashed] (8,0)-- (8,2.46);
-  \fill  (6,0) circle (2pt);
-  \fill  (8,0) circle (2pt);	
-  \fill  (8,2.46) circle (2pt);
-\end{tikzpicture}
+\begin{image}{}
+  \begin{tikzpicture}[rotate=0,line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+    % Draw region settings
+    \clip(1.8,-3.2) rectangle (13.5,3);
+    % Right angle
+    \draw [shift={(8,0)}] (90:0.6) arc (90:180:0.6);
+    \fill (7.75,0.25) circle (1pt);
+    % Plane
+    \draw (2,2)-- (10,2)-- (13,-2)-- (5,-2)-- cycle;
+    \draw[<-] (9,1)-- (12,2) node [anchor=west] {$R(A)$};		
+    % vectors
+    \draw[->] (6,0) node[anchor=north east] {0} -- (8,0) node[anchor=north west] {$A\overline{x}$};
+    \draw[->] (6,0)--(8,2.46) node[anchor=south west] {$b$};
+    \draw[dashed] (8,0)-- (8,2.46);
+    \fill  (6,0) circle (2pt);
+    \fill  (8,0) circle (2pt);	
+    \fill  (8,2.46) circle (2pt);
+  \end{tikzpicture}
+\end{image}
 
 % \subsectione{Projektionssatz} 
 \begin{Satze}[Projektionssatz]
@@ -870,20 +864,21 @@ Es ergibt sich:
 \extrasection{b)}{Householder-Reflexion}
 
 Es sei $H$ eine Hyperebene im $\R^m$ und zusätzlich ein Vektor
-$a\in\R^m$ gegeben.\\
+$a\in\R^m$ gegeben.
 
 % IV.4.b Householder-Reflexion
-\begin{tikzpicture}[rotate=30, >=triangle 45,scale=4]
-  \draw (0,0) -- (2,0) node[below] {$H$};
-  \draw[->] (0.5,0) -- (1,0.7);
-  \draw[->] (0.5,0) -- (1,-0.7);
-  \draw (1,0.7) -- (1,-0.7);
-  \draw[anchor=east] (0.8,0.4) node {$a\in \R^m$};
-  \draw[anchor=east] (0.8,-0.5) node {$\alpha e_1$};
-  \draw (0.9,0) arc (180:90:1mm);
-  \draw[fill=black] (0.96,0.04) circle (0.05mm);
-\end{tikzpicture}
-\label{im4.4.b}
+\begin{image}{}
+  \begin{tikzpicture}[rotate=30, >=triangle 45,scale=4]
+    \draw (0,0) -- (2,0) node[below] {$H$};
+    \draw[->] (0.5,0) -- (1,0.7);
+    \draw[->] (0.5,0) -- (1,-0.7);
+    \draw (1,0.7) -- (1,-0.7);
+    \draw[anchor=east] (0.8,0.4) node {$a\in \R^m$};
+    \draw[anchor=east] (0.8,-0.5) node {$\alpha e_1$};
+    \draw (0.9,0) arc (180:90:1mm);
+    \draw[fill=black] (0.96,0.04) circle (0.05mm);
+  \end{tikzpicture}
+\end{image}
 
 Gesucht ist nun die Reflexion $Q$, so dass
 \begin{gather*}
@@ -902,7 +897,7 @@ wähle ein entsprechendes Vorzeichen für $\alpha$, also
   \label{IV.4.9}
 \end{gather}
 Die zugehörige Reflexion $Q$ ist  gegeben durch \\
-\begin{center}
+\begin{image}{}
   \begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
     \clip(0.7,1) rectangle (6,5);
     \draw [shift={(4.32,3.49)}] (0,0) -- (36.87:0.6) arc 	(36.87:126.87:0.6) -- cycle;
@@ -921,7 +916,7 @@ Die zugehörige Reflexion $Q$ ist  gegeben durch \\
     \draw (1.26,3.46) node {$v$};
     \draw (4.3,3.1) node {$2w$};
   \end{tikzpicture}
-\end{center}		
+\end{image}		
 
 wobei
 \begin{align}

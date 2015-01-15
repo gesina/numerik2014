@@ -59,20 +59,21 @@ Dann folgt aus dem Zwischenwertsatz die Existenz
 mindestens einer Nullstelle $x^{*}\in (a,b)$.\\
 
 % 5.1.2 Das Bisektionsverfahren
-\begin{tikzpicture}[>=triangle 45]
-  \draw[->] (0,0) -- (10,0);
-  \draw[->] (0,-1) -- (0,1);
-  \draw[smooth,samples=100,domain=1:6] plot(\x,{1-1/14*((\x-6)^2)});
-  
-  \foreach \x/\xtext in
-  {0.5/a,4.5/{x^{(1)}},2.5/{x^{(2)}},8.5/b}
-  \draw(\x,2pt)--(\x,-2pt) node[below] {$\xtext$};
-  
-  \draw (1.5,-2pt) -- (1.5,2pt);
-  \draw (1.3,2pt) node[above] {$x^{(3)}$};
-  \draw (2,-2pt) -- (2,2pt) node[above] {$x^{(4)}$};
-\end{tikzpicture}
-\label{im5.1.2}
+\begin{image}{}
+  \begin{tikzpicture}[>=triangle 45]
+    \draw[->] (0,0) -- (10,0);
+    \draw[->] (0,-1) -- (0,1);
+    \draw[smooth,samples=100,domain=1:6] plot(\x,{1-1/14*((\x-6)^2)});
+    
+    \foreach \x/\xtext in
+    {0.5/a,4.5/{x^{(1)}},2.5/{x^{(2)}},8.5/b}
+    \draw(\x,2pt)--(\x,-2pt) node[below] {$\xtext$};
+    
+    \draw (1.5,-2pt) -- (1.5,2pt);
+    \draw (1.3,2pt) node[above] {$x^{(3)}$};
+    \draw (2,-2pt) -- (2,2pt) node[above] {$x^{(4)}$};
+  \end{tikzpicture}
+\end{image}
 
 Generiere eine Folge von Intervallen
 $[a^{(i)}, b^{(i)}]\in  [a^{(i-1)}, b^{(i-1)}] $,
@@ -151,7 +152,7 @@ denn für stetiges $g$ gilt:
   Löse $x-e^{-x}-1 = 0$.
   \begin{enumerate}[a)]
   \item $x=1+e^{-x} \eqqcolon g_1(x)$
-
+    \begin{image}{Konvergenz der Fixpunktiteration für $x=1+e^{-x}$}
     \begin{tikzpicture}[>=triangle 45,scale=2]
       \draw[->] (0,0) -- (4.4,0);
       \draw[->] (0,0) -- (0,3);
@@ -162,15 +163,13 @@ denn für stetiges $g$ gilt:
       \draw[dash pattern=on 3pt off 3pt] (0,1.162231532) node[left] {$x^{(2)}$} -- (1.818730753,1.162231532) -- (1.818730753,0) node[below] {$x^{(1)}$};
       \draw[dash pattern=on 3pt off 3pt] (0,1.312787406) node[left] {$x^{(3)}$} -- (1.162231532,1.312787406) -- (1.162231532,0) node[below] {$x^{(2)}$};
     \end{tikzpicture}\\
-    {\centering 
-      \textit{Konvergenz der Fixpunktiteration für $x=1+e^{-x}$}
-    }
-    \label{im5.2.1(1)}
+  \end{image}
+  \label{im5.2.1(1)}
 
-    $\longrightarrow$ Konvergenz
-  \item $e^{-x} = x-1   \Leftrightarrow x= -ln(x-1) \eqqcolon g_2(x)$\\
+  $\longrightarrow$ Konvergenz
+\item $e^{-x} = x-1   \Leftrightarrow x= -ln(x-1) \eqqcolon g_2(x)$\\
 
-    % 5.2.1b) 
+  \begin{image}{Versagen der Fixpunktiteration für $x=-ln(x-1)$}
     \begin{tikzpicture}[>=triangle 45,scale=2,x=1.5cm,y=0.7cm]
       \draw[->] (0,0) -- (3,0);
       \draw[->] (0,0) -- (0,3);
@@ -182,13 +181,11 @@ denn für stetiges $g$ gilt:
       \draw[dash pattern=on 3pt off 3pt] (1.2,0) node[below] {$x^{(0)}$} -- (1.2,1.609437912);
       \draw[dash pattern=on 3pt off 3pt] (1.609437912,0) node[below] {$x^{(1)}$} -- (1.609437912,1.609437912);
     \end{tikzpicture}\\
-    {\centering 
-      \textit{Versagen der Fixpunktiteration für $x=-ln(x-1)$}
-    }
-    \label{im5.2.1(2)}
+  \end{image}
+  \label{im5.2.1(2)}
 
-    $\longrightarrow$ $g(x^{(2)}) $ nicht definiert!
-  \end{enumerate}
+  $\longrightarrow$ $g(x^{(2)}) $ nicht definiert!
+\end{enumerate}
 \end{Bspe}
 
 % \subsectione{Definition: Kontraktion} 
@@ -202,15 +199,16 @@ denn für stetiges $g$ gilt:
   \end{gather*}
   Die kleinste solche Zahl $\kappa$ heißt Kontraktionszahl von g.
   
-  % Veranschaulichung einer Kontraktion
-  \begin{tikzpicture}
-    \draw (0,4) node[below right] {$u$} -- (3,4) node[below left] {$v$} node[right] {$g(v)$} -- (3,5) node[right] {$g(u)$}-- (0,5) -- cycle;
-    
-    \draw (0,0) node[below] {$u$} -- (1,0) node[below left] {$v$} node[above right] {$g(u)$} -- (1,3) node[below right] {$g(v)$} -- (0,3)  -- cycle;
-    
-    \draw (6.5,4.5) node[left] {Kontraktion};
-    \draw (6.5,1.5) node[left] {keine Kontraktion};
-  \end{tikzpicture}\\
+  \begin{image}{Veranschaulichung einer Kontraktion}
+    \begin{tikzpicture}
+      \draw (0,4) node[below right] {$u$} -- (3,4) node[below left] {$v$} node[right] {$g(v)$} -- (3,5) node[right] {$g(u)$}-- (0,5) -- cycle;
+      
+      \draw (0,0) node[below] {$u$} -- (1,0) node[below left] {$v$} node[above right] {$g(u)$} -- (1,3) node[below right] {$g(v)$} -- (0,3)  -- cycle;
+      
+      \draw (6.5,4.5) node[left] {Kontraktion};
+      \draw (6.5,1.5) node[left] {keine Kontraktion};
+    \end{tikzpicture}
+  \end{image}
   \label{im5.2.2}
 
   
@@ -501,20 +499,19 @@ d.h. $f$ kann lokal gut durch die Tangente approximiert werden. \\
 Betrachte die Nullstellengleichung $f(x^{*}) = 0$ \\
 
 % Newton-Verfahren Gleichung
-\begin{tikzpicture}[>=triangle 45,scale=2]
-  \draw[->] (0,0) -- (5,0);
-  \draw[->] (0,0) -- (0,4.5);
-  \draw[smooth,samples=100,domain=0.5:3.8] plot(\x,{0.8*\x^3-24/5*\x^2+36/5*\x +0.3});
-  \draw[smooth,samples=100,domain=0.7:3.461979167]
-  plot(\x,{-1.536*\x +5.3176});
-  
-  \foreach \x/\xtext in
-  {0.5/a,1.4/{x^{(0)}},3.461979167/{x^{(1)}},3.8/b}
-  \draw(\x,2pt)--(\x,-2pt) node[below] {$\xtext$};
-\end{tikzpicture}\\
-{\centering
-  \textit{Newton-Verfahren bei einem Funktionsgraphen}
-}
+\begin{image}{Newton-Verfahren bei einem Funktionsgraphen}
+  \begin{tikzpicture}[>=triangle 45,scale=2]
+    \draw[->] (0,0) -- (5,0);
+    \draw[->] (0,0) -- (0,4.5);
+    \draw[smooth,samples=100,domain=0.5:3.8] plot(\x,{0.8*\x^3-24/5*\x^2+36/5*\x +0.3});
+    \draw[smooth,samples=100,domain=0.7:3.461979167]
+    plot(\x,{-1.536*\x +5.3176});
+    
+    \foreach \x/\xtext in
+    {0.5/a,1.4/{x^{(0)}},3.461979167/{x^{(1)}},3.8/b}
+    \draw(\x,2pt)--(\x,-2pt) node[below] {$\xtext$};
+  \end{tikzpicture}\\
+\end{image}
 \label{im5.4}
 
 und bestimme iterativ die Nullstelle der Tangentengleichung
@@ -592,46 +589,43 @@ J. Raphson (1630). Newton hat eine ähnliche Technik früher angewendet.
   \marginpar{24.11.2014}
   \begin{itemize}
   \item $x^{(1)}$ nicht mehr im Definitionsbereich\\
-    % 5.4.4 x^(1) nicht mehr im Def.
-    \begin{tikzpicture}[>=triangle 45,scale=2]
-      \draw[->] (-2,0) -- (5,0) node [right] {$x$};
-      \draw[->] (0,0) -- (0,2) node[left] {$y$};
-      \draw[smooth,samples=100,domain=0.55:5] plot(\x,{ln(\x)});
-      \draw[smooth,samples=100,domain=-2:5]
-      plot(\x,{1/3*\x+0.09861});
-      
-      \draw (3,1.18) -- (3,1.02);
-      
-      \foreach \x/\xtext in
-      {1/x^*,3/x^{(0)}, -0.295836866/x^{(1)}}
-      \draw(\x,2pt)--(\x,-2pt) node[below] {$\xtext$};
-    \end{tikzpicture}
-    {\centering
-      \textit{Fehlschlagen des Newton-Verfahrens: außerhalb des
+    \begin{image}{Fehlschlagen des Newton-Verfahrens: außerhalb des
         Definitionsbereichs}
-    }
+      \begin{tikzpicture}[>=triangle 45,scale=2]
+        \draw[->] (-2,0) -- (5,0) node [right] {$x$};
+        \draw[->] (0,0) -- (0,2) node[left] {$y$};
+        \draw[smooth,samples=100,domain=0.55:5] plot(\x,{ln(\x)});
+        \draw[smooth,samples=100,domain=-2:5]
+        plot(\x,{1/3*\x+0.09861});
+        
+        \draw (3,1.18) -- (3,1.02);
+        
+        \foreach \x/\xtext in
+        {1/x^*,3/x^{(0)}, -0.295836866/x^{(1)}}
+        \draw(\x,2pt)--(\x,-2pt) node[below] {$\xtext$};
+      \end{tikzpicture}
+    \end{image}
     \label{im5.4.4(1)}
 
   \item $|x^{*}-x^{(1)}| \nless |x^{*}-x^{(0)}| $
 
     % 5.4.4 keine Kontraktion
-    \begin{tikzpicture}[>=triangle 45,scale=2]
-      \draw[->] (0,0) -- (4,0) node [right] {$x$};
-      \draw[->] (0,0) -- (0,2) node[left] {$y$};
-      \draw[smooth,samples=100,domain=0.7:3.3] plot(\x,{-(\x-2)^2+1});
-      \draw[smooth,samples=100,domain=1.7:3.3]
-      plot(\x,{-1.2*\x+3.76});
-      
-      \draw (2.6,0.51) -- (2.6,0.77);
-      
-      \foreach \x/\xtext in
-      {2.6/x^{(0)},3.1333/x^{(1)}}
-      \draw(\x,2pt)--(\x,-2pt) node[below] {$\xtext$};
-    \end{tikzpicture}\\
-    {\centering
-      \textit{Fehlschlagen des Newton-Verfahren: Konvergenz nicht
+    \begin{image}{Fehlschlagen des Newton-Verfahren: Konvergenz nicht
         gesichert}
-    }
+      \begin{tikzpicture}[>=triangle 45,scale=2]
+        \draw[->] (0,0) -- (4,0) node [right] {$x$};
+        \draw[->] (0,0) -- (0,2) node[left] {$y$};
+        \draw[smooth,samples=100,domain=0.7:3.3] plot(\x,{-(\x-2)^2+1});
+        \draw[smooth,samples=100,domain=1.7:3.3]
+        plot(\x,{-1.2*\x+3.76});
+        
+        \draw (2.6,0.51) -- (2.6,0.77);
+        
+        \foreach \x/\xtext in
+        {2.6/x^{(0)},3.1333/x^{(1)}}
+        \draw(\x,2pt)--(\x,-2pt) node[below] {$\xtext$};
+      \end{tikzpicture}\\
+    \end{image}
     \label{im5.4.4(2)}
   \end{itemize}
 \end{Bspe}
@@ -678,27 +672,25 @@ d.h. $x^{(k+1)} $ ist die Nullstelle der Sekante durch $f(x^{k})$ und $f(x^{(k-1
 \end{gather}
 
 
-% 5.4.7 Geometrische Veranschaulichung Sekantenverfahren
-\begin{tikzpicture}[>=triangle 45,scale=4,x=1cm,y=2cm]
-  \draw[->] (0,0) -- (3.7,0) node [right] {$x$};
-  \draw[->] (0,0) -- (0,1.3) node[left] {$y$};
-  \draw[smooth,samples=100,domain=0.2:3.6] plot(\x,{0.1*\x^2-0.2});
-  
-  % Punkte zeichnen
-  \foreach \x/\y in
-  {0.3/-0.191,3.4/0.956,0.816/-0.1334144,1.132/-0.0718576}
-  \filldraw (\x,\y) circle (0.02cm);
-  
-  % Sekanten zeichnen
-  \draw (0.3,-0.191) -- (3.4,0.956) -- (0.816,-0.1334144) -- (1.132,-0.0718576);
-  
-  \foreach \x/\xtext in
-  {0.3/x^{(k-1)},3.4/x^{(k)},0.816/x^{(k+1)}}
-  \draw(\x,-2pt)--(\x,2pt) node[above] {$\xtext$};
-\end{tikzpicture}\\
-{\centering \textit{Geometrische Veranschaulichung des
-    Sekantenverfahrens}
-}
+\begin{image}{Geometrische Veranschaulichung Sekantenverfahren}
+  \begin{tikzpicture}[>=triangle 45,scale=4,x=1cm,y=2cm]
+    \draw[->] (0,0) -- (3.7,0) node [right] {$x$};
+    \draw[->] (0,0) -- (0,1.3) node[left] {$y$};
+    \draw[smooth,samples=100,domain=0.2:3.6] plot(\x,{0.1*\x^2-0.2});
+    
+    % Punkte zeichnen
+    \foreach \x/\y in
+    {0.3/-0.191,3.4/0.956,0.816/-0.1334144,1.132/-0.0718576}
+    \filldraw (\x,\y) circle (0.02cm);
+    
+    % Sekanten zeichnen
+    \draw (0.3,-0.191) -- (3.4,0.956) -- (0.816,-0.1334144) -- (1.132,-0.0718576);
+    
+    \foreach \x/\xtext in
+    {0.3/x^{(k-1)},3.4/x^{(k)},0.816/x^{(k+1)}}
+    \draw(\x,-2pt)--(\x,2pt) node[above] {$\xtext$};
+  \end{tikzpicture}
+\end{image}
 \label{im5.4.7}
 
 
@@ -1119,3 +1111,8 @@ Die innere Schleife ist mit $n$ eindimensionalen Funktionsauswertungen
 \enquote{billig}. \\
 Unter bestimmten Voraussetzungen ist
 \textbf{globale} Konvergenz gewährleistet.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../numerik_script"
+%%% End:

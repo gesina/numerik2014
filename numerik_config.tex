@@ -187,17 +187,29 @@
   \end{minipage}
 }
 
-% missing images
-\newcommand{\imagemissing}[1]{
-  \begin{center}~\\
-    \centering 
-    \includegraphics[width=2cm]{images/image_missing.jpg}\\
-    \textit{#1} \\
-  \end{center}
-}	
+% IMAGES
+\newcounter{imagecnt}[section]
 
 % existing images
-%\newcommand{\image#
+\newenvironment{image}[1]{%
+
+\begin{minipage}{\linewidth}
+\centering 
+\textbf{Abb. \thesection.\arabic{imagecnt}}
+\textit{~~#1}
+\\[0.5eM]
+}%
+{
+  \end{minipage}
+  \stepcounter{imagecnt}\\[1eM]
+}
+
+% missing images
+\newcommand{\imagemissing}[1]{
+  \begin{image}{#1}
+    \includegraphics[width=2cm]{images/image_missing.jpg}
+  \end{image}
+}	
 
 
 % STYLE SETTINGS
@@ -205,3 +217,8 @@
 % \cfoot[<text for scrplain>]{<text for scrheadings>}	
 % \allowdisplaybreaks              %allow multipage for equations
 \renewcommand{\theequation}{\thesection.\arabic{equation}}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "numerik_script"
+%%% End:
