@@ -134,7 +134,7 @@ mit der bzgl. $\nn{\bullet}_2$ normierten Eigenvektoren $v_i$.
 Weiter sei ein Startvektor $x^{(0)}\in\R^n$ gegeben,
 welcher nicht senkrecht zu $v_1$ ist.
 
-\subsectione{Vektoriteration}\label{8.2.3}\index{Vektoriteration}
+\subsectione{Vektoriteration}\label{8.2.2}\index{Vektoriteration}
 Die Vektoriteration ist gegeben durch
 \begin{gather}
   x^{(k+1)} \coloneqq Ax^{(k)} \quad \text{für } k\geq 0
@@ -226,7 +226,7 @@ so folgt
 \end{align*}
 da $v_1$ normierter Eigenvektor zu $\lambda_1$.
 
-\subsectione{Direkte Potenzmethode/Vektoriteration}
+\subsectione{Direkte Potenzmethode/Vektoriteration}\label{8.2.3}
 \begin{pseudocode}{0.5\linewidth}
   Wähle $x^{(0)}\in\R^n$ \\
   $v^{(0)}\coloneqq x^{(0)}/\nn{x^{(0)}}_2$ \\
@@ -303,10 +303,11 @@ Die Nachteile sind allerdings
 \sectione{Inverse Vektoriteration}
 Sei $A$ im Folgenden invertierbar mit Eigenwerten $\lambda_i$.
 Sei $v$ Eigenvektor zu $A$ mit Eigenwert $\lambda$ und
-sei $\lambda\in\R$ beliebig. Dann gilt
+sei $\widetilde{lambda}\in\R$ beliebig. Dann gilt
 \begin{gather*}
   (A-\widetilde{\lambda}I) v= (\lambda-\widetilde{\lambda})v
-  \Leftrightarrow (A-\widetilde{\lambda}I)^{-1}v=
+  \quad\Leftrightarrow\quad
+  (A-\widetilde{\lambda}I)^{-1}v=
   \frac{1}{\lambda-\widetilde{\lambda}}v
 \end{gather*}
 Falls nun $\widetilde{\lambda}$ ein guter Schätzwert
@@ -319,8 +320,62 @@ dann ist $\frac{1}{\lambda_i-\widetilde{\lambda}}$
 der maximale Eigenwert von $(A-\widetilde{\lambda}I)^{-1}$
 mit Eigenvektor $v$.
 
+%--------------------------------
+
+\marginpar{21.01.2015}
+Die direkte Potenzmethode angewandt auf
+$(A-\widetilde{\lambda}I)^{-1}$
+liefert dann
+$\overline{\lambda}=\frac{1}{\lambda_i-\widetilde{\lambda}}$
+und somit $\lambda_i=\frac{1}{\overline{\lambda}}+\widetilde{\lambda}$
+und einen zugehörigen Einheitsvektor.
 
 
+\subsectione{Inverse Vektoriterations mit Spektralverschiebung}\label{8.3.1}
+Hier wird $\widetilde{x}^{(k+1)}$ anders als in \ref{8.2.3}
+schrittweise berechnet durch
+\begin{gather}
+  (A-\widetilde{\lambda}I)\widetilde{x}^{(k+1)}=v^{(k)}
+\label{VIII.3.1}
+\end{gather}
+Der zugehörige Algorithmus ergibt sich als
+
+\begin{pseudocode}{0.5\linewidth}
+  Wähle $x^{(0)}$ \\
+  $v^{(0)} \coloneqq \frac{x^{(0)}}{\nn{x^{(0)}}_2} $\\
+  \textbf{for} $k=0,1,2,\ldots$ \\
+  |\> löse
+  $(A-\widetilde{\lambda}I)\widetilde{x}^{(k+1)}=v^{(k)}$\\
+  |\> $\lambda^{(k)} = \frac{1}{\left(v^{(k)}\right)^T \widetilde{x}^{(k+1)}}
+    + \widetilde{\lambda}$\\
+  |\> $v^{(k+1)} = \widetilde{x}^{(k+1)}/\nn{\widetilde{x}^{(k+1)}}_2$\\
+  \textbf{end}
+\end{pseudocode}\\
+
+In \ref{8.2.3} ist nur eine Matrix-Vektor Multiplikation für
+$\widetilde{x}$ nötig.
+In \ref{8.3.1} muss dagegen je Iteration ein lineares Gleichungssystem
+gelöst werden!
+Wird einmal eine LR- oder QR-Zerlegung von $A-\widetilde{\lambda}I$
+berechnet (Aufwand $\mathcal{O}(n^3)$), 
+erfordert \eqref{VIII.3.1} nur noch das Lösen
+(bzw. Vorwärts- und Rückwärtssubstitution)
+für verschiedene rechte Seiten (Aufwand $\mathcal{O}(n^2)$).
+Für eine gute Schätzung $\widetilde{\lambda}$ können 
+z.B. die Gerschgorinkreise benutzt werden.
+Die Konvergenzgeschwindigkeit hängt ab von
+\begin{gather*}
+  \frac{\left| \lambda_i-\widetilde{\lambda}\right|}
+  {\min_{j\neq i} \left| \lambda_j-\widetilde{\lambda}\right|}~~.
+\end{gather*}
+
+\begin{Beme}\label{8.3.2}\cite[siehe][]{deuflhardhohmann}
+$A-\widetilde{\lambda}I$ ist für $\widetilde{\lambda}\approx\lambda$
+schlecht konditioniert, und somit auch das Problem
+der Bestimmung von $\widetilde{x}^{(k)}$.
+Jedoch bleibt die Bestimmung von $v^{(k)}$ weiterhin gut
+konditioniert.  
+\end{Beme}
 
 
 

@@ -1,0 +1,266 @@
+% % % % % % % % % % % % % % 
+% 
+% Skript zu NUMERIK I
+% WS14/15
+% von Prof. Dr. Blank
+% Universität Regensburg
+% 
+% 
+%	Kap. 9: Lineare Gleichungssysteme: Iterative Methoden
+% 
+% % % % % % % % % % % % % % 
+
+
+\chapter{Lineare Gleichungssysteme: Iterative Methoden}
+\sectione{Einführung}
+\begin{Bspe}[Approximation der Poisson-Gleichung]
+  Betrachte $\Delta u=u_{xx}-u_{yy}\eqqcolon f$ in $\Omega=(0,1)^2$
+mit $u=0$ auf $\delta\Omega$
+\begin{image}{Gitter mit Unbekannten}
+  \begin{tikzpicture}[scale=0.8]
+     \foreach \xy/\num in
+     {0/0,1/1,2/2,3/3,13/N-2,14/N-1,15/N,16/N+1}
+       {
+         %outer x lines
+         \draw (\xy,16) -- (\xy,0) node[anchor=north] {$x_{\num}$};
+         % outer y lines
+         \draw (16,\xy) -- (0,\xy) node[anchor=east] {$y_{\num}$};
+       }
+       \foreach \xy/\num in
+       {6,7,8,9,10}
+       {
+         % inner x lines
+         \draw (\xy,4.5) -- (\xy,11.5);
+         \draw (4.5,\xy) -- (11.5,\xy);
+       }
+
+       %points
+       \foreach \xy/\val in {1/-1,0/\phantom{-}2}
+       {
+         \fill[color=blue] (8,8+\xy) circle[radius=2pt]
+         node[anchor=south west] {\small\val};
+         \fill[color=red] (8+\xy,8) circle[radius=2pt]
+         node[anchor=north west] {\small\val};
+       }
+       \fill[color=blue] (8,8-1) circle[radius=2pt]
+       node[anchor=north west] {\small -1};
+       \fill[color=red] (8-1,8) circle[radius=2pt]
+       node[anchor=north west] {\small -1};
+       \fill[color=blue] (8,8) ++(0:2pt) arc (0:180:2pt);
+
+       \draw[->] (8,-0.5) -- (8,-2.5);
+       \draw[color=blue] (8,-3) node {-1};
+       \draw[color=blue] (8,-5) node {-1};
+       \draw[color=red] (7,-4) node {-1};
+       \draw[color=red] (9,-4) node {-1};
+       \draw (8,-4) node {4};
+ \end{tikzpicture}
+\end{image}
+Es gibt $N^2$ Unbekannte, $N^2\times N^2$.
+Also $A\in\R^{n\times n}$ mit $n=N^2$.
+\begin{gather*}
+  (x_0,y_0),(x_1,y_0),(x_2,y_0),
+  \ldots,(x_{N+1},y_0),(x_0,y_1),(x_1,y_1),
+  \ldots,(x_{N+1},y_{N+1})\\
+  \Rightarrow 0\ldots0~\underbrace{-1~0\ldots0~-1}_{N}~4~
+  \underbrace{-1~0\ldots0~-1}_{N}~0\ldots0
+  \qquad \text{$i$-te Zeile von $A$}
+\end{gather*}
+Damit sind nur maximal 5 Elemente verschieden von Null je Zeile
+und $Au$ benötigt ca. $5n=5N^2$ Multiplikationen (statt $n^2=N^4$).
+\begin{gather}
+  A=
+  \begin{pmatrix}
+    A_{11}&-I&&0\\
+    -I &\ddots &\ddots \\
+    && &-I\\
+    0&&-I&A_{nn}    
+  \end{pmatrix}
+  \quad \text{mit }
+  A_{ii}=\begin{pmatrix}
+    4&-1\\
+    -1&\ddots&\ddots\\
+    &&&-1\\
+    &&-1&4
+  \end{pmatrix}\in\R^{n\times n}
+\label{IX.1.2}
+\end{gather}
+\end{Bspe}
+
+\subsectione{Typische Aufgabenstellung}
+Zu lösen ist $Ax=b$ mit
+\begin{itemize}
+\item $A\in\R^{n\times n}$, $n$ sehr groß
+\item $A$ dünn besetzt
+\item $A$ hat Blockstruktur
+\end{itemize}
+s. Folien
+
+\sectione{Klassische (stationäre) Verfahren}
+Betrachte
+\begin{gather}
+  Ax=b
+\label{IX.2.1}
+\end{gather}
+Wähle nun für $A$ eine \textbf{Aufspaltung} $A=M-N$
+mit einer einfach invertierbaren Matrix $M$, s.d.
+\begin{gather}
+  Mx = Nx +b \label{IX.2.2}
+\end{gather}
+
+Die \textbf{Iterationsvorschrift} ist dann: 
+Löse zu einem gegebenen Startwert $x^{(0)}$ als Schätzung für $x$
+für $k=0,-1,2, \ldots$
+\begin{gather}
+  Mx^{(k+1)}= Nx^{(k)} +b \label{IX.2.3}
+\end{gather}
+Es ergeben sich folgende Äquivalenzen
+\begin{align}
+  \eqref{IX.2.3} &\Leftrightarrow
+                   x^{(k+1)} = M^{-1}Nx^{(k)}+M^{-1}b 
+                   \label{IX.2.4}\\
+                 &\Leftrightarrow x^{(k+1)} = x^{(k)} + M^{-1}r^{(k)}
+                   \label{IX.2.5}
+\end{align}
+mit $r^{(k)}= b-Ax^{(k)}$ (Residuum im $k$-ten Schritt).
+
+Als \textbf{Abbruchkriterium}
+\begin{enumerate}[a)]
+\item sollte immer eine maximale Iterationszahl angegeben werden und
+\item wird oft für eine gegebene Toleranz $tol\geq\nn{r^{(k)}}$
+  oder wie diskutiert $tol\cdot \nn{b}\geq \nn{r^{(k)}}$ verwendet.
+\end{enumerate}
+
+Nach \eqref{IX.2.4} ergibt sich also die \textbf{Fixpunktiteration}
+\begin{gather}
+  x^{(k+1)} = Gx^{(k)} +d \eqqcolon g(x^{(k)})
+  \label{IX.2.6}
+\end{gather}
+zur \textbf{Fixpunktgleichung}\index{Fixpunktgleichung}
+\begin{gather*}
+  x^{*} = Gx^{*} + d = g(x^{*})
+\end{gather*}
+mit der \textbf{Iterationsmatrix} 
+\begin{gather}
+  G=M^{-1}N=I-M^{-1}A = g'(x)
+  \label{IX.2.7}
+\end{gather}
+und $d=M^{-1}b$. Weiterhin folgt
+\begin{gather*}
+  x^{(k+1)}-x^{*} = G(x^{(k)}-x^{*})=G^{k+1}(x^{(0)}-x^{*})
+\end{gather*}
+und hiermit gilt elementweise (falls $x^{(0)}-x^{*}\not\in ker
+(G^{k+1})$)
+\begin{gather*}
+  \lim_{k\to\infty} x^{(k)} = x^{*}
+  \quad\Leftrightarrow\quad
+  \lim_{k\to\infty} G^k =0
+\end{gather*}
+
+
+\begin{Satze}[Konvergenzkriterien]
+  Sei $G\in\R^{n\times n}$.
+Dann sind folgende Aussagen äquivalent:
+\begin{enumerate}[i)]
+\item Die Iteration \eqref{IX.2.6} konvergiert für jeden Startwert
+  $x^{(0)}\in\R^n$
+\item Es gilt $\lim_{k\to\infty}G^k = 0$
+\item Für den Spektralradius 
+  $\rho(G) \coloneqq \max_i|\lambda_i|$ 
+  mit $\lambda_i\in\C$ Eigenwert zu $G$ gilt
+  \begin{gather}
+    \rho(G) < 1
+    \label{IX.2.8}
+  \end{gather}
+\end{enumerate}
+
+\begin{proof}
+  \begin{description}
+  \item[i)$\Leftrightarrow$ ii):] siehe oben.
+  \item[ii)$\Rightarrow$ iii):]  Ist $\rho(G)\geq 1$ dann 
+existiert ein Eigenwert $\lambda\in\C$ mit $|\lambda|>1$ und
+Eigenvektor $v\neq 0$ zu $G$.
+Damit ist $G^kv=\lambda^kv$. 
+Mit $\lim_{k\to\infty}\lambda^k\neq 0$ (falls existent) folgt
+$\lim_{k\to\infty}G^k \neq 0$.
+\item[iii)$\Rightarrow$ ii):] Sei $\rho(G)<1$.
+  Da $\left(TGT^{-1}\right)^k = TG^kT^{-1}$
+ für eine invertierbare Matrix $T$, reicht es,
+für die Jordansche Normalform $J=TGT^{-1}$ von $G$ zu zeigen,
+dass $\lim_{k\to\infty}J^k=0$ gilt.
+Da $ J^k =
+\begin{pmatrix}
+  J_1^k && 0 \\
+  &\ddots \\
+  0&& J_m^k
+\end{pmatrix}$ mit den Jordankästchen
+$J_i =
+\begin{pmatrix}
+  \lambda_i & 1 && 0\\
+  &\ddots&\ddots\\
+  &&&1\\
+  0&&&\lambda_i
+\end{pmatrix} \eqqcolon \lambda_iI+S_i$
+mit $S_i =
+\begin{pmatrix}
+  0&1&&0 \\
+  &\ddots&\ddots\\
+  &&&1\\
+  0&&&0
+\end{pmatrix}$ ist, ist nur $\lim_{k\to\infty}J_i^k$ zu untersuchen.
+\begin{align*}
+  J_i^k &= (\lambda_i I+S_i)^k \\
+        &= \sum_{l=0}^{k}\begin{pmatrix}k\\l\end{pmatrix}
+  \lambda_i^{k-l} S_i^l\\
+        &=\sum_{l=0}^{n-1} \begin{pmatrix}k\\l\end{pmatrix}
+  \lambda_i^{k-l} S_i^{k}
+\end{align*}
+für $k\geq n$, da für $S_i\in\R^{r\times r}$ gilt $S_i^r=0$ 
+und mit $r\leq k$ ist dann $\lim_{k\to\infty}S_i^k=0$.
+Weiterhin gilt $\begin{pmatrix}k\\l\end{pmatrix}\leq k^l$ 
+und wegen $|\lambda_i|<1$
+\begin{gather*}
+  \left| \begin{pmatrix}k\\l\end{pmatrix}\right|
+  \cdot\left|\lambda_i^{k-l}\right|
+  \leq \left|\lambda_i^{k}\right| 
+  \cdot \left|\frac{k}{\lambda_i}\right|^l
+  \leq \left|\lambda_i\right|^k
+  \cdot \left|\frac{k}{\lambda_i}\right|^n
+\overset{\mathclap{k\rightarrow \infty}}{\longrightarrow} 0
+\end{gather*}
+Also $J_i^k\longrightarrow 0$ für $k\longrightarrow \infty$.
+  \end{description}
+\end{proof}
+\end{Satze}
+
+
+\begin{Leme}
+  Für jede von einer Vektornorm induzierten Matrixnorm 
+$\nn{\bullet}$ gilt
+\begin{gather}
+  \rho(G) \leq \nn{G}
+\label{IX.2.9}
+\end{gather}
+\begin{proof}
+  Sei $\lambda$ Eigenwert von $G$ zum Eigenvektor $v$.
+Dann gilt $\frac{\nn{Gv}}{\nn{v}} = |\lambda|$
+und daraus folgt direkt
+\begin{gather*}
+  \nn{G} \geq \sup_{v\in V}\frac{\nn{Gv}}{\nn{v}}\geq |\lambda|
+  \quad \forall \lambda
+\end{gather*}
+\end{proof}
+\end{Leme}
+
+$\nn{G}<1$ ist meist leichter zu prüfen als $\rho(G)<1$.
+Desweiteren gilt die Fehlerabschätzung
+\begin{gather}
+   \nn{x^{(k)}-x^{*}}\leq \nn{G}^k\nn{x^{(0)}-x^{*}}
+   \label{IX.2.10}
+\end{gather}
+für submultiplikative Matrixnormen.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../numerik_script"
+%%% End:
