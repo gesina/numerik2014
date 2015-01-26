@@ -13,11 +13,12 @@
 
 \chapter{Lineare Gleichungssysteme: Iterative Methoden}
 \sectione{Einführung}
-\begin{Bspe}[Approximation der Poisson-Gleichung]
+\begin{Bspe}[Approximation der Poisson-Gleichung]\label{9.1.1}
   Betrachte $\Delta u=u_{xx}-u_{yy}\eqqcolon f$ in $\Omega=(0,1)^2$
 mit $u=0$ auf $\delta\Omega$
-\begin{image}{Gitter mit Unbekannten}
-  \begin{tikzpicture}[scale=0.8]
+\begin{figure}
+  \begin{image}{Gitter mit Unbekannten zu Beispiel \ref{9.1.1}}
+    \begin{tikzpicture}[scale=0.8]
      \foreach \xy/\num in
      {0/0,1/1,2/2,3/3,13/N-2,14/N-1,15/N,16/N+1}
        {
@@ -56,6 +57,7 @@ mit $u=0$ auf $\delta\Omega$
        \draw (8,-4) node {4};
  \end{tikzpicture}
 \end{image}
+\end{figure}
 Es gibt $N^2$ Unbekannte, $N^2\times N^2$.
 Also $A\in\R^{n\times n}$ mit $n=N^2$.
 \begin{gather*}
@@ -158,7 +160,7 @@ und hiermit gilt elementweise (falls $x^{(0)}-x^{*}\not\in ker
 \end{gather*}
 
 
-\begin{Satze}[Konvergenzkriterien]
+\begin{Satze}[Konvergenzkriterien]\label{9.2.1}
   Sei $G\in\R^{n\times n}$.
 Dann sind folgende Aussagen äquivalent:
 \begin{enumerate}[i)]
@@ -259,6 +261,256 @@ Desweiteren gilt die Fehlerabschätzung
    \label{IX.2.10}
 \end{gather}
 für submultiplikative Matrixnormen.
+
+
+%-----------------------------------
+
+\marginpar{24.01.2015}
+\sectione{Gesamt- und Einzelschritt-Verfahren}
+In \eqref{IX.2.3} soll $M$ leicht \enquote{invertierbar} sein.
+
+\subsectione{Richardson-Verfahren}\index{Richardson-Verfahren}
+Es sei $M=I$, also $G=I-A$ und
+$x^{(k+1)}=x^{(k)}+(b-Ax^{(k)})=x^{(k)}+r^{(k)}$
+konvergiert für alle Startwerte genau dann, wenn
+\begin{gather}
+  \rho(G) = \max_i\left| 1-\lambda_i \right|<1
+\label{IX.3.1}
+\end{gather}
+mit den Eigenwerten $\lambda_i$ zu $A$.
+Es muss also gelten $\rho(A) <2$, was selten der Fall ist.
+
+\begin{image}{Mögliche Werte der $\lambda_i$ für $M=I$}
+\begin{tikzpicture}[scale=1.5]
+  \fill[color=gray] (1,0) circle[radius=1cm]; 
+  \draw[->] (0,-1) -- (0,1.5);
+  \draw[->] (-1,0) -- (2.5,0);
+  \draw (1,0.1) -- (1,-0.1) ++(0,-0.2) node(anchor above) {1};
+  \draw (2,0.1) -- (2,-0.1) ++(0,-0.2) node(anchor above) {2};
+  \draw (2.25,1.25) node {$\C$};
+\end{tikzpicture}
+\end{image}
+
+\subsectione{Gesamtschritt- oder Jacobi-Verfahren}
+\index{Jacobi-Verfahren}
+Es sei $M_G\coloneqq D$ die Diagonale von $A$.
+
+\textbf{Vorsicht:} Falls $a_{ii}=0$ für ein $i$, 
+permutiere die Zeilen oder Spalten.
+Für ein reguläres $A$ gibt es eine Permutation,
+so dass  $D$ anschließend invertierbar ist.
+
+Es gilt die Rekursionsvorschrift
+\begin{gather}
+  x^{(k+1)}=x^{(k)}+D^{-1}r^{(k)}
+\label{IX.3.2}
+\end{gather}
+Oft wird die Schreibweise mit $A=L+D+R$ =
+\begin{tikzpicture}
+  \draw (0,0) -- (0,0.5) -- (0.5,0) --(0,0);
+\end{tikzpicture}
++
+\begin{tikzpicture}
+  \draw (0.5,0) -- (0,0.5);
+\end{tikzpicture}
++
+\begin{tikzpicture}
+  \draw (0,0.5) -- (0.5,0.5) --(0.5,0) -- (0,0.5);
+\end{tikzpicture}~
+benutzt
+\begin{gather}
+  Dx^{(k+1)}= -(L+R)x^{(k)}+b
+\label{IX.3.3}
+\end{gather}
+bzw. für $i=1,\ldots,n$
+\begin{gather}
+  a_{ii}x_i^{(k+1)} = -\sum_{j\neq i}a_{ij}x_j^{(k)}+b_i
+\label{IX.3.4}
+\end{gather}
+Die Iterationsmatrix ist $G_G\coloneqq -D^{-1}(L+R)$.
+
+
+\subsectione{Einzelschritt- oder Gauß-Seidel-Verfahren}
+\index{Gauß-Seidel-Verfahren}
+Falls in \eqref{IX.3.4} die Schleife von $i=1$ bis $i=n$
+sukzessive durchlaufen wird, stehen bei der Berechnung von
+$x_i^{(k+1)}$ die Werte $x_1^{(k+1)},\ldots,x_{i-1}^{(k+1)}$
+bereits zur Verfügung und können genutzt werden.
+Also gilt für $i=1,\ldots,n$
+\begin{align}
+  &&a_{ii}x_i^{(k+1)} & = -\sum_{j=1}^{i-1}a_{ij}x_j^{(k)}
+                        -\sum_{j=1+1}^{n}a_{ij}x_j^{(k)}+ b_i
+                        \label{IX.3.5} \\\nonumber
+  &\Longleftrightarrow &Dx^{(k+1)}&=-Lx^{(k+1)}-Rx^{(k)}+b \\
+  &\Longleftrightarrow &(D+L)x^{(k+1)}&=-Rx^{(k)}+b
+                                    \label{IX.3.6} \\\nonumber
+  &\Longleftrightarrow &x^{(k+1)} &= x^{(k)}+(D+L)^{-1}r^{(k)}
+\end{align}
+Daraus folgt, dass $M_G=D+L$, $N=-R$ 
+und die zugehörige Iterationsmatrix ist 
+\begin{gather*}
+  G_E = -(D+L)^{-1}R = -(D+L)^{-1}A+I
+\end{gather*}
+
+\begin{Bspe}
+  Ohne zusätzliche Voraussetzungen an $A$ lässt sich
+  nicht voraussagen, welches der beiden Verfahren konvergiert.
+  \begin{align*}
+    A&= \begin{pmatrix}
+      1&-2&2\\
+      -1&1&-1\\
+      -2&-2&1
+    \end{pmatrix}
+    &\Longrightarrow \rho(G_G)&=0, &\rho(G_E)&=2(1+\sqrt{2})\\
+    A&= \frac{1}{2}\begin{pmatrix}
+      2&1&1\\
+      -2&2&-2\\
+      -1&1&2
+    \end{pmatrix}
+    &\Longrightarrow \rho(G_G)&=\frac{1}{2}\sqrt{5}, &\rho(G_E)&=\frac{1}{2}
+  \end{align*}
+\end{Bspe}
+
+\begin{Defe}~
+  \begin{enumerate}[a)]
+  \item $A\in\R^{n\times n}$ erfüllt die \textbf{starke Zeilensummenbedingung}
+    \index{Zeilensummenbedingung!stark}, 
+    bzw. $A\in\R^{n\times n}$ ist strikt diagonaldominant, wenn
+    \begin{gather}
+      |a_{ii}|>\sum_{j\neq i} |a_{ij}| \quad 1\leq i\leq m
+      \label{IX.3.7}
+    \end{gather}
+  \item $A$ erfüllt die \textbf{schwache Zeilensummenbedingung}
+    \index{Zeilensummenbedingung!stark}, 
+    bzw. $A\in\R^{n\times n}$ ist schwach diagonaldominant, wenn
+    \begin{gather}
+      |a_{ii}|\geq \sum_{j\neq i} |a_{ij}| \quad 1\leq i\leq m
+      \label{IX.3.8}
+    \end{gather} 
+    und für zumindest ein $i$ die starke Bedingung erfüllt ist.
+  \end{enumerate}
+\end{Defe}
+
+\begin{Defe}
+  $A\in\R^{n\times n}$ heißt \textbf{zerfallend}\index{Matrix!zerfallend},
+  wenn es $J\subsetneqq \{1,\ldots,n\}$ gibt,
+  so dass $a_{ij}=0$ für $i\in J, j\not\in J$.
+\end{Defe}
+
+\begin{Beme}
+  Falls $A$ zerfallend ist, gibt es eine Permutationsmatrix $P$, 
+  so dass
+  \begin{gather*}
+    P^TAP = \begin{pmatrix}
+      \widetilde{A}_{11}&0\\
+      \widetilde{A}_{21}&\widetilde{A}_{22}
+    \end{pmatrix}
+  \end{gather*}
+mit $\widetilde{A}_{11}\in\R^{p\times p}$,
+$\widetilde{A}_{22}\in\R^{q\times q}$,
+$p,q>0$, $p+q=m$.
+Das Gleichungssystem $Ax=b$ zerfällt somit in zwei kleinere
+\begin{align*}
+  \widetilde{A}_{11}\widetilde{x}_1 &= \widetilde{b}_1\\
+  \widetilde{A}_{22}\widetilde{x}_2 &= \widetilde{b}_2
+                                      -\widetilde{A}_{21}\widetilde{x}_1
+\end{align*}
+\end{Beme}
+
+\begin{Bspe}
+  Die Matrix $A$ in Beispiel \ref{9.1.1} zur Approximation der
+  Poisson-Gleichung ist schwach und nicht stark diagonal dominant und
+  ist nicht zerfallend.
+\end{Bspe}
+
+\begin{Satze}[Zeilensummenkriterium]\index{Zeilensummenkriterium}
+  \label{9.3.9}
+  Das Jacobi- sowie Gauß-Seidel-Verfahren konvergiert, falls 
+  \begin{enumerate}[a)]
+  \item $A$ die starke Zeilensummenbedingung erfüllt.
+  \item $A$ die schwache Zeilensummenbedingung erfüllt und nicht
+    zerfallend ist.
+  \end{enumerate}
+In beiden Fällen gilt
+\begin{gather}
+  \nn{G_E}_\infty \leq \nn{G_G}_\infty 
+  = \max_i\frac{1}{|a_{ii}|}\sum_{j\neq i} |a_{ij}|
+  \eqqcolon \overline{a} \leq 1
+  \label{IX.3.9}
+\end{gather}
+\begin{proof}
+  Es ist $G_G\coloneqq D^{-1}(L+R) = D^{-1}(A-D)$ und damit 
+  $\overline{a}=\nn{G}_\infty\leq 1$ aufgrund der Diagonaldominanz.
+  Für das Einzelschrittverfahren betrachte 
+    $y\coloneqq G_E x=-(D+L)^{-1}Rx$, wofür gilt
+$Dy = -Ly-Rx$. Dann
+\begin{align*}
+  |(G_Ex)_1| = |y_1| &\leq \frac{1}{|a_{11}|}\left(
+                       \sum_{j=2}^{n}|a_{1j}|\cdot |x_j|
+                       \right) \\
+                     &\leq \nn{x}_\infty \frac{1}{|a_{11}|}\left(
+                       \sum_{j=2}^{n}|a_{1j}|
+                       \right) \\
+                     &\leq \nn{x}_\infty \overline{a}\\
+                     &\leq \nn{x}_\infty
+\end{align*}
+Rekursiv folgt aus $|y_j|\leq \nn{x}_\infty $ für $j\leq i-1$
+\begin{align}\nonumber
+  |(G_Ex)_i| = |y_i| &\leq \frac{1}{|a_{ii}|}\left(
+                       \sum_{j=1}^{i-1}|a_{ij}|
+                       \cdot \underbrace{|y_j|}_{\mathclap{\leq\nn{x}_\infty}}
+                       +\sum_{j=i+1}^{n}|a_{ij}|
+                       \cdot \underbrace{|x_j|}_{\mathclap{\leq\nn{x}_\infty}}
+                       \right)\\\nonumber
+                     &\leq \nn{x}_\infty \frac{1}{|a_{ii}|}\left(
+                       \sum_{j=1}^{i-1}|a_{ij}|
+                       \right) \\\nonumber
+                     &=\nn{x}_\infty \overline{a}\\
+  &\leq \nn{x}_\infty
+    \label{IX.3.10}
+\end{align}
+Woraus $\nn{G_E}_\infty \leq \overline{a}=\nn{G_G}_\infty$ folgt.
+
+Zu a): Aus der starken Zeilensummenbedingung folgt $\overline{a}<1$
+und
+\begin{gather*}
+  \rho(G)\leq \nn{G}_\infty \leq \overline{a}<1
+\end{gather*}
+und mit Satz \ref{9.2.1} dann die Behauptung.
+
+Zu b): Die schwache Zeilensummenbedingung ergibt 
+$\rho(G) \leq 1$ für beide Verfahren.
+Es bleibt zu zeigen, dass kein Eigenwert $\lambda$ mit
+$|\lambda|=1$ existiert.
+Angenommen $G$ hat einen Eigenwert $\lambda$ mit $|\lambda|=1$.
+Sei $v$ ein zugehöriger Eigenvektor mit $\nn{v}_\infty=1$.
+Definiere $N_1\coloneqq \{l\in\N \mid |v_l|=1\}$
+und $N_2\coloneqq \{k\mid |v_k| <1\}$.
+Aus der Definition von $G_G$ bzw. der Ungleichung \eqref{IX.3.10}
+für $G_E$ folgt mit $|(Gv)_i| = |\lambda v_i| = |v_i|$
+\begin{align*}
+  |v_i| = |(Gv)_i| &\leq \frac{1}{|a_{ii}|}\left(
+                     \sum_{j\neq i} |a_{ij}|\cdot |{v_j}|
+                     \right) \\
+                   &=\frac{1}{|a_{ii}|}\left(
+                     \sum_{\substack{j\in N_1\\j\neq i}}|a_{ij}|
+                     +\sum_{\substack{j\in N_2\\j\neq i}} |a_{ij}|
+                     \cdot\underbrace{|{v_j}|}_{<1}
+                     \right) \\
+                   &<1
+\end{align*}
+Falls für ein $i$ ein $j\in N_2$ mit $i\neq j$ und $a_{ij}\neq 0$
+existiert, folgt
+\begin{gather*}
+  |v_i| < \frac{1}{|a_{ii}|} \left( \sum_{j\neq i}|a_{ij}|\right)
+  \leq \overline{a} \leq 1
+\end{gather*}
+Da $|v_i|=1$ für $i\in N_1$ muss $a_{ij}=0$ gelten für alle $j\in N_2$
+also $a_{ij}=0$ für $i\in N_1$, $j\in N_2$,
+was ist ein Widerspruch zum nicht zerfallenden $A$ ist.
+\end{proof}
+\end{Satze}
+
 
 %%% Local Variables:
 %%% mode: latex
