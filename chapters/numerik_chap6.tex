@@ -963,8 +963,7 @@ Das Ziel ist nun eine bessere Basis zu konstruieren.
   \item \index{Splineraumbasis!$S_{1,\Delta}$-Basis}
     $S_{1,\Delta}$ sind stückweise konstante Funktionen
 
-    \begin{image}{Basis eines $S_{1,\Delta}$-Splines aus stückweise
-        konstanten Elementen}
+    \begin{image}{Basis eines $S_{1,\Delta}$-Splines aus stückweise konstanten Elementen}
       \begin{tikzpicture}[>=triangle 45]
         \draw[->,color=black] (0,0) -- (10,0);
         \draw[->,color=black] (0,0) -- (0,5);
@@ -1012,8 +1011,7 @@ Das Ziel ist nun eine bessere Basis zu konstruieren.
     \begin{gather*}
       \left\{1,x^1, (x-x_i)_+^1\right\}
     \end{gather*}
-    \imagemissing{Basis eines $S_{2,\Delta}$-Splines mit Hutfunktion
-      (siehe auch \ref{6.2.6} für allg. Hutfunktionen)}\label{im6.2.4(2)}
+    \imagemissing{Basis eines $S_{2,\Delta}$-Splines mit Hutfunktion (siehe auch \ref{6.2.6} für allg. Hutfunktionen)}\label{im6.2.4(2)}
     Hier kann eine Basis wie oben durch sog. 
     \textbf{Hutfunktionen}\index{Hutfunktion}
     konstruiert werden
@@ -1024,8 +1022,7 @@ Das Ziel ist nun eine bessere Basis zu konstruieren.
         -\frac{1}{x_{i-1}-x_{i-2}}(x-x_{i-1})+1 & x\in [x_{i-1}, x_i]
       \end{cases}
     \end{align*}
-    \imagemissing{allgemeine Hutfunktion am Punkt $x_i$ eines
-      $S_{2,\Delta}$-Splines}\label{im6.2.4(3)}
+    \imagemissing{allgemeine Hutfunktion am Punkt $x_i$ eines $S_{2,\Delta}$-Splines}\label{im6.2.4(3)}
     Ein Spline, welches $f$ in $x_i$ interpoliert hat dann die Form
     \begin{gather*}
       s(x) = \sum_{j=1}^{n+1}f_{j-1}N_{j,2}(x)

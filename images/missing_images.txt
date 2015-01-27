@@ -1,0 +1,19 @@
+chapters/numerik_chap4.tex:    \imagemissing{}\label{im4.3.3}
+chapters/numerik_chap4.tex:\item Drehung ~~~ IMAGE~MISSING\label{im4.4(1)}
+chapters/numerik_chap4.tex:\item Spiegelung ~~~ IMAGE~MISSING\label{im4.4(2)}
+chapters/numerik_chap4.tex:\imagemissing{Drehung auf den Einheitsvektor}\label{im4.4.a}
+chapters/numerik_chap4.tex:\imagemissing{Zerlegung einer mxn-Matrix für $m<n$}\label{im4.4.5}
+chapters/numerik_chap6.tex:\imagemissing{Verschiedene Grafen zu Stützstellen-Stützwert-Paaren}\label{im6.1}
+chapters/numerik_chap6.tex:  \imagemissing{Veranschaulichung zur Restglieddarstellung}\label{im6.1.18}
+chapters/numerik_chap6.tex:  \imagemissing{Dimension eines Splineraumes}\label{im6.2.2}
+chapters/numerik_chap6.tex:    \imagemissing{Basis eines $S_{2,\Delta}$-Splines mit Hutfunktion (siehe auch \ref{6.2.6} für allg. Hutfunktionen)}\label{im6.2.4(2)}
+chapters/numerik_chap6.tex:    \imagemissing{allgemeine Hutfunktion am Punkt $x_i$ eines $S_{2,\Delta}$-Splines}\label{im6.2.4(3)}
+chapters/numerik_chap6.tex:    \imagemissing{Lineare Unabhängigkeit der B-Splines}\label{im6.2.10}
+chapters/numerik_chap6.tex:\imagemissing{Stützstellen für eine konstruierte Zerlegung $\Delta$}\label{im6.2.14}
+chapters/numerik_chap7.tex:\imagemissing{Veranschaulichung der Mittelpunktregel}\label{im7.1.2}
+chapters/numerik_chap7.tex:\imagemissing{Veranschaulichung Trapezsumme}\label{im7.1.3}
+chapters/numerik_chap7.tex:\imagemissing{Auswertungspunkte auf der Zahlengeraden bei versch. $h_i$}\label{im7.3.5}
+chapters/numerik_chap7.tex:\imagemissing{Auswertungspunkte bei der Bulirsch-Folge}\label{im7.3.6}
+chapters/numerik_chap7.tex:\imagemissing{Veranschaulichung der Bulirsch-Folge}\label{im7.3.7}
+chapters/numerik_chap7.tex:\begin{Satze}\label{7.4.8} %MISSING
+chapters/numerik_chap7.tex:\subsectione{Vergleich und Bemerkungen}\label{7.4.9} %MISSING

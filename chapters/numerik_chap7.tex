@@ -454,7 +454,7 @@ Ferner lässt sich die Konvergenzordnung \eqref{VII.1.8} zeigen.
 \begin{Leme}\label{7.2.11}
   Sei $f\in C^2([a,b])$, dann existiert ein $\tau \in[a,b]$, so dass
   \begin{gather}
-    \hat{I}_T(f) -I(f) = \frac{b-a}{12}h^2 f''(\tau) %MISSING
+    \hat{I}_T(f) -I(f) = \frac{b-a}{12}h^2 f''(\tau)
     \label{VII.2.12}
   \end{gather}
 
@@ -702,7 +702,7 @@ wobei $T_{m,m}$ das gewünschte Ergebnis $p(0)$ liefert.
   \end{gather*}
 \end{Beme}
 
-\subsectione{Aufwand}
+\subsectione{Aufwand}\label{7.3.4}
 Es sind $\mathcal{O}(m^2)$ flops für das Schema von Neville
 und die Berechnung von 
 $\hat{I}_T^{h_0}(f),\ldots, \hat{I}_T^{h_m}(f)$,
@@ -710,6 +710,7 @@ also die Funktionsauswertungen $f(a+lh_i)~\forall l,h_i$,
 nötig.
 
 \subsectione{Klassische Romberg-Folge zur Romberg-Quadratur}
+\label{7.3.5}
 \index{Romberg-Folge}
 Wähle 
 \begin{gather}
@@ -719,7 +720,7 @@ Wähle
   \label{VII.3.7}
 \end{gather}
 d.h. $N_i=2^i, H=b-a$ und $h_i=\frac{H}{N_i}$.
-\imagemissing{Auswertungspunkte auf der Zahlengeraden bei versch. $h_i$}
+\imagemissing{Auswertungspunkte auf der Zahlengeraden bei versch. $h_i$}\label{im7.3.5}
 Pro Halbierung $(h_{j-1}\rightarrow h_j)$ sind $2^{j-1}$
 neue $f$-Auswertungen nötig.
 Für $T_{i,j}$ sind folglich $2+\sum_{j=1}^i2^{j-1}=2^i+1$
@@ -732,7 +733,7 @@ $f$-Auswertungen notwendig und
   \label{VII.3.8}
 \end{gather}
 
-\subsectione{Bulirsch-Folge}
+\subsectione{Bulirsch-Folge}\label{7.3.6}
 \index{Bulirsch-Folge}
 Sie wurde von Bulirsch 1964 vorgeschlagen.
 Wähle 
@@ -745,7 +746,7 @@ d.h.
 \begin{gather*}
   N_i = \begin{cases}1&i=0\\2^l&i=2l-1\\3\cdot2^{l-1}&i=2l\end{cases}
 \end{gather*}
-\imagemissing{Auswertungspunkte bei der Bulirsch-Folge}
+\imagemissing{Auswertungspunkte bei der Bulirsch-Folge}\label{im7.3.6}
 Es sind ungefähr die Hälfte 
 der $f$-Auswertungen der Romberg-Folge nötig.
 Ein Nachteil ist jedoch,
@@ -754,7 +755,7 @@ negative Gewichte $\alpha_i$ enthalten können,
 während sie bei der Romberg-Folge positiv bleiben.
 
 
-\subsectione{Verfahren und Abbruch}
+\subsectione{Verfahren und Abbruch}\label{7.3.7}
 In der Regel ist für $f$ kein genaues $m$ mit $f\in C^{2(m+1)}([a,b])$
 bekannt,
 gebe stattdessen ein $m_{max}$ von $f$ vor.
@@ -772,7 +773,7 @@ Daher gehe in der Tabelle von Neville zeilenweise vor.
     h_{m_{max}}^2 & T_{m_{max},1} &&\ldots && T_{m_{max},m_{max}}
   \end{array}
 \end{align*}
-\imagemissing{Veranschaulichung der Bulirsch-Folge}
+\imagemissing{Veranschaulichung der Bulirsch-Folge}\label{im7.3.7}
 Es wird fortgefahren, bis $T_{i,m_{max}}$ \enquote{genau genug} ist.
 Z.B. wird $m_{max}=7$ gesetzt und abgebrochen, falls
 \begin{enumerate}[a)]
@@ -1110,7 +1111,7 @@ Damit folgt:
   \end{align*}
 \end{Bspe}
 
-\begin{Satze} %MISSING
+\begin{Satze}\label{7.4.8} %MISSING
   s. Folien
 \end{Satze}
 
@@ -1152,7 +1153,7 @@ Damit folgt:
   \end{proof}
 \end{Satze}
 
-\subsectione{Vergleich und Bemerkungen} %MISSING
+\subsectione{Vergleich und Bemerkungen}\label{7.4.9} %MISSING
 s. Folien
 
 
