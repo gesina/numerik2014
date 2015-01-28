@@ -338,7 +338,7 @@ $x_i^{(k+1)}$ die Werte $x_1^{(k+1)},\ldots,x_{i-1}^{(k+1)}$
 bereits zur Verfügung und können genutzt werden.
 Also gilt für $i=1,\ldots,n$
 \begin{align}
-  &&a_{ii}x_i^{(k+1)} & = -\sum_{j=1}^{i-1}a_{ij}x_j^{(k)}
+  &&a_{ii}x_i^{(k+1)} & = -\sum_{j=1}^{i-1}a_{ij}x_j^{(k+1)}
                         -\sum_{j=1+1}^{n}a_{ij}x_j^{(k)}+ b_i
                         \label{IX.3.5} \\\nonumber
   &\Longleftrightarrow &Dx^{(k+1)}&=-Lx^{(k+1)}-Rx^{(k)}+b \\
@@ -511,6 +511,178 @@ was ist ein Widerspruch zum nicht zerfallenden $A$ ist.
 \end{proof}
 \end{Satze}
 
+
+%------------------------------
+
+\marginpar{28.01.2015}
+
+\begin{Satze}
+  Das Gauß-Seidel-Verfahren konvergiert für jede symmetrische, positiv
+  definite (spd) Matrix.
+
+  \begin{proof}
+    Sei $A$ spd, dann ist $\scp{x}{x}\coloneqq x^T Ax$ ein Skalarprodukt.
+    Dieses Skalarprodukt $\scp{\bullet}{\bullet}$ induziert eine
+    Norm $\nn{\bullet}$ auf dem $\R^N$.
+    Ist $\nn{\bullet}$ auf dem $\R^{N\times N}$ die zugeordnete
+    Matrixnorm, so folgt $\rho(G) \leq \nn{G}$.
+
+    Zeige nun $\nn{Gx}^2\leq c^2\nn{x}^2$ für $x\neq 0$ mit $0\leq c<1$,
+    dann gilt $\nn{G}\leq c<1$ und das Verfahren konvergiert.
+    \begin{align*}
+      \nn{x}^2-\nn{G_Ex}^2 &= \scp{x}{x}-\scp{Gx}{Gx} \\
+                           &= x^TAx-x^TG^TAGx \\
+                           &=x^T(A-G^TAG)x\\
+                           &\mathclap{=}^\text{s.u.} \left(
+                             x^TA^T(D+L)^{-T}D^{\frac{1}{2}}
+                             \right)
+                             \cdot \left(
+                             D^{\frac{1}{2}}(D+L)^{-1}Ax
+                             \right)\\
+                           &=\nn{D^{\frac{1}{2}}(D+L)^{-1}Ax}_2^2\\
+                           &\geq {\underbrace{\nn{\left[
+                             D^{\frac{1}{2}}(D+L)^{-1}A
+                             \right]^{-1}}_2^{-2}}_{\eqqcolon
+                             k>0}}\cdot\nn{x}_2^{2}
+                           && \text{da } \nn{Bx}\geq \frac{1}{\nn{B^{-1}}}\nn{x}\\
+                           &\geq kd^2\nn{x}^2
+                           &&\text{da alle Normen auf $\R^N$ äquivalent}\\
+                           &>0
+    \end{align*}
+Damit gilt zusammengefasst
+\begin{gather*}
+  \underbrace{(1-kd^2)}_{c<1}\nn{x}^2\geq \nn{G_Ex}^2
+\end{gather*}
+\begin{align*}
+  A-G_E^TAG_E &=A-\left[(D+L)^{-1}A-I\right]^TA\left[(D+L)^{-1}A-I\right]\\
+              &=A\left((D+L)^{-T}+(D+L)^{-1}-(D+L)^{-T}A(D+L)^{-1}\right)A\\
+              &=A\left((D+L)^{-T}(D+L)(D+L)^{-1}
+                +(D+L)^{-1}(D+L)^{-T}(D+L)^T
+                -(D+L)^{-T}(D+L+L^T)(D+L)^{-1}\right)A\\
+              &=A(D+1)^{-T}D(D+L)^{-1}A\\
+              &=\left(D^\frac{1}{2}(D+L)^{-1}A^T\right)^T
+                \left(D^\frac{1}{2}(D+L)^{-1}A\right)
+\end{align*}
+und $D^{\frac{1}{2}}$ existiert, da $D$ mit $A$ spd 
+nur positive Einträge hat.
+  \end{proof}
+\end{Satze}
+
+
+\sectione{Relaxationsverfahren}
+Sei $\widetilde{x}_i^{(k+1)}$ eine Hilfsgröße gegeben
+durch einen Schritt des Einzelschritt-Verfahrens, d.h.
+\begin{gather}
+  a_{ii}\widetilde{x}_i^{(k+1)} = -\sum_{j=1}^{i-1}a_{ij}x_j^{(k+1)}
+  -\sum_{j=i+1}^{n}a_{ij}x_j^{(k)}
+  +b_i
+\label{IX.4.1}
+\end{gather}
+Dann definiere
+\begin{gather}
+  x_i^{(k+1)} \coloneqq (1-w)x_i^{(k)}+w\widetilde{x}_i^{(k+1)}
+  \label{IX.4.2}
+\end{gather}
+mit einem sogenannten
+\textbf{Relaxationsparameter}\index{Relaxationsparameter} $w$.
+Es heißt
+\begin{description}
+\item[Überrelaxation] falls $w>1$,
+\item[Unterrelaxation] falls $w<1$.
+\end{description}
+Das \textbf{SOR-(successive
+  overrelaxation)-Verfahren}\index{SOR-Verfahren}
+lautet:
+\begin{gather}
+  a_{ii}x_i^{(k+1)}=w\left(-\sum_{j=1}^{i-1}a_{ij}x_j^{(k+1)}
+  -\sum_{j=i+1}^{n}a_{ij}x_j^{(k)}+b_i\right)
+-(w-1)a_{ii}x_i^{(k)}\quad \text{für } i=1,\ldots,n
+\label{IX.4.3}
+\end{gather}
+bzw.
+\begin{align*}
+  Dx^{(k+1)}&=w(-Lx^{(k+1)}-Rx^{(k)}+b) -(x-1)Dx^{(k)}\\
+\Leftrightarrow (D+wL)x^{(k+1)} &=
+-\left[ w(R+D)-D \right]x^{(k)}+wb
+\end{align*}
+Also $M_{SOR} = D+wL$ und $G_{SOR}= -(D+wL)^{-1}(w(D+R)-D)$
+Für spezielle Fälle kann ein optimales $w$ berechnet werden.
+Im Allgemeinen jedoch nicht oder es ist zu aufwändig.
+
+\begin{Satze}[Konvergenz des SOR-Verfahrens]~
+  \begin{enumerate}[a)]
+  \item Für beliebige Matrizen kann das SOR-Verfahren nur
+    konvergieren, falls 0<$w$<2 gilt.
+  \item Für spd Matrizen konvergiert das Verfahren genau dann, wenn
+    0<$w$<2 gilt.
+  \end{enumerate}
+\begin{proof}~
+  \begin{enumerate}[a)]
+  \item \cite{stoerbulirsch}
+  \item (Satz von Ostrowski, Reich)
+  \end{enumerate}
+\end{proof}
+\end{Satze}
+
+Die Relaxationsidee ist allgemein anwendbar
+\begin{align}\nonumber
+  x^{(k+1)}&= w(Gx^{(k)}+d)+(1-w)x^{(k)}\\
+           &=G_wx^{(k)}+wd
+             \label{IX.4.4}
+\end{align}
+mit der Iterationsmatrix
+\begin{gather}
+  G_w = wG+(1-w)I
+\label{IX.4.5}
+\end{gather}
+Die Kunst besteht nun darin, $w$ so zu wählen,
+dass $\rho(G_w)$ möglichst klein ist.
+Der Aufwand pro Iteration bleibt fast identisch
+zum Originalverfahren.
+
+Wird $W$ optimal gewählt, so konvergiert das gedämpfte
+Richardson-Verfahren\index{Richardson-Verfahren!Konvergenz}
+
+Heutige wichtigste Anwendungsgebiete sind die sogenannten
+Mehrgitterverfahren (Multigrid methods).
+
+\subsectione{Symmetrisches SOR-Verfahren (SSOR)}\index{SOR-Verfahren!symmetrisch}
+Läuft die Schleife in \eqref{IX.3.4} rückwärts,
+d.h. $i=n,\ldots,1$, kann entsprechend ein Einzelschritt-Verfahren
+ genutzt werden für $i=n,n-1,\ldots,1$
+ \begin{align*}
+   a_{ii}x_i^{(k+1)} &= -\sum_{j=1}^{i-1}a_{ij}x_j^{(k)}
+   -\sum_{j=i+1}^{n}a_{ij}x_j^{(k+1)}
+   +b_i \\
+   \Leftrightarrow (D+R)x^{(k+1)} &= -Lx^{(k)}+b
+ \end{align*}
+Eine Iteration des \textbf{SSOR-Verfahrens} ist gegeben durch
+eine relaxierte Vorwärts-Einzelschritt-Iteration und eine
+relaxierte Rückwärts-Einzelschritt-Iteration, d.h.
+\begin{align}
+  Dx^{(k+\frac{1}{2})} &= w(-Lx^{(k+\frac{1}{2})}-Rx^{(k)}+b)
+                         -(w-1)Dx^{(k)}\\\nonumber
+  Dx^{(k+1)}&=w(-Lx^{(k+\frac{1}{2})}-Rx^{(k+1)}+b)
+                         -(w-1)Dx^{(k+\frac{1}{2})}
+\end{align}
+
+
+\paragraph{Vorteile von SSOR gegenüber SOR}
+\begin{enumerate}[a)]
+\item $k$ SSOR-Schritte \enquote{entsprechen} $2k$ SOR-Schritten,
+  können aber mit einem Aufwand umgesetzt werden, 
+der $(k+\frac{1}{2})$ SOR-Schritten entspricht.
+\item Falls $A$ spd ist, so ist dies auch
+  \begin{gather}
+    M_{SSOR}^{-1} = w(1-w)(D+wR)^{-1}D(D+wL)^{-1}
+    \label{IX.4.7}
+  \end{gather}
+\end{enumerate}
+Beim SOR-Verfahren geht die Symmetrie für $M_{SOR}$ verloren,
+diese wird jedoch oft benötigt.
+
+\section*{Zusammenfassung der Vorlesung}
+s. Folien
 
 %%% Local Variables:
 %%% mode: latex
