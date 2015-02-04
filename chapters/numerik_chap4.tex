@@ -412,7 +412,7 @@ orthogonale Projektion von $b$ auf den Bildraum $R(A) $ \index{Bildraum}, wie gl
   \end{enumerate} 	
 \end{Satze}
 
-\begin{proof}
+\begin{proof}~
   \begin{enumerate}[1)]
   \item Sei $\{u_1, \dots , u_n \}$ eine Orthonormalbasis von $U$ 
     und $\overline{u}\in U $. \\
@@ -427,17 +427,26 @@ orthogonale Projektion von $b$ auf den Bildraum $R(A) $ \index{Bildraum}, wie gl
       &\Longleftrightarrow  & \scp{v}{u_j} &= \sum_{i=1}^{n} \alpha_i \scp{u_i}{u_j} = \alpha_j
     \end{alignat*}
     Setze also 
-    \begin{align}
-      \nonumber
-      P\cdot v &= \overline{u} \\
-               & = \sum_{i=1}^{n} \scp{v}{u_i} u_i \in U
+    \begin{gather}
+      P\cdot v = \overline{u}
+               = \sum_{i=1}^{n} \scp{v}{u_i} u_i \in U
                  \label{IV.3.4}
-    \end{align}
+    \end{gather}
     dann ist $\overline{u}$ die eindeutig bestimmte Lösung für $ v-\overline{u} \in U^\bot$
-    
-    \imagemissing{}\label{im4.3.3}
-    
-    Sei  $u\in U$. Dann gilt:
+    \item
+    \begin{image}{Geometrische Konstruktion von $\overline{u}$}
+      \begin{tikzpicture}[rotate=10]
+        \draw[->, line width=1pt] (0,0) node[anchor=east] {0} -- (2,0) node[anchor=south] {$\overline{u}$};
+        \draw[->, dashed] (2,0) -- (2,-1.5) node[anchor=north] {$v$};
+        \draw[->] (2,-1.5) -- (4,0) node[anchor=west] {$u$};
+        \draw[->] (2,0) -- (4,0);
+        \draw[->, line width=1pt] (0,0) -- (2,-1.5);
+        \draw (3,0)  node[anchor=south] {$u-\overline{u}$};
+        \draw (2,-0.5)  node[anchor=east] {$v-\overline{u}$};
+        \draw (3,-0.75)  node[anchor=west] {$v-u$};
+      \end{tikzpicture}
+    \end{image}
+Sei  $u\in U$. Dann gilt:
     \begin{align}
       \nonumber
       \nn{v-u}^2 &= \nn{v-\overline{u}+\overline{u} -u}^2 \\ \nonumber
@@ -1119,3 +1128,8 @@ muss noch $Q^Tb=Q^{(p)}\cdot \dots \cdot Q^{(1)}$ berechnet werden.
   Der Aufwand ist daher ungefähr so hoch wie beim Cholesky-Verfahren für Normalgleichungen,
   aber stabil.
 \end{enumerate}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../numerik_script"
+%%% End:
