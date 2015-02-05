@@ -630,14 +630,42 @@ Dies ist im Gegensatz zur $LR$-Zerlegung aufgrund von $cond(Q^{(i)})= 1$ immer s
 
 Für $Q\in\R^{2\times 2}$ gibt es zwei mögliche Anschauungen, nämlich:
 \begin{enumerate}[a)]
-\item Drehung ~~~ IMAGE~MISSING\label{im4.4(1)}
-\item Spiegelung ~~~ IMAGE~MISSING\label{im4.4(2)}
+\item Drehung ~~~
+  \begin{tikzpicture}
+    \coordinate (a) at (30:2cm);
+    \coordinate (b) at (2,0);
+    \coordinate (z) at (0,0);
+    \draw [->] (0,0) -- (a) node[anchor=west] {a};
+    \draw [->] (0,0) -- (b);
+    \draw[->] (b) -- (0,0) -- (a)
+    pic [draw=black,angle radius=13mm] {angle = b--z--a};
+  \end{tikzpicture}\label{im4.4(1)}
+\item Spiegelung ~~~
+  \begin{tikzpicture}[rotate=15]
+    \coordinate (a) at (20:2cm);
+    \coordinate (b) at (-20:2cm);
+    \coordinate (z) at (0,0);
+    \draw[dashed] (-0.5, 0) -- (2.5, 0);
+    \draw[->] (z) -- (a)  node[anchor=west] {a};
+    \draw[->] (z) -- (b);
+  \end{tikzpicture}\label{im4.4(2)}
 \end{enumerate}
 
 \extrasection{a)}{Givens-Rotation}
 Es wird eine Drehung auf den 1. Einheitsvektor durchgeführt:
-\imagemissing{Drehung auf den Einheitsvektor}\label{im4.4.a}
-
+\begin{image}{Drehung auf den Einheitsvektor}
+    \begin{tikzpicture}
+      \coordinate (a) at (30:2cm);
+      \coordinate (b) at (2,0);
+      \coordinate (z) at (0,0);
+      \draw [->] (0,0) -- (a) node[anchor=west] {$a$};
+      \draw [->] (0,0) -- (b) node[anchor=west] {$\alpha e_1$};
+      \draw (a) -- (0,0) -- (b)
+      pic [draw=black,angle radius=6mm] {angle = b--z--a};
+      \draw[->, dashed] (30:18mm) arc [start angle=30, end angle=0, radius=18mm];
+    \end{tikzpicture}
+    \label{im4.4.a}
+\end{image}
 \begin{gather*}
   a=\begin{pmatrix}a_1 \\ a_2\end{pmatrix} \rightarrow \begin{pmatrix}\alpha \\ 0 \end{pmatrix}
   = \alpha e_1
