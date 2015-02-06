@@ -159,7 +159,7 @@ $R_u^{(k)}(f)$ und $R_o^{(k)}(f)$ wegen
 \end{gather*}
 Später zeigen wir noch die Konvergenzordnung für $f\in C^2([a,b])$
 \begin{gather}
-  \left| I(f)-\hat{I}_T(f)\right| \leq \frac{h^2}{24}(b-a)\nn{f''}_\infty
+  \left| I(f)-\hat{I}_T(f)\right| \leq \frac{h^2}{12}(b-a)\nn{f''}_\infty
   \label{VII.1.8}
 \end{gather}
 Offensichtlich erfüllen $\hat{I}_M(f)$ und $\hat{I}_T(f)$
@@ -254,7 +254,7 @@ linearen Gleichungssystem für $[a,b]=[0,1]$
     1 & 1&1&&&&2& \text{Trapezregel}\\
     2&1&4&1&&&6 & \text{Simpson-Regel}\\
     3&1&3&3&1&&8& \text{$\frac{3}{8}$-Regel}\\
-    4&7&32&12&32&7&90 & \text{Milue-Regel}\\
+    4&7&32&12&32&7&90 & \text{Milne-Regel}\\
     \vdots\\
     8&&&\dots &-4540&\dots
   \end{array}
@@ -308,7 +308,7 @@ Diese sind dann daher ungeeignet.
            R\left( 
            (\bullet -t)_+^l
            \right)\\
-         &= \frac{1}{i!}\left( \sum_{i=0}^n w_i(x_i-t)_+^-\int_a^b(x-t)_+^ldx  \right)
+         &= \frac{1}{l!}\left( \sum_{i=0}^n w_i(x_i-t)_+^-\int_a^b(x-t)_+^ldx  \right)
            \label{VII.2.7}
   \end{align}
   $K(t)$ heißt \textbf{Peano-Kern des Funktionals
@@ -332,7 +332,7 @@ Diese sind dann daher ungeeignet.
              \cdot (x_i-t)_+^ldt  
              - \int_a^b\int_a^b  f^{(l+1)}(t) \cdot (x-t)_+^ldtdx  \right\}
     \end{align*}
-    Mit dem Satz von Fabini gilt
+    Mit dem Satz von Fubini gilt
     \begin{align*}
       R(f) &= \frac{1}{l!}\int_a^bf^{(l+1)}(t) 
              \left\{ 
@@ -402,7 +402,7 @@ Diese sind dann daher ungeeignet.
     1 &\text{Trapezregel} &(b-a)^3\cdot\frac{1}{12}f^{(2)}(\xi)\\
     2 &\text{Simpsonregel}&\frac{(b-a)}{2}^5\cdot\frac{1}{90}f^{(4)}(\xi)\\
     3 &\text{$\frac{3}{8}$-Regel}&\frac{(b-a)}{3}^5\cdot\frac{3}{80}f^{(4)}(\xi)\\
-    4 &\text{Milue-Regel}
+    4 &\text{Milne-Regel}
         &\frac{(b-a)}{4}^7\cdot\frac{8}{945}f^{(6)}(\xi)\\
   \end{array}
 \end{gather*}
@@ -492,7 +492,7 @@ für $N\longrightarrow \infty$.
 \index{Simpsonregel}
 \begin{gather}
   \hat{I}_S(f) = \frac{1}{6}\sum_{l=0}^{N-1} (t_{l+1}-t_l)
-  \cdot \left(f(t_l) +4f(\frac{t_l+t_{l+1}}{2}) + f(t_{l+1})
+  \cdot \left(f(t_l) +4f\left(\frac{t_l+t_{l+1}}{2}\right) + f(t_{l+1})
   \right)
   \label{VII.2.13}
 \end{gather}
@@ -500,9 +500,9 @@ Für äquidistantes Gitter ergibt sich daher für $t_l=a+l\cdot h$
 \begin{gather}
   \hat{I}_S(f) = \frac{1}{8}h\cdot
   \left\{
-    f(t_0+4f\left(\frac{t_1+t_0}{2}\right) 
+    f(t_0)+4f\left(\frac{t_1+t_0}{2}\right) 
     +2f(t_1) + 3f\left(\frac{t_2+t_1}{2}\right)
-    + \ldots +2f(t_{N-1}
+    + \ldots +2f(t_{N-1})
     +4f\left(\frac{t_{N-1}+t_N}{2}\right)
   \right\}
   \label{VII.2.14}

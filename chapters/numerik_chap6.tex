@@ -479,7 +479,7 @@ Werte gegeben.
 
 
 Führe nun virtuelle Knoten ein:
-\begin{gather*}
+\begin{gather}
   \overbrace{\underset{\eqqcolon t_0}{x_0}
     =\dots
     = \underset{\eqqcolon t_{n_0-1}}{x_0}
@@ -488,7 +488,8 @@ Führe nun virtuelle Knoten ein:
     = \underset{\eqqcolon t_{n_0+n_1-1}}{x_1}}^{n_1}
   <  \overbrace{\underset{\eqqcolon t_{n-n_m+1}}{x_m}=\dots
     = \underset{\eqqcolon t_{n}}{x_m}}^{n_m}
-\end{gather*}
+  \label{VI.1.16}
+\end{gather}
 und ersetze die Bedingung \eqref{VI.1.15} durch
 \begin{gather}
   p^{(s_j)}(t_j) = f^{(s_j)}(t_j) \quad \text{für } j=0,\dots,n
@@ -527,7 +528,7 @@ dann gilt
   \item falls $t_i=\dots = t_{i+k}=x_l$:
     \begin{gather}
       p(f\mid  t_i,\dots, t_{i+k})(x) 
-      = \sum_{r=0}^{k}\frac{f^{(r)}(x_l)}{r}(x-x_l)^r
+      = \sum_{r=0}^{k}\frac{f^{(r)}(x_l)}{r!}(x-x_l)^r
       \label{VI.1.19}
     \end{gather}
   \item falls $t_i<t_{i+k} $:
@@ -646,7 +647,7 @@ falls nicht mehr als die Funktionswerte $f_i$ von f bekannt sind.
   Definiere
   \begin{gather}
     F(x) \coloneqq f(x)-p(f\mid  t_0,\dots , t_n)(x) - Kw_{n+1}(x)
-    \label{IV.1.22}
+    \label{VI.1.22}
   \end{gather}
   mit $K=const$ so gewählt, dass $F(\overline{x})=0$.\\
   Aufgrund von $p^{(k)}(x_i)=f^{(k)}(x_i)$
@@ -686,7 +687,7 @@ falls nicht mehr als die Funktionswerte $f_i$ von f bekannt sind.
       + \#\left\{i\,\middle\vert\, n_i>n\right\}
     }_{=n-m}
   \end{gather*}
-  paarweise verschiedene Nullstellen in $I^{n-m}$.\\
+  paarweise verschiedene Nullstellen in $I$.\\
   Also existiert mindestens eine Nullstelle $\xi$ von
   $F^{(n+1)}=f^{(n+1)}-K(n+1)!$. Damit ist
   \begin{gather*}
@@ -952,7 +953,7 @@ und diese \enquote{glatt} zusammenzusetzen.
   alle Basisfunktionen ausgewertet werden, was relativ teuer ist.
 \item Falls $x_i\approx x_{i+1}$ sind 
   $(x-x_i)_+^{k-1}$ und $(x-x_{i+1})_+^{k-1}$
-  nahezu linear unabhängig.\\
+  \enquote{nahezu} linear abhängig.\\
   Damit ist die Basis schlecht konditioniert bzgl. Störungen in $b_i$.
 \end{enumerate}
 
@@ -1361,14 +1362,14 @@ Obige Splines haben gerade diese Eigenschaft, denn:
     \begin{align*}
       \nn{y''}_2^2 &= \nn{s''+(y''-s'')}_2^2\\
                    &= \nn{s''}_2^2
-                     + 2\underbrace{\int_{a}{b}s''(y''-x'')dt}_{
+                     + 2\underbrace{\int_{a}^{b}s''(y''-s'')dt}_{
                      \mathclap{\substack{=0 \\ \text{ wie gezeigt wird}}}
       }
       + \nn{y''-s''}_2^2
     \end{align*}
     da
     \begin{align*}
-      \int_{a}^{b} s''(y''-x'')dt &= \sum_{i=1}^{N}\left(\left[
+      \int_{a}^{b} s''(y''-s'')dt &= \sum_{i=1}^{N}\left(\left[
                                     s''(y'-s')\right]_{x_{i-1}}^{x_i}
                                     -\int_{x_{i-1}}^{x_i}s'''(y'-s')dt\right)\\
       \intertext{($S_{4,\Delta}\subseteq C^2([a,b])$, 

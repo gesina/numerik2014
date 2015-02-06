@@ -54,7 +54,7 @@ Beispiel:
 Falls m=n ist dies äquivalent zur Nullstellenbestimmung.
 
 \subsectione{Das Bisektionsverfahren}\index{Bisektionsverfahren}
-Sei $f:[a,b]\rightarrow \R $ stetig udn$f(a) \cdot f(b) <0$.\\
+Sei $f:[a,b]\rightarrow \R $ stetig und $f(a) \cdot f(b) <0$.\\
 Dann folgt aus dem Zwischenwertsatz die Existenz
 mindestens einer Nullstelle $x^{*}\in (a,b)$.\\
 
@@ -76,7 +76,7 @@ mindestens einer Nullstelle $x^{*}\in (a,b)$.\\
 \end{image}
 
 Generiere eine Folge von Intervallen
-$[a^{(i)}, b^{(i)}]\in  [a^{(i-1)}, b^{(i-1)}] $,
+$[a^{(i)}, b^{(i)}]\subset  [a^{(i-1)}, b^{(i-1)}] $,
 die eine Nullstelle enthalten und mit $b^{(i)}-a^{(i)} \longrightarrow 0$.
 Definiere
 \begin{gather}
@@ -220,7 +220,7 @@ denn für stetiges $g$ gilt:
   \label{5.2.3}
   Sei $D=\overline{\Omega} $ mit $\Omega \subseteq \R^n$ offen und konvex
   und $\nn{\,\cdot\,}$ eine Norm auf dem $R^n$.\\
-  Falls $g:D\longrightarrow \R^n$ eine stetig differenzierbare Funktion ist und
+  Falls $g:D\to D$ eine stetig differenzierbare Funktion ist und
   bezüglich der zugeordneten Matrixnorm $\sup_{x\in \Omega}\nn{Dg(x)}<1$ gelte,
   so ist $g$ kontrahierend bezüglich  $\nn{\,\cdot\,}$.
 \end{Leme} 
@@ -291,7 +291,7 @@ denn für stetiges $g$ gilt:
   \item[zu 1)] Da $g$ stetig ist, ist $g(x^{*})=x^{*}$ (siehe hierzu \eqref{V.2.3}). \\
     $x^{*}	$ ist eindeutiger Fixpunkt, da für einen weiteren Fixpunkt $y^{*}$ gilt
     \begin{gather*}
-      0\leq \nn{x^{*}-y^{*}} = \nn{g(x^{*})-g()y^{*})}\leq \kappa \nn{x^{*}-y^{*}}
+      0\leq \nn{x^{*}-y^{*}} = \nn{g(x^{*})-g(y^{*})}\leq \kappa \nn{x^{*}-y^{*}}
     \end{gather*}
     Da $\kappa<1$, muss $ \nn{x^{*}-y^{*}}=0$ sein und damit $x^{*}=y^{*}$.
     
@@ -558,10 +558,24 @@ J. Raphson (1630). Newton hat eine ähnliche Technik früher angewendet.
   
   Die quadratische Konvergenz folgt aus 
   \begin{align*}
-    |x^{(k-1)}-x^{*}| &= |x^{(k)}-\frac{f(x^{(k)})}{f'(x^{(k)})}-x^{*}+\frac{f(x^{*})}{f'(x^{*})}| \\
-                      &= \frac{|f(x^{(*)})-f(x^{(k)})+f'(x^{(k)})(x^{(k)}-x^{*})|}{|f'(x^{(k)})|}\\
-                      &\leq \sup_{x\in\overline{B_\varepsilon(x^{*})}}\frac{1}{|f'(x^{*}|)}
-                        \cdot \sup_{x\in\overline{B_\varepsilon(x^{*})}}|f''(x)\cdot\frac{1}{2}|x^{(k)}-x^{*}|^2
+    \left|x^{(k-1)}-x^{*}\right| &= \left| 
+                                   x^{(k)}
+                                   -\frac{f\left(x^{(k)}\right)}{f'\left(x^{(k)}\right)}
+                                   -x^{*}
+                                   +\frac{f\left(x^{*}\right)}{f'\left(x^{*}\right)}
+                                   \right| \\
+                                 &= \frac{\left| 
+                                   f\left(x^{(*)}\right)
+                                   -f\left(x^{(k)}\right)
+                                   +f'\left(x^{(k)}\right)\left(x^{(k)}-x^{*}\right)
+                                   \right|}
+                                   {\left|f'\left(x^{(k)}\right)\right|}\\
+                                 &\leq
+                                   \sup_{x\in\overline{B_\varepsilon\left(x^{*}\right)}}
+                                   \frac{1}{\left|f'\left(x\right)\right|}
+                                   \cdot
+                                   \sup_{x\in\overline{B_\varepsilon(x^{*})}}
+                                   \left|f''(x)\right|\cdot\frac{1}{2}\left|x^{(k)}-x^{*}\right|^2
   \end{align*}
   aufgrund der Taylorentwicklung und da
   $x^{(k-)}\in\overline{B_\varepsilon(x^{*})}~\forall k\in\N$ (da $g$ Kontraktion).
@@ -575,7 +589,7 @@ J. Raphson (1630). Newton hat eine ähnliche Technik früher angewendet.
   \item Mehrfache Nullstellen könne im Allgemeinen
     nicht mit \eqref{V.4.1} bestimmt werden.
   \item Die Ableitung $f'$ muss analytisch (als Funktion) gegeben sein.
-  \item Die Lage und Größe des Konvergenzinterfalls ist a priori unbekannt.\\
+  \item Die Lage und Größe des Konvergenzintervalls ist a priori unbekannt.\\
     (Hierfür könnte z.B. das Bisektionsverfahren Anwendung finden.)
   \end{enumerate}
 \end{Beme}

@@ -22,7 +22,7 @@ mittels Diagonalmatrizen $D_z, D_s$ lässt sich eine Pivotstrategie beliebig ab�
 Jetzt ist die Frage: \\
 \textit{Was ist eine \enquote{gute} Skalierung?}
 
-Skalierung ändert die Lönge der Basisvektoren des Bild- bzw. des Urbildvektorraumes.
+Skalierung ändert die Länge der Basisvektoren des Bild- bzw. des Urbildvektorraumes.
 Durch Normierung der Länge auf 1 wird die Pivotstrategie unabhängig von der 
 gewählten Einheit.
 
@@ -264,10 +264,10 @@ Der Algorithmus der Cholesky-Zerlegung ist wie folgt:
 \subsectione{Rechenaufwand in flops}
 Es sind je 
 \begin{enumerate}
-\item[] $\frac{1}{6}(n^2-n) $ Additionen sowie Multiplikationen und 
+\item[] $\frac{1}{6}(n^3-n) $ Additionen sowie Multiplikationen und 
 \item[]  $\frac{1}{6}(3n^2-3n) $ Divisionen 
 \end{enumerate}
-also ca. $\frac{2}{3} n^2$ flops für große $n$ notwendig. \\
+also ca. $\frac{2}{3} n^3$ flops für große $n$ notwendig. \\
 Im Vergleich zur LR-Zerlegung halbiert sich in etwa der Aufwand.
 
 % \subsectione{Bemerkung}
@@ -487,7 +487,7 @@ Sei  $u\in U$. Dann gilt:
     &\Leftrightarrow & A^T(b-A\overline{x}) &= 0 \\
     &\Leftrightarrow & A^TA\overline{x} &= A^Tb
   \end{alignat*}
-  Nach dem Projektionssatz \ref{4.3.3} existiert mindestens ein eindeutiges
+  Nach dem Projektionssatz \ref{4.3.3} existiert ein eindeutiges
   $\overline{y} = P b$.
   Für dieses $\overline{y}$ ist $\overline{x}\in \Ren $ mit $\overline{y} = A\overline{x}$
   eindeutig bestimmt, falls $A$ injektiv ist, d.h. falls $rang(A) = n$. 
@@ -517,7 +517,7 @@ Dafür ist
     (siehe Übungsaufgabe 19)
   \end{description}
 \end{enumerate}
-Also überwiegt für $m\gg n$ der Aufwand $A^tA$ zu berechnen.
+Also überwiegt für $m\gg n$ der Aufwand $A^TA$ zu berechnen.
 Die auftretenden Konditionen entsprechen i.d.R. nicht dem des Ausgangsproblems.\\
 Damit ist die 
 \textbf{Cholesky-Zerlegung \index{Cholesky-Zerlegung} für Normalgleichungen ungeeignet}.

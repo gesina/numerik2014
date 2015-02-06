@@ -83,27 +83,27 @@
 % \usepackage{anyfontsize}	%any fontsize with \fontsize{size}{baselineskip}\selectfont
 \usepackage{tabularx}  %table with extendable X-column
 
+
 % DEFINITIONS
 % ---------------------------------------------------------------
 % math (theorems)
 \theoremstyle{definition}
-\newtheorem{Def}{Definition}[section]		%definition with \begin{Def}
+\newtheorem{Def}{Definition}[section]
 \newtheorem{Bsp}[Def]{Beispiel}
 % \theoremstyle{remark}
-\newtheorem{Bem}[Def]{Bemerkung}	%corollary with \begin{Korr}
+\newtheorem{Bem}[Def]{Bemerkung}
 \newtheorem{Wdh}[Def]{Wiederholung}
 \theoremstyle{plain}
-\newtheorem{Satz}[Def]{Satz}		%theorem with \begin{Satz}
+\newtheorem{Satz}[Def]{Satz}
 \newtheorem*{satz}{Satz}
-\newtheorem{Lem}[Def]{Lemma}		%lemma with \begin{Lem}
-\newtheorem{Kor}[Def]{Korollar}		%theorem with \begin{Satz}
+\newtheorem{Lem}[Def]{Lemma}
+\newtheorem{Kor}[Def]{Korollar}
 \newtheorem{Fol}[Def]{Folgerung}
-% \newtheorem{Ax}[Def]{Axiom}		%axiom with \begin{Ax}
-% \newtheorem{Prop}[Def]{Proposition}%proposition with \begin{Prop}
 
-% colors
-% \definecolor{ashgrey}{rgb}{0.7, 0.75, 0.71}
-
+% math operators
+\DeclareMathOperator{\Rang}{rang}
+\DeclareMathOperator{\Dim}{dim}
+\DeclareMathOperator{\Sign}{sign}
 
 % NEW COMMANDS
 % ---------------------------------------------------------------

@@ -279,7 +279,7 @@ da sich $\widetilde{L}$ nicht ändert. Es reicht \ref{II.1.4} zu wiederholen. \\
   \begin{gather*}
     2\cdot\frac{2n^3-3n^2+n}{6} + \frac{n^2-n}{2} 
     = \frac{2}{3} n^3 - \frac{1}{2}n^2 - \frac{1}{6} n
-    \approx \frac{2}{3}n^2
+    \approx \frac{2}{3}n^3
   \end{gather*}
   für große $n$.
   
@@ -338,7 +338,7 @@ Rechenoperationen liefern jedoch oft eine gute Schätzung.
 \item \textbf{Rückwärtssubstitution:} entspricht $Rx=b$
 \item \textbf{Vorwärtssubstitution:} 
   \begin{align*}
-    b_i&=b_i^{(k-1)}-l_{ik}b_k^{k-1} && i=k+1, \dotsc , n\\
+    b^{(k)}_i&=b_i^{(k-1)}-l_{ik}b_k^{k-1} && i=k+1, \dotsc , n\\
     b^{(k)} &= b^{(k-1)}-l_kb_k^{(k-1)} 
                                      && \text{mit }l_k\coloneqq 
                                         \begin{pmatrix}0\\\vdots\\ 0\\ l_{k+1,k}\\\vdots \\l_{n,k}\end{pmatrix}
@@ -612,8 +612,7 @@ Der zugehörige Algorithmus zur Spaltenpivotisierung ist: \\
 \end{pseudocode}	\footnotetext{$\leftrightarrows$ bedeutet \enquote{vertausche mit}}
 \\
 
-% \subsectione{Satz: Dreieckszerlegung mit Permutationsmatrix} 
-\begin{Satze}[Dreieckszerlegung mit Permutationsmatri] \label{2.2.4} 
+\begin{Satze}[Dreieckszerlegung mit Permutationsmatrix] \label{2.2.4} 
   Für jede invertierbare Matrix $A$ existiert eine Permutationsmatrix $P$,
   so dass eine Dreieckszerlegung
   \begin{gather*}

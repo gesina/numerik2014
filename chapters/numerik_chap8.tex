@@ -125,14 +125,16 @@ Approximation von Eigenwerten benutzt.
 \sectione{Potenzmethode (Vektoriteration, power method)}
 
 \subsectione{Voraussetzung für die Potenzmethode}\label{8.2.1}
-Sei $A\in\R^{n\times n}$ eine 
+Sei $A\in\R^{n\times n}$ eine  in $\C$
 diagonalisierbare Matrix und 
 sei der dominante Eigenwert $\lambda_1$ einfach,
 d.h. 
 $|\lambda_1|>|\lambda_2|\geq |\lambda_1\geq \ldots\geq |\lambda_n|$
-mit der bzgl. $\nn{\bullet}_2$ normierten Eigenvektoren $v_i$.
+mit den bzgl. $\nn{\bullet}_2$ normierten Eigenvektoren $v_i$.
 Weiter sei ein Startvektor $x^{(0)}\in\R^n$ gegeben,
-welcher nicht senkrecht zu $v_1$ ist.
+welcher 
+%nicht senkrecht zu $v_1$ ist.
+keinen Nullanteil in $v_1$ hat.
 
 \subsectione{Vektoriteration}\label{8.2.2}\index{Vektoriteration}
 Die Vektoriteration ist gegeben durch
@@ -146,8 +148,8 @@ Da $A$ in $\C$ diagonalisierbar ist,
 gibt es eine Basis des $\C^n$ aus
 normierten Eigenvektoren $\left\{v_1,\ldots,v_n\right\}$
 und es gilt $x^{(0)}= \sum_{i=1}^{n} \alpha_iv_i$.
-Da $x^{(0)} \not \bot v_1$ folgt $\alpha_1\neq 0$.
-Weiterhin ist $\alpha_1\in\R$.
+%Da $x^{(0)} \not \bot v_1$ folgt $\alpha_1\neq 0$. Weiterhin ist $\alpha_1\in\R$.
+Nach Voraussetzung ist $\alpha_1\neq 0$ und $\alpha_1\in\R$.
 \begin{align}\nonumber
   x^{(k)} &= A^kx^{(0)} \\\nonumber
           &= \sum_{i=1}^{n} \alpha_i\lambda_i^kv_i\\\nonumber
@@ -303,7 +305,7 @@ Die Nachteile sind allerdings
 \sectione{Inverse Vektoriteration}
 Sei $A$ im Folgenden invertierbar mit Eigenwerten $\lambda_i$.
 Sei $v$ Eigenvektor zu $A$ mit Eigenwert $\lambda$ und
-sei $\widetilde{lambda}\in\R$ beliebig. Dann gilt
+sei $\widetilde{ \lambda}\in\R$ beliebig. Dann gilt
 \begin{gather*}
   (A-\widetilde{\lambda}I) v= (\lambda-\widetilde{\lambda})v
   \quad\Leftrightarrow\quad
@@ -331,7 +333,7 @@ und somit $\lambda_i=\frac{1}{\overline{\lambda}}+\widetilde{\lambda}$
 und einen zugehörigen Einheitsvektor.
 
 
-\subsectione{Inverse Vektoriterations mit Spektralverschiebung}\label{8.3.1}
+\subsectione{Inverse Vektoriteration mit Spektralverschiebung}\label{8.3.1}
 Hier wird $\widetilde{x}^{(k+1)}$ anders als in \ref{8.2.3}
 schrittweise berechnet durch
 \begin{gather}
