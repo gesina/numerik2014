@@ -285,11 +285,9 @@ da sich $\widetilde{L}$ nicht ändert. Es reicht \ref{II.1.4} zu wiederholen. \\
   
 \item[\textbf{2.}] \textbf{Vorwärts- bzw. Rückwärtssubstitution}  \\
   Hier ergeben sich je
-  \begin{gather*}
-    \sum_{k=1}^{n-1} (n-k) = \frac{n^2-n}{2} \approx \frac{n^2}{2}
-  \end{gather*}
+    $\sum_{k=1}^{n-1} (n-k) = \frac{n^2-n}{2} \approx \frac{n^2}{2}$
   Multiplikationen und Additionen sowie 
-  $n$ Divisionen für die Rückwärtssubstitution und damit insgesamt \begin{gather*}n^2+n\end{gather*} flops.	
+  $n$ Divisionen für die Rückwärtssubstitution und damit insgesamt $n^2+n$ flops.	
 \end{enumerate}
 \paragraph{Zusammenfassung}~ \\
 Die Dreieckszerlegung benötigt $\mathcal{O}(n^3)$ flops und 
@@ -512,13 +510,13 @@ zweiten Zeile und der Algorithmus wird anwendbar.
 
 
 \subsectione{Spaltenpivotisierung}
-\index{Pivotisierung}
-\index{Pivotisierung!halbmaximale}\index{Pivotisierung!partielle}
-\index{Pivotisierung!Spalten-}
+\index{Pivotisierung}%
+\index{Pivotisierung!halbmaximale}\index{Pivotisierung!partielle}%
+\index{Pivotisierung!Spalten-}%
 Eine Spaltenpivotisierung, auch partielle oder halbmaximale Pivotisierung,
 erfolgt, indem im k-ten  Eliminationsschritt durch Zeilenvertauschen
 das größte Spaltenelement das Pivotelement stellt:\\
-\begin{image}{}
+\begin{image}{Ein Schritt der Spaltenpivotisierung}
   \includegraphics[width=0.5\linewidth]{images/Gausspivot.png}
 \end{image}
 
@@ -796,3 +794,7 @@ Elimination durch folgende drei Schritte durchgeführt:
 \end{Bspe}
 
 %-----------------------------------------------------------------------
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../numerik_script"
+%%% End:

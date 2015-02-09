@@ -18,7 +18,7 @@
 \usepackage[utf8]{inputenc}   %input-encoding WITH e.g. ö (depends on system), better after fontenc
 % ..................................................
 %% language
-\usepackage{babel}	       %rules typical for chosen language(s)
+\usepackage[shorthands=off]{babel}  % language settings; no replacement of "a -> ä etc.
 % ..................................................
 %% font-settings
 \usepackage{lmodern}	       %font: latin modern
@@ -42,12 +42,6 @@
 \usepackage{dsfont}		%for \mathds{letter} to create e.g. the rational numbers symbol Q
 \usepackage{stmaryrd}		%for math symbols like lightning bold
 \usepackage{MnSymbol}
-% \usepackage{bm}		% nicer bold math symbols with \boldsymbol
-% \usepackage{siunitx}		%units
-% ..................................................
-%% colors
-% \usepackage{color}		%to set/define colors,
-% predefined: white , black, red, green, blue, cyan, magenta, yellow
 % ..................................................
 %% objects
 \usepackage{wrapfig,graphicx}	%inclusion of graphics with \includegraphics{name}
@@ -60,17 +54,13 @@
 \usepackage{framed}
 % ..................................................
 %% index/bibliography
-\usepackage{makeidx}		%create an index with \makeindex in head
-% (creates *.idx file)
-\makeindex			%if index is required (after {makeidx})
-\usepackage[backend=biber,style=alphabetic]{biblatex}	% print bibliography with \printbibliography
-\bibliography{numerik_script.bib} % loads .bib-file for
-% biber-bibliography; after {biblatex}
+\usepackage{makeidx}		%index with \makeindex in head (creates *.idx file)
+\makeindex
+\usepackage[backend=biber,style=alphabetic]{biblatex}	% bibliography with \printbibliography
+\bibliography{numerik_script.bib}
 % ..................................................
 %% (nicer)tables
-\usepackage{booktabs} 	%enables better spacing and lines in tables
-% \usepackage{multirow}	%option multirow for tables (centers text vertically)
-% \usepackage{tabulary}	%table-width matches content
+\usepackage{booktabs} 	% better spacing and lines in tables
 % ..................................................
 %% font
 \usepackage[normalem]{ulem}         % strike text out
@@ -79,8 +69,6 @@
 \usepackage{hyperref}
 % options: colorlink=true (-> no boxes but colored hyperlinks), color of all link
 % ..................................................
-%% fonts
-% \usepackage{anyfontsize}	%any fontsize with \fontsize{size}{baselineskip}\selectfont
 \usepackage{tabularx}  %table with extendable X-column
 
 
@@ -104,6 +92,11 @@
 \DeclareMathOperator{\Rang}{rang}
 \DeclareMathOperator{\Dim}{dim}
 \DeclareMathOperator{\Sign}{sign}
+\DeclareMathOperator{\Deg}{deg}
+\DeclareMathOperator{\Eps}{eps}
+\DeclareMathOperator{\Tol}{tol}
+\DeclareMathOperator{\Cond}{cond}
+\DeclareMathOperator{\Givens}{givens}
 
 % NEW COMMANDS
 % ---------------------------------------------------------------

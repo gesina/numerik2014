@@ -229,7 +229,7 @@ Sei $L\coloneqq (L_1^{-1}\cdot \cdots \cdot L_{n-1}^{-1})$ wie in \eqref{II.1.8}
   \end{align}
   Demnach funktioniert spaltenweises und zeilenweises Berechnen. 
   
-  \begin{image}{}
+  \begin{image}{\copyright}
     \begin{tikzpicture}
       % Dreiecke zeichnen
       \foreach \x in {0,5}
@@ -359,7 +359,7 @@ GLS $Ax=b$.\\
 Aufgrund der $l_2$-Norm ist $\overline{x}$ gegeben durch die 
 orthogonale Projektion von $b$ auf den Bildraum $R(A) $ \index{Bildraum}, wie gleich gezeigt wird. \\
 
-\begin{image}{}
+\begin{image}{\copyright}
   \begin{tikzpicture}[rotate=0,line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
     % Draw region settings
     \clip(1.8,-3.2) rectangle (13.5,3);
@@ -573,7 +573,7 @@ und somit folgt
   \end{align*}
   Außerdem gilt:
   \begin{align*}
-    \nn{b-Ax}_2^2 & = \nn{Q(Q^Tb-\begin{pmatrix}R\\0\end{pmatrix}x)}_2^2 \\
+    \nn{b-Ax}_2^2 & = \nn{Q\left(Q^Tb-\begin{pmatrix}R\\0\end{pmatrix}x\right)}_2^2 \\
                   &=  \nn{Q^Tb-\begin{pmatrix}Rx\\0\end{pmatrix}}_2^2  \\
                   &\overset{\mathllap{\text{$Q$ längenerhaltend}}}{=}
                     \nn{\overline{b}_1 - Rx}_2^2  + \nn{\overline{b}_2^2}
@@ -638,7 +638,7 @@ Für $Q\in\R^{2\times 2}$ gibt es zwei mögliche Anschauungen, nämlich:
     \draw [->] (0,0) -- (a) node[anchor=west] {a};
     \draw [->] (0,0) -- (b);
     \draw[->] (b) -- (0,0) -- (a)
-    pic [draw=black,angle radius=13mm] {angle = b--z--a};
+    pic [draw=black,angle radius=13mm, "$\theta$"] {angle = b--z--a};
   \end{tikzpicture}\label{im4.4(1)}
 \item Spiegelung ~~~
   \begin{tikzpicture}[rotate=15]
@@ -661,7 +661,7 @@ Es wird eine Drehung auf den 1. Einheitsvektor durchgeführt:
       \draw [->] (0,0) -- (a) node[anchor=west] {$a$};
       \draw [->] (0,0) -- (b) node[anchor=west] {$\alpha e_1$};
       \draw (a) -- (0,0) -- (b)
-      pic [draw=black,angle radius=6mm] {angle = b--z--a};
+      pic [draw=black,angle radius=9mm, "$\alpha$"] {angle = b--z--a};
       \draw[->, dashed] (30:18mm) arc [start angle=30, end angle=0, radius=18mm];
     \end{tikzpicture}
     \label{im4.4.a}
@@ -904,7 +904,7 @@ Es sei $H$ eine Hyperebene im $\R^m$ und zusätzlich ein Vektor
 $a\in\R^m$ gegeben.
 
 % IV.4.b Householder-Reflexion
-\begin{image}{}
+\begin{image}{\copyright}
   \begin{tikzpicture}[rotate=30, >=triangle 45,scale=4]
     \draw (0,0) -- (2,0) node[below] {$H$};
     \draw[->] (0.5,0) -- (1,0.7);
@@ -934,7 +934,7 @@ wähle ein entsprechendes Vorzeichen für $\alpha$, also
   \label{IV.4.9}
 \end{gather}
 Die zugehörige Reflexion $Q$ ist  gegeben durch \\
-\begin{image}{}
+\begin{image}{\copyright}
   \begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
     \clip(0.7,1) rectangle (6,5);
     \draw [shift={(4.32,3.49)}] (0,0) -- (36.87:0.6) arc 	(36.87:126.87:0.6) -- cycle;
@@ -1083,7 +1083,7 @@ Für die spezielle Wahl \eqref{IV.4.8} mit \eqref{IV.4.9} vom Vektor $v$ folgt
 \marginpar{17.11.2014}
 Gespeichert werden müssen die obere Dreiecksmatrix $R$ und die 
 \textbf{Householdervektoren} \index{Householdervektoren}
-$v^{(i)}\in \R{m+1-i}$.
+$v^{(i)}\in \R^{m+1-i}$.
 Die Diagonalelemente von $R$ sind $r_{ii} = \alpha^{(i)}$. \\
 Folgende Speicheraufteilung ist möglich:
 \begin{gather*}
@@ -1100,11 +1100,10 @@ Folgende Speicheraufteilung ist möglich:
     \alpha^{(1)} \\ \vdots \\ \\ \alpha^{(p)}
   \end{pmatrix}
 \end{gather*}
-
-Wohlgemerkt kann so auch $A\in \R{m\times n}$ mit $m<n$ bearbeitet werden,
+Wohlgemerkt kann so auch $A\in \R^{m\times n}$ mit $m<n$ bearbeitet werden,
 dann wird $A$ zu:
 
-\imagemissing{Zerlegung einer mxn-Matrix für $m<n$}\label{im4.4.5}
+\imagemissing{Zerlegung einer $m\times n$-Matrix für $m<n$}\label{im4.4.5}
 
 Falls zusätzlich $v^{(i)}$ so normiert ist,
 dass $v_1^{(i)} = 1$ ist, braucht diese Komponente nicht gespeichert werden 

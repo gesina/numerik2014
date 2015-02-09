@@ -46,7 +46,6 @@ Die wichtigsten Typen sind:
 \item \textbf{Gleitpunktzahlen} (floating point) \index{floating point}
 \end{itemize}
 
-% \subsectione{Definition: Gleitkommazahl} 
 \begin{Defe}
   \label{3.1.1} \index{Gleitkommazahl}
   Eine Zahl $x\in\Q$ mit einer Darstellung
@@ -67,7 +66,6 @@ Die wichtigsten Typen sind:
   Ist $a_1\neq 0$, so heißt $x$ \textbf{normalisierte Gleitkommazahl}\index{normalisierte Gleitkommazahl}.
 \end{Defe}
 
-% \subsectione{Bemerkung} 
 \begin{Beme}
   \label{3.1.2}~
   \begin{enumerate}[a)]
@@ -134,7 +132,7 @@ Die Maschinenzahlen sind ungleichmäßig im Dezimalsystem verteilt, z. B.
 \begin{align*}
   x &= \pm a_1 . a_2 a_3 \cdot 2^e  &\text{mit } -2\leq e\leq 1 \text{ und } a_i  \in \{0,1\} 
 \end{align*}
-\begin{image}{}
+\begin{image}{\copyright}
   \begin{tikzpicture}[scale=3]
     \draw(0,0)--(4,0);
     % Vertikale Striche
@@ -147,7 +145,6 @@ Die Maschinenzahlen sind ungleichmäßig im Dezimalsystem verteilt, z. B.
 \end{image}
 ist im Dualsystem gleichmäßig, jedoch im Dezimalsystem sehr ungleichmäßig verteilt.
 
-% \subsection{Bezeichnungen}
 \begin{Defe}
   \label{3.1.5}~
   \begin{description}
@@ -201,7 +198,7 @@ Weiterhin gilt:
 \item Die kleinste Zahl am Rechner, welche größer als 1 ist, ist
   \[ 1 + eps \]
 \item Eine Maschinenzahl x repräsentiert eine Eingabemenge
-  \begin{image}{}
+  \begin{image}{\copyright}
     $E(x) = \{\widetilde{x} \in \R : |\widetilde{x}-x| \leq \tau|x|\}$ \\
 %
 	\begin{tikzpicture}[scale=3]
@@ -216,7 +213,6 @@ Weiterhin gilt:
   \end{image}
 \end{enumerate}
 
-% \subsection{Bemerkung} 
 \begin{Beme}
   \label{3.1.7}
   Gesetze der arithmetischen Operationen gelten i.A. nicht, z.B.
@@ -265,14 +261,12 @@ Es wird das Verhältnis
 \end{gather*}
 untersucht.
 
-% \subsectione{Definition: Problem} 
 \begin{Defe}
   \label{3.2.1} \index{Problem}
   Sei $f: U \subseteq \R^n \rightarrow \R^m$ mit $U$ offen und sei $x\in U$.
   Dann bezeichne $(f, x)$ das Problem, zu einem gegebenen $x$ die Lösung $f(x)$ zu finden.
 \end{Defe}
 
-% \subsectione{Definition: absoluter und relativer Fehler} 
 \begin{Defe}
   \label{3.2.2} \index{Fehler}
   Sei $x\in\R^n$ und $\widetilde{x} \in \R^n$ eine Näherung an $x$. Weiterhin sei $\|\cdot\|$ eine Norm auf $\R^n$.
@@ -289,8 +283,6 @@ untersucht.
   \end{align*}
 \end{Defe}
 
-
-% \subsectione{Wiederholung: Normen} 
 \begin{Wdhe}[Normen]~
   \label{3.2.3}\index{Norm}
   \begin{image}{Sphären mit gleichem Normbetrag}
@@ -325,7 +317,6 @@ untersucht.
 
 
 
-% \subsectione{Definition: Matrixnorm} 
 \begin{Defe}
 1  \label{3.2.4}
   Auf dem $\R^n$  sei die Norm $\nn{\,\cdot\,}_a$ und auf dem $\R^m$ die Norm $\nn{\,\cdot\,}_b$ gegeben.
@@ -340,7 +331,6 @@ untersucht.
   \end{gather*}
 \end{Defe}
 
-% \subsectione{Definition: Frobeniusnorm, p-Norm, Verträglichkeit} 
 \begin{Defe}
   \label{3.2.5}
   Sei $A\in \R^{m\times n}$.
@@ -359,8 +349,6 @@ untersucht.
     \end{gather*}
   \end{enumerate}
 \end{Defe}
-
-% \subsectione{Bemerkungen} 
 \begin{Beme}~
   \label{3.2.6}
   \begin{enumerate}[a)]
@@ -439,7 +427,6 @@ untersucht.
   \end{enumerate}
 \end{Defe}
 
-% \subsectione{Lemma} 
 \begin{Leme}\label{3.2.8}
   Falls $f$ differenzierbar ist, gilt
   \begin{gather}
@@ -452,7 +439,6 @@ untersucht.
   wobei $Df(x)$ die Jakobi-Matrix bezeichnet.
 \end{Leme}
 
-% \subsectione{Beispiel: Kondition der Addition}
 \begin{Bspe}[Kondition der Addition]
   \label{3.2.9} \index{Kondition!Addition}
   $f(x_1, x_2) \coloneqq x_1 +x_2 , \, f:\R^2 \rightarrow \R$. \\
@@ -496,10 +482,8 @@ untersucht.
                                                   = 0,\overline{81} \\
     &\leq \kappa_{rel}(f,x)\cdot \frac{\|\widetilde{x}-x\|_1}{\|x\|_1} \\
     &= \kappa_{rel}(f,x) \cdot 4,6\cdot 10^{-4}
-\end{align*}
-% 
+\end{align*} 
 
-% \subsectione{Beispiel: Lösen eines Gleichungssystems} 
 \begin{Bspe}[Lösen eines lin. Gleichungssystems]
   \label{3.2.10}
   Sei $A\in \R^{n\times n}$ invertierbar und $b\in \R^n$. Es soll 
@@ -623,7 +607,6 @@ untersucht.
   \end{enumerate}
 \end{Bspe}
 
-% \subsectione{Definition: Kondition einer Matrix} 
 \begin{Defe}
   \index{Kondition!Matrix}
   Sei $\|\cdot\|$ eine Norm auf $\R^{n\times n} $ und $A\in \R^{n\times n}$ eine reguläre Matrix.
@@ -651,7 +634,6 @@ untersucht.
 
 %-----------------------------------------------------------------
 
-% \subsectione{Lemma (Neumannsche Reihe)}
 \begin{Leme}{Neumannsche Reihe}
 \marginpar{27.10.2014}
   \index{Neumannsche Reihe}\label{3.2.12}
@@ -686,7 +668,6 @@ untersucht.
   \end{align*}
 \end{proof}
 
-% \subsectione{Bemerkung}
 \begin{Beme}
   \label{3.2.13}~
   \begin{enumerate}[a)]
@@ -711,7 +692,6 @@ untersucht.
 \end{Beme}
 
 
-% \subsectione{Beispiel: Kondition eines nichtlinearen Gleichungssystems}
 \begin{Bspe}[Kondition eines nichtlin. Gleichungssystems]
   Sei $f:\Ren\rightarrow\Ren$ stetig differenzierbar und $y\in\Ren$ gegeben. \\
   Löse
@@ -740,7 +720,7 @@ untersucht.
   Falls $|f'(x)|\longrightarrow 0$ ist es eine schlechte absolute Kondition. \\
   Für $|f'(x)| \gg 0$ ist es eine gute absolute Kondition.\\
   Damit bedeutet eine kleine Störung in $y$ eine große Störung in $x$.\\
-  \begin{image}{gute (links) und schlechte (rechts) Kondition im Vergleich}
+  \begin{image}{\copyright Gute (links) und schlechte (rechts) Kondition im Vergleich}
     \begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
       \draw[->,color=black] (0,0) -- (6,0);
       \draw[->,color=black] (0,0) -- (0,4.5);
@@ -778,7 +758,6 @@ untersucht.
 % \minisec{\Large3.2 b) Komponentenweise Konditionsanalyse} \label{3.2b}\vspace{1eM}
 \extrasection{b)}{Komponentenweise Konditionsanalyse}
 
-% \subsectione{Beispiel}
 \begin{Bspe}
   Falls $A$ Diagonalgestalt hat, sind die Gleichungen unabhängig voneinander (entkoppelt)\index{entkoppelt}.
   Die erwartete relative Kondition wäre dann -- wie bei skalaren Gleicungen -- stets gleich 1.
@@ -797,7 +776,6 @@ untersucht.
   \end{align*}
 \end{Bspe}
 
-% \subsectione{Definition: Komponentenweise Kondition}
 \begin{Defe}
   \index{Kondition!komponentenweise}
   Sei $(f, x) $ ein Problem mit $f(x)\neq 0$ und $x=(x_i)_{i=1,\cdots , n}$ mit $x_i\neq 0 $  für alle $i=1,\cdots, n$.
@@ -813,7 +791,6 @@ untersucht.
   \end{gather*}
 \end{Defe}
 
-% \subsectione{Lemma} 
 \begin{Leme}
   \label{3.2.17}
   Sei $f$ differenzierbar und fasse $|\cdot|$ komponentenweise auf, d.h. $|x| = \begin{pmatrix}
@@ -867,7 +844,6 @@ untersucht.
   \end{align*}
 \end{proof}
 
-% \subsectione{Beispiel}
 \begin{Bspe}~
   \begin{enumerate}[a)]
   \item Komponentenweise Kondition der Multiplikation
@@ -911,7 +887,7 @@ untersucht.
     Zum Beispiel für $x=\widetilde{x} = \begin{pmatrix} 1 \\1 \end{pmatrix}$
     und $y=\begin{pmatrix} 1+10^{-10} \\-1 \end{pmatrix},
     \, \widetilde{y}=\begin{pmatrix} 1 \\-1 \end{pmatrix}$. \\
-    \begin{image}{Vektoren mit nahezu gleichem komponentenweisen Betrag}
+    \begin{image}{\copyright Vektoren mit nahezu gleichem komponentenweisen Betrag}
       \begin{tikzpicture}[>=triangle 45]
       \draw[->] (0,-2.2) -- (0,2.1);
       \draw[->] (0,0) -- (3,0);
@@ -928,7 +904,7 @@ Nun stellt sich die Frage: \textit{Was passiert durch das Implementieren am Rech
 Ein \enquote{stabiler} Algorithmus sollte ein gut konditioniertes
 Problem nicht \enquote{kaputt machen}.
 
-\begin{image}{Bildbereiche eines stabilen und eines instabilen Algorithmus}
+\begin{image}{\copyright Bildbereiche eines stabilen und eines instabilen Algorithmus}
   \begin{minipage}{0.7\linewidth}
   \begin{tikzpicture}[>=triangle 45]
 	%Linker Kreis mit allen Objekten
@@ -963,7 +939,6 @@ Problem nicht \enquote{kaputt machen}.
 
 Die Fehlerfortpflanzung durch die einzelnen Rechenschritte, aus denen die Implementierung aufgebaut ist, wird abgeschätzt.
 
-% \subsectione{Bemerkung}
 \begin{Beme}
   Für die Rechenoperationene $+,-,\, \cdot \, , \, /\,$, kurz $\nabla$, gilt:
   \begin{align}
@@ -976,7 +951,6 @@ Die Fehlerfortpflanzung durch die einzelnen Rechenschritte, aus denen die Implem
 
 %--------------------------------------------------------------
 
-% \subsectione{Beispiel}
 \begin{Bspe}
 \marginpar{29.10.2014}
   Sei $f(x_1, x_2, x_3) \coloneqq \frac{x_1x_2}{x_3}$ mit Maschinenzahlen $x_i$ und $x_3\neq 0$ und sei der Algorithmus durch
@@ -1012,7 +986,6 @@ Die Fehlerfortpflanzung durch die einzelnen Rechenschritte, aus denen die Implem
 
 Daher:
 
-% \subsectione{Definition: Elementar ausführbar}
 \begin{Defe}
   Eine Abbildung $\phi : U\subseteq \Ren \rightarrow \R^m$ heißt
   \textbf{elementar ausführbar}\index{elementar ausführbar}, falls es 
@@ -1034,7 +1007,6 @@ aus \eqref{III.3.2} folgt für $1\leq p\leq \infty$:
 \end{gather}
 
 
-% \subsectione{Definition: Algorithmus, Implementation}
 \begin{Defe}
   Sei $f:E\subseteq \Ren \rightarrow \R^m$ gegeben.\\
   Ein Tupel $\left(f^{(1)},\cdots ,f^{(l)}\right)$ mit $l\in \N$ von elementar ausführbaren
@@ -1058,7 +1030,6 @@ aus \eqref{III.3.2} folgt für $1\leq p\leq \infty$:
 \end{Defe}
 
 
-% \subsectione{Lemma (Fehlerfortpflanzung)}
 \begin{Leme}[Fehlerfortpflanzung]
   \label{3.3.5} \index{Fehler!Fortpflanzung}
   Sei $x\in \Ren$ und $\widetilde{x}\in \F^n$ mit $|\widetilde{x}_i-x_i|\leq eps|x_i|$ für alle 
@@ -1117,7 +1088,6 @@ aus \eqref{III.3.2} folgt für $1\leq p\leq \infty$:
 
 Hiermit folgt:
 
-% \subsectione{Korollar}
 \begin{Kore}
   \label{3.3.6}
   Unter der Voraussetzung von Lemma \ref{3.3.5} gilt:
@@ -1129,7 +1099,6 @@ Hiermit folgt:
   \end{gather}~
 \end{Kore}
 
-% \subsectione{Bemerkung}
 \begin{Beme}
   Mit Korollar \ref{3.3.6} ist offensichtlich, dass schlecht konditionierte Probleme 
   zu elementar ausführbaren Abbildungen so früh wie möglich ausgeführt werden sollten. \\
@@ -1139,8 +1108,7 @@ Hiermit folgt:
   Zwischenergebnis $x^{(j)}$ ab, welches a priori unbekannt ist.
 \end{Beme}
 
-% \subsectione{Bemerkung zur Sprechweise} %\label{3.3.8}
-\begin{Beme}[Sprechweise]
+\begin{Beme}[Sprechweise]\label{3.3.8}
   Der Quotient 
   \begin{gather}
     \frac{\overbrace{\frac{\nn{\widetilde{f}(\widetilde{x})-f(x)}}{\nn{f(x)}}}^{
@@ -1182,7 +1150,6 @@ Hiermit folgt:
 
 
 
-% \subsectione{Beispiel}
 \begin{Bspe}
   Nach Gleichung \eqref{III.3.3} gilt für die Elementaroperationen $\K\leq 1$.
   Da für die Subtraktion zweier annähernd gleich großer Zahlen $\kappa_{rel}\gg 1$ gilt,
@@ -1217,7 +1184,7 @@ bzw. für nicht injektive $f$
 \end{gather*} 
 ab. 
 
-\begin{image}{}
+\begin{image}{\copyright}
 \begin{tikzpicture}[scale=1,line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
   \matrix (m) [matrix of math nodes,row sep=0.4cm,column sep=3cm,minimum width=3em]
   {
@@ -1251,7 +1218,6 @@ Die Rückwärtsanalyse ist
   Genauigkeit der numerisch berechneten Werte.
 \end{itemize}
 
-% \subsectione{Bemerkung}
 \begin{Beme}
   $$ \mbox{Vorw"artsfehler} \; \leq \; \mbox{Kondition des
     Problems } \cdot \mbox{R"uckw"artsfehler} .$$
@@ -1263,7 +1229,6 @@ Die Rückwärtsanalyse ist
 \end{Beme}
 
 
-% \subsectione{Satz}
 \begin{Satze}
   $A \in \R^{n\times n}$ besitze eine LR-Zerlegung. Dann berechnet die
   Gauß-Elimination Matrizen $\hat{L}$ und $\hat{R}$,
@@ -1292,7 +1257,6 @@ Die Rückwärtsanalyse ist
 \end{proof}
 
 
-% \subsectione{Satz (Sautter 1971)}
 \begin{Satze}[Sautter 1971]
   $ A \in \R^{n\times n}$ besitze eine LR-Zerlegung.  Dann berechnet das
   Gaußsche Eliminationsverfahren für das Gleichungssystem
@@ -1374,7 +1338,6 @@ geeigneter. \\
 Für große $cond(A)$ ist dieser Quotient jedoch weiterhin ungeeignet.
 
 \extrasection{b)}{Im Sinne der Rückwärtsanalyse}
-% \subsectione{Satz (Prager und Oettli, 1964)} 
 \begin{Satze}[Prager und Oettli, 1964]\label{3.4.1}
   Sei $\tilde{ x}$ eine Näherungslösung für 
   $  A  x =  b$. 

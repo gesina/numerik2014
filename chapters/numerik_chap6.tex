@@ -842,7 +842,7 @@ Die Idee der stückweisen polynomialen Approximation ist,
 jeweils einige wenige Stützwerte polynomial zu interpolieren
 und diese \enquote{glatt} zusammenzusetzen.
 
-\begin{image}{stückweise polynomiale Approximation}
+\begin{image}{\copyright stückweise polynomiale Approximation}
   \begin{tikzpicture}[>=triangle 45]
     \draw[->,color=black] (0,0) -- (10,0);
     \draw[->,color=black] (0,0) -- (0,8);
@@ -964,7 +964,7 @@ Das Ziel ist nun eine bessere Basis zu konstruieren.
   \item \index{Splineraumbasis!$S_{1,\Delta}$-Basis}
     $S_{1,\Delta}$ sind stückweise konstante Funktionen
 
-    \begin{image}{Basis eines $S_{1,\Delta}$-Splines aus stückweise konstanten Elementen}
+    \begin{image}{\copyright Basis eines $S_{1,\Delta}$-Splines aus stückweise konstanten Elementen}
       \begin{tikzpicture}[>=triangle 45]
         \draw[->,color=black] (0,0) -- (10,0);
         \draw[->,color=black] (0,0) -- (0,5);
@@ -1070,13 +1070,13 @@ $k-1$ entspricht dem Polynomgrad.
 
 \begin{image}{}
   \includegraphics[width=\linewidth]{images/linBsplines.png}
-\end{image}
+\end{image}\label{im6.2.6(1)}
 \begin{image}{}
   \includegraphics[width=\linewidth]{images/quadBsplines.png}
-\end{image}
+\end{image}\label{im6.2.6(2)}
 \begin{image}{}
   \includegraphics[width=\linewidth]{images/kubBsplines.png}
-\end{image}
+\end{image}\label{6.2.6(3)}
 
 \begin{Kore}
   Es gilt
@@ -1473,13 +1473,13 @@ Obige Splines haben gerade diese Eigenschaft, denn:
                   versus polynomiale Interpolation:\\
                   \begin{image}{Splines versus Polynominterpolation}
                     \includegraphics[width=\linewidth]{images/laster1.png}
-                  \end{image}
+                  \end{image}\label{6.2.19(1)}
 
                   Mit mehr Stützstellen:\\
                   \begin{image}{Splines versus Polynominterpolation
                       mit vielen Stützstellen}
                     \includegraphics[width=\linewidth]{images/laster2.png} 
-                  \end{image}
+                  \end{image}\label{6.2.19(2)}
                 \end{Bspe}
 
                 \begin{Satze}[Fehlerabschätzung für kubische Splines]\label{5.2.21}
