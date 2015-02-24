@@ -36,7 +36,7 @@ Für Eigenvektoren gilt dies i.A. nicht.
       Av=\lambda v \Leftrightarrow 
       (\lambda - a_{ll})v_l = \sum_{k\neq l} a_{lk}v_k
     \end{gather*}
-    Sei nun $l$ so, dass $v_l=\nn{v}_\infty$. Dann folgt
+    Sei nun $l$ so, dass $v_l=\nn[v]_\infty$. Dann folgt
     \begin{gather*}
       |\lambda - a_{ll} | \leq \sum_{k\neq l} |a_{lk}|=r_k
     \end{gather*}
@@ -129,7 +129,7 @@ diagonalisierbare Matrix und
 sei der dominante Eigenwert $\lambda_1$ einfach,
 d.h. 
 $|\lambda_1|>|\lambda_2|\geq |\lambda_1\geq \ldots\geq |\lambda_n|$
-mit den bzgl. $\nn{\bullet}_2$ normierten Eigenvektoren $v_i$.
+mit den bzgl. $\nn_2$ normierten Eigenvektoren $v_i$.
 Weiter sei ein Startvektor $x^{(0)}\in\R^n$ gegeben,
 welcher 
 %nicht senkrecht zu $v_1$ ist.
@@ -166,13 +166,13 @@ Da $\left|\frac{\lambda_i}{\lambda_1}\right|
 \leq \left|\frac{\lambda_2}{\lambda_1}\right|<1$
 gilt, gilt
 \begin{gather*}
-  \nn{r^{(k)}} \leq \left|\frac{\lambda_2}{\lambda_1}\right|^k
+  \nn[r^{(k)}] \leq \left|\frac{\lambda_2}{\lambda_1}\right|^k
   \sum_{i=2}^n \left|\frac{\alpha_i}{\alpha_1}\right|^k
-    \underbrace{\nn{v_i}_2}_{=1}
+    \underbrace{\nn[v_i]_2}_{=1}
 \end{gather*}
 also 
 \begin{gather*}
-  \nn{r^{(k)}}_2=\mathcal{O}\left(
+  \nn[r^{(k)}]_2=\mathcal{O}\left(
     \left|\frac{\lambda_2}{\lambda_1}\right|^k 
   \right)
 \overset{\mathclap{k\rightarrow \infty}}{\longrightarrow} 0
@@ -186,19 +186,19 @@ bzw. genauer
   \overset{\mathclap{k\rightarrow \infty}}{\longrightarrow}
   \alpha_1v_1
 \end{gather*}
-Da $\nn{x^{(k)}}_2\longrightarrow\infty$ für $|\lambda_1|>1$
-und $\nn{x^{(k)}}_2\longrightarrow 0$ für $|\lambda_1|<1$,
+Da $\nn[x^{(k)}]_2\longrightarrow\infty$ für $|\lambda_1|>1$
+und $\nn[x^{(k)}]_2\longrightarrow 0$ für $|\lambda_1|<1$,
 ist es zweckmäßig $x^{(k)}$ zu normieren.
 Setze also
 \begin{gather}
-  v^{(k)} \coloneqq \frac{x^{(k)}}{ \nn{x^{(k)}} } \in \R^n
+  v^{(k)} \coloneqq \frac{x^{(k)}}{ \nn[x^{(k)}] } \in \R^n
 \label{VIII.2.3}
 \end{gather}
 so folgt, da mit $\lambda_1\in \R$,
  $sign(\lambda_1)=\frac{|\lambda_1|}{\lambda_1}\in\{-1,1\}$
  \begin{gather}
    sign(\lambda_1)^k v^{(k)} = \frac{\alpha_1}{|\alpha_1|}
-   \cdot \frac{v_1+r^{(k)}}{\nn{v_1+r^{(k)}}}
+   \cdot \frac{v_1+r^{(k)}}{\nn[v_1+r^{(k)}]}
  = sign(\alpha_1)v_1 + \mathcal{O}\left(\left| 
      \frac{\lambda_2}{\lambda_1}
      \right|^k\right)
@@ -230,11 +230,11 @@ da $v_1$ normierter Eigenvektor zu $\lambda_1$.
 \subsectione{Direkte Potenzmethode/Vektoriteration}\label{8.2.3}
 \begin{pseudocode}{0.5\linewidth}
   Wähle $x^{(0)}\in\R^n$ \\
-  $v^{(0)}\coloneqq x^{(0)}/\nn{x^{(0)}}_2$ \\
+  $v^{(0)}\coloneqq x^{(0)}/\nn[x^{(0)}]_2$ \\
   \textbf{for} $k=0,1,2,\ldots, $ \\
   |\> $\widetilde{x}^{(k+1)}= Av^{(k)}$ \\
   |\> $\lambda^{(k)} = {v^{(k)}}^T\widetilde{x}^{(k+1)}$ \\
-  |\> $v^{(k+1)} = \widetilde{x}^{(k+1)}/\nn{\widetilde{x}^{(k+1)}}_2$
+  |\> $v^{(k+1)} = \widetilde{x}^{(k+1)}/\nn[\widetilde{x}^{(k+1)}]_2$
   \\
   \textbf{end}
 \end{pseudocode}
@@ -259,7 +259,7 @@ Weiterhin gilt
 \end{gather*}
 und
 \begin{gather*}
-  \nn{sign(\lambda_1)^k v^{(k)}-v_1}
+  \nn[sign(\lambda_1)^k v^{(k)}-v_1]
   =\mathcal{O}\left( \left|
         \frac{\lambda_2}{\lambda_1}
         \right|^k \right)
@@ -343,13 +343,13 @@ Der zugehörige Algorithmus ergibt sich als
 
 \begin{pseudocode}{0.5\linewidth}
   Wähle $x^{(0)}$ \\
-  $v^{(0)} \coloneqq \frac{x^{(0)}}{\nn{x^{(0)}}_2} $\\
+  $v^{(0)} \coloneqq \frac{x^{(0)}}{\nn[x^{(0)}]_2} $\\
   \textbf{for} $k=0,1,2,\ldots$ \\
   |\> löse
   $(A-\widetilde{\lambda}I)\widetilde{x}^{(k+1)}=v^{(k)}$\\
   |\> $\lambda^{(k)} = \frac{1}{\left(v^{(k)}\right)^T \widetilde{x}^{(k+1)}}
     + \widetilde{\lambda}$\\
-  |\> $v^{(k+1)} = \widetilde{x}^{(k+1)}/\nn{\widetilde{x}^{(k+1)}}_2$\\
+  |\> $v^{(k+1)} = \widetilde{x}^{(k+1)}/\nn[\widetilde{x}^{(k+1)}]_2$\\
   \textbf{end}
 \end{pseudocode}\\
 

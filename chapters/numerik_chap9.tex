@@ -129,8 +129,8 @@ mit $r^{(k)}= b-Ax^{(k)}$ (Residuum im $k$-ten Schritt).
 Als \textbf{Abbruchkriterium}
 \begin{enumerate}[a)]
 \item sollte immer eine maximale Iterationszahl angegeben werden und
-\item wird oft für eine gegebene Toleranz $tol\geq\nn{r^{(k)}}$
-  oder wie diskutiert $tol\cdot \nn{b}\geq \nn{r^{(k)}}$ verwendet.
+\item wird oft für eine gegebene Toleranz $tol\geq\nn[r^{(k)}]$
+  oder wie diskutiert $tol\cdot \nn[b]\geq \nn[r^{(k)}]$ verwendet.
 \end{enumerate}
 
 Nach \eqref{IX.2.4} ergibt sich also die \textbf{Fixpunktiteration}
@@ -238,26 +238,26 @@ Also $J_i^k\longrightarrow 0$ für $k\longrightarrow \infty$.
 
 \begin{Leme}
   Für jede von einer Vektornorm induzierten Matrixnorm 
-$\nn{\bullet}$ gilt
+$\nn$ gilt
 \begin{gather}
-  \rho(G) \leq \nn{G}
+  \rho(G) \leq \nn[G]
 \label{IX.2.9}
 \end{gather}
 \begin{proof}
   Sei $\lambda$ Eigenwert von $G$ zum Eigenvektor $v$.
-Dann gilt $\frac{\nn{Gv}}{\nn{v}} = |\lambda|$
+Dann gilt $\frac{\nn[Gv]}{\nn[v]} = |\lambda|$
 und daraus folgt direkt
 \begin{gather*}
-  \nn{G} \geq \sup_{v\in V}\frac{\nn{Gv}}{\nn{v}}\geq |\lambda|
+  \nn[G] \geq \sup_{v\in V}\frac{\nn[Gv]}{\nn[v]}\geq |\lambda|
   \quad \forall \lambda
 \end{gather*}
 \end{proof}
 \end{Leme}
 
-$\nn{G}<1$ ist meist leichter zu prüfen als $\rho(G)<1$.
+$\nn[G]<1$ ist meist leichter zu prüfen als $\rho(G)<1$.
 Desweiteren gilt die Fehlerabschätzung
 \begin{gather}
-   \nn{x^{(k)}-x^{*}}\leq \nn{G}^k\nn{x^{(0)}-x^{*}}
+   \nn[x^{(k)}-x^{*}]\leq \nn[G]^k\nn[x^{(0)}-x^{*}]
    \label{IX.2.10}
 \end{gather}
 für submultiplikative Matrixnormen.
@@ -433,14 +433,14 @@ Das Gleichungssystem $Ax=b$ zerfällt somit in zwei kleinere
   \end{enumerate}
 In beiden Fällen gilt
 \begin{gather}
-  \nn{G_E}_\infty \leq \nn{G_G}_\infty 
+  \nn[G_E]_\infty \leq \nn[G_G]_\infty 
   = \max_i\frac{1}{|a_{ii}|}\sum_{j\neq i} |a_{ij}|
   \eqqcolon \overline{a} \leq 1
   \label{IX.3.9}
 \end{gather}
 \begin{proof}
   Es ist $G_G\coloneqq D^{-1}(L+R) = D^{-1}(A-D)$ und damit 
-  $\overline{a}=\nn{G}_\infty\leq 1$ aufgrund der Diagonaldominanz.
+  $\overline{a}=\nn[G]_\infty\leq 1$ aufgrund der Diagonaldominanz.
   Für das Einzelschrittverfahren betrachte 
     $y\coloneqq G_E x=-(D+L)^{-1}Rx$, wofür gilt
 $Dy = -Ly-Rx$. Dann
@@ -448,33 +448,33 @@ $Dy = -Ly-Rx$. Dann
   |(G_Ex)_1| = |y_1| &\leq \frac{1}{|a_{11}|}\left(
                        \sum_{j=2}^{n}|a_{1j}|\cdot |x_j|
                        \right) \\
-                     &\leq \nn{x}_\infty \frac{1}{|a_{11}|}\left(
+                     &\leq \nn[x]_\infty \frac{1}{|a_{11}|}\left(
                        \sum_{j=2}^{n}|a_{1j}|
                        \right) \\
-                     &\leq \nn{x}_\infty \overline{a}\\
-                     &\leq \nn{x}_\infty
+                     &\leq \nn[x]_\infty \overline{a}\\
+                     &\leq \nn[x]_\infty
 \end{align*}
-Rekursiv folgt aus $|y_j|\leq \nn{x}_\infty $ für $j\leq i-1$
+Rekursiv folgt aus $|y_j|\leq \nn[x]_\infty $ für $j\leq i-1$
 \begin{align}\nonumber
   |(G_Ex)_i| = |y_i| &\leq \frac{1}{|a_{ii}|}\left(
                        \sum_{j=1}^{i-1}|a_{ij}|
-                       \cdot \underbrace{|y_j|}_{\mathclap{\leq\nn{x}_\infty}}
+                       \cdot \underbrace{|y_j|}_{\mathclap{\leq\nn[x]_\infty}}
                        +\sum_{j=i+1}^{n}|a_{ij}|
-                       \cdot \underbrace{|x_j|}_{\mathclap{\leq\nn{x}_\infty}}
+                       \cdot \underbrace{|x_j|}_{\mathclap{\leq\nn[x]_\infty}}
                        \right)\\\nonumber
-                     &\leq \nn{x}_\infty \frac{1}{|a_{ii}|}\left(
+                     &\leq \nn[x]_\infty \frac{1}{|a_{ii}|}\left(
                        \sum_{j=1}^{i-1}|a_{ij}|
                        \right) \\\nonumber
-                     &=\nn{x}_\infty \overline{a}\\
-  &\leq \nn{x}_\infty
+                     &=\nn[x]_\infty \overline{a}\\
+  &\leq \nn[x]_\infty
     \label{IX.3.10}
 \end{align}
-Woraus $\nn{G_E}_\infty \leq \overline{a}=\nn{G_G}_\infty$ folgt.
+Woraus $\nn[G_E]_\infty \leq \overline{a}=\nn[G_G]_\infty$ folgt.
 
 Zu a): Aus der starken Zeilensummenbedingung folgt $\overline{a}<1$
 und
 \begin{gather*}
-  \rho(G)\leq \nn{G}_\infty \leq \overline{a}<1
+  \rho(G)\leq \nn[G]_\infty \leq \overline{a}<1
 \end{gather*}
 und mit Satz \ref{9.2.1} dann die Behauptung.
 
@@ -483,7 +483,7 @@ $\rho(G) \leq 1$ für beide Verfahren.
 Es bleibt zu zeigen, dass kein Eigenwert $\lambda$ mit
 $|\lambda|=1$ existiert.
 Angenommen $G$ hat einen Eigenwert $\lambda$ mit $|\lambda|=1$.
-Sei $v$ ein zugehöriger Eigenvektor mit $\nn{v}_\infty=1$.
+Sei $v$ ein zugehöriger Eigenvektor mit $\nn[v]_\infty=1$.
 Definiere $N_1\coloneqq \{l\in\N \mid |v_l|=1\}$
 und $N_2\coloneqq \{k\mid |v_k| <1\}$.
 Aus der Definition von $G_G$ bzw. der Ungleichung \eqref{IX.3.10}
@@ -523,35 +523,37 @@ was ist ein Widerspruch zum nicht zerfallenden $A$ ist.
   \begin{proof}
     Sei $A$ spd, dann ist $\scp{x}{x}\coloneqq x^T Ax$ ein Skalarprodukt.
     Dieses Skalarprodukt $\scp{\bullet}{\bullet}$ induziert eine
-    Norm $\nn{\bullet}$ auf dem $\R^N$.
-    Ist $\nn{\bullet}$ auf dem $\R^{N\times N}$ die zugeordnete
-    Matrixnorm, so folgt $\rho(G) \leq \nn{G}$.
+    Norm $\nn$ auf dem $\R^N$.
+    Ist $\nn$ auf dem $\R^{N\times N}$ die zugeordnete
+    Matrixnorm, so folgt $\rho(G) \leq \nn[G]$.
 
-    Zeige nun $\nn{Gx}^2\leq c^2\nn{x}^2$ für $x\neq 0$ mit $0\leq c<1$,
-    dann gilt $\nn{G}\leq c<1$ und das Verfahren konvergiert.
+    Zeige nun $\nn[Gx]^2\leq c^2\nn[x]^2$ für $x\neq 0$ mit $0\leq c<1$,
+    dann gilt $\nn[G]\leq c<1$ und das Verfahren konvergiert.
     \begin{align*}
-      \nn{x}^2-\nn{G_Ex}^2 &= \scp{x}{x}-\scp{Gx}{Gx} \\
+      \nn[x]^2-\nn[G_Ex]^2 &= \scp{x}{x}-\scp{Gx}{Gx} \\
                            &= x^TAx-x^TG^TAGx \\
                            &=x^T(A-G^TAG)x\\
-                           &\mathclap{=}^\text{s.u.} \left(
+                           &\mathrlap{=}^\text{s.u.} \left(
                              x^TA^T(D+L)^{-T}D^{\frac{1}{2}}
                              \right)
                              \cdot \left(
                              D^{\frac{1}{2}}(D+L)^{-1}Ax
                              \right)\\
-                           &=\nn{D^{\frac{1}{2}}(D+L)^{-1}Ax}_2^2\\
-                           &\geq {\underbrace{\nn{\left[
+                           &=\nn[D^{\frac{1}{2}}(D+L)^{-1}Ax]_2^2\\
+                           &\geq {\underbrace{%
+                             \nn[{\left[
                              D^{\frac{1}{2}}(D+L)^{-1}A
-                             \right]^{-1}}_2^{-2}}_{\eqqcolon
-                             k>0}}\cdot\nn{x}_2^{2}
-                           && \text{da } \nn{Bx}\geq \frac{1}{\nn{B^{-1}}}\nn{x}\\
-                           &\geq kd^2\nn{x}^2
+                             \right]^{-1}}]_2^{-2}}_{%
+                             \eqqcolon k>0}}
+                             \cdot\nn[x]_2^{2}
+                           && \text{da } \nn[Bx]\geq \frac{1}{\nn[B^{-1}]}\nn[x]\\
+                           &\geq kd^2\nn[x]^2
                            &&\text{da alle Normen auf $\R^N$ äquivalent}\\
                            &>0
     \end{align*}
 Damit gilt zusammengefasst
 \begin{gather*}
-  \underbrace{(1-kd^2)}_{c<1}\nn{x}^2\geq \nn{G_Ex}^2
+  \underbrace{(1-kd^2)}_{c<1}\nn[x]^2\geq \nn[G_Ex]^2
 \end{gather*}
 \begin{align*}
   A-G_E^TAG_E &=A-\left[(D+L)^{-1}A-I\right]^TA\left[(D+L)^{-1}A-I\right]\\

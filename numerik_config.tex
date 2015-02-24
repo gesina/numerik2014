@@ -89,10 +89,11 @@
 \newtheorem{Fol}[Def]{Folgerung}
 
 % math operators
+\DeclareMathOperator{\D}{D}
+\DeclareMathOperator{\dd}{d}
 \DeclareMathOperator{\Rang}{rang}
 \DeclareMathOperator{\Dim}{dim}
 \DeclareMathOperator{\Sign}{sign}
-\DeclareMathOperator{\Deg}{deg}
 \DeclareMathOperator{\Eps}{eps}
 \DeclareMathOperator{\Tol}{tol}
 \DeclareMathOperator{\Cond}{cond}
@@ -112,6 +113,8 @@
 \newcommand{\F}{\mathds{F}}
 \newcommand{\p}{\mathcal{P}}
 \newcommand{\K}{\mathcal{K}}
+\newcommand{\nn}[1][\,\bullet\,]{\left\| #1 \right\|}	% norm
+\newcommand{\scp}[2]{\langle #1, #2 \rangle}	% scalar prod. 
 
 % for the three boxes to show float numbers
 \newcommand{\floatbox}[3]{ %
@@ -122,8 +125,6 @@
   \end{array}
 }
 
-\newcommand{\nn}[1]{\left\| #1 \right\|}	% norm
-\newcommand{\scp}[2]{\langle #1, #2 \rangle}	% scalar prod. 
 
 % inserted sections a), b)
 \newcommand{\extrasection}[2]{\vspace{1.5eM}\minisec{\Large\itshape \thesection #1 #2}\vspace{1eM}}

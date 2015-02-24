@@ -26,25 +26,25 @@ Skalierung ändert die Länge der Basisvektoren des Bild- bzw. des Urbildvektorr
 Durch Normierung der Länge auf 1 wird die Pivotstrategie unabhängig von der 
 gewählten Einheit.
 
-Sei $A\in\Renm $ und $\nn{\,\cdot\,} $ eine Vektornorm.
+Sei $A\in\Renm $ und $\nn $ eine Vektornorm.
 
 
 \subsectione{Äquilibrierung der Zeilen} \index{Äquilibrierung!Zeilen-}
-Alle Zeilen von $D_zA$ haben die gleiche Norm, z.B. $\nn{\,\cdot\,} =1$, wofür 
+Alle Zeilen von $D_zA$ haben die gleiche Norm, z.B. $\nn =1$, wofür 
 \begin{gather}
   D_z = \begin{pmatrix}
     \sigma_1 & & 0 \\
     &\ddots & \\ 
     0 && \sigma_n
   \end{pmatrix}
-  \quad \text{ mit }\sigma_i\coloneqq \frac{1}{\nn{(a_{i1}, \dots , a_{im})}}
+  \quad \text{ mit }\sigma_i\coloneqq \frac{1}{\nn[(a_{i1}, \dots , a_{im})]}
   \label{IV.1.1}
 \end{gather}
 gesetzt wird.
 
 
 \subsectione{Äquilibrierung der Spalten} \index{Äquilibrierung!Spalten-}
-Alle Spalten von $AD_s$ haben die gleiche Norm, z.B. $\nn{\,\cdot\,} =1$, wofür 
+Alle Spalten von $AD_s$ haben die gleiche Norm, z.B. $\nn =1$, wofür 
 \begin{gather}
   D_s = \begin{pmatrix}
     \tau_1 & & 0 \\
@@ -351,7 +351,7 @@ Damit ist \eqref{IV.3.1} äquivalent zum \textbf{linearen Ausgleichsproblem}:\\
 Zu gegebenem $b\in\R^m$ und $A\in\R^{m\times n}$ mit $m\geq n$
 ist das $\overline{x} \in \R^n$ gesucht mit 
 \begin{gather}
-  \nn{b-A\overline{x}}_2 = \min_{x\in\R^n} \nn{b-Ax}_2
+  \nn[b-A\overline{x}]_2 = \min_{x\in\R^n} \nn[b-Ax]_2
   \label{IV.3.2}
 \end{gather}
 Das entspricht der \enquote{Lösung} eines überbestimmten, i.A. nicht erfüllbaren
@@ -383,7 +383,7 @@ orthogonale Projektion von $b$ auf den Bildraum $R(A) $ \index{Bildraum}, wie gl
 \begin{Satze}[Projektionssatz]
   \index{Projektionssatz} \label{4.3.3}
   Sei $V$ ein reeller Vektorraum mit einem Skalarprodukt $\scp{\cdot}{\cdot}$
-  und der induzierten Norm $\nn{v}\coloneqq \sqrt{\scp{v}{v}}$.
+  und der induzierten Norm $\nn[v]\coloneqq \sqrt{\scp{v}{v}}$.
   Sei $U\subset V$ ein endlich dimensionaler Untervektorraum und sei
   \begin{gather*}
     U^\bot \coloneqq \left\{ v\in V  \, \middle\vert \, \scp{v}{u} = 0 ~~ \forall u\in U \right\}
@@ -401,11 +401,11 @@ orthogonale Projektion von $b$ auf den Bildraum $R(A) $ \index{Bildraum}, wie gl
     \end{gather*}
   \item Zu jedem $v\in V $ bestimmt $P\cdot v$ die eindeutige Lösung
     \begin{gather*}
-      \nn{v-Pv}= \min_{u\in U} \nn{v-u}
+      \nn[v-Pv]= \min_{u\in U} \nn[v-u]
     \end{gather*}
     Also gilt mit einem eindeutigen $\overline{u}= Pv$, dass 
     \begin{gather}
-      \nn{v-\overline{u}} = \min_{u\in U} \nn{v-u} 
+      \nn[v-\overline{u}] = \min_{u\in U} \nn[v-u] 
       \Longleftrightarrow \scp{v-\overline{u}}{u} = 0 \quad \forall u\in U
       \label{IV.3.3}
     \end{gather}
@@ -449,11 +449,11 @@ orthogonale Projektion von $b$ auf den Bildraum $R(A) $ \index{Bildraum}, wie gl
 Sei  $u\in U$. Dann gilt:
     \begin{align}
       \nonumber
-      \nn{v-u}^2 &= \nn{v-\overline{u}+\overline{u} -u}^2 \\ \nonumber
-                 &= \nn{v-\overline{u}}^2 +
+      \nn[v-u]^2 &= \nn[v-\overline{u}+\overline{u} -u]^2 \\ \nonumber
+                 &= \nn[v-\overline{u}]^2 +
                    \underbrace{\scp{v-\overline{u}}{\overbrace{\overline{u}-u}^{~~\in U}}}_{=0}
-                   + \nn{u-\overline{u}}^2 \\
-                 &= \nn{v-\overline{u}}^2 + \nn{u-\overline{u}}^2
+                   + \nn[u-\overline{u}]^2 \\
+                 &= \nn[v-\overline{u}]^2 + \nn[u-\overline{u}]^2
                    \label{IV.3.5}
     \end{align}
     (Dies ist anschaulich der Satz des Pythagoras.)
@@ -465,7 +465,7 @@ Sei  $u\in U$. Dann gilt:
 \begin{Satze}
   Der Vektor $\overline{x} \in\R^n$ ist genau dann Lösung des linearen Ausgleichsproblems
   \begin{gather*}
-    \min_{x\in\Ren} \nn{b-Ax}_2 \, ,
+    \min_{x\in\Ren} \nn[b-Ax]_2 \, ,
   \end{gather*}
   falls er die Normalengleichung
   \begin{gather}
@@ -481,7 +481,7 @@ Sei  $u\in U$. Dann gilt:
   $V= \R^m, U= R(A) = \left\{Ax \, \middle|  \, x \in\Ren \right\}, b \in \R^m$.\\
   Nach \eqref{IV.3.3} gilt:
   \begin{alignat*}{2}
-    &&\nn{b-A\overline{x}}_2 &= \min_{x\in\Ren} \nn{b-Ax}_2 \\
+    &&\nn[b-A\overline{x}]_2 &= \min_{x\in\Ren} \nn[b-Ax]_2 \\
     &\Leftrightarrow \quad & \scp{b-A \overline{x}}{Ax} &= 0 \quad \forall x\in \Ren \\
     &\Leftrightarrow & \scp{A^T(b-A\overline{x})}{x} &= 0 \quad  \forall x\in\Ren \\
     &\Leftrightarrow & A^T(b-A\overline{x}) &= 0 \\
@@ -546,8 +546,8 @@ Damit ist die
   \end{gather}
   die Lösung des linearen Ausgleichsproblems und
   \begin{align*}
-    \nn{\overline{b}_2} &= \nn{b-A\overline{x}} \\
-                        & = \min_{x\in \Ren }\nn{b-Ax}
+    \nn[\overline{b}_2] &= \nn[b-A\overline{x}] \\
+                        & = \min_{x\in \Ren }\nn[b-Ax]
   \end{align*}
 \end{Satze}
 
@@ -556,11 +556,11 @@ Zur Erinnerung:
   Q \text{ orthogonal} &:\Leftrightarrow QQ^T = I \\
                        &\, \Leftrightarrow Q^{-1} = Q^T
 \end{align*}
-Weiterhin ist $Q$ längenerhaltend\index{längenerhaltend}, d.h. $\nn{Qv}_2 = \nn{v}_2$ 
+Weiterhin ist $Q$ längenerhaltend\index{längenerhaltend}, d.h. $\nn[Qv]_2 = \nn[v]_2$ 
 und somit folgt
 \begin{gather}
   \nonumber
-  \nn{Q}_2 = \nn{Q^{-1}}_2 = 1 \quad \text{und} \\
+  \nn[Q]_2 = \nn[Q^{-1}]_2 = 1 \quad \text{und} \\
   cond_2(Q) = 1
   \label{IV.3.11}
 \end{gather}
@@ -573,16 +573,16 @@ und somit folgt
   \end{align*}
   Außerdem gilt:
   \begin{align*}
-    \nn{b-Ax}_2^2 & = \nn{Q\left(Q^Tb-\begin{pmatrix}R\\0\end{pmatrix}x\right)}_2^2 \\
-                  &=  \nn{Q^Tb-\begin{pmatrix}Rx\\0\end{pmatrix}}_2^2  \\
+    \nn[b-Ax]_2^2 & = \nn[Q\left(Q^Tb-\begin{pmatrix}R\\0\end{pmatrix}x\right)]_2^2 \\
+                  &=  \nn[Q^Tb-\begin{pmatrix}Rx\\0\end{pmatrix}]_2^2  \\
                   &\overset{\mathllap{\text{$Q$ längenerhaltend}}}{=}
-                    \nn{\overline{b}_1 - Rx}_2^2  + \nn{\overline{b}_2^2}
+                    \nn[\overline{b}_1 - Rx]_2^2  + \nn[\overline{b}_2^2]
   \end{align*}
   wird minimal für $R\overline{x} = \overline{b}_1$
 \end{proof}
 
 Da $Q$ längenerhaltend ist, folgt mit \ref{3.2.13} b)
-($cond_A \coloneqq \frac{\max \nn{Ax}}{\min \nn{Ax}}$)
+($cond_A \coloneqq \frac{\max \nn[Ax]}{\min \nn[Ax]}$)
 sofort:
 \begin{gather*}
   cond_2(A) = cond_2(R)
@@ -672,11 +672,11 @@ Es wird eine Drehung auf den 1. Einheitsvektor durchgeführt:
 \end{gather*}
 d.h. Elimination von $a_2$ mit
 \begin{gather*}
-  \nn{\alpha e_1}_2 = \nn{a}_2
+  \nn[\alpha e_1]_2 = \nn[a]_2
 \end{gather*}
 Also gilt für $\alpha$
 \begin{gather*}
-  \alpha=\pm \nn{a}_2
+  \alpha=\pm \nn[a]_2
 \end{gather*}
 Drehuungen werden beschrieben durch
 \begin{gather*}
@@ -693,7 +693,7 @@ und es muss gelten
 \begin{gather*}
   Qa = \begin{pmatrix}\alpha \\ 0 \end{pmatrix}
 \end{gather*}
-Hiermit folgt für $\nn{a}= 0$
+Hiermit folgt für $\nn[a]= 0$
 \begin{align}
   \nonumber
   c&=1, s=0\\ \nonumber
@@ -701,7 +701,7 @@ Hiermit folgt für $\nn{a}= 0$
   \alpha & = \pm \sqrt{a_1^2+a_2^2}
            \label{IV.4.4}
 \end{align}
-für $\nn{a}\neq 0$.\\
+für $\nn[a]\neq 0$.\\
 Im Folgenden wird dies kurz mit
 \begin{gather*}
   [c,s] = givens(a_1, a_2)
@@ -745,7 +745,7 @@ Falls nun $[c,s] = givens(x_k, x_l)$ gilt
   \end{pmatrix}
   \qquad
   \quad \text{mit~~}
-  \alpha = \pm \nn{  \begin{pmatrix} x_k \\ x_l\end{pmatrix}}_2
+  \alpha = \pm \nn[  \begin{pmatrix} x_k \\ x_l\end{pmatrix}]_2
   \label{IV.4.6}
 \end{gather}
 d.h. eine Givens-Rotation erzeugt eine Null.\\
@@ -920,7 +920,7 @@ $a\in\R^m$ gegeben.
 Gesucht ist nun die Reflexion $Q$, so dass
 \begin{gather*}
   Qa = \alpha e_1 = \begin{pmatrix} \alpha \\ 0\\\vdots\\0\end{pmatrix}
-  \qquad \text{mit } \alpha = \pm \nn{a}
+  \qquad \text{mit } \alpha = \pm \nn[a]
 \end{gather*}
 Mit \begin{gather}
   v=a-\alpha e_1 
@@ -930,7 +930,7 @@ gegeben, welches senkrecht zu $H$ steht.\\
 Damit Stellenauslöschungen in $v$, d.h. in $v_1$, vermieden werden,
 wähle ein entsprechendes Vorzeichen für $\alpha$, also 
 \begin{gather}
-  \alpha = -sign(a_1)\nn{a}_2 
+  \alpha = -sign(a_1)\nn[a]_2 
   \label{IV.4.9}
 \end{gather}
 Die zugehörige Reflexion $Q$ ist  gegeben durch \\
@@ -958,7 +958,7 @@ Die zugehörige Reflexion $Q$ ist  gegeben durch \\
 wobei
 \begin{align}
   \nonumber
-  w &= \scp{\frac{v}{\nn{v}}}{x} \cdot \frac{v}{\nn{v}} \\ %\nonumber
+  w &= \scp{\frac{v}{\nn[v]}}{x} \cdot \frac{v}{\nn[v]} \\ %\nonumber
   Qx &= x-2w = x-2\frac{v^Tx}{v^Tv}v 
        = (I-2\frac{vv^T}{v^Tv})x 
        \label{IV.4.10}\\
@@ -969,14 +969,13 @@ und heißt \textbf{Householder Reflexion} \index{Householder Reflexion}
 (wurde  1958 von Householder eingeführt).  \\
 Für die spezielle Wahl \eqref{IV.4.8} mit \eqref{IV.4.9} vom Vektor $v$ folgt
 \begin{align}\nonumber
-  vv^T = \nn{v}^2 &= \nn{a}^2 - 2\alpha\scp{a}{e_1} + \alpha^2 \\ \nonumber
+  vv^T = \nn[v]^2 &= \nn[a]^2 - 2\alpha\scp{a}{e_1} + \alpha^2 \\ \nonumber
                   &= -2\alpha(a_1-\alpha) \\
                   & = -2\alpha v
                     \label{IV.4.12}
 \end{align}
 
 
-% \subsectione{Bemerkung}
 \begin{Beme}
   \label{4.4.4}~
   \begin{enumerate}[a)]

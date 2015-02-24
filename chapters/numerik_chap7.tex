@@ -88,7 +88,7 @@ Die \textbf{Fehlerschranke}\index{Fehlerschranke}
 (Konvergenzordnung) für $f\in C^2([a,b])$
 \begin{gather}
   \left| I(f) -\hat{I}_M(f)\right|
-  \leq \frac{h^2}{24}(b-a)\nn{f''}_\infty
+  \leq \frac{h^2}{24}(b-a)\nn[f'']_\infty
   \label{VII.1.5}
 \end{gather}
 ergibt sich aus der Taylorentwicklung
@@ -117,11 +117,11 @@ $\left(x_i+\frac{h}{2}\right)$, denn
     \frac{1}{2} f''\big(\xi_i(t)\big)
     \cdot \left(t-\left(x_i+\frac{h}{2}\right)\right)^2dt
     \right|\\
-  &\leq \nn{f''}_\infty \cdot \frac{1}{2}
+  &\leq \nn[f'']_\infty \cdot \frac{1}{2}
     \sum_{i=0}^{n-1}
     \int_{x_i}^{x_{i+1}}
     \left(t-\left(x_i+\frac{h}{2}\right)\right)^2dt\\
-  &=\frac{h^2}{24} (b-a)\nn{f''}_\infty
+  &=\frac{h^2}{24} (b-a)\nn[f'']_\infty
 \end{align*}
 Für andere Interpolationspunkte als den Mittelpunkt 
 (z.B. einer der Eckpunkt) wird $\mathcal{O}(h^2)$, d.h. 
@@ -159,7 +159,7 @@ $R_u^{(k)}(f)$ und $R_o^{(k)}(f)$ wegen
 \end{gather*}
 Später zeigen wir noch die Konvergenzordnung für $f\in C^2([a,b])$
 \begin{gather}
-  \left| I(f)-\hat{I}_T(f)\right| \leq \frac{h^2}{12}(b-a)\nn{f''}_\infty
+  \left| I(f)-\hat{I}_T(f)\right| \leq \frac{h^2}{12}(b-a)\nn[f'']_\infty
   \label{VII.1.8}
 \end{gather}
 Offensichtlich erfüllen $\hat{I}_M(f)$ und $\hat{I}_T(f)$
@@ -946,7 +946,7 @@ Skalarprodukt\index{Skalarprodukt} ein
   (f,g)\coloneqq \int_a^bw(x)f(x)g(x)dx 
   \label{VII.4.2}
 \end{gather}
-mit $\nn{f}^2\coloneqq (f,f)$.
+mit $\nn[f]^2\coloneqq (f,f)$.
 Zwei Funktionen $f$ und $g$ heißen orthogonal,
 falls $(f,g)=0$ gilt.
 

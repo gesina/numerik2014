@@ -188,11 +188,11 @@ denn für stetiges $g$ gilt:
 % \subsectione{Definition: Kontraktion} 
 \begin{Defe}
   \index{Kontraktion}
-  Sei $D\subseteq  \R^n $ abgeschlossen und $\nn{\,\cdot\,}$ eine Norm auf dem $\R^n$.
-  Eine Abbildung $g:D\rightarrow \R^n $ heißt \textbf{Kontraktion} bezüglich  $\nn{\,\cdot\,}$,
+  Sei $D\subseteq  \R^n $ abgeschlossen und $\nn$ eine Norm auf dem $\R^n$.
+  Eine Abbildung $g:D\rightarrow \R^n $ heißt \textbf{Kontraktion} bezüglich  $\nn$,
   falls es ein $\kappa \in [0,1)$ gibt mit
   \begin{gather*}
-    \nn{g(u)-g(v)} \leq \kappa \nn{u-v} \quad \forall u,v\in D
+    \nn[g(u)-g(v)] \leq \kappa \nn[u-v] \quad \forall u,v\in D
   \end{gather*}
   Die kleinste solche Zahl $\kappa$ heißt Kontraktionszahl von g.
   
@@ -216,10 +216,10 @@ denn für stetiges $g$ gilt:
 \begin{Leme}
   \label{5.2.3}
   Sei $D=\overline{\Omega} $ mit $\Omega \subseteq \R^n$ offen und konvex
-  und $\nn{\,\cdot\,}$ eine Norm auf dem $R^n$.\\
+  und $\nn$ eine Norm auf dem $R^n$.\\
   Falls $g:D\to D$ eine stetig differenzierbare Funktion ist und
-  bezüglich der zugeordneten Matrixnorm $\sup_{x\in \Omega}\nn{Dg(x)}<1$ gelte,
-  so ist $g$ kontrahierend bezüglich  $\nn{\,\cdot\,}$.
+  bezüglich der zugeordneten Matrixnorm $\sup_{x\in \Omega}\nn[Dg(x)]<1$ gelte,
+  so ist $g$ kontrahierend bezüglich  $\nn$.
 \end{Leme} 
 
 \begin{proof}
@@ -228,12 +228,12 @@ denn für stetiges $g$ gilt:
   und stetig differenzierbar. Mit dem Hauptsatz der Differenzial- und Integralrechnung
   folgt:
   \begin{align}\nonumber
-    \nn{g(u)-g(v)} & = \nn{h(1)-h(0)}  \\ \nonumber
-                   & = \nn{\int_{0}^{1} h'(t) dt} \\ \nonumber
-                   & = \nn{\int_{0}^{1} Dg(u+t(v-u))\cdot (v-u)dt} \\ \nonumber
-                   & \leq \int_{0}^{1} \nn{Dg(u+t(v-u))}dt \cdot \nn{v-u} \\
-                   & \leq \underbrace{\sup_{x\in\Omega}\nn{Dg(x)}}_{\eqqcolon \kappa} 
-                     \cdot \nn{v-u}
+    \nn[g(u)-g(v)] & = \nn[h(1)-h(0)]  \\ \nonumber
+                   & = \nn[\int_{0}^{1} h'(t) dt] \\ \nonumber
+                   & = \nn[\int_{0}^{1} Dg(u+t(v-u))\cdot (v-u)dt] \\ \nonumber
+                   & \leq \int_{0}^{1} \nn[Dg(u+t(v-u))]dt \cdot \nn[v-u] \\
+                   & \leq \underbrace{\sup_{x\in\Omega}\nn[Dg(x)]}_{\eqqcolon \kappa} 
+                     \cdot \nn[v-u]
                      \label{V.2.4}
   \end{align}
 \end{proof}
@@ -255,12 +255,12 @@ denn für stetiges $g$ gilt:
     \end{gather}
   \item Es gelte die a posteriori Fehlerabschätzung
     \begin{gather}
-      \nn{x^{(k)}-x^{*}} \leq \frac{\kappa}{1-\kappa} \nn{x^{(k)}-x^{(k-1)}}
+      \nn[x^{(k)}-x^{*}] \leq \frac{\kappa}{1-\kappa} \nn[x^{(k)}-x^{(k-1)}]
       \label{V.2.6}
     \end{gather}
     und die a priori Fehlerabschätzung
     \begin{gather}
-      \nn{x^{(k)}-x^{*}} \leq \frac{\kappa^k}{1-\kappa} \nn{x^{(1)}-x^{(0)} }
+      \nn[x^{(k)}-x^{*}] \leq \frac{\kappa^k}{1-\kappa} \nn[x^{(1)}-x^{(0)} ]
       \label{V.2.7}
     \end{gather}
   \end{enumerate}
@@ -274,12 +274,12 @@ denn für stetiges $g$ gilt:
   \item[zu 2)] Sei $x_0\in D$ beliebig. \eqref{V.2.5} ist wohldefiniert, da $g(D)\subset D$.
     $(x^{(k)})_{k\in\N}$ bilden eine Cauchyfolge, da 
     \begin{align*}
-      \nn{x^{(k+1)}-x^{(k)}} &= \nn{g(x^{(k)})-g(x^{(k-1)})} \\
-                             &\leq \kappa \nn{x^{(k)}-x^{(k-1)}} \\
-                             &\leq \kappa^k\nn{x^{(1)}-x^{(0)}} \\
-      \Longrightarrow~~ \nn{x^{(k+l)}-x^{(k)}} &\leq \sum_{i=0}^{l}\nn{x^{(k+i+1)}-x^{(k+i)}} \\
-                             &\leq \sum_{i=0}^{l}\kappa^{k+1}\nn{x^{(1)}-x^{(0)}}\\
-                             &\leq \frac{\kappa^k}{1-\kappa}\nn{x^{(1)}-x^{(0)}}
+      \nn[x^{(k+1)}-x^{(k)}] &= \nn[g(x^{(k)})-g(x^{(k-1)})] \\
+                             &\leq \kappa \nn[x^{(k)}-x^{(k-1)}] \\
+                             &\leq \kappa^k\nn[x^{(1)}-x^{(0)}] \\
+      \Longrightarrow~~ \nn[x^{(k+l)}-x^{(k)}] &\leq \sum_{i=0}^{l}\nn[x^{(k+i+1)}-x^{(k+i)}] \\
+                             &\leq \sum_{i=0}^{l}\kappa^{k+1}\nn[x^{(1)}-x^{(0)}]\\
+                             &\leq \frac{\kappa^k}{1-\kappa}\nn[x^{(1)}-x^{(0)}]
                              &&\forall l\in\N 
     \end{align*}
     Daraus folgt, dass $\lim\limits_{k\rightarrow \infty} x^{(k)}=x^{*} $ existiert 
@@ -288,21 +288,21 @@ denn für stetiges $g$ gilt:
   \item[zu 1)] Da $g$ stetig ist, ist $g(x^{*})=x^{*}$ (siehe hierzu \eqref{V.2.3}). \\
     $x^{*}	$ ist eindeutiger Fixpunkt, da für einen weiteren Fixpunkt $y^{*}$ gilt
     \begin{gather*}
-      0\leq \nn{x^{*}-y^{*}} = \nn{g(x^{*})-g(y^{*})}\leq \kappa \nn{x^{*}-y^{*}}
+      0\leq \nn[x^{*}-y^{*}] = \nn[g(x^{*})-g(y^{*})]\leq \kappa \nn[x^{*}-y^{*}]
     \end{gather*}
-    Da $\kappa<1$, muss $ \nn{x^{*}-y^{*}}=0$ sein und damit $x^{*}=y^{*}$.
+    Da $\kappa<1$, muss $ \nn[x^{*}-y^{*}]=0$ sein und damit $x^{*}=y^{*}$.
     
   \item[zu 3)] Betrachte 
     \begin{align*}
-      \nn{x^{*}-x^{(k)}} &= \lim\limits_{l\rightarrow \infty} \nn{x^{(k+l)}-x^{(k)}} \\
-      \leq  \frac{\kappa^k}{1-\kappa} \nn{x^{(1)}- x^{(0)}}
+      \nn[x^{*}-x^{(k)}] &= \lim\limits_{l\rightarrow \infty} \nn[x^{(k+l)}-x^{(k)}] \\
+      \leq  \frac{\kappa^k}{1-\kappa} \nn[x^{(1)}- x^{(0)}]
     \end{align*}
     bzw.
     \begin{align*}
-      \lim\limits_{l\rightarrow \infty} \nn{x^{(k+l)}-x^{(k)}}
-      &\leq \lim\limits_{l\rightarrow \infty} \sum_{i=0}^{l-1}\nn{x^{(k+i+1)}-x^{(k+i)}} \\
-      &\leq \lim\limits_{l\rightarrow \infty}\sum_{i=0}^{l-1}\kappa^{i+1} \nn{x^{(k)}-x^{(k-1)}} \\
-      &\leq \frac{\kappa}{1-\kappa} \nn{x^{(k)}-x^{(k-1)}} 
+      \lim\limits_{l\rightarrow \infty} \nn[x^{(k+l)}-x^{(k)}]
+      &\leq \lim\limits_{l\rightarrow \infty} \sum_{i=0}^{l-1}\nn[x^{(k+i+1)}-x^{(k+i)}] \\
+      &\leq \lim\limits_{l\rightarrow \infty}\sum_{i=0}^{l-1}\kappa^{i+1} \nn[x^{(k)}-x^{(k-1)}] \\
+      &\leq \frac{\kappa}{1-\kappa} \nn[x^{(k)}-x^{(k-1)}] 
     \end{align*}
   \end{description}
 \end{proof}
@@ -324,8 +324,8 @@ denn für stetiges $g$ gilt:
 \begin{Fole}
   \label{5.2.6}
   Sei $x^{*}\in \R^n$, so dass $g(x^{*})=x^{*}$ und sei $g$ in einer Umgebung von 
-  $\overline{B_\varepsilon(x^{*})}=\left\{ x\in \R^n \middle\vert \nn{x-x^{*}}\leq \varepsilon \right\}$
-  stetig differenzierbar und es gelte $\nn{g'(x)}<1$ für $x\in \overline{B_\varepsilon(x^{*})}$,
+  $\overline{B_\varepsilon(x^{*})}=\left\{ x\in \R^n \middle\vert \nn[x-x^{*}]\leq \varepsilon \right\}$
+  stetig differenzierbar und es gelte $\nn[g'(x)]<1$ für $x\in \overline{B_\varepsilon(x^{*})}$,
   so ist Satz \ref{5.2.4} mit $D=\overline{B_\varepsilon(x^{*})}$ anwendbar.
 \end{Fole}
 
@@ -345,13 +345,13 @@ denn für stetiges $g$ gilt:
   \end{gather*}
   und falls es ein $C>0$ sowie $N\in\N$ gibt, so dass
   \begin{gather*}
-    \nn{x^{(k+1)}-x^{*}} \leq C \nn{x^{(k)}-x^{*}}^p\qquad \forall k\geq N 
+    \nn[x^{(k+1)}-x^{*}] \leq C \nn[x^{(k)}-x^{*}]^p\qquad \forall k\geq N 
   \end{gather*}
   Im Fall $p=1$ ist zusätzlich $C<1$ und man spricht von \textbf{linearer Konvergenz}\index{Konvergenz!linear}. \\
   Für $p=2$ heißt es \textbf{quadratische Konvergenz}\index{Konvergenz!quadratisch}.
   \\Gilt 
   \begin{gather*} 
-    \lim\limits_{k\rightarrow \infty}\frac{\nn{x^{(k+1)}-x^{*}}}{\nn{x^{(k)}-x^{*}}} = 0\, ,
+    \lim\limits_{k\rightarrow \infty}\frac{\nn[x^{(k+1)}-x^{*}]}{\nn[x^{(k)}-x^{*}]} = 0\, ,
   \end{gather*} so konvergiert die Folge \textbf{superlinear}\index{Konvergenz!superlinear}.
 \end{Defe}
 
@@ -394,7 +394,7 @@ denn für stetiges $g$ gilt:
   \begin{enumerate}[a)]
   \item Falls 
     \begin{gather}
-      \lim\limits_{k\rightarrow \infty}\frac{\nn{x^{(k+1)}-x^{*}}}{\nn{x^{(k)}-x^{*}}}=
+      \lim\limits_{k\rightarrow \infty}\frac{\nn[x^{(k+1)}-x^{*}]}{\nn[x^{(k)}-x^{*}]}=
       A\in (-1,1)\, ,~ A\neq 0
       \label{V.3.1}
     \end{gather}
@@ -461,15 +461,15 @@ denn für stetiges $g$ gilt:
   Falls $p>1$, lässt sich \eqref{V.3.3} für die Normen der Differenzen zeigen,
   d.h.
   \begin{gather}
-    \nn{x^{*}-x^{(k)}} \approx \nn{x^{(k+1)}-x^{(k)}}
+    \nn[x^{*}-x^{(k)}] \approx \nn[x^{(k+1)}-x^{(k)}]
     \label{V.3.6}
   \end{gather}
   
   \begin{proof}
-    Nutze $\lim\limits_{k\rightarrow\infty} \frac{\nn{e^{(k+1)}}}{\nn{e^{(k)}}} =0$
+    Nutze $\lim\limits_{k\rightarrow\infty} \frac{\nn[e^{(k+1)}]}{\nn[e^{(k)}]} =0$
     und 
     \begin{gather*}
-      \nn{e^{(k)}}-\nn{e^{(k+1)}}\leq \nn{x^{(k+1)}-x^{(k)}} \leq \nn{e^{(k)}}+\nn{e^{(k+1)}} \, .
+      \nn[e^{(k)}]-\nn[e^{(k+1)}]\leq \nn[x^{(k+1)}-x^{(k)}] \leq \nn[e^{(k)}]+\nn[e^{(k+1)}] \, .
     \end{gather*}
   \end{proof}
 \end{Beme}
@@ -479,7 +479,7 @@ denn für stetiges $g$ gilt:
 \begin{Fole}\index{Konvergenz!Ordnung}
   Falls $p>1$ ist, kann $p$ folgendermaßen approximiert werden:
   \begin{gather*}
-    p \approx \frac{\log(\nn{x^{(k+2)}-x^{(k+1)}})}{\log(\nn{x^{(k+1)}-x^{(k)}})}
+    p \approx \frac{\log(\nn[x^{(k+2)}-x^{(k+1)}])}{\log(\nn[x^{(k+1)}-x^{(k)}])}
   \end{gather*}
 \end{Fole}
 
@@ -490,7 +490,7 @@ denn für stetiges $g$ gilt:
 \sectione{Newton-Verfahren für skalare Gleichung} \index{Newton-Verfahren}
 Sei $f:[a,b]\longrightarrow \R$ differenzierbar. Dann gilt
 \begin{gather*}
-  f(x^{*}) = f(x) + f'(x)(x^{*}-x)+o(\nn{x-x^{*}}) \, ,
+  f(x^{*}) = f(x) + f'(x)(x^{*}-x)+o(\nn[x-x^{*}]) \, ,
 \end{gather*} 
 d.h. $f$ kann lokal gut durch die Tangente approximiert werden. \\
 Betrachte die Nullstellengleichung $f(x^{*}) = 0$ \\
@@ -863,11 +863,11 @@ Falls nun die Jacobi-Matrix $Df(x)$ invertierbar ist und $f(\overline{x})= 0$ gi
   auf der $Df(x)$ invertierbar und stetig ist.\\
   Sei 
   \begin{gather*}
-    c\coloneqq \sup_{x\in B_\varepsilon(x^{*})} \nn{[Df(x)]^{-1}}
+    c\coloneqq \sup_{x\in B_\varepsilon(x^{*})} \nn[[Df(x)]^{-1}]
   \end{gather*}
   und 
   \begin{gather*}
-    w\coloneqq \sup_{x\in B_\varepsilon(x^{*})}\nn{D^2f(x)}
+    w\coloneqq \sup_{x\in B_\varepsilon(x^{*})}\nn[D^2f(x)]
   \end{gather*}
   Für $x^{(k)}\in B_\varepsilon(x^{*}) $ ist $x^{(k)}+t(x^{*}-x^{(k)})\in B_\varepsilon(x^{*})$
   für $t\in [0,1]$ und 
@@ -881,25 +881,25 @@ Falls nun die Jacobi-Matrix $Df(x)$ invertierbar ist und $f(\overline{x})= 0$ gi
                     &= [Df(x^{(k)})]^{-1}\left( h^{(k)}(1)-h^{(k)}(0)-Dh^{(k)}(0)\cdot 1\right)\\
                     &= [Df(x^{(k)})]^{-1} \int_{0}^{1}D^2h^{(k)}(1-t)dt &&\text{()Restglieddarst. der Taylorentw.)}
   \end{align*}
-  Das Ziel ist nun zu zeigen, dass $\nn{x^{(k+1)}-x^{*}} \leq c\cdot \nn{x^{(k)}-x^{*}}^2$.
+  Das Ziel ist nun zu zeigen, dass $\nn[x^{(k+1)}-x^{*}] \leq c\cdot \nn[x^{(k)}-x^{*}]^2$.
   Mit den Definitionen von oben wird die Ungleichung zu
   \begin{align}\nonumber
-    \nn{x^{(k+1)}-x^{*}} &\leq c\cdot \frac{1}{2} \sup_{t\in[0,2]} \nn{D^2h^{(k)}(t)} \\
-                         & \leq c\cdot \frac{1}{2} w\nn{x^{(k)}-x^{*}}^2
+    \nn[x^{(k+1)}-x^{*}] &\leq c\cdot \frac{1}{2} \sup_{t\in[0,2]} \nn[D^2h^{(k)}(t)] \\
+                         & \leq c\cdot \frac{1}{2} w\nn[x^{(k)}-x^{*}]^2
                            \label{V.5.5}
   \end{align}
   und zwar für alle $x^{(k)}\in B_\varepsilon(x^{*})$, wie noch gezeigt wird.\\
   Sei nun $\delta \leq \varepsilon$, so dass $\frac{1}{2} \cdot c\cdot w <1$ gilt,
   so folgt induktiv für $x^{(0)}\in B_\delta(x^{*})$ mit \eqref{V.5.5}
   \begin{align*}
-    \nn{x^{(k+1)}-x^{*}} &\leq \frac{1}{2}w\delta^2 < \delta\\
+    \nn[x^{(k+1)}-x^{*}] &\leq \frac{1}{2}w\delta^2 < \delta\\
     \Rightarrow x^{(k+1)}&\in B_\delta(x^{*})\subseteq B_\varepsilon(x^{*})
   \end{align*}
   Auf $x^{(k+1)} $ ist der nächste Iterationsschritt anwendbar
   und mit \eqref{V.5.5} folgt quadratische Konvergenz.\\
   Es bleibt zu zeigen:
   \begin{gather*}
-    \nn{D^2h(t)} \leq w\nn{x^{(k)}-x^{*}}^2 \qquad \forall t\in [0,1],~
+    \nn[D^2h(t)] \leq w\nn[x^{(k)}-x^{*}]^2 \qquad \forall t\in [0,1],~
     h:[0,1]\rightarrow\Ren,~ h=\begin{pmatrix} h_1 \\ \vdots \\ h_n \end{pmatrix}
   \end{gather*}
   Hierfür betrachte
@@ -921,9 +921,9 @@ Dies liefert folgender
   $f$ stetig differenzierbar auf $\Omega_0$ und 
   erfülle für ein $x^{(0)}\in \Omega_0$ folgendes:
   \begin{enumerate}[a)]
-  \item $\nn{Df(x) -Df(y)}\leq \gamma \nn{x-y}$ für alle $x,y\in \Omega_0$
-  \item $\nn{[Df(x^{(0)})]^{_1}} \leq \beta$
-  \item $\nn{[Df(x^{(0)})]^{_1}f(x^{(0)})} \leq \alpha$
+  \item $\nn[Df(x) -Df(y)]\leq \gamma \nn[x-y]$ für alle $x,y\in \Omega_0$
+  \item $\nn[[Df(x^{(0)})]^{_1}] \leq \beta$
+  \item $\nn[[Df(x^{(0)})]^{_1}f(x^{(0)})] \leq \alpha$
   \end{enumerate}
   mit den Konstanten $h=\alpha\beta\gamma$, $r_\pm = \frac{1\pm \sqrt{1-2h}}{h}\alpha$.\\
   Dann hat $f$, falls $h\leq \frac{1}{2}$ und $\overline{B_{r_{-}}(x^{(0)})}\subset \Omega$,
@@ -943,7 +943,7 @@ Dies liefert folgender
 \item Breche ab, wenn das Verfahren nicht konvergiert, d.h.
   wenn $x^{(k)}$ nicht im Konvergenzbereich bleibt.
 \item Breche ab, wenn das Ergebnis genau genug ist, d.h. der
-  Fehler $e^{(k)}\coloneqq \nn{x^{*}-x^{(k)}}$ klein genug ist.
+  Fehler $e^{(k)}\coloneqq \nn[x^{*}-x^{(k)}]$ klein genug ist.
 \end{enumerate}
 
 
@@ -952,15 +952,15 @@ Beim Newton-Verfahren sollte die Funktion $g$ der zugehörigen
 Fixpunktiteration eine Kontraktion sein, d.h. es muss ein 
 $\kappa \in (0,1)$ für alle $k$ geben mit
 \begin{align}\nonumber
-  \nn{\Delta x^{(k)}}&=\nn{x^{(k+1)}-x^{(k)}} \\ \nonumber
-                     &= \nn{g(x^{(k)})-g(x^{(k-1)})}\\
-                     &\leq \kappa\nn{x^{(k)}-x^{(k-1)}} = \kappa \nn{\Delta x^{(k-1)}}
+  \nn[\Delta x^{(k)}]&=\nn[x^{(k+1)}-x^{(k)}] \\ \nonumber
+                     &= \nn[g(x^{(k)})-g(x^{(k-1)})]\\
+                     &\leq \kappa\nn[x^{(k)}-x^{(k-1)}] = \kappa \nn[\Delta x^{(k-1)}]
                        \label{V.6.1}
 \end{align}
 Als Abbruchkriterium für eine (mögliche) Divergenz des Verfahrens wähle z.B.
 $\kappa=\frac{1}{2}$ und breche ab, falls 
 \begin{gather}
-  \nn{\Delta x^{(k)}}>\frac{1}{2}\nn{\Delta x^{(k-1)}}
+  \nn[\Delta x^{(k)}]>\frac{1}{2}\nn[\Delta x^{(k-1)}]
   \label{V.6.2}
 \end{gather}
 Um im Mehrdimensionalen eine vielleicht unnötig (teure) Berechnung
@@ -976,7 +976,7 @@ Ebenso ist $f(x^{(k)})$ bekannt.
 Die Lösung von \eqref{V.6.3} benötigt daher nur $\mathcal{O}(n^2)$ flops.
 Statt \eqref{V.6.2} kann dann auch auf 
 \begin{gather}
-  \nn{\overline{\Delta x}^{(k)}} \geq \frac{1}{2} \nn{\Delta x^{(k-1)}}
+  \nn[\overline{\Delta x}^{(k)}] \geq \frac{1}{2} \nn[\Delta x^{(k-1)}]
   \label{V.6.4}
 \end{gather}
 getestet werden.
@@ -985,24 +985,24 @@ getestet werden.
 \subsectione{Kriterium für erreichte Konvergenz}
 Es ist $f(x^{*})$ gesucht, also teste hierauf. Das residuumbasierte Kriterium
 \begin{gather}
-  \nn{f(x^{(k)})}\leq Tol
+  \nn[f(x^{(k)})]\leq Tol
   \label{V.6.5}
 \end{gather}\index{Toleranz}
 ist nur bedingt anwendbar, denn nach \ref{5.5.5} ist das Verfahren affin-invariant.
 Demnach bleibt $(x^{(k)})_{k\in\N}$ gleich,
 ob nun $f(x)$ oder $\widetilde{f}(x) =\alpha f(x) $ betrachtet wird.\\
 Aber für $\widetilde{f}$ bricht \eqref{V.6.5} das Verfahren ab, 
-falls $|\alpha|\cdot \nn{f(x^{(k)})} \leq Tol$. \\
+falls $|\alpha|\cdot \nn[f(x^{(k)})] \leq Tol$. \\
 Affin-invariant ist dagegen der Ansatz
 \begin{gather}
-  \nn{\Delta x^{(k)}}= \nn{x^{(k+1)}-x^{(k)}} 
-  = \nn{[Df(x^{(k)})]^{-1}f(x^{(k)})} 
+  \nn[\Delta x^{(k)}]= \nn[x^{(k+1)}-x^{(k)}] 
+  = \nn[[Df(x^{(k)})]^{-1}f(x^{(k)})] 
   \leq Tol \, .
   \label{V.6.6}
 \end{gather}
 \eqref{V.6.6} kann aufgrund der quadratischen Konvergenz (nur) für 
 große $k$ auch mit \eqref{V.3.5} der Approximation des Fehlers 
-$\nn{x^{*}-x^{(k)}} $ motiviert werden.
+$\nn[x^{*}-x^{(k)}] $ motiviert werden.
 
 
 \sectione{Varianten des Newton-Verfahrens}
@@ -1073,12 +1073,12 @@ Der fleißige Leser vergewissere sich, dass für
 Es gilt
 \begin{gather}
   f(x^{*}) = 0 \quad \Longleftrightarrow \quad 
-  \min_{x\in\Ren} \frac{1}{2} \nn{f(x)}_2^2
+  \min_{x\in\Ren} \frac{1}{2} \nn[f(x)]_2^2
   \label{V.7.5}
 \end{gather}
 Betrachte nun die Funktion $\Phi: \Ren\longrightarrow \R$ mit 
 \begin{gather*}
-  \Phi (x) \coloneqq \frac{1}{2} \nn{f(x)}_2^2 
+  \Phi (x) \coloneqq \frac{1}{2} \nn[f(x)]_2^2 
   = \frac{1}{2} f(x)^T f(x)
 \end{gather*}
 Für $\Phi$ ist die Newton-Korrektur
@@ -1105,8 +1105,8 @@ ein \enquote{geeignetes} $\mu \in (0,1]$ zu wählen und
 entsprechend zu setzen, d.h. dämpfe $d$ mit Schrittweite $\mu$.\\
 Ein möglicher \enquote{Eignungstest} ist
 \begin{gather}
-  \nn{f(x^{(k)}+\mu d^{(k)})}
-  \leq (1-\frac{1}{2}\mu )\nn{f(x^{(k)}}
+  \nn[f(x^{(k)}+\mu d^{(k)})]
+  \leq (1-\frac{1}{2}\mu )\nn[f(x^{(k)}]
   \label{V.7.8}
 \end{gather}
 Und eine mögliche Strategie um $\mu $ zu bestimmen ist 

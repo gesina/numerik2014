@@ -721,11 +721,11 @@ $[t_0,\dots,t_n, \overline{x}]f$ eine Rolle für den Fehler,
 sondern mit $w_{n+1}(\overline{x})$ auch die Verteilung der Knoten.\\
 Falls die Knoten frei wählbar sind und
 \begin{gather*}
-  \nn{f-p(f\mid t_0,\dots,t_n)}_{C([a,b])}
+  \nn[f-p(f\mid t_0,\dots,t_n)]_{C([a,b])}
 \end{gather*}
 klein ist, wird gewünscht, dass
 \begin{gather*}\index{Norm}
-  \nn{w_{n+1}}_{C([a,b])}\coloneqq \nn{w_{n+1}}_\infty
+  \nn[w_{n+1}]_{C([a,b])}\coloneqq \nn[w_{n+1}]_\infty
   = \max_{x\in[a,b]}|w_{n+1}(x)|
 \end{gather*}
 minimal ist, d.h.
@@ -754,7 +754,7 @@ sind
 Weiterhin ist der führende Koeffizient von $T_{n+1}$ genau $2^n$,
 sodass 
 \begin{gather}
-  \nn{w_{n+1}}_{C([-1,1])}=2^{-n}
+  \nn[w_{n+1}]_{C([-1,1])}=2^{-n}
   \label{VI.1.26}
 \end{gather}
 für die Tschebyscheff-Punkte gilt.\\
@@ -765,10 +765,10 @@ Für andere Intervalle $[a,b]$ wird die lineare Transformation
 von $[-1,1]$ auf $[a,b]$ durchgeführt.
 
 Wird die Fehlerabschätzung bzgl. der 
-$\nn{\,\cdot\,}_2$-Norm\index{Norm!Euklidische Norm},
+$\nn_2$-Norm\index{Norm!Euklidische Norm},
 d.h. 
 \begin{gather*}
-  \nn{f}_2\coloneqq \left(\int_{a}^{b}|f(t)|^2dt \right)^\frac{1}{2}
+  \nn[f]_2\coloneqq \left(\int_{a}^{b}|f(t)|^2dt \right)^\frac{1}{2}
 \end{gather*}
 betrachtet, erweisen sich auf $[-1,1]$ die Nullstellen
 des \textbf{Legendre-Polynoms}\index{Legendre-Polynom} $P_{n+1}$
@@ -805,7 +805,7 @@ Es gilt sogar:
   gibt es eine stetige Funktion $f$ ,
   so dass die Interpolationspolynome auf $[a, b]$
   nicht gleichmäßig gegen $f$ konvergiert 
-  (bzgl. $\nn{\,\cdot\,}_\infty$).
+  (bzgl. $\nn_\infty$).
 \end{Satze}
 
 Basierend auf dem Satz von Jackson gilt:
@@ -822,13 +822,13 @@ Andererseits gilt \cite[siehe][]{haemmerlinhoffmann}:
   so dass die Folge der Interpolationspolynome gleichmäßig gegen $f$ konvergiert.
 \end{Satze}
 
-Im Gegensatz zur $\nn{\,\cdot\,}_\infty$-Norm (auch Tschebyscheff-Norm genannt)
-gilt für die $\nn{\,\cdot\,}_2$-Norm \cite[siehe][]{haemmerlinhoffmann}:
+Im Gegensatz zur $\nn_\infty$-Norm (auch Tschebyscheff-Norm genannt)
+gilt für die $\nn_2$-Norm \cite[siehe][]{haemmerlinhoffmann}:
 \begin{Satze}
   Sei $f\in C([-1,1])$ und seien $x_0,\dots, x_n$ die Nullstellen
   des	Legendre-Polynoms $L_n+1$. Dann gilt
   \begin{gather*}
-    \lim\limits_{n\rightarrow \infty}\nn{f-p(f\mid x_0,\dots, x_n)}_2 = 0
+    \lim\limits_{n\rightarrow \infty}\nn[f-p(f\mid x_0,\dots, x_n)]_2 = 0
   \end{gather*}
 \end{Satze}
 
@@ -1231,7 +1231,7 @@ Setzt man nun
   Es gilt mit $N\coloneqq n+k-1$
   \begin{gather*}
     D_k \max_{j=1,\ldots, N} |c_j| 
-    \leq \nn{\sum^N_{j=1} c_j N_{jk}}_{\infty}
+    \leq \nn[\sum^N_{j=1} c_j N_{jk}]_{\infty}
     \leq \max_{j=1,\ldots, N} | c_j|
   \end{gather*}
   Die Konstante $D_k$ hängt nur von der Ordnung $k$ ab, nicht
@@ -1344,7 +1344,7 @@ stellt sich der Stab so ein, dass $E(y)$ minimiert wird.\\
 Unter der Annahme $|y'(t)| \ll 1$ für $t\in [a,b]$ 
 wird $E$ linearisiert zu $c\int_a^by''(t)^2dt$.
 Also wird annähernd eine Funktion $y\in C^2$ gesucht,
-welche $\nn{y''}_2^2$ minimiert.
+welche $\nn[y'']_2^2$ minimiert.
 
 Obige Splines haben gerade diese Eigenschaft, denn:
 
@@ -1355,17 +1355,17 @@ Obige Splines haben gerade diese Eigenschaft, denn:
   \begin{gather*}
     \left[s''(t)\cdot(y'(t)-s'(t))\right]_{t=a}^{b}=0
   \end{gather*}
-  Dann gilt $\nn{s''}_2 \leq \nn{y''}_2$.
+  Dann gilt $\nn[s'']_2 \leq \nn[y'']_2$.
 
   \begin{proof}
     Es gilt
     \begin{align*}
-      \nn{y''}_2^2 &= \nn{s''+(y''-s'')}_2^2\\
-                   &= \nn{s''}_2^2
+      \nn[y'']_2^2 &= \nn[s''+(y''-s'')]_2^2\\
+                   &= \nn[s'']_2^2
                      + 2\underbrace{\int_{a}^{b}s''(y''-s'')dt}_{
                      \mathclap{\substack{=0 \\ \text{ wie gezeigt wird}}}
       }
-      + \nn{y''-s''}_2^2
+      + \nn[y''-s'']_2^2
     \end{align*}
     da
     \begin{align*}
@@ -1399,7 +1399,7 @@ Obige Splines haben gerade diese Eigenschaft, denn:
   Weiterhin gilt für jede interpolierende Funktion $y\in C^2([a,b])$,
   die derselben Randbedingung genügt
   \begin{gather*}
-    \nn{s''}_2 \leq \nn{y''}_2
+    \nn[s'']_2 \leq \nn[y'']_2
   \end{gather*}
 
   \begin{proof}
@@ -1409,7 +1409,7 @@ Obige Splines haben gerade diese Eigenschaft, denn:
     Sei $f\equiv 0$, dann erfüllt $y\equiv 0$ alle Forderungen.
     für alle Lösungen $s\in S_{4,\Delta}$ gilt daher
     \begin{gather*}
-      \nn{s''}_2\leq \nn{y''}_2 =0 \quad \text{ nach \ref{6.2.16}}
+      \nn[s'']_2\leq \nn[y'']_2 =0 \quad \text{ nach \ref{6.2.16}}
     \end{gather*}
     Also gilt $s''\equiv 0$ und $s$ ist stückweise kubische Funktion
     mit $s\in C^2([a,b])$  und $s(x_i)=0$.
@@ -1488,7 +1488,7 @@ Obige Splines haben gerade diese Eigenschaft, denn:
                   zu äquidistanten Knoten mit $h=x_{i+1}-x_i$. Dann gilt
                   für $k=0,1,2,3$
                   \begin{gather*}
-                    \nn{f^{(k)}-s^{(k)}}_{\infty}\leq c_kh^{4-k}\nn{f^{(4)}}_{\infty}
+                    \nn[f^{(k)}-s^{(k)}]_{\infty}\leq c_kh^{4-k}\nn[f^{(4)}]_{\infty}
                   \end{gather*}
                   mit $c_0=\frac{5}{384}$, $c_1=\frac{1}{24}$, $c_2=\frac{3}{8}$,
                   $c_3=1$, wobei $c_0$ und $c_1$ optimal sind.
@@ -1513,7 +1513,7 @@ Obige Splines haben gerade diese Eigenschaft, denn:
                   $a=x_0<x_1<\ldots<x_n=b$. 
                   Dann gilt mit $h=max_{i=0,\ldots,n-1}|x_{i+1}-x_i|$
                   \begin{gather*}
-                    \nn{f-s}_{\infty}\leq \frac{h^2}{8}\nn{f''}_{\infty} \, .
+                    \nn[f-s]_{\infty}\leq \frac{h^2}{8}\nn[f'']_{\infty} \, .
                   \end{gather*}
 
                   \begin{proof} 
