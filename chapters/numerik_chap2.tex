@@ -1,14 +1,14 @@
 % % % % % % % % % % % % % % 
-%
-%     Skript zu NUMERIK I
-%           WS14/15
-%    von Prof. Dr. Blank
+% 
+% Skript zu NUMERIK I
+% WS14/15
+% von Prof. Dr. Blank
 % Universität Regensburg
-%
-%
+% 
+% 
 %	Kap. 2: Lineare Gleichungssysteme: Direkte Methoden
-%
-% % % % % % % % % % % % % %
+% 
+% % % % % % % % % % % % % % 
 
 
 \chapter{Lineare Gleichungssysteme: Direkte Methoden}
@@ -16,11 +16,14 @@ Sei $ A \in \R^{n\times n}$, $b \in \R^n$. Gesucht ist $x\in \R^n$ mit
 \begin{gather*}
   A\cdot x = b
 \end{gather*}
-Weitere Voraussetzungen sind die Existenz und Eindeutigkeit einer Lösung.\\
+Weitere Voraussetzungen sind die Existenz und Eindeutigkeit einer
+Lösung.
+
 Bemerkungen hierzu:
 \begin{itemize}
 \item Ein verlässlicher Lösungsalgorithmus überprüft dies und behandelt alle Fälle. 
-\item Die Cramersche Regel ist ineffizient (s. Einführung).
+\item Die Cramersche Regel ist ineffizient (s. Einführung
+  \ref{CramerscheRegel}).
 \item Das Inverse für $x=A^{-1}\cdot b$ aufzustellen ist ebenso ineffizient,
   denn es ist keine Lösung für alle $b\in \R^n$ verlangt
   und der Algorithmus wird evtl. instabil aufgrund vieler Operationen.
@@ -50,7 +53,7 @@ Der zugehörige Algorithmus sieht folgendermaßen aus:
     a_{n1}x_1 &+& a_{n2}x_2 &+& \cdots &+& a_{nn}x_n & = & b_n \\\\
               &&&& \Downarrow &&&& 
   \end{array} \\
-  \quad	(\text{i-te Zeile}) - (\text{1. Zeile})\cdot \frac{a_{i1}}{a_{11}} \Rightarrow a_{i1}=0\\
+  \quad	(\text{$i$-te Zeile}) - (\text{1. Zeile})\cdot \frac{a_{i1}}{a_{11}} \Rightarrow a_{i1}=0\\
   \begin{array}{ccccccccc}
     &&&& \Downarrow &&&&  \\\\
     a_{11}x_1 &+& a_{12}x_2 &+& \cdots &+& a_{1n}x_n & = & b_1 \\
@@ -69,7 +72,7 @@ mit
   & \text{für }i = 2, \cdots, n 
 \end{align*}
 
-%--------------------------------------------------------
+% --------------------------------------------------------
 
 In jedem Schritt werden die Einträge der $k$-ten Spalte analog 
 unterhalb der Diagonalen (also $k=1, \cdots, n-1$) eliminiert:
@@ -120,10 +123,10 @@ Dieser Prozess wird \textbf{Vorwärtselimination} genannt.\\
 Der zugehörige Algorithmus ist:
 
 \begin{pseudocode}{0.5\linewidth}
-  \textbf{for} $ k = 1, \dots , n-1$\\
-  |~	\> \textbf{for} $i = k + 1, \dots , n$ \\
+  \textbf{for} $ k = 1, \ldots , n-1$\\
+  |~	\> \textbf{for} $i = k + 1, \ldots , n$ \\
   |~	\> |~\> $l_{ik} = a_{ik} /a_{kk}$\\
-  |~	\> |~\> \textbf{for} $j = k + 1, \dots , n$ \\
+  |~	\> |~\> \textbf{for} $j = k + 1, \ldots , n$ \\
   |~	\> |~\>|~\> $a_{ij} = a_{ij} - l_{ik} a_{kj} $\\
   |~	\> |~\> \textbf{end}\\
   |~	\> |~\> $b_i = b_i -  l_{ik} b_k $\\
@@ -145,9 +148,9 @@ Für die Lösung des Gleichungssystems ist dann noch die
 Als Algorithmus:
 
 \begin{pseudocode}{0.5\linewidth}
-  \textbf{for} $k = n, n -1, \dots , 1$ \\
+  \textbf{for} $k = n, n -1, \ldots , 1$ \\
   |~		\>$x_k = b_k$ \\
-  |~		\>\textbf{for} $j = k + 1, \dots , n$ \\
+  |~		\>\textbf{for} $j = k + 1, \ldots , n$ \\
   |~		\>|~	$x_k = x_k - a_{kj}x_j$ \\
   |~		\>\textbf{end} \\
   |~		\>$x_k = x_k /a_{kk}$ \\
@@ -167,13 +170,13 @@ Als Algorithmus:
 
 \subsectione{Weitere algorithmische Anmerkungen}	\label{2.1.4}
 Matrix $A$ und Vektor $b$ sollten möglichst \textbf{nie} überschrieben werden!
-(Stattdessen kann eine Kopie überschrieben werden.) \\
+(Stattdessen kann eine Kopie überschrieben werden.)
 Das Aufstellen von $A$ und $b$ ist bei manchen Anwendungen das teuerste,
 sie gehen sonst verloren.
 In \ref{2.1.1} wird das obere Dreieck von $A$ überschrieben.
 Dies ist möglich, da in \eqref{II.1.3} nur die Zeilen $k+1, \cdots, n$
 mithilfe der $k$-ten bearbeitet werden. 
-Am Ende steht $R$ im oberen Dreieck von $A$ und $z$ in $b$. \\
+Am Ende steht $R$ im oberen Dreieck von $A$ und $z$ in $b$.
 Die $l_{ik}$ werden spaltenweise berechnet und können daher
 anstelle der entsprechenden Nullen (in der Kopie) von $A$ gespeichert werden, d.h.:
 \begin{gather}
@@ -224,10 +227,8 @@ Der Vektor $z$ und anschließend der Lösungsvektor $x$
 kann in (eine Kopie von) $b$ geschrieben werden.
 Wird eine neue rechte Seite $b$ betrachtet,
 muss \ref{II.1.1} nicht komplett neu ausgeführt werden,
-da sich $\widetilde{L}$ nicht ändert. Es reicht \ref{II.1.4} zu wiederholen. \\
+da sich $\widetilde{L}$ nicht ändert. Es reicht \ref{II.1.4} zu wiederholen.
 
-
-% \subsectione{Dreieckszerlegung} 
 \begin{Defe}
   \label{2.1.5}
   \index{Dreieckszerlegung}
@@ -235,9 +236,6 @@ da sich $\widetilde{L}$ nicht ändert. Es reicht \ref{II.1.4} zu wiederholen. \\
   entspricht dem Verfahren aus \ref{2.1.1}, nur ohne die Zeile \eqref{II.1.4}.
 \end{Defe}
 
-
-
-% \subsectione{Vorwärtssubstitution} 
 \begin{Defe}
   \index{Vorwärtssubstitution}
   Die \textbf{Vorwärtssubstitution} entspricht der in \ref{2.1.4}
@@ -256,15 +254,18 @@ da sich $\widetilde{L}$ nicht ändert. Es reicht \ref{II.1.4} zu wiederholen. \\
 
 \subsectione{Rechenaufwand gezählt in \enquote{flops}} 
 \index{flops}\index{floating point operations}\index{Rechenaufwand}
-\textbf{\enquote{flops} }= \textbf{f}loating \textbf{p}oint \textbf{op}eration\textbf{s} \\
+\index{Dreieckszerlegung!Rechenaufwand}
+\index{Vorwärtssubstitution!Rechenaufwand}
+\index{Rückwärtssubstitution!Rechenaufwand}
+\textbf{\enquote{flops} }= \textbf{fl}oating point \textbf{op}eration\textbf{s}
 \begin{enumerate}
 \item[\textbf{1.}] \textbf{Dreieckszerlegung} 
   \begin{tabbing}
-    für $j=k+1, \dots, n\quad$ \= noch ein wenig text danach \kill
-    für $j=k+1, \dots, n$ \> 1 Addition, 1 Multiplikation für $a_{ij}$ \\
-    für $i=k+1, \dots, n$ \> 1 Division zusätzl. für $ l_{ik}$
+    für $j=k+1, \ldots, n\quad$ \= 1 Addition, 1 Multiplikation für
+    $a_{ij}$ \\
+    für $i=k+1, \ldots, n$ \> 1 Division zusätzl. für $ l_{ik}$
   \end{tabbing}
-  Dies ist je für $k=1, \dots, n-1$, also ist die Zahl an Additionen und Multiplikationen
+  Dies ist je für $k=1, \ldots, n-1$, also ist die Zahl an Additionen und Multiplikationen
   \begin{align*}
     \sum_{k=1}^{n-1}(n-k)^2 &= \sum_{k=1}^{n-1}k^2 \\
                             &= \frac{(n-1)n(2n-1)}{6} \\
@@ -272,9 +273,9 @@ da sich $\widetilde{L}$ nicht ändert. Es reicht \ref{II.1.4} zu wiederholen. \\
   \end{align*}
   Für große $n$ sind das etwa $\frac{n^3}{3}$ Additionen und Multiplikationen und
   \begin{gather*}
-    \sum_{k=1}^{n-1} (n-k) = \frac{n^2-n}{2} \approx \frac{n^2}{n}
+    \sum_{k=1}^{n-1} (n-k) = \frac{n^2-n}{2} \approx \frac{n^2}{2}
   \end{gather*}
-  Divisionen. \\
+  Divisionen.
   Damit ergibt sich eine Gesamtanzahl an flops von
   \begin{gather*}
     2\cdot\frac{2n^3-3n^2+n}{6} + \frac{n^2-n}{2} 
@@ -285,7 +286,7 @@ da sich $\widetilde{L}$ nicht ändert. Es reicht \ref{II.1.4} zu wiederholen. \\
   
 \item[\textbf{2.}] \textbf{Vorwärts- bzw. Rückwärtssubstitution}  \\
   Hier ergeben sich je
-    $\sum_{k=1}^{n-1} (n-k) = \frac{n^2-n}{2} \approx \frac{n^2}{2}$
+  $\sum_{k=1}^{n-1} (n-k) = \frac{n^2-n}{2} \approx \frac{n^2}{2}$
   Multiplikationen und Additionen sowie 
   $n$ Divisionen für die Rückwärtssubstitution und damit insgesamt $n^2+n$ flops.	
 \end{enumerate}
@@ -294,8 +295,6 @@ Die Dreieckszerlegung benötigt $\mathcal{O}(n^3)$ flops und
 die Vorwärts- bzw. Rückwärtssubstitution $\mathcal{O}(n^2)$ flops.
 
 
-
-% \subsectione{Definition: Landau-Symbole} 
 \begin{Defe}[Landau-Symbole]
   \index{Landau-Symbole}
   Seien $f,g : D\longrightarrow \R, D\subset \R, -\infty\leq a\leq \infty$ und
@@ -303,45 +302,50 @@ die Vorwärts- bzw. Rückwärtssubstitution $\mathcal{O}(n^2)$ flops.
   \begin{enumerate}[a)]
   \item $f(x) = \mathcal{O}(g(x))$ für $x\longrightarrow a$, falls
     \begin{gather*}
-      \exists U(a), c\in\R:\, \forall x\in U(a) : \quad |f(x)| \leq c\cdot |g(x)|
+      \exists U(a),c\in\R\colon\forall x\in U(a)\colon |f(x)|\leq c\cdot |g(x)|
     \end{gather*}
-    (bzw. falls $\lim\limits_{x\rightarrow a}\frac{|f(x)|}{|g(x)|} \leq c$)
+    (bzw. falls $\lim\limits_{x\to a}\frac{|f(x)|}{|g(x)|} \leq c$)
   \item $f(x) = o(g(x))$ für $x\longrightarrow a$, falls 
     $\lim\limits_{x\rightarrow a}\frac{|f(x)|}{|g(x)|} = 0$
   \item $a_n = \mathcal{O}(b_n)$ für $n\longrightarrow \infty$, falls
     \begin{gather*}
-      \forall \varepsilon > 0 : \, \exists N\in\N : \, \forall n \geq N: \, |a_n| \leq \varepsilon |b_n|
+      \forall\varepsilon>0\colon\exists N\in\N\colon
+      \forall n\geq N\colon|a_n|\leq\varepsilon |b_n|
     \end{gather*}
   \end{enumerate}
 \end{Defe}
 
 \subsectione{Allgemeines zur Aufwandsbetrachtung}\index{Rechenaufwand}
-Die Anzahl der Rechenoperationen ist nicht immer ausschalggebend für den Aufwand, da
-z.B.
+Die Anzahl der Rechenoperationen ist nicht immer ausschlaggebend für
+den Aufwand, z.B.
 \begin{description}
-\item[Parallelrechner:] In manchen Algorithmen sind Rechenschritte parallel ausführbar.
-  Damit entspricht die Zeit nicht der Anzahl an Operationen und es wird zusätzlich
+\item[Parallelrechner:] 
+  In manchen Algorithmen sind Rechenschritte parallel ausführbar.
+  Damit entspricht die Zeit nicht der Anzahl an Operationen und es wird zusätzliche
   \enquote{Kommunikationszeit} benötigt.
 \item[Sortieralgorithmen:] Die Indexverwaltung benötigt Zeit, aber keine/kaum Rechenoperationen
 \item[If-When-Abfragen:] entsprechend
 \end{description}
 Rechenoperationen liefern jedoch oft eine gute Schätzung.
 
-%-----------------------------------------------------------------
+% -----------------------------------------------------------------
 
 \subsectione{Formalisieren des Gauß-Algorithmus: LR-Zerlegung}
 \marginpar{13.10.2014}
 \index{Gaußsches Eliminationsverfahren} \index{LR-Zerlegung}
 \begin{enumerate}[a)]
-\item \textbf{Rückwärtssubstitution:} entspricht $Rx=b$
-\item \textbf{Vorwärtssubstitution:} 
+\item \textbf{Rückwärtssubstitution:}\index{Rückwärtssubstitution!formal}  
+  entspricht $Rx=z$
+\item \textbf{Vorwärtssubstitution:}\index{Vorwärtssubstitution!formal} 
   \begin{align*}
-    b^{(k)}_i&=b_i^{(k-1)}-l_{ik}b_k^{k-1} && i=k+1, \dotsc , n\\
+    b^{(k)}_i&=b_i^{(k-1)}-l_{ik}b_k^{(k-1)} && i=k+1, \dotsc , n\\
     b^{(k)} &= b^{(k-1)}-l_kb_k^{(k-1)} 
-                                     && \text{mit }l_k\coloneqq 
-                                        \begin{pmatrix}0\\\vdots\\ 0\\ l_{k+1,k}\\\vdots \\l_{n,k}\end{pmatrix}
+                                             && \text{mit }l_k\coloneqq 
+                                                \begin{pmatrix}
+                                                  0&\dotsm&0&l_{k+1,k}&\dotsm&l_{n,k}
+                                                \end{pmatrix}^T
   \end{align*}
-  Sei $l_k\in\R^n$ der k-te Einheitsvektor und 
+  Sei $e_k\in\R^n$ der $k$-te Einheitsvektor und 
   \begin{gather}
     L_k \coloneqq I- l_ke_k^T = \begin{pmatrix}
       1&&&&&&\\
@@ -356,11 +360,11 @@ Rechenoperationen liefern jedoch oft eine gute Schätzung.
   \end{gather}
   dann gilt $b^{(k)} =L_kb^{(k-1)}$, also
   \begin{gather*}
-    z = L_{n-1}\cdot L_{n-2} \cdot \dots \cdot L_1b
+    z = L_{n-1}\cdot L_{n-2} \cdot \ldots \cdot L_1b
   \end{gather*}
   Sei
   \begin{gather}
-    L\coloneqq L_1^{-1} \cdot \dots \cdot L_{n-1}^{-1}
+    L\coloneqq L_1^{-1} \cdot \ldots \cdot L_{n-1}^{-1}
     \label{II.1.10}
   \end{gather}
   Hiermit folgt dann, dass die Vorwärtssubstitution
@@ -368,11 +372,12 @@ Rechenoperationen liefern jedoch oft eine gute Schätzung.
     Lz=b\label{II.1.11}
   \end{gather}
   enspricht.
-\item \textbf{Dreieckszerlegung:} Wie für die Vorwärtssubstitution ergibt sich
+\item \textbf{Dreieckszerlegung:}\index{Dreieckszerlegung!formal}
+  Wie für die Vorwärtssubstitution ergibt sich
   \begin{gather*}
     A^{(k)}=L_kA^{(k-1)}
   \end{gather*}
-  und somit $R=L_{n-1}A^{(n-2)}= L_{n-1}\dots L_1A $ bzw.
+  und somit $R=L_{n-1}A^{(n-2)}= L_{n-1}\ldots L_1A $ bzw.
   \begin{gather} 
     A=L\cdot R
     \label{II.1.12}
@@ -380,7 +385,6 @@ Rechenoperationen liefern jedoch oft eine gute Schätzung.
 \end{enumerate}
 
 
-% \subsectione{Lemma (Eigenschaften der $L_k$-Matrizen)}
 \begin{Leme}\label{2.1.12}\index{Frobeniusmatrix}~
   \begin{enumerate}[1.]
   \item $L_k$ ist eine Frobeniusmatrix, d.h. sie unterscheidet sich höchstens
@@ -421,13 +425,16 @@ Hiermit ergibt sich der folgende Satz:
     A=LR \Leftrightarrow a_{ij}=\sum_{k=1}^{\min{j,k}}l_{ik}r_{kj}
   \end{gather*}
   Da $l_{ii}=1$ gilt, folgt
-  \begin{description}
-  \item[$i\leq j$:] $r_{ij}=a_{ij}-\sum_{k=1}^{i-1}l_{ik}r_{kj}$ und
-  \item[$i>j$:] $l_{ij}= \frac{1}{r_{ij}}\left( a_{ij}-\sum_{k=1}^{j-1}l_{ik}r{kj}\right)$,
-  \end{description}
-  da mit $A$ auch $R$ regulär (=invertierbar) ist, und somit $det(A)=\prod_{j=1}^{n}\neq 0$, also $ r_{jj}\neq 0$ gilt.\\
+  \begin{align*}
+    r_{ij}&=a_{ij}-\sum_{k=1}^{i-1}l_{ik}r_{kj}  &&\text{für }i\leq j\quad\text{und}\\
+    l_{ij}&=\frac{1}{r_{ij}}\left( 
+            a_{ij}-\sum_{k=1}^{j-1}l_{ik}r_{kj}
+            \right)
+                                                 &&\text{für }i>j,
+  \end{align*}
+  da mit $A$ auch $R$ regulär (=invertierbar) ist, und somit $\det(A)=\prod_{j=1}^{n}\neq 0$, also $ r_{jj}\neq 0$ gilt.
   Diese können rekursiv, also eindeutig, berechnet werden,
-  wenn auch die Reihenfolge der Berechnung nicht eindeutig ist.\\
+  wenn auch die Reihenfolge der Berechnung nicht eindeutig ist.
   Mögliche Verfahren sind z.B. das \textbf{Verfahren von Crout}\index{Verfahren von Crout}
   \begin{gather*}
     \begin{pmatrix}
@@ -503,19 +510,18 @@ Hiermit ergibt sich der folgende Satz:
 
 \sectione{Gaußsches Eliminationsverfahren mit Pivotisierung}
 \paragraph{Beispiel} Die Matrix $A= \begin{pmatrix}0&1\\1&0\end{pmatrix} $
-ist invertierbar, aber die Gauß-Elimination versagt. Permutiere also die erste mit der
+ist invertierbar, aber die Gauß-Elimination versagt. 
+Permutiere also die erste mit der
 zweiten Zeile und der Algorithmus wird anwendbar.
-
 \paragraph{Allgemein} Vermeide die Division durch betragsmäßig kleine Zahlen! 
-
 
 \subsectione{Spaltenpivotisierung}
 \index{Pivotisierung}%
 \index{Pivotisierung!halbmaximale}\index{Pivotisierung!partielle}%
 \index{Pivotisierung!Spalten-}%
 Eine Spaltenpivotisierung, auch partielle oder halbmaximale Pivotisierung,
-erfolgt, indem im k-ten  Eliminationsschritt durch Zeilenvertauschen
-das größte Spaltenelement das Pivotelement stellt:\\
+erfolgt, indem im $k$-ten  Eliminationsschritt durch Zeilenvertauschen
+das größte Spaltenelement das Pivotelement stellt:
 \begin{image}{Ein Schritt der Spaltenpivotisierung}
   \includegraphics[width=0.5\linewidth]{images/Gausspivot.png}
 \end{image}
@@ -524,13 +530,12 @@ das größte Spaltenelement das Pivotelement stellt:\\
 \item Bestimme das Pivotelement $a_{pk}^{(k-1)}$ 
   als betragsmäßig größtes der \enquote{Rest-Spalte}, d.h.
   \begin{gather*}
-    |a_{pk}^{(k-1)}|\geq |a_{jk}^{(k-1)}| \qquad  \text{ für } j=k,\dots , n
+    |a_{pk}^{(k-1)}|\geq |a_{jk}^{(k-1)}| \qquad  \text{ für } j=k,\ldots , n
   \end{gather*}
-\item Vertausche in $A^{(k-1)}$ die k-te mit der p-ten Zeile
+\item Vertausche in $A^{(k-1)}$ die $k$-te mit der $p$-ten Zeile
 \item Führe einen Gauß-Eliminationsschritt aus.
 \end{enumerate}
 
-% \subsectione{Bemerkung}
 \begin{Beme}~
   \begin{enumerate}[a)]
   \item Hiermit gilt $|l_{jk}| \ll 1$.
@@ -560,33 +565,22 @@ von $A^{(k-1)}$ die $s$-te bearbeitete Zeile von $A$ steht, also
   \Pi^{(k)}(p) &= \Pi^{(k-1)}(k)  \quad \text{und entsprechend} \\
   \scriptsize \Pi^{(k)} (i) &= \Pi^{(k)} (i) \quad \text{ für }  i\neq k,p 
 \end{align*}
-Für die \textbf{Permutationsmatrix}\index{Permutationsmatrix}  
+Für die \textbf{Permutationsmatrix}\index{Permutationsmatrix}
+$P_{\Pi}$ gilt: 
 \begin{align*}
-  P_{\Pi}&=(e_{\Pi(1)}, \dots , e_{\Pi(n)}) 
-  &&
-     e_j\coloneqq \begin{pmatrix}
-       0\\\vdots\\0\\
-       1 \\
-       0\\\vdots\\0 
-     \end{pmatrix}
-  \begin{array}{l}
-    \\\\
-    \shortleftarrow \text{j-te Stelle}\\
-    \\\\
-  \end{array} \\
-  \text{mit }	\quad PA&= LR
+  P_{\Pi}&\coloneqq (e_{\Pi(1)}, \ldots , e_{\Pi(n)}) 
+  & e_j\coloneqq 
+    {\scriptsize\begin{pmatrix}0\\\vdots\\0\\1\\0\\\vdots\\0\end{pmatrix}
+  \begin{array}{l}\\\\\shortleftarrow \text{$j$-te Stelle}\\\\\\\end{array}}\\
+  PA&= LR \\
+  P^{-1} &= P^T
+           \det P_{\Pi} = \Sign(\Pi) 
+           % \\
+           % &=  \begin{cases}
+           %   +1&  \text{falls }\Pi \text{ von gerader}\\
+           %   -1 &  \text{falls } \Pi \text{ von ungerader}
+           % \end{cases} \text{ Anzahl an Transpositionen erzeugt wird}
 \end{align*}
-gilt
-\begin{gather*}
-  P^{-1} = P^T
-\end{gather*}
-und
-\begin{gather*}
-  \det P_{\Pi} = sign(\Pi) =  \begin{cases}
-    +1&  \text{falls }\Pi \text{ von gerader}\\
-    -1 &  \text{falls } \Pi \text{ von ungerader}
-  \end{cases} \text{ Anzahl an Transpositionen erzeugt wird}
-\end{gather*}
 
 
 \subsectione{Algorithmus: Gauß-Elimination mit Spaltenpivotisierung}\label{2.2.3}
@@ -657,12 +651,12 @@ Der zugehörige Algorithmus zur Spaltenpivotisierung ist: \\
     R = A^{(n-1)} = L_{n-1}P_{\tau_{n-1}} \cdot \dotsc \cdot L_1 P_{\tau_1} \cdot A
   \end{gather*}\\
   
-%  ------------------------------------------------------
+  % ------------------------------------------------------
 
   Da $\tau_i$ nur zwei Zahlen $\geq i $ vertauscht, ist
-   \marginpar{15.10.2014}
+  \marginpar{15.10.2014}
   \begin{align*}\index{Vorwärtselimination}
-    \Pi_i  &\coloneqq \tau_{n-1} \circ \dots \circ \tau_i \quad\text{ für } i=1,\dots (n-1) 
+    \Pi_i  &\coloneqq \tau_{n-1} \circ \ldots \circ \tau_i \quad\text{ für } i=1,\ldots (n-1) 
   \end{align*}
   eine Permutation der Zahlen $\{i,\dots, n\}$, d.h. insbesondere gilt:
   \begin{alignat*}{2}
@@ -678,7 +672,7 @@ Der zugehörige Algorithmus zur Spaltenpivotisierung ist: \\
   \end{align*}
   Damit folgt:
   \begin{align*}
-    P_{\Pi_(i+1)}\cdot L_i\cdot P_{\Pi_{i+1}}^{-1}
+    P_{\Pi_{i+1}}\cdot L_i\cdot P_{\Pi_{i+1}}^{-1}
     &= P_{\Pi_{i+1}} \cdot 
       \left(\begin{array}{ccc|ccc}
               & I_i & && 0 & \\
@@ -695,14 +689,14 @@ Der zugehörige Algorithmus zur Spaltenpivotisierung ist: \\
       I_i & 0 \\
       0 & P_{\sigma}
     \end{pmatrix}
-          \cdot   \l\cdot  \cdot
+          \cdot   \ldots  \cdot
           \left(\begin{array}{ccc|ccc}
                   & I_i & && 0 & \\
                   \cline{1-6}
                   \cdot & & -l_{i+1, i} & & & \\
                   &  0 &  \vdots      & & P_{\sigma}^{-1} &\\
                   &     & -l_{n, i} & &  & 
-		\end{array}\right) \\
+                \end{array}\right) \\
     &= \left(\begin{array}{ccc|ccc}
                & I_i & && 0 & \\
                \cline{1-6}
@@ -715,10 +709,10 @@ Der zugehörige Algorithmus zur Spaltenpivotisierung ist: \\
   \end{align*}
   und
   \begin{align*}		R =&\, L_{n-1}\\
-                                   &\cdot (P_{\tau_{n-1}}L_{n-2}P_{\tau_{n-1}}^{-1})\\
-                                   &				\cdot (P_{\tau_{n-1}}P_{\tau_{n-2}}L_{n-2}P_{\tau_{n-2}}^{-1}P_{\tau_{n-1}}^{-1})\\
-                                   &\; \vdots \\
-                                   &		 \cdot (P_{\tau_{n-1}}\dotsm P_{\tau_{1}}L_{1}P_{\tau_{1}}\dotsm P_{\tau_{n-1}}) \cdot A\\
+                           &\cdot (P_{\tau_{n-1}}L_{n-2}P_{\tau_{n-1}}^{-1})\\
+                           &				\cdot (P_{\tau_{n-1}}P_{\tau_{n-2}}L_{n-2}P_{\tau_{n-2}}^{-1}P_{\tau_{n-1}}^{-1})\\
+                           &\; \vdots \\
+                           &		 \cdot (P_{\tau_{n-1}}\dotsm P_{\tau_{1}}L_{1}P_{\tau_{1}}\dotsm P_{\tau_{n-1}}) \cdot A\\
     =&\,L_{n-1}\widehat{L}_{n-2}\dotsm\widehat{L}_1P_{\Pi_{1}}\cdot A
   \end{align*}
   Nach Lemma \autoref{2.1.12} gilt daher, es existiert eine Permutation $\Pi_{1}$ mit
@@ -751,7 +745,7 @@ Elimination durch folgende drei Schritte durchgeführt:
 \begin{Beme}~
   \begin{enumerate}[a)]
   \item $P_\Pi A=LR$ kann zur Berechnung von $\det(A)$ genutzt werden
-    (allgemeine Formel: $\det(A)=sign(\Pi)\cdot r_{11}\cdot \dots \cdot r_{nn}$).
+    (allgemeine Formel: $\det(A)=\Sign(\Pi)\cdot r_{11}\cdot \ldots \cdot r_{nn}$).
   \item Algorithmus \ref{2.2.3}  testet, ob die Matrix singulär ist,
     bis auf den Fall $r_{nn}=a_{nn}^{(n-1)}=0$.
   \item $\det(A)=0$ sollte nicht als (numerischer) Nachweis für die
@@ -793,7 +787,7 @@ Elimination durch folgende drei Schritte durchgeführt:
   Diese Werte führen auch bei Rundungsfehlern zu besseren Ergebnissen.
 \end{Bspe}
 
-%-----------------------------------------------------------------------
+% -----------------------------------------------------------------------
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../numerik_script"
