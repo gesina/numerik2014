@@ -918,22 +918,24 @@ $
     \begin{gather*}
       \kappa_{rel}=1
     \end{gather*}
-  \item Komponentenweise Kondition des Skalarproduktes:
-    \begin{align*}
-      \langle x,y \rangle \coloneqq \sum_{i=1}^{n}x_i y_i& = x^Ty \\
-      f\colon\R^2 \rightarrow \R, \, f(x,y) &= \langle x,y \rangle \\
-      \Rightarrow \D f(x,y) &= (y^T, x^T) \\
-      \kappa_{rel}  &= \frac{\left\| \,\left|(y^T, x^T)\right|\cdot\left|\begin{pmatrix}
-              x \\
-              y
-            \end{pmatrix}\right|\right\|_\infty }
-      {\nn[\langle x,y\rangle]_\infty}\\
-                                                         &= \frac{2\cdot |y^T|\cdot |x|}{|\langle x,y\rangle|} \\
-                                                         &= 2\cdot \frac{\langle |x|,|y|\rangle}{|\langle x,y\rangle|} \\
-                                                         &= 2 \cdot \frac{\cos(|x|, |y|)}{\cos(x,y)}  \\
-                                                         &&&				\text{	da  }\cos(x,y) = \frac{\scp{y,x}}{\nn[x]_2 \cdot \nn[y]_2} \, . 
-    \end{align*}
-    Falls $x$ und $y$ nahezu senkrecht aufeinander stehen, kann das Skalarprodukt sehr schlecht konditioniert sein. \\
+  \item Komponentenweise Kondition des Skalarproduktes 
+    $\scp{x}{y}\coloneqq \sum_{i=1}^{n}x_i y_i = x^Ty$ für
+    $f\colon\R^2 \to \R$, $f(x,y) = \scp{x}{y}$:\\
+    $\D f(x,y) = (y^T, x^T)$, also gilt mit
+    $\cos(x,y) = \frac{\scp{x}{y}}{\nn[x]_2 \cdot \nn[y]_2}$
+    \begin{gather*}
+      \kappa_{rel}  
+      = \frac{\nn[
+        \,\left|(y^T, x^T)\right|
+        \cdot\left|\begin{pmatrix}x\\y\end{pmatrix}\right|\,
+      ]_\infty }
+      {\nn[\langle x,y\rangle]_\infty}
+      = \frac{2\cdot |y^T|\cdot |x|}{|\langle x,y\rangle|} 
+      = 2\cdot \frac{\langle |x|,|y|\rangle}{|\langle x,y\rangle|} 
+      = 2 \cdot \frac{\cos(|x|, |y|)}{\cos(x,y)}  
+    \end{gather*}
+    Falls $x$ und $y$ nahezu senkrecht aufeinander stehen, 
+    kann das Skalarprodukt sehr schlecht konditioniert sein. 
     Zum Beispiel für $x=\widetilde{x} = \begin{pmatrix} 1 \\1 \end{pmatrix}$
     und $y=\begin{pmatrix} 1+10^{-10} \\-1 \end{pmatrix},
     \, \widetilde{y}=\begin{pmatrix} 1 \\-1 \end{pmatrix}$. \\
@@ -993,7 +995,7 @@ Problem nicht \enquote{kaputt machen}.
 Die Fehlerfortpflanzung durch die einzelnen Rechenschritte, aus denen die Implementierung aufgebaut ist, wird abgeschätzt.
 
 \begin{Beme}
-  Für die Rechenoperationene $+,-,\, \cdot \, , \, /\,$, kurz $\nabla$, gilt:
+  Für die Rechenoperationen $+,-,\, \cdot \, , \, /\,$, kurz $\nabla$, gilt:
   \begin{align}
     \nonumber
     fl(a\nabla b) &= (a\nabla b)\cdot (1+\varepsilon) \\
@@ -1006,33 +1008,38 @@ Die Fehlerfortpflanzung durch die einzelnen Rechenschritte, aus denen die Implem
 
 \begin{Bspe}
   \marginpar{29.10.2014}
-  Sei $f(x_1, x_2, x_3) \coloneqq \frac{x_1x_2}{x_3}$ mit Maschinenzahlen $x_i$ und $x_3\neq 0$ und sei der Algorithmus durch
-  \begin{gather*}
-    f(x_1, x_2, x_3) = (f^{(2)} \circ f^{(1)})(x_1, x_2, x_3) 
-  \end{gather*}
+  Sei $f(x_1, x_2, x_3) \coloneqq \frac{x_1x_2}{x_3}$ 
+  mit Maschinenzahlen $x_i$ und $x_3\neq 0$ und sei der Algorithmus
+  (siehe Definition \ref{3.3.4}) durch
+  $ f(x_1, x_2, x_3) = (f^{(2)} \circ f^{(1)})(x_1, x_2, x_3)$
   gegeben mit 
   \begin{align*}
-    f^{(1)}(x_1, x_2, x_3) & = (x_1\cdot x_2, x_3) && \text{und} \\
-    f^{(2)}(y,z) &= \frac{y}{z}
+    f^{(1)}(x_1, x_2, x_3) & = (x_1\cdot x_2, x_3) 
+    &\text{und}&
+    &f^{(2)}(y,z) &= \frac{y}{z}
   \end{align*}
-  Die Implementierung $\widetilde{f}$ von $f$  beinhaltet Rundungsfehler. \\
+  Die Implementierung $\widetilde{f}$ von $f$  beinhaltet Rundungsfehler.
 
   Sei  $x=(x_1, x_2, x_3) $. Daraus folgt
   \begin{align*}
-    \widetilde{f}^{(1)}(x) &= (fl(x_1\cdot x_2), x_3) \\
-                           & = (x_1x_2 (1+\varepsilon_1), x_3)
-                             \intertext{mit $|\varepsilon_1|\leq \Eps$:}
-                             \widetilde{f}(x) &= \widetilde{f}^{(2)}(\widetilde{f}^{(1)}(x)) \\
-                           &= fl(f^{(2)}(x_1 x_2 (1+\varepsilon_1), x_3)) \\
-                           &= \frac{x_1x_2(1+\varepsilon_1)}{x_3}\cdot (1+\varepsilon_2)  \\
-                           &= f(x)\cdot (1+\varepsilon_1)(1+\varepsilon_2)
-                             \intertext{mit $|\varepsilon_2| \leq \Eps$:}
-                             \frac{|\widetilde{f}(x) -f(x)|}{|f(x)|} &= |\varepsilon_1+\varepsilon_2 +\varepsilon_1\cdot \varepsilon_2| \\
-                           &\leq 2\Eps + \Eps^2
+    \widetilde{f}^{(1)}(x) 
+    &= (fl(x_1\cdot x_2), x_3) \\
+    & = (x_1x_2 (1+\varepsilon_1), x_3)
+      \intertext{mit $|\varepsilon_1|\leq \Eps$:}
+      \widetilde{f}(x) 
+    &= \widetilde{f}^{(2)}(\widetilde{f}^{(1)}(x)) \\
+    &= fl(f^{(2)}(x_1 x_2 (1+\varepsilon_1), x_3)) \\
+    &= \frac{x_1x_2(1+\varepsilon_1)}{x_3}\cdot (1+\varepsilon_2)  \\
+    &= f(x)\cdot (1+\varepsilon_1)(1+\varepsilon_2)
+      \intertext{mit $|\varepsilon_2| \leq \Eps$:}
+      \frac{|\widetilde{f}(x) -f(x)|}{|f(x)|} 
+    &= |\varepsilon_1+\varepsilon_2 +\varepsilon_1\cdot \varepsilon_2| \\
+    &\leq 2\Eps + \Eps^2
   \end{align*}
-  Dies ist eine \enquote{worst case} Analyse, da immer der maximale Fehler angenommen wird,
-  und gibt i.d.R. eine starte Überschätzung des Fehlers an.
-  Für qualitative Aussagen sind sie jedoch unnützlich. \\
+  Dies ist eine \enquote{worst case} Analyse, 
+  da immer der maximale Fehler angenommen wird,
+  und gibt i.d.R. eine starke Überschätzung des Fehlers an.
+  Für qualitative Aussagen sind sie jedoch nicht nützlich.
   In Computersystemen stehen mehr Operationen wie $\nabla$ zur Verfügung,
   die mit einer relativen Genauigkeit $\Eps$ realisiert werden können.	
 \end{Bspe}
@@ -1043,7 +1050,7 @@ Daher:
   Eine Abbildung $\phi\colon U\subseteq \Ren \to R^m$ heißt
   \textbf{elementar ausführbar}\index{elementar ausführbar}, falls es 
   eine elementare Operation $\widetilde{\phi}\colon\F^n \to \F^m$
-  gibt, wobei $\F$ die Menge der Maschinenzahlen bezeichne mit
+  gibt, wobei $\F$ die Menge der Maschinenzahlen bezeichne, mit
   \begin{gather}
     |\widetilde{\phi}_i(x)-\phi_i(x)| \leq \Eps\cdot |\phi_i(x) | 
     \quad \forall x\in \F^n \text{ und } i=1,\ldots , m \label{III.3.2}\, .
@@ -1055,19 +1062,20 @@ Daher:
 \textbf{Bemerkung}\\
 aus \eqref{III.3.2} folgt für $1\leq p\leq \infty$
 \begin{gather}
-  \nn[\widetilde{\phi}(x)-\phi(x)]_p \leq \Eps\cdot\nn[\phi(x)]_n 
+  \nn[\widetilde{\phi}(x)-\phi(x)]_p \leq \Eps\cdot\nn[\phi(x)]_p
   \quad \forall x\in\F^n \label{III.3.3}
 \end{gather}
 
 
-\begin{Defe}
-  Sei $f\colon E\subseteq \Ren \to \R^m$ gegeben.\\
-  Ein Tupel $\left(f^{(1)},\ldots ,f^{(l)}\right)$ mit $l\in \N$ von elementar ausführbaren
-  Abbildungen
+\begin{Defe}\label{3.3.4}
+  Sei $f\colon E\subseteq \Ren \to \R^m$ gegeben.
+  Ein Tupel $\left(f^{(1)},\ldots ,f^{(l)}\right)$ 
+  mit $l\in \N$ von elementar ausführbaren Abbildungen
   \begin{gather*}
     f^{(i)}\colon U_1\subseteq \R^{k_i} \to U_{i+1}\subseteq \R^{k_{i+1}}
   \end{gather*}
-  mit $k_1=n$ und $k_{l+1}=m$ heißt \textbf{Algorithmus}\index{Algorithmus} von $f$, falls
+  mit $k_1=n$ und $k_{l+1}=m$ heißt 
+  \textbf{Algorithmus}\index{Algorithmus} von $f$, falls
   \begin{gather*}
     f=f	^{(l)}\circ \dotsc \circ f^{(1)}
   \end{gather*}
@@ -1078,7 +1086,7 @@ aus \eqref{III.3.2} folgt für $1\leq p\leq \infty$
   \begin{gather*}
     \widetilde{f}=\widetilde{f}	^{(l)}\circ \dotsc \circ \widetilde{f}^{(1)}
   \end{gather*}
-  heißt Implementation von f. \\
+  heißt Implementation von f.
   Im Allgemeinen gibt es verschiedene Implementierungen einer Abbildung $f$.
 \end{Defe}
 
@@ -1088,22 +1096,27 @@ aus \eqref{III.3.2} folgt für $1\leq p\leq \infty$
   Sei $x\in \Ren$ und $\widetilde{x}\in \F^n$ mit $|\widetilde{x}_i-x_i|\leq \Eps|x_i|$ für alle 
   $i=1,\ldots , n$.
   Sei $\left(f^{(1)},\dotsc ,f^{(l)}\right)$ ein Algorithmus für $f$ und 
-  $(\widetilde{f}^{(1)},\dotsc ,\widetilde{f}^{(l)})$ eine zugehörige Implementation. \\
+  $(\widetilde{f}^{(1)},\dotsc ,\widetilde{f}^{(l)})$ 
+  eine zugehörige Implementation.
   Mit den Abkürzungen
   \begin{align*}
     x^{(j+1)} &\coloneqq f^{(j)}\circ \dotsc \circ f^{(1)}(x) \\
     x^{(1)} &\coloneqq x
   \end{align*}
   und entsprechend mit $\widetilde{x}^{(j+1)}$ gilt,
-  falls $x^{(j+1)} \neq 0$ für alle $j=0,\dotsc , (l-1)$ und $\nn$ eine beliebige p-Norm ist,
+  falls $x^{(j+1)} \neq 0$ für alle $j=0,\dotsc , (l-1)$ 
+  und $\nn$ eine beliebige p-Norm ist,
   \begin{align}
     \frac{\nn[\widetilde{x}^{(j+1)}-x^{(j+1)}]}{\nn[x^{(j+1)}]}
     &\leq \Eps \cdot \K + o\left(\Eps\right)
       \label{III.3.4} 
     \\ \nonumber
-    \K^{(j)}&=(1+\kappa^{(j)}+\kappa^{(j)}\cdot \kappa^{(j-1)}+ \ldots + \kappa^{(j)}\cdot \dotsm \cdot \kappa^{(1)}) \\ \nonumber
+    \K^{(j)} &=(1+\kappa^{(j)}+\kappa^{(j)}\cdot \kappa^{(j-1)}
+               + \ldots 
+               + \kappa^{(j)}\cdot \dotsm \cdot \kappa^{(1)})
   \end{align}
-  wobei $	\kappa^{(j)} \coloneqq \kappa_{rel}(f^{(j)}, x^{(j)})$ die Kondition der elementar ausführbaren Operationen $f^{(j)}$ ist.
+  wobei $\kappa^{(j)} \coloneqq \kappa_{rel}(f^{(j)}, x^{(j)})$
+  die Kondition der elementar ausführbaren Operationen $f^{(j)}$ ist.
 \end{Leme}
 
 \begin{proof}
@@ -1111,12 +1124,19 @@ aus \eqref{III.3.2} folgt für $1\leq p\leq \infty$
     \frac{\nn[\widetilde{x}^{(j+1)}-x^{(j+1)}]}{\nn[x^{(j+1)}]}
     &= \frac{\nn[\widetilde{f}^{(j)}(\widetilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
       {\nn[f^{(j)}(x^{(j)})]} \\
+    &\leq \frac{\nn[\widetilde{f}(\widetilde{x})-f(x)]}
+      {\nn[f(x)]}
+      \qquad \text{(Index $j$ vernachlässigt)}\\
+    &= \frac{\nn[\widetilde{f}(\widetilde{x})-f(\widetilde{x})
+      +f(\widetilde{x}) - f(x)]}
+      {\nn[f(x)]}\\
+    &\leq \frac{\nn[\widetilde{f}(\widetilde{x})-f(\widetilde{x})]}{\nn[f(x)]}
+      + \frac{\nn[f(\widetilde{x})-f({x})]}{\nn[f(x)]} \\
     &\leq \frac{\nn[\widetilde{f}(\widetilde{x})-f(\widetilde{x})]}{\nn[f(\widetilde{x})]}
       \cdot \frac{\nn[f(\widetilde{x})]}{\nn[f(x)]}
-      + \frac{\nn[f(\widetilde{x})-f({x})]}{\nn[f(x)]} 
-      \quad\quad \text{(Index $j$ vernachlässigt)}\\
+      + \frac{\nn[f(\widetilde{x})-f({x})]}{\nn[f(x)]} \\
     &\leq \Eps \left( 1+ \frac{\nn[f(\widetilde{x})-f({x})]}{\nn[f(x)]}\right)
-      + \frac{\nn[f(\widetilde{x})-f({x}])}{\nn[f(x)]}\\
+      + \frac{\nn[f(\widetilde{x})-f({x})]}{\nn[f(x)]}\\
     &\overset{\text{nach \ref{III.3.3}}}{=} \Eps + (\Eps+1) \cdot 						\left(\kappa{(j)}\cdot \frac{\nn[\widetilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}\right)
       + o\left( \frac{\nn[\widetilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}\right)
   \end{align*}
