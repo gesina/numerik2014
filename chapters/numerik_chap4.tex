@@ -18,16 +18,18 @@
 
 Mit Skalierung $D_zA$ (\textbf{Zeilenskalierung})\index{Skalierung!Zeilen-} oder
 $D_sA$ (\textbf{Spaltenskalierung})\index{Skalierung!Spalten-}
-mittels Diagonalmatrizen $D_z, D_s$ lässt sich eine Pivotstrategie beliebig abändern.
-Jetzt ist die Frage: \\
+mittels Diagonalmatrizen $D_z, D_s$ 
+lässt sich eine Pivotstrategie beliebig abändern.
+Jetzt ist die Frage:
+
 \textit{Was ist eine \enquote{gute} Skalierung?}
 
-Skalierung ändert die Länge der Basisvektoren des Bild- bzw. des Urbildvektorraumes.
-Durch Normierung der Länge auf 1 wird die Pivotstrategie unabhängig von der 
-gewählten Einheit.
+Skalierung ändert die Länge der Basisvektoren 
+des Bild- bzw. des Urbildvektorraumes.
+Durch Normierung der Länge auf 1 
+wird die Pivotstrategie unabhängig von der gewählten Einheit.
 
 Sei $A\in\Renm $ und $\nn $ eine Vektornorm.
-
 
 \subsectione{Äquilibrierung der Zeilen} \index{Äquilibrierung!Zeilen-}
 Alle Zeilen von $D_zA$ haben die gleiche Norm, z.B. $\nn =1$, wofür 
@@ -51,17 +53,17 @@ Alle Spalten von $AD_s$ haben die gleiche Norm, z.B. $\nn =1$, wofür
     &\ddots & \\ 
     0 && \tau_m
   \end{pmatrix}
-  \quad \text{ mit }\tau_j\coloneqq \nn{\begin{pmatrix}
+  \quad \text{ mit }\tau_j\coloneqq \nn[\begin{pmatrix}
       a_{1j} \\ \vdots \\ a_{nj}
-    \end{pmatrix}}^{-1}
+    \end{pmatrix}]^{-1}
   \label{IV.1.2}
 \end{gather}
 gesetzt wird.
 
-Äquilibrierung von Zeilen \textbf{und} Spalten führt zu einem nichtlinearen Gleichungssystem und ist i.d.R. aufwendig.
+Äquilibrierung von Zeilen \textbf{und} Spalten 
+führt zu einem nichtlinearen Gleichungssystem und ist i.d.R. aufwendig.
 
 
-% \subsectione{Lemma}
 \begin{Leme}
   \label{4.3.1}
   Sei $A$ zeilenäquilibriert bzgl. der $l_1$-Norm, dann gilt:
@@ -75,34 +77,33 @@ gesetzt wird.
   siehe Übungsaufgabe
 \end{proof}
 
-Wie in Kapitel \ref{3} gesehen, kann die Näherungslösung $\widetilde{x}$ 
+Wie in Kapitel \ref{3} gesehen, kann die Näherungslösung $\tilde{x}$ 
 trotz Pivotisierung und Äquilibrierung noch sehr ungenau sein.
 
 
 \subsectione{Nachiteration} \index{Nachiteration}
-Die Näherung $\widetilde{x}$ kann durch Nachiteration verbessert werden. \\
-Falls $\widetilde{x}$ exakt ist, gilt:
+Die Näherung $\tilde{x}$ kann durch Nachiteration verbessert werden.
+Falls $\tilde{x}$ exakt ist, gilt:
 \begin{gather}
-  r(\widetilde{x}) \coloneqq b-A\widetilde{x} =0 \label{IV.1.4}
+  r(\tilde{x}) \coloneqq b-A\tilde{x} =0 \label{IV.1.4}
 \end{gather}
-ansonsten ist $A(x-\widetilde{x})=r(\widetilde{x}).$ \ \
+ansonsten ist $A(x-\tilde{x})=r(\tilde{x}).$ \ \
 Also löse die Korrekturgleichung
 \begin{gather}
-  A\Delta x = r(\widetilde{x}) 	\label{IV.1.5}
+  A\Delta x = r(\tilde{x}) 	\label{IV.1.5}
 \end{gather}
-und setze
-\begin{gather*}
-  x^{(1)} \coloneqq \widetilde{x} +\Delta x
-\end{gather*}
+und setze $x^{(1)} \coloneqq \tilde{x} +\Delta x$
 Wiederhole dies sooft, bis $x^{(i)}$ \enquote{genau genug} ist.
-Die Lösung $\widetilde{x}$ wird durch Nachiteration meist mit sehr gutem Erfolg verbessert
-\cite[genaueres in ][]{dahmenreusken}\\
+Die Lösung $\tilde{x}$ wird durch Nachiteration 
+meist mit sehr gutem Erfolg verbessert
+\cite[genaueres in ][]{dahmenreusken}.
+
 \eqref{IV.1.5} wird mit der bereits vorhandenen LR-Zerlegung
-nur mit der neuen rechten Seite $r(\widetilde{x})$ gelöst, 
+nur mit der neuen rechten Seite $r(\tilde{x})$ gelöst, 
 d.h. eine vorwärts und eine Rückwärtssubstitution
 mit $\mathcal{O}(n^2)$ flops.
 
-% \subsectione{Bemerkung (nach Skeel 1980)}
+
 \begin{Beme}[nach Skeel 1980]
   Die Gauß-Elimination mit Spaltenpivotsuche und einer Nachiteration
   ist komponentenweise stabil.
@@ -111,10 +112,9 @@ mit $\mathcal{O}(n^2)$ flops.
 
 \sectione{Cholesky-Verfahren}
 Im Folgenden sei $A$ eine symmetrische, positiv definite Matrix in $\Renn $, d.h.
-$A=A^T$ und $\langle x, Ax \rangle = x^TAx > 0 \quad $ für alle $ x\neq 0$. \\
+$A=A^T$ und $\langle x, Ax \rangle = x^TAx > 0$ für alle $ x\neq 0$. 
 (kurs: \textbf{spd Matrix}) \index{spd Matrix}
 
-% \subsectione{Satz (Eigenschaften von symm., pos. def. Matrizen)} 
 \begin{Satze}
   \label{4.2.1}
   Für jede spd Matrix $A\in \Renn $ gilt:
@@ -122,7 +122,8 @@ $A=A^T$ und $\langle x, Ax \rangle = x^TAx > 0 \quad $ für alle $ x\neq 0$. \\
   \item $A$ ist invertierbar
   \item $a_{ii}>0$ für $i=1, \dots , n$
   \item $\max_{ij}|a_{ij}| = \max_{i}a_{ii}$
-  \item Bei der Gauß-Elimination ohne Pivotsuche ist jede Restmatrix wieder eine spd Matrix.
+  \item Bei der Gauß-Elimination ohne Pivotsuche 
+    ist jede Restmatrix wieder eine spd Matrix.
   \end{enumerate}
 \end{Satze}
 
@@ -131,26 +132,29 @@ $A=A^T$ und $\langle x, Ax \rangle = x^TAx > 0 \quad $ für alle $ x\neq 0$. \\
   \item Es gilt $x^TAx\neq 0\Rightarrow Ax\neq 0$. 
     Nach ii) ist $Ax\neq 0~\forall x\in\Ren\backslash \{0\}$
     also $ker(A)=0$. %folgt aus \eqref{IV.2.1}
-  \item Sei $e_i$ der i-te Einheitsvektor, so folgt $a_{ii} = e_{i}^TAe_i > 0$.
+  \item Sei $e_i$ der $i$-te Einheitsvektor, so folgt $a_{ii} = e_{i}^TAe_i > 0$.
   \item siehe Übungsaufgabe
   \item Es gilt:
     \begin{align*}
-      A^{(1)} &\coloneqq A = \begin{pmatrix}
+      A^{(1)} 
+      &\coloneqq A = \begin{pmatrix}
         a_{11} & z^T \\ 
-        z			& B^{(1)}
+        z      & B^{(1)}
       \end{pmatrix} \\
-      A^{(2)}	&\coloneqq L_1 A^{(1)} 
-                  = \begin{pmatrix}
-                    1 & 0 & \dotsm & 0 \\ \\
-                    -\frac{z}{a_{ii}} && I \\ ~
-                  \end{pmatrix} 
+      A^{(2)} 
+      &\coloneqq L_1 A^{(1)} 
+        = \begin{pmatrix}
+          1 & 0 & \dotsm & 0 \\ \\
+          -\frac{z}{a_{ii}} && I \\ ~
+        \end{pmatrix} 
+      \cdot A^{(1)}
       = \begin{pmatrix}
         a_{11} &  & z^T & ~ \\ 
         0 \\
         \vdots && B^{(2)} \\ 
         0
       \end{pmatrix} \\
-      \Rightarrow L_1A^{(1)}L_1^T  
+      \Longrightarrow L_1A^{(1)}L_1^T  
               &= \begin{pmatrix}
 		a_{11} &  & z^T & ~ \\ 
 		0 \\
@@ -170,16 +174,14 @@ $A=A^T$ und $\langle x, Ax \rangle = x^TAx > 0 \quad $ für alle $ x\neq 0$. \\
 		0
               \end{pmatrix} 
     \end{align*}
-    Weiterhin gilt:
-    \begin{gather*}
-      x\neq 0 \Leftrightarrow L_1 x\neq 0 \,
-    \end{gather*}
+    Weiterhin gilt
+    $ x\neq 0 \Leftrightarrow L_1 x\neq 0$
     da $L_1$ invertierbar. Also gilt insgesamt:
     \begin{align*}
-      \widetilde{x}^TB^{(2)} \widetilde{x} &= x^T L_1A^{(1)}L_1^Tx
-      &&  \text{für } x\coloneqq \begin{pmatrix}	0 \\ \widetilde{x}\end{pmatrix}\\
+      \tilde{x}^TB^{(2)} \tilde{x} &= x^T L_1A^{(1)}L_1^Tx
+      &&  \text{für } x\coloneqq \begin{pmatrix}	0 \\ \tilde{x}\end{pmatrix}\\
                                            &= (L_1^Tx)^TA(L_1^Tx) > 0
-      && \forall \widetilde{x}\neq 0 
+      && \forall \tilde{x}\neq 0 
     \end{align*}
     und damit ist auch $B^{(2)}$ spd.
     
@@ -192,13 +194,12 @@ Insbesondere ergibt sich:
   (L_{n-1}\cdot \cdots\cdot L_1)A^{(1)}(L_1^T\cdot \cdots \cdot L_{n-1}^T) 
   = \begin{pmatrix} d_1 & & 0 \\ &\vdots& \\ 0&& d_n\end{pmatrix} \, ,
 \end{gather*}
-wobei $d_i$ das i-te Diagonalelement von $A^{(i)}$ ist und somit $d_i>0$ für $ i= 1, \cdots , n$ gilt. \\
+wobei $d_i$ das $i$-te Diagonalelement von $A^{(i)}$ 
+ist und somit $d_i>0$ für $ i= 1, \cdots , n$ gilt. 
 
 Sei $L\coloneqq (L_1^{-1}\cdot \cdots \cdot L_{n-1}^{-1})$ wie in \eqref{II.1.8}, so ergibt sich:
 
 
-
-% \subsectione{Folgerung}
 \begin{Fole}[Cholesky-Zerlegung]
   \label{4.2.2}
   Für jede spd Matrix $A$ existiert eine eindeutige Zerlegung der Form 
