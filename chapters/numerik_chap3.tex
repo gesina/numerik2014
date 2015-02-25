@@ -35,7 +35,7 @@ Bei der Fehleranalyse liegt das Hauptaugenmerk auf
 \item[] \textbf{Eingabefehler}\\ z.B.Rundungsfehler, Fehler in Messdaten, Fehler im Modell (falsche Parameter)
 \item[] \textbf{Fehler im Algorithmus} \\ z.B. Rundungsfehler durch Rechenoperationen, Approximationen \\
   (z.B. Ableitung durch Differenzenquotient oder die Berechnung von Sinus durch abgebrochene Reihenentwicklung)
-  \\
+
 \item[\textit{1. Frage}] Wie wirken sich Eingabefehler auf das Resultat unabhängig vom gewählten Algorithmus aus?
 \item[\textit{2. Frage}]Wie wirken sich (Rundungs-)Fehler des Algorithmus aus?\\
   Und wie verstärkt der Algorithmus Eingabefehler?
@@ -117,12 +117,12 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
 \item $b=\sum_{i=0}^{7}b_i\cdot2^i \in \{1, \cdots, 254\}$ 
   speichert den Exponenten mit 
   $e = b-\underbrace{127}_{\mathclap{\text{Basiswert}}}$ (kein Vorzeichen nötig).
-  Beachte: $b_0=\ldots=b_7=1$ sowie $b_0=\ldots=b_7=0$ sind bis auf Ausnahmen keine gültigen Exponenten
-\item $m=(a_1.a_2\ldots a_{24})=1+\sum_{\nu=2}^{24}a_{\nu}2^{1-\nu}$ stellt die Mantisse dar, $a_1=1$ wird nicht abgespeichert.
+  Beachte: $b_0=\dotso=b_7=1$ sowie $b_0=\dotso=b_7=0$ sind bis auf Ausnahmen keine gültigen Exponenten
+\item $m=(a_1.a_2\dotso a_{24})=1+\sum_{\nu=2}^{24}a_{\nu}2^{1-\nu}$ stellt die Mantisse dar, $a_1=1$ wird nicht abgespeichert.
 \item Besondere Zahlen per Konvention:
   \begin{itemize}
-  \item[$x=0$:] $s$ bel., $b=0$, $m=1 \quad \floatbox{s}{0\ldots0}{0\ldots0}$
-  \item[$x=\pm\infty$:]  $s$ bel., $b=255$, $m=1  \quad \floatbox{s}{1\ldots1}{0\ldots0}$
+  \item[$x=0$:] $s$ bel., $b=0$, $m=1 \quad \floatbox{s}{0\dotso0}{0\dotso0}$
+  \item[$x=\pm\infty$:]  $s$ bel., $b=255$, $m=1  \quad \floatbox{s}{1\dots1o}{0\dotso0}$
   \item[$x=$NaN] $s$ bel., $b=255$, $m\neq 1$
   \item[$x=(-1)^s$] $s$ bel., $b=0$, $m\neq 1$ und x hat die Form $x=(0+\sum_{\nu=2}^{24}a_{\nu}\cdot 2^{1-\nu})\cdot 2^{126}$ (\enquote{denormalized} number)
   \end{itemize}
@@ -133,11 +133,11 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
 \marginpar{20.10.2014}
 \begin{align*}
   \intertext{Betragsmäßig \textbf{größte Zahl}:}
-  \floatbox{0}{01\ldots 1}{ 1\ldots\ldots 1} 
+  \floatbox{0}{01\dotso 1}{ 1\dotso 1} 
   && x_{max} = (2-2^{-23})\cdot 2^{127}  
   & \approx 3,4 \cdot 10^{38}
     \intertext{Betragsmäßig \textbf{kleinste Zahl}:}
-    \floatbox{0}{0\ldots 0}{ 0\ldots\ldots 01} 
+    \floatbox{0}{0\dotso 0}{ 0\dotso 01} 
   && x_{min} = 2^{-23}\cdot 2^{-126} = 2^{-149}  
   & \approx 1,4 \cdot 10^{-45}
 \end{align*}
@@ -145,7 +145,8 @@ Interpretation ($s,b,a_i\in\{0,1\} \forall i$)
 \subsectione{Verteilung der Maschinenzahlen} \label{3.1.4}
 Die Maschinenzahlen sind ungleichmäßig im Dezimalsystem verteilt, z. B.
 \begin{align*}
-  x &= \pm a_1 . a_2 a_3 \cdot 2^e  &\text{mit } -2\leq e\leq 1 \text{ und } a_i  \in \{0,1\} 
+  x &= \pm a_1 . a_2 a_3 \cdot 2^e  
+  &\text{mit } -2\leq e\leq 1 \text{ und } a_i  \in \{0,1\} 
 \end{align*}
 \begin{image}{\copyright}
   \begin{tikzpicture}[scale=3]
@@ -191,7 +192,7 @@ eindeutig gegeben ist durch die Schranke an den \textbf{absoluten Rundungsfehler
     \beta^{e+1+t}            & \text{bei Abschneiden}
   \end{cases} \quad .
 \end{align*}
-Für die \textbf{relative Rechengenauigkeit} \index{Genauigkeit!relative Rechengenauigkeit}folgt somit 
+Für die \textbf{relative Rechengenauigkeit} \index{Fehler!relative Rechengenauigkeit}folgt somit 
 \begin{align*}
   \frac{| fl(x) - x | }{|x|} 
   & \leq 
@@ -200,9 +201,12 @@ Für die \textbf{relative Rechengenauigkeit} \index{Genauigkeit!relative Recheng
       \beta^{1-t}            & \text{bei Abschneiden}
     \end{cases} \quad .
 \end{align*}
-Die \textbf{Maschinengenauigkeit} \index{Genauigkeit!Maschinengenauigkeit} des Rechners ist daher durch 
+Die \textbf{Maschinengenauigkeit} \index{Maschinengenauigkeit}
+des Rechners ist daher durch 
 \begin{align*}
-  \Eps &= \beta^{1-t} & \text{(für float}\approx 10^{-7}  \text{, für double} \approx10^{-16} )
+  \Eps &= \beta^{1-t} 
+  & \text{(für float}\approx 10^{-7}  
+    \text{, für double} \approx10^{-16} )
 \end{align*}
 gegeben.
 
@@ -248,15 +252,16 @@ Weiterhin gilt:
 \subsectione{Auslöschung von signifikanten Stellen} \label{3.1.8}
 Sei $x=9,995\cdot 10^{-1}, y=9,984 \cdot 10^{-1}$. Runde auf drei signifikante Stellen und berechne $x-y$:
 \begin{align*}
-  \widetilde{f}(x,y) &\coloneqq fl(fl(x)- fl(y)) = fl(1,00\cdot 10^0 - 9,98\cdot 10^{-1}) \\
-                     &= 	fl(0,02\cdot 10^{-1}) \\
-                     &= fl(2,00 \cdot 10^{-3}) \\
+  \widetilde{f}(x,y) 
+  &\coloneqq fl(fl(x)- fl(y)) = fl(1,00\cdot 10^0 - 9,98\cdot 10^{-1}) \\
+  &= 	fl(0,02\cdot 10^{-1}) \\
+  &= fl(2,00 \cdot 10^{-3}) \\
   f(x,y)  &\coloneqq x-y \\
-                     &= 0,0011 = 1,1\cdot 10^{-3}
-                       \intertext{Daraus ergibt sich der relative Fehler}
-                       \frac{|\widetilde{f}(x,y)-f(x,y)|}{|f(x,y)|}
-                     &= \frac{|2\cdot 10^{-3}- 1,1\cdot 10^{-3}|}{|1,1\cdot 10^{-3}|}
-                       = 82\%
+  &= 0,0011 = 1,1\cdot 10^{-3}
+    \intertext{Daraus ergibt sich der relative Fehler}
+    \frac{|\widetilde{f}(x,y)-f(x,y)|}{|f(x,y)|}
+  &= \frac{|2\cdot 10^{-3}- 1,1\cdot 10^{-3}|}{|1,1\cdot 10^{-3}|}
+    = 82\%
 \end{align*}
 Der Grund hierfür ist, dass das Problem der Substraktion zweier annähernd gleich großer Zahlen
 schlecht konditioniert ist.\\
@@ -264,7 +269,8 @@ schlecht konditioniert ist.\\
 \paragraph{Zwei Regeln:}
 \begin{enumerate}[1)]
 \item Umgehbare Substraktion annähernd gleich großer Zahlen vermeiden!
-\item Unumgängliche Substraktion möglichst an den Anfang des Algorithmus stellen! (siehe später)
+\item Unumgängliche Substraktion möglichst 
+  an den Anfang des Algorithmus stellen! (siehe später)
 \end{enumerate}
 
 % 2.2
@@ -279,7 +285,8 @@ untersucht.
 \begin{Defe}
   \label{3.2.1} \index{Problem}
   Sei $f\colon U \subseteq \R^n \to \R^m$ mit $U$ offen und sei $x\in U$.
-  Dann bezeichne $(f, x)$ das Problem, zu einem gegebenen $x$ die Lösung $f(x)$ zu finden.
+  Dann bezeichne $(f, x)$ das Problem, 
+  zu einem gegebenen $x$ die Lösung $f(x)$ zu finden.
 \end{Defe}
 
 \begin{Defe}
@@ -290,12 +297,14 @@ untersucht.
   \item[a)] $\nn[\widetilde{x} - x]$ heißt \textbf{absoluter Fehler} \index{Fehler!absoluter}
   \item[b)] $\frac{\nn[\widetilde{x} - x]}{\nn[x]}$ heißt \textbf{relativer Fehler}\index{Fehler!relativer}
   \end{itemize}
-  Da der relative Fehler skalierungsinvariant ist, d.h. unabhänging von der  Wahl von $x$ ist, ist dieser i.d.R. von größerem Interesse.
+  Da der relative Fehler skalierungsinvariant ist, 
+  d.h. unabhänging von der  Wahl von $x$ ist, ist dieser i.d.R. von größerem Interesse.
   Beide Fehler hängen von der Wahl der Norm ab!
   Häufig werden Fehler auch komponentenweise gemessen:
   \begin{align*}
-    \text{Für } i=1,\ldots , n : && |\widetilde{x}_i - x_i | & \leq \delta & \text{ (absolut)} \\
-                                 && |\widetilde{x}_i - x_i | &\leq \delta |x_i| & \text{ (relativ)}
+    \text{Für } i=1,\dotsc , n : 
+    && |\widetilde{x}_i - x_i | & \leq \delta & \text{ (absolut)} \\
+    && |\widetilde{x}_i - x_i | &\leq \delta |x_i| & \text{ (relativ)}
   \end{align*}
 \end{Defe}
 
@@ -323,7 +332,7 @@ untersucht.
     && \nn[x]_2 &\coloneqq \sqrt{\sum_{i=1}^{n}|x_i|^2}
                   \index{Norm!Euklidische Norm} \\
     \text{Maximumsnorm ($l_\infty$-Norm):} 
-    && \nn[x]_\infty &\coloneqq \max\{|x_i| \mid i=1, \ldots n\}
+    && \nn[x]_\infty &\coloneqq \max\{|x_i| \mid i=1, \dotsc n\}
                        \index{Norm!Maximumsnorm} \\
     \text{Hölder-Norm ($l_p$-Norm):} 
     && \nn[x]_p &\coloneqq \left(\sum_{i=1}^{n}|x_i|^p\right)^{\frac{1}{p}} 
@@ -357,9 +366,10 @@ untersucht.
   \item \textbf{p-Norm}: 
     $\quad \nn[A]_p \coloneqq \nn[A]_{p,p}
     \index{p-Norm}$
-  \item Eine Matrixnorm heißt \textbf{verträglich} \index{Norm!verträglich} mit den Vektornormen 
-    $\nn_a, \nn_b$, falls gilt
-    \footnote{ Beachte: $\nn[A]_{a,b}$ ist die kleinste Norm im Gegensatz zu $\nn[A]$, welche hier beliebig ist.}
+  \item Eine Matrixnorm heißt \textbf{verträglich}\index{Norm!verträglich} 
+    mit den Vektornormen $\nn_a, \nn_b$, falls gilt
+    \footnote{ Beachte: $\nn[A]_{a,b}$ ist die kleinste Norm 
+      im Gegensatz zu $\nn[A]$, welche hier beliebig ist.}
     \begin{gather*}
       \nn[Ax]_b \leq \nn[A]\cdot \nn[x]_a \quad \forall x\in \R^n
     \end{gather*}
@@ -368,27 +378,33 @@ untersucht.
 \begin{Beme}~
   \label{3.2.6}
   \begin{enumerate}[a)]
-  \item Die Normen $\nn_F$ und $\nn_p$ sind \textbf{submultiplikativ} \index{Norm!submultiplikative}, d.h.
+  \item Die Normen $\nn_F$ und $\nn_p$ sind 
+    \textbf{submultiplikativ} \index{Norm!submultiplikative}, d.h.
     \begin{gather*}
       \nn[A\cdot B] \leq \nn[A]\cdot\nn[B]
     \end{gather*}
-  \item Die Norm $\nn_{1,1}$ wird auch \textbf{Spaltensummennorm}\index{Norm!Spaltensummennorm} genannt:
+  \item Die Norm $\nn_{1,1}$ wird auch 
+    \textbf{Spaltensummennorm}\index{Norm!Spaltensummennorm} genannt:
     \begin{gather*}
       \nn[A]_1 = \max_{1\leq j \leq n}\sum_{i=1}^{m}|a_{ij}|
     \end{gather*}
     Sie ist das Maximum der Spaltensummen\footnote{Beweis: siehe Übungsblatt 3}.
-  \item Die Norm $\nn_{\infty, \infty}$ wird auch \textbf{Zeilensummennorm} \index{Zeilensummennorm}
+  \item Die Norm $\nn_{\infty, \infty}$ wird auch 
+    \textbf{Zeilensummennorm} \index{Zeilensummennorm}
     genannt\footnote{Beweis: siehe Übungsblatt 3}:
     % not sure, why \footref won't work here ...
     \begin{gather*}
       \nn[A]_\infty = \max_{1\leq i \leq m}\sum_{j=1}^{n}|a_{ij}|
     \end{gather*}
-  \item Die Frobeniusnorm $\nn_F$ ist verträglich mit der euklidischen Norm $\nn_2$
-  \item Die Wurzeln aus den Eigenwerten von $A^TA$ heißen \textbf{Singulärwerte $\sigma_i$} \index{Singulärwert} von A.
+  \item Die Frobeniusnorm $\nn_F$ ist verträglich 
+    mit der euklidischen Norm $\nn_2$
+  \item Die Wurzeln aus den Eigenwerten von $A^TA$ 
+    heißen \textbf{Singulärwerte $\sigma_i$} \index{Singulärwert} von A.
     Mit ihnen kann die $\nn_{2,2}$ Norm dargestellt werden\footnote{Beweis: siehe Übungsblatt 3}:
     \begin{align*}
-      \nn[A]_2 &= max \{\sqrt{\mu} \mid A^TA\cdot x = \mu x\text{ für ein }x\neq 0 \} \\
-               & = \sigma_{max}
+      \nn[A]_2 
+      &= max \{\sqrt{\mu}\mid A^TA\cdot x=\mu x\text{ für ein }x\neq 0\} \\
+      & = \sigma_{max}
     \end{align*}
   \end{enumerate}
 \end{Beme}
@@ -409,13 +425,15 @@ untersucht.
 
 % ---------------------------------------------
 
-\begin{Defe}
+\begin{Defe}\label{3.2.7}
   \marginpar{22.10.2014}
   \index{normweise Kondition}
   Sei $(f,x)$ ein Problem mit $f\colon U\subset \R^n \to \R^m$
   und $\nn_a$ auf $\R^n$ und $\nn_b$ auf $\R^m$ eine Norm.
   \begin{enumerate}[a)]
-  \item Die \textbf{absolute normweise Kondition}\index{Kondition!normweise, absolut} eines Problems $(f,x)$ ist die kleinste Zahl 
+  \item Die \textbf{absolute normweise
+      Kondition}\index{Kondition!normweise, absolut} 
+    eines Problems $(f,x)$ ist die kleinste Zahl 
     $\kappa _{abs} > 0 $ mit
     \begin{align}
       \nn[f(\widetilde{x})-f(x)]_b 
@@ -427,7 +445,9 @@ untersucht.
         \pm o\left(\nn[\widetilde{x}-x]\right)}_{Taylorentwicklung}
         \quad \text{für }\widetilde{x}\to x \Bigr)
     \end{align}
-  \item Die \textbf{relative normweise Kondition}\index{Kondition!normweise. relativ} eines Problems $(f,x)$  mit $x\neq 0, f(x) \neq 0$
+  \item Die \textbf{relative normweise
+      Kondition}\index{Kondition!normweise. relativ} 
+    eines Problems $(f,x)$  mit $x\neq 0, f(x) \neq 0$
     ist die kleinste Zahl 
     $\kappa _{rel} > 0 $ mit
     \begin{align}
@@ -453,7 +473,9 @@ untersucht.
   \end{gather}
   und für $f(x) \neq 0$
   \begin{gather}
-    \kappa_{rel}(f,x) = \frac{\nn[x]_a}{\nn[f(x)]_b}\cdot \nn[\D f(x)]_{a,b} \label{III.2.5}
+    \kappa_{rel}(f,x) 
+    = \frac{\nn[x]_a}{\nn[f(x)]_b}\cdot \nn[\D f(x)]_{a,b} 
+    \label{III.2.5}
   \end{gather}
   wobei $\D f(x)$ die Jakobi-Matrix bezeichnet.
 \end{Leme}
@@ -473,7 +495,7 @@ untersucht.
     \kappa_{abs} (f,x)&= \nn[\D f(x)]_{1,1} && \text{(Matrix-Norm!)}\\
                       &= \nn[\D f(x)]_1 \\
                       &=1 \\
-    \kappa_{rel} (f,x) &= \frac{\nn[x]_1}{\nn[f(x)]_1} \cdot \nn[\D f(x)]_{1} \\
+    \kappa_{rel} (f,x)&= \frac{\nn[x]_1}{\nn[f(x)]_1} \cdot \nn[\D f(x)]_{1} \\
                       &= \frac{|x_1| + |x_2|}{|x_1+x_2|}
   \end{align*}
   Daraus folgt: Die Addition zweier Zahlen mit gleichem Vorzeichen ergibt
@@ -520,15 +542,18 @@ untersucht.
     \begin{align*}
       A(x + \Delta x) &= b+\Delta b \\
       f(b + \Delta b) - f(b) &= \Delta x \\
-                      &= A^{-1} \cdot \Delta b && \text{da }x = A^{-1}b \\
+                      &= A^{-1} \cdot \Delta b 
+                             && \text{da }x = A^{-1}b \\
       \Rightarrow \nn[\Delta x]_{b}  &= \nn[A^{-1}\Delta b]_{b} \\
-                      &\leq \nn[A^{-1}]_{a,b}\cdot \nn[\Delta b]_{b} && \forall b, \Delta b 
+                      &\leq \nn[A^{-1}]_{a,b}\cdot \nn[\Delta b]_{b} 
+                             && \forall b, \Delta b 
     \end{align*}
     wobei $\nn$ auf $\Renn$ die dem $\Ren$ zugeordnete Matrix-Norm sei. \\
     Die Abschätzung ist \textbf{scharf}\index{scharf}, 
     d.h. es gibt ein $\Delta b\in \R^n$, so dass \enquote{=} gilt, 
     nach Definition \ref{3.2.4}. \\
-    Also gilt\footnote{vgl. auch Lemma \ref{3.2.8}: $\kappa_{abs}(f,b)=\nn[\D f(b)]_{a,b}=\nn[A^{-1}]_{a,b}$},
+    Also gilt\footnote{vgl. auch Lemma \ref{3.2.8}: 
+      $\kappa_{abs}(f,b)=\nn[\D f(b)]_{a,b}=\nn[A^{-1}]_{a,b}$},
     \begin{gather}
       \kappa_{abs}(f,b) = \nn[A^{-1}]_{a,b} \label{III.2.6}
     \end{gather}
@@ -539,7 +564,8 @@ untersucht.
       \frac{\nn[	f(b + \Delta b) - f(b)]}{\nn[f(b)]} 
       &= \frac{\nn[\Delta x]}{\nn[x]}\\ \nonumber
       &= \frac{\nn[A^{-1}\Delta b]}{\nn[x]} \\ \nonumber
-      &\leq  \frac{\nn[A^{-1}]\cdot \nn[b]}{\nn[x]} \cdot \frac{\nn[\Delta b]}{\nn[b]} \\
+      &\leq  \frac{\nn[A^{-1}]\cdot \nn[b]}{\nn[x]} 
+        \cdot \frac{\nn[\Delta b]}{\nn[b]} \\
       \intertext{Damit}
       \kappa_{rel} (f,b) 
       &= \nn[A^{-1}]\cdot\frac{\nn[b]}{\nn[A^{-1}\cdot b]}
@@ -618,13 +644,22 @@ untersucht.
     \begin{gather*}
       (A+\Delta A)(x+\Delta x) = (b+\Delta b) 
     \end{gather*}
-    Für $\kappa$ müsste $\nn[(A,b)]$ festgelegt werden. Dies wird jedoch nicht betrachtet. Es gilt aber folgende Abschätzung für invertierbare Matrizen $A\in \Renn $ und Störungen
-    $\Delta A \in \R^{n\times n}$ mit $\nn[A^{-1}]\cdot \nn[\Delta A] < 1$:
+    Für $\kappa$ müsste $\nn[(A,b)]$ festgelegt werden. 
+    Dies wird jedoch nicht betrachtet. 
+    Es gilt aber folgende Abschätzung 
+    für invertierbare Matrizen $A\in \Renn $ 
+    und Störungen $\Delta A \in \R^{n\times n}$ 
+    mit $\nn[A^{-1}]\cdot \nn[\Delta A] < 1$:
     \begin{align}
-      \frac{\nn[\Delta x]}{\nn[x]} & \leq \nn[A] \cdot \nn[A^{-1}]\cdot (1- \nn[A^{-1}]\cdot \nn[\Delta A]) 
-                                     \cdot
-                                     \underbrace{\left(  \frac{\nn[\Delta b]}{\nn[b]} +  \frac{\nn[\Delta A]}{\nn[A]}  \right)}_{\neq  \frac{\nn[(\Delta A, \Delta b)]}{\nn[(A,b)]} }
-                                     \label{III.2.11}
+      \frac{\nn[\Delta x]}{\nn[x]} 
+      & \leq \nn[A] \cdot \nn[A^{-1}]\cdot (1- \nn[A^{-1}]\cdot \nn[\Delta A]) 
+        \cdot
+        \underbrace{\left(  
+        \frac{\nn[\Delta b]}{\nn[b]} + \frac{\nn[\Delta A]}{\nn[A]}  
+        \right)}_{
+        \neq  \frac{\nn[(\Delta A, \Delta b)]}{\nn[(A,b)]} 
+        }
+        \label{III.2.11}
     \end{align}
     \begin{proof} s. Übungsblatt \end{proof}
   \end{enumerate}
@@ -632,7 +667,8 @@ untersucht.
 
 \begin{Defe}
   \index{Kondition!Matrix}
-  Sei $\nn$ eine Norm auf $\R^{n\times n} $ und $A\in \R^{n\times n}$ eine reguläre Matrix.
+  Sei $\nn$ eine Norm auf $\R^{n\times n} $ 
+  und $A\in \R^{n\times n}$ eine reguläre Matrix.
   Die Größe
   \begin{gather*}
     \kappa_{\nn}(A) = \Cond_{\nn} \coloneqq \nn[A] \cdot \nn[A^{-1}]
@@ -667,8 +703,9 @@ und die folgende Relation benötigen:
   submultiplikativen Norm $\nn$,
   so ist $(I-C)$ invertierbar und es gilt
   \begin{align*}
-    (I-C)^{-1}&=\sum_{k=0}^{\infty}C^k & \text{sowie} &\quad&
-                                                              \nn[(I-C)^ {-1}] &\leq \frac{1}{1-\nn[C]}.
+    (I-C)^{-1}&=\sum_{k=0}^{\infty}C^k 
+    & \text{sowie} &
+    &\nn[(I-C)^ {-1}] &\leq \frac{1}{1-\nn[C]}.
   \end{align*}
 \end{Leme}
 
@@ -701,7 +738,8 @@ und die folgende Relation benötigen:
 \begin{Beme}
   \label{3.2.13}~
   \begin{enumerate}[a)]
-  \item Für eine symmetrische, positiv definite Matrix $A\in \Renn$ gilt\footnote{Beweis: siehe Übungsblatt 3}
+  \item Für eine symmetrische, positiv definite Matrix
+    $A\in \Renn$ gilt\footnote{Beweis: siehe Übungsblatt 3}
     \begin{gather}
       \kappa_2(A) = \frac{\lambda_{max}}{\lambda_{min}} \label{III.2.13}
     \end{gather}
@@ -726,22 +764,24 @@ und die folgende Relation benötigen:
   \end{enumerate}
 \end{Beme}
 
-
 \begin{Bspe}[Kondition eines nichtlin. Gleichungssystems]
   Sei $f\colon \Ren\to\Ren$ stetig differenzierbar und
   $y\in\Ren$ gegeben.
   Zur Lösung von $f(x) = y$, ist die Kondition gesucht,
   also $\kappa(f^{-1},y)$ mit $f^{-1}$ Ausgabe und $y$ Eingabe.
 
-  Sei $\D f(x)$ invertierbar, dann existiert aufgrund des Satzes für implizite Funktionen die inverse Funktion $f^{-1}$ lokal in einer Umgebung von $y$ mit $f^{-1}(y)=x$, sowie
+  Sei $\D f(x)$ invertierbar, dann existiert aufgrund 
+  des Satzes für implizite Funktionen die inverse Funktion $f^{-1}$ 
+  lokal in einer Umgebung von $y$ mit $f^{-1}(y)=x$, sowie
   \begin{gather*}
     D(f^{-1})(y) = (\D f(x))^{-1}
   \end{gather*}
   Hiermit folgt
   \begin{align}
     \nonumber
-    \kappa_{abs}(f^{-1},y) &= \nn[(\D f(x))^{-1}] \\
-    \kappa_{rel}(f^{-1},y) &= \frac{\nn[f(x)]}{\nn[x]}\cdot\nn[(\D f(x))^{-1}]  \label{III.2.15}
+    \kappa_{abs}(f^{-1},y)&=\nn[(\D f(x))^{-1}] \\
+    \kappa_{rel}(f^{-1},y)&=\frac{\nn[f(x)]}{\nn[x]}\cdot\nn[(\D f(x))^{-1}]  
+                            \label{III.2.15}
   \end{align}
   Für skalare Funktionen $f\colon \R\to\R$ folgt somit
   \begin{gather*}
@@ -749,7 +789,8 @@ und die folgende Relation benötigen:
   \end{gather*}
   Falls $|f'(x)|\to 0$ ist es eine schlechte absolute Kondition, 
   dagegen für $|f'(x)| \gg 0$  eine gute absolute Kondition.
-  \begin{image}{\copyright Schlechte (links) und Gute (rechts) Kondition im Vergleich}
+  \begin{image}{\copyright Schlechte (links) und Gute (rechts)
+      Kondition im Vergleich}
     \begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
       \draw[->,color=black] (0,0) -- (6,0);
       \draw[->,color=black] (0,0) -- (0,4.5);
@@ -785,7 +826,6 @@ und die folgende Relation benötigen:
 \end{Bspe}
 
 
-% \minisec{\Large3.2 b) Komponentenweise Konditionsanalyse} \label{3.2b}\vspace{1eM}
 \extrasection{b)}{Komponentenweise Konditionsanalyse}
 
 \begin{Bspe}
@@ -811,7 +851,7 @@ und die folgende Relation benötigen:
 \begin{Defe}
   \index{Kondition!komponentenweise}
   Sei $(f, x) $ ein Problem mit $f(x)\neq 0$ 
-  und $x=(x_i)_{i=1,\ldots , n}$ mit $x_i\neq 0 $  für alle $i=1,\ldots, n$.
+  und $x=(x_i)_{i=1,\dotsc , n}$ mit $x_i\neq 0 $  für alle $i=1,\dotsc, n$.
   Die \textbf{komponentenweise Kondition} von $(f,x)$
   ist die kleinste Zahl $\kappa_{rel}\geq 0$, so dass
   \begin{align*}
@@ -839,7 +879,8 @@ $
   \end{pmatrix}$.
   Dann gilt
   \begin{gather}
-    \kappa_{rel} = \frac{\nn[\, |\D f(x)|\cdot |x| \,]_\infty}{\nn[f(x)]_\infty} \label{III.2.16}
+    \kappa_{rel} = \frac{\nn[\,|\D f(x)|\cdot|x|\,]_\infty}{\nn[f(x)]_\infty}
+    \label{III.2.16}
   \end{gather}
 \end{Leme}
 
@@ -900,11 +941,12 @@ $
     \begin{align*}
       f\colon &\R^2 \rightarrow \R, \, f(x,y) \coloneqq x\cdot y \\
       \Rightarrow \D f(x,y) &= (y, x)  \\
-      \Rightarrow \kappa_{rel}(x,y) &= \frac{\left\| (|y|, |x|)\cdot \begin{pmatrix}
-            |x| \\
-            |y|
-          \end{pmatrix}\right\|_\infty}
-      {|x\cdot y|} \\
+      \Rightarrow \kappa_{rel}(x,y) 
+              &= \frac{\left\| (|y|, |x|)
+                \cdot \begin{pmatrix}
+                  |x| \\
+                  |y|
+                \end{pmatrix}\right\|_\infty}{|x\cdot y|} \\
               &= \frac{2\cdot|x|\cdot |y|}{|x\cdot y|} \\
               &= 2
     \end{align*}
@@ -912,7 +954,7 @@ $
     Löse $Ax=b$ mit möglichen Störungen in $b$, also zu
     \begin{align*}
       f\colon & b\mapsto A^{-1}b \\
-      \kappa_{rel} & = \frac{\nn[ \, |A^{-1}| \cdot |b|\, ]_\infty}{\nn[A^{-1}b]_\infty}
+      \kappa_{rel} & = \frac{\nn[\,|A^{-1}|\cdot|b|\,]_\infty}{\nn[A^{-1}b]_\infty}
     \end{align*}
     Falls A eine Diagonalmatrix ist, folgt
     \begin{gather*}
@@ -989,7 +1031,6 @@ Problem nicht \enquote{kaputt machen}.
   \end{minipage}
 \end{image}
 
-% \minisec{\Large3.3 a) Vorwärtsanalyse} \label{3.3a}\vspace{1eM}
 \extrasection{a)}{Vorwärtsanalyse}
 
 Die Fehlerfortpflanzung durch die einzelnen Rechenschritte, aus denen die Implementierung aufgebaut ist, wird abgeschätzt.
@@ -999,7 +1040,8 @@ Die Fehlerfortpflanzung durch die einzelnen Rechenschritte, aus denen die Implem
   \begin{align}
     \nonumber
     fl(a\nabla b) &= (a\nabla b)\cdot (1+\varepsilon) \\
-                  &= (a\nabla b) \cdot \frac{1}{1+\mu} \label{III.3.1}
+                  &= (a\nabla b) \cdot \frac{1}{1+\mu} 
+                    \label{III.3.1}
   \end{align}
   mit $|\varepsilon|, |\mu| \leq \Eps$.
 \end{Beme}
@@ -1053,9 +1095,10 @@ Daher:
   gibt, wobei $\F$ die Menge der Maschinenzahlen bezeichne, mit
   \begin{gather}
     |\widetilde{\phi}_i(x)-\phi_i(x)| \leq \Eps\cdot |\phi_i(x) | 
-    \quad \forall x\in \F^n \text{ und } i=1,\ldots , m \label{III.3.2}\, .
+    \quad \forall x\in \F^n \text{ und } i=1,\dotsc , m \label{III.3.2}\, .
   \end{gather}
-  $\widetilde{\phi}$ heißt dann \textbf{Realisierung}\index{Realisierung} von $\phi$.
+  $\widetilde{\phi}$ heißt dann
+  \textbf{Realisierung}\index{Realisierung} von $\phi$.
 \end{Defe}
 
 
@@ -1066,10 +1109,9 @@ aus \eqref{III.3.2} folgt für $1\leq p\leq \infty$
   \quad \forall x\in\F^n \label{III.3.3}
 \end{gather}
 
-
 \begin{Defe}\label{3.3.4}
   Sei $f\colon E\subseteq \Ren \to \R^m$ gegeben.
-  Ein Tupel $\left(f^{(1)},\ldots ,f^{(l)}\right)$ 
+  Ein Tupel $\left(f^{(1)},\dotsc ,f^{(l)}\right)$ 
   mit $l\in \N$ von elementar ausführbaren Abbildungen
   \begin{gather*}
     f^{(i)}\colon U_1\subseteq \R^{k_i} \to U_{i+1}\subseteq \R^{k_{i+1}}
@@ -1079,7 +1121,9 @@ aus \eqref{III.3.2} folgt für $1\leq p\leq \infty$
   \begin{gather*}
     f=f	^{(l)}\circ \dotsc \circ f^{(1)}
   \end{gather*}
-  Das Tupel $(\widetilde{f}1^{(1)},\ldots ,\widetilde{f}^{(l)})$ mit Abbildungen $\widetilde{f}^{(i)}$, welche Realisierungen der $f^{(i)}$ sind,
+  Das Tupel $(\widetilde{f}1^{(1)},\dotsc ,\widetilde{f}^{(l)})$ 
+  mit Abbildungen $\widetilde{f}^{(i)}$, 
+  welche Realisierungen der $f^{(i)}$ sind,
   heißt \textbf{Implementation}\index{Implementation} von 
   $\left(f^{(1)},\dotsc ,f^{(l)}\right)$.
   Die Komposition 
@@ -1093,8 +1137,8 @@ aus \eqref{III.3.2} folgt für $1\leq p\leq \infty$
 
 \begin{Leme}[Fehlerfortpflanzung]
   \label{3.3.5} \index{Fehler!Fortpflanzung}
-  Sei $x\in \Ren$ und $\widetilde{x}\in \F^n$ mit $|\widetilde{x}_i-x_i|\leq \Eps|x_i|$ für alle 
-  $i=1,\ldots , n$.
+  Sei $x\in \Ren$ und $\widetilde{x}\in \F^n$ 
+  mit $|\widetilde{x}_i-x_i|\leq \Eps|x_i|$ für alle $i=1,\dotsc , n$.
   Sei $\left(f^{(1)},\dotsc ,f^{(l)}\right)$ ein Algorithmus für $f$ und 
   $(\widetilde{f}^{(1)},\dotsc ,\widetilde{f}^{(l)})$ 
   eine zugehörige Implementation.
@@ -1112,36 +1156,70 @@ aus \eqref{III.3.2} folgt für $1\leq p\leq \infty$
       \label{III.3.4} 
     \\ \nonumber
     \K^{(j)} &=(1+\kappa^{(j)}+\kappa^{(j)}\cdot \kappa^{(j-1)}
-               + \ldots 
-               + \kappa^{(j)}\cdot \dotsm \cdot \kappa^{(1)})
+               + \dotsb
+               + \kappa^{(j)}\dotsm\kappa^{(1)})
   \end{align}
   wobei $\kappa^{(j)} \coloneqq \kappa_{rel}(f^{(j)}, x^{(j)})$
   die Kondition der elementar ausführbaren Operationen $f^{(j)}$ ist.
-\end{Leme}
 
 \begin{proof}
+  Wir zeigen \ref{III.3.3} durch Induktion.
+  Betrachte hierfür vorerst folgende Abschätzung
   \begin{align*}
     \frac{\nn[\widetilde{x}^{(j+1)}-x^{(j+1)}]}{\nn[x^{(j+1)}]}
     &= \frac{\nn[\widetilde{f}^{(j)}(\widetilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
       {\nn[f^{(j)}(x^{(j)})]} \\
-    &\leq \frac{\nn[\widetilde{f}(\widetilde{x})-f(x)]}
-      {\nn[f(x)]}
-      \qquad \text{(Index $j$ vernachlässigt)}\\
-    &= \frac{\nn[\widetilde{f}(\widetilde{x})-f(\widetilde{x})
-      +f(\widetilde{x}) - f(x)]}
-      {\nn[f(x)]}\\
-    &\leq \frac{\nn[\widetilde{f}(\widetilde{x})-f(\widetilde{x})]}{\nn[f(x)]}
-      + \frac{\nn[f(\widetilde{x})-f({x})]}{\nn[f(x)]} \\
-    &\leq \frac{\nn[\widetilde{f}(\widetilde{x})-f(\widetilde{x})]}{\nn[f(\widetilde{x})]}
-      \cdot \frac{\nn[f(\widetilde{x})]}{\nn[f(x)]}
-      + \frac{\nn[f(\widetilde{x})-f({x})]}{\nn[f(x)]} \\
-    &\leq \Eps \left( 1+ \frac{\nn[f(\widetilde{x})-f({x})]}{\nn[f(x)]}\right)
-      + \frac{\nn[f(\widetilde{x})-f({x})]}{\nn[f(x)]}\\
-    &\overset{\text{nach \ref{III.3.3}}}{=} \Eps + (\Eps+1) \cdot 						\left(\kappa{(j)}\cdot \frac{\nn[\widetilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}\right)
-      + o\left( \frac{\nn[\widetilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}\right)
+    &= \frac{\nn[\widetilde{f}^{(j)}(\widetilde{x}^{(j)})
+      -f^{(j)}(\widetilde{x}^{(j)})
+      +f^{(j)}(\widetilde{x}^{(j)})
+      -f^{(j)}(x^{(j)})]}
+      {\nn[f^{(j)}(x^{(j)})]} \\
+    &\leq \frac{\nn[\widetilde{f}^{(j)}(\widetilde{x}^{(j)})
+      -f^{(j)}(\widetilde{x}^{(j)})]}
+      {\nn[f^{(j)}(x^{(j)})]}
+      +\frac{\nn[f^{(j)}(\widetilde{x}^{(j)}) - f^{(j)}(x^{(j)})]}
+      {\nn[f^{(j)}(x^{(j)})]} \\
+    &= \frac{\nn[\widetilde{f}^{(j)}(\widetilde{x}^{(j)})
+      -f^{(j)}(\widetilde{x}^{(j)})]}
+      {\nn[f^{(j)}(\widetilde{x}^{(j)})]}
+      \cdot \frac{\nn[f^{(j)}(\widetilde{x}^{(j)})]}
+      {\nn[f^{(j)}(x^{(j)})]}
+      +\frac{\nn[f^{(j)}(\widetilde{x}^{(j)}) - f^{(j)}(x^{(j)})]}
+      {\nn[f^{(j)}(x^{(j)})]} \\
+    &\overset{\mathllap{\ref{III.3.3}}}{\leq}
+      \Eps\cdot \frac{\nn[f^{(j)}(\widetilde{x}^{(j)})]}
+      {\nn[f^{(j)}(x^{(j)})]}
+      +\frac{\nn[f^{(j)}(\widetilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
+      {\nn[f^{(j)}(x^{(j)})]} \\
+    &\leq \Eps\cdot\left( 
+      1 + \frac{\nn[f^{(j)}(\widetilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
+      {\nn[f^{(j)}(x^{(j)})]}
+      \right)
+      + \frac{\nn[f^{(j)}(\widetilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
+      {\nn[f^{(j)}(x^{(j)})]}\\
+    &= \Eps + \left( \Eps+1 \right)
+      \cdot \frac{\nn[f^{(j)}(\widetilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
+      {\nn[f^{(j)}(x^{(j)})]}\\      
+    &\overset{\mathllap{\text{Def. }\ref{3.2.7}}}{\leq} 
+      \Eps + (\Eps+1) \cdot
+      \left(
+      \kappa^{(j)}\cdot \frac{\nn[\widetilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
+      + o\left( 
+      \frac{\nn[\widetilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
+      \right)
+      \right)\\
+    &= \Eps + (\Eps+1) \cdot
+      \left(
+      \kappa^{(j)}\cdot \frac{\nn[\widetilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
+      \right)
+      + o\left( 
+      \frac{\nn[\widetilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
+      \right)
   \end{align*}
-  Nach Voraussetzung gilt Gleichung \eqref{III.3.4}  mit $\K^{(0)}=1$ für $j=0$. \\
-  Für $j=1$ folgt nach Voraussetzung mit Gleichung \eqref{III.3.3}
+  Nach Voraussetzung gilt Gleichung \eqref{III.3.4}  mit $\K^{(0)}=1$ für $j=0$.
+  Für $j=1$ folgt mithilfe obiger Abschätzung und der Voraussetzung 
+  $\frac{\nn[\widetilde{x}-x]}{\nn[x]} 
+  = \frac{\nn[\widetilde{x}^{(1)}-x^{(1)}]}{\nn[x^{(1)}]}\leq \Eps$ 
   \begin{align*}
     \frac{\nn[\widetilde{x}^{(2)}-x^{(2)}]}{\nn[x^{(2)}]}
     & \leq \Eps +(\Eps+1) \cdot \left( \kappa^{(1)}\Eps+ o(\Eps)\right) \\
@@ -1151,13 +1229,23 @@ aus \eqref{III.3.2} folgt für $1\leq p\leq \infty$
   Womit der Induktionsanfang gezeigt ist.
   Für den Induktionsschritt von $j-1$ zu $j$:
   \begin{align*}
-    \frac{\nn[\widetilde{x}^{(j+1)}-x^{(j+1)}]}{x^{(j+1)}}
-    & \leq \Eps + (1+\Eps)\kappa^{(j)} \left[ \Eps \K^{(j-1)}+ o(\Eps) \right] \\
-    &\phantom{\leq \Eps+} + (1+\Eps) \cdot o\left( \Eps\cdot \K^{(j-1)} +o(\Eps)\right) \\
-    &= \Eps\left(1+\kappa^{(j)}\cdot \K^{(j-1)}\right)+ o(\Eps)
+    \frac{\nn[\widetilde{x}^{(j+1)}-x^{(j+1)}]}{\nn[x^{(j+1)}]}
+    \leq& \Eps + (\Eps+1) \cdot
+          \left(
+          \kappa^{(j)}\cdot \frac{\nn[\widetilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
+          + o\left( 
+          \frac{\nn[\widetilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
+          \right)
+          \right)\\
+    \overset{\mathllap{\text{Ind.-Vor.}}}{\leq}
+    & \Eps + (1+\Eps)
+      \cdot\kappa^{(j)} \left[ \Eps \K^{(j-1)}+ o(\Eps) \right] \\
+        &+ (1+\Eps) \cdot o\left( \Eps\cdot \K^{(j-1)} +o(\Eps)\right) \\
+    =& \Eps\left(1+\kappa^{(j)}\cdot \K^{(j-1)}\right)+ o(\Eps)
   \end{align*}
   Mit $\K^{(j)} = 1+ \kappa^{(j)}\cdot \K^{(j-1)}$ folgt die Behauptung.
 \end{proof}
+\end{Leme}
 
 Hiermit folgt:
 
@@ -1364,7 +1452,7 @@ Pivotisierung und für spezielle Klassen von Matrizen.
     dominant}\index{strikt diagonal dominant} ist, d.h. 
   \begin{gather*}
     | a_{ii} | > \sum\limits_{j=1 ,\, j \not = i}^{n} | a_{ij}| 
-    \mbox{ für alle } i = 1, \ldots, n,
+    \mbox{ für alle } i = 1, \dotsc, n,
   \end{gather*}
   ist Spaltenpivotisierung überflüssig. Der Algorithmus ist stabil.
 \item Für symmetrische, positiv definite Matrizen sollte keine Pivotisierung
@@ -1377,12 +1465,12 @@ Selbst wenn die LR-Zerlegung stabil ist, in dem Sinne dass
 $| \overline{ A} - A|$ klein ist für
 $ \overline{ A}\overline{ x}  =  b $, 
 kann die numerische Lösung $\overline{ x}$ sehr
-ungenau sein, da der Vorwärtsfehler $| \overline{ x} - {  x}| $ auch von der
+ungenau sein, da der Vorwärtsfehler $|\overline{x}-{x}|$ auch von der
 Kondition abhängt.
 
 Ein Beispiel hierzu ist die Hilbertmatrix
 \begin{gather*}
-  H  =  \left( \frac{1}{i + j -1 } \right)_{i,j= 1,\ldots, n}\, ,
+  H  =  \left( \frac{1}{i + j -1 } \right)_{i,j= 1,\dotsc, n}\, ,
 \end{gather*}
 für die $\Cond ( H)$ exponentiell mit der Dimension $n$ wächst.
 
@@ -1394,14 +1482,16 @@ Zu $Ax=b$ liege eine Näherungslösung $\widetilde{x}$ vor.
 \extrasection{a)}{Im Sinne der Vorwärtsanalyse}
 Im Sinne der Vorwärtsanalyse und der Fehlerentwicklung durch das Problem gilt
 \begin{gather*}
-  \frac{\nn[\widetilde{x}-x]}{\nn[x]} \leq \Cond(A) \cdot \frac{\nn[\Delta b]}{\nn[b]}
+  \frac{\nn[\widetilde{x}-x]}{\nn[x]} 
+  \leq \Cond(A) \cdot \frac{\nn[\Delta b]}{\nn[b]}
 \end{gather*}
 nach Beispiel \ref{3.2.10}, 
 mit dem Residuum 
 \begin{align}
-  r(\widetilde{x})  & \coloneqq A\widetilde{x} - b \label{III.4.1} \\ \nonumber 
-                    &	= \widetilde{b}-b \\ \nonumber
-                    & = \Delta b
+  r(\widetilde{x})  
+  & \coloneqq A\widetilde{x} - b \label{III.4.1} \\ \nonumber 
+  &	= \widetilde{b}-b \\ \nonumber
+  & = \Delta b
 \end{align}
 Wie der absolute Fehler ist das Residuum skalierungsabhängig.
 Daher ist $\nn[r(\widetilde{x})]$ \enquote{klein} ungeeignet, um
