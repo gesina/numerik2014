@@ -219,7 +219,7 @@ Weiterhin gilt:
   \[ 1 + \Eps \]
 \item Eine Maschinenzahl x repräsentiert eine Eingabemenge
   \begin{image}{\copyright}
-    $E(x) = \{\widetilde{x} \in \R\colon |\widetilde{x}-x| \leq \tau|x|\}$\\
+    $E(x) = \{\tilde{x} \in \R\colon |\tilde{x}-x| \leq \tau|x|\}$\\
 	\begin{tikzpicture}[scale=3]
       \draw(0,0)--(3,0);
       % Vertikale Striche
@@ -291,11 +291,11 @@ untersucht.
 
 \begin{Defe}
   \label{3.2.2} \index{Fehler}
-  Sei $x\in\R^n$ und $\widetilde{x} \in \R^n$ eine Näherung an $x$. 
+  Sei $x\in\R^n$ und $\tilde{x} \in \R^n$ eine Näherung an $x$. 
   Weiterhin sei $\nn$ eine Norm auf $\R^n$.
   \begin{itemize}
-  \item[a)] $\nn[\widetilde{x} - x]$ heißt \textbf{absoluter Fehler} \index{Fehler!absoluter}
-  \item[b)] $\frac{\nn[\widetilde{x} - x]}{\nn[x]}$ heißt \textbf{relativer Fehler}\index{Fehler!relativer}
+  \item[a)] $\nn[\tilde{x} - x]$ heißt \textbf{absoluter Fehler} \index{Fehler!absoluter}
+  \item[b)] $\frac{\nn[\tilde{x} - x]}{\nn[x]}$ heißt \textbf{relativer Fehler}\index{Fehler!relativer}
   \end{itemize}
   Da der relative Fehler skalierungsinvariant ist, 
   d.h. unabhänging von der  Wahl von $x$ ist, ist dieser i.d.R. von größerem Interesse.
@@ -303,8 +303,8 @@ untersucht.
   Häufig werden Fehler auch komponentenweise gemessen:
   \begin{align*}
     \text{Für } i=1,\dotsc , n : 
-    && |\widetilde{x}_i - x_i | & \leq \delta & \text{ (absolut)} \\
-    && |\widetilde{x}_i - x_i | &\leq \delta |x_i| & \text{ (relativ)}
+    && |\tilde{x}_i - x_i | & \leq \delta & \text{ (absolut)} \\
+    && |\tilde{x}_i - x_i | &\leq \delta |x_i| & \text{ (relativ)}
   \end{align*}
 \end{Defe}
 
@@ -436,14 +436,14 @@ untersucht.
     eines Problems $(f,x)$ ist die kleinste Zahl 
     $\kappa _{abs} > 0 $ mit
     \begin{align}
-      \nn[f(\widetilde{x})-f(x)]_b 
-      &\leq \kappa_{abs}(f,x) \nn[\widetilde{x}-x]_a
-        + o\left(\nn[\widetilde{x}-x]_a\right) 
+      \nn[f(\tilde{x})-f(x)]_b 
+      &\leq \kappa_{abs}(f,x) \nn[\tilde{x}-x]_a
+        + o\left(\nn[\tilde{x}-x]_a\right) 
         \label{III.2.2} \\\nonumber
-      \Bigl(f(\widetilde{x})- f(x) 
-      &=\underbrace{f'(x)(\widetilde{x}-x)
-        \pm o\left(\nn[\widetilde{x}-x]\right)}_{Taylorentwicklung}
-        \quad \text{für }\widetilde{x}\to x \Bigr)
+      \Bigl(f(\tilde{x})- f(x) 
+      &=\underbrace{f'(x)(\tilde{x}-x)
+        \pm o\left(\nn[\tilde{x}-x]\right)}_{Taylorentwicklung}
+        \quad \text{für }\tilde{x}\to x \Bigr)
     \end{align}
   \item Die \textbf{relative normweise
       Kondition}\index{Kondition!normweise. relativ} 
@@ -451,10 +451,10 @@ untersucht.
     ist die kleinste Zahl 
     $\kappa _{rel} > 0 $ mit
     \begin{align}
-      \frac{\nn[f(\widetilde{x})-f(x)]_b}{\nn[f(x)]_b}
-      &\leq \kappa _{rel}(f,x)\frac{\nn[\widetilde{x}-x]_a}{\nn[x]_a}
-        + o\left(\frac{\nn[\widetilde{x}-x]_a}{\nn[x]_a}\right) \label{III.2.3}
-      &&	\text{für } \widetilde{x} \to x
+      \frac{\nn[f(\tilde{x})-f(x)]_b}{\nn[f(x)]_b}
+      &\leq \kappa _{rel}(f,x)\frac{\nn[\tilde{x}-x]_a}{\nn[x]_a}
+        + o\left(\frac{\nn[\tilde{x}-x]_a}{\nn[x]_a}\right) \label{III.2.3}
+      &&	\text{für } \tilde{x} \to x
     \end{align}
   \item Sprechweise:
     \begin{itemize}\index{Kondition!gut/schlecht konditioniert}
@@ -516,14 +516,14 @@ untersucht.
     -9,984
   \end{pmatrix}
   \cdot 10^{-1} \\
-  \widetilde{x} = fl(x) &= \begin{pmatrix}
+  \tilde{x} = fl(x) &= \begin{pmatrix}
     1 \\
     -9,98\cdot 10^{-1}
   \end{pmatrix}
   \intertext{also}
-  \frac{|f(\widetilde{x})-f(x)|}{|f(x)|}	&= \frac{0,9}{1,1} 
+  \frac{|f(\tilde{x})-f(x)|}{|f(x)|}	&= \frac{0,9}{1,1} 
                                               = 0,\overline{81} \\
-    &\leq \kappa_{rel}(f,x)\cdot \frac{\nn[\widetilde{x}-x]_1}{\nn[x]_1} \\
+    &\leq \kappa_{rel}(f,x)\cdot \frac{\nn[\tilde{x}-x]_1}{\nn[x]_1} \\
     &= \kappa_{rel}(f,x) \cdot 4,6\cdot 10^{-4}
 \end{align*} 
 
@@ -577,7 +577,7 @@ untersucht.
     \end{gather}
     für alle (möglichen rechten Seiten) $b $.\\
     \ref{3.2.8} ist scharf in dem Sinne, dass es ein $\widehat{b}\in \R^n$ gibt 
-    mit $\nn[\widehat{b}] = \nn[A]\cdot \nn[\widehat{x}]$ und somit
+    mit $\nn[\widehat{b}] = \nn[A]\cdot \nn[\hat{x}]$ und somit
     \begin{gather*}
       \kappa_{rel}(f,\widehat{b}) = \nn[A]\cdot \nn[ A^{-1}]
     \end{gather*}
@@ -855,17 +855,17 @@ und die folgende Relation benötigen:
   Die \textbf{komponentenweise Kondition} von $(f,x)$
   ist die kleinste Zahl $\kappa_{rel}\geq 0$, so dass
   \begin{align*}
-    \frac{\nn[f(\widetilde{x})-f(x)]_\infty}{\nn[f(x)]_\infty} 
+    \frac{\nn[f(\tilde{x})-f(x)]_\infty}{\nn[f(x)]_\infty} 
     &\leq \kappa_{rel} 
       \cdot \underset{i}{\max}
-      \frac{|\widetilde{x}_i-x_i|}{|x_i|}
-      + o\left(\underset{i}{\max}\frac{|\widetilde{x}_i-x_i|}{|x_i|}\right) 
-    && \text{für }\widetilde{x}\to x
+      \frac{|\tilde{x}_i-x_i|}{|x_i|}
+      + o\left(\underset{i}{\max}\frac{|\tilde{x}_i-x_i|}{|x_i|}\right) 
+    && \text{für }\tilde{x}\to x
   \end{align*}
   Vorsicht:
 $
-    \frac{\nn[\widetilde{x}-x]_\infty}{\nn[x]_\infty}
-    \neq \underset{i}{\max}\frac{|\widetilde{x}_i-x_i|}{|x_i|}
+    \frac{\nn[\tilde{x}-x]_\infty}{\nn[x]_\infty}
+    \neq \underset{i}{\max}\frac{|\tilde{x}_i-x_i|}{|x_i|}
 $
 \end{Defe}
 
@@ -888,45 +888,45 @@ $
   Vergleiche seien ebenfalls komponentenweise zu verstehen.
   Nach dem Satz von Taylor gilt
  \begin{align*}
-    f_i(\widetilde{x})-f_i(x) 
+    f_i(\tilde{x})-f_i(x) 
      &= \left( 
        \frac{\partial f_i}{\partial x_i}(x),
        \dotsc ,\frac{\partial f_i}{\partial x_n}(x) 
        \right)
        \cdot \begin{pmatrix}
-         \widetilde{x}_1-x_1 \\
+         \tilde{x}_1-x_1 \\
          \vdots \\
-         \widetilde{x}_n-x_n
+         \tilde{x}_n-x_n
        \end{pmatrix}
-     + o\left(\nn[\widetilde{x}-x]\right) \\
+     + o\left(\nn[\tilde{x}-x]\right) \\
    \Longrightarrow 
-   |f(\widetilde{x})-f(x)|
+   |f(\tilde{x})-f(x)|
      &\leq |\D f(x)|
        \cdot \begin{pmatrix}
-       |x_1|\cdot \frac{|\widetilde{x}_1-x_1|}{|x_1|}\\
+       |x_1|\cdot \frac{|\tilde{x}_1-x_1|}{|x_1|}\\
        \vdots \\
-       |x_n|\cdot \frac{|\widetilde{x}_n-x_n|}{|x_n|}
+       |x_n|\cdot \frac{|\tilde{x}_n-x_n|}{|x_n|}
        \end{pmatrix}
    + o\left(
-   \underset{i}{\max} \frac{|\widetilde{x}_i-x_i|}{|x_i|}
+   \underset{i}{\max} \frac{|\tilde{x}_i-x_i|}{|x_i|}
    \right)
-     && \text{da $x_i$ fest und $\widetilde{x}_i\to x_i$} \\
+     && \text{da $x_i$ fest und $\tilde{x}_i\to x_i$} \\
      &\leq |\D f(x)| \cdot |x| 
-       \cdot \underset{i}{\max} \frac{|\widetilde{x}_i-x_i|}{|x_i|}
+       \cdot \underset{i}{\max} \frac{|\tilde{x}_i-x_i|}{|x_i|}
        + o\left(
-       \underset{i}{\max} \frac{|\widetilde{x}_i-x_i|}{|x_i|}
+       \underset{i}{\max} \frac{|\tilde{x}_i-x_i|}{|x_i|}
        \right) \\
-   \Longrightarrow \frac{\nn[f(\widetilde{x})-f(x)]_\infty}{\nn[f(x)]_\infty}
+   \Longrightarrow \frac{\nn[f(\tilde{x})-f(x)]_\infty}{\nn[f(x)]_\infty}
      &\leq  \frac{\nn[\,|\D f(x)|\cdot |x| \,]}{\nn[f(x)]_\infty}
-       \cdot \underset{i}{\max}\frac{|\widetilde{x}_i-x_i|}{|x_i|}
+       \cdot \underset{i}{\max}\frac{|\tilde{x}_i-x_i|}{|x_i|}
        + o\left( 
-       \underset{i}{\max} \frac{|\widetilde{x}_i-x_i|}{|x_i|} 
+       \underset{i}{\max} \frac{|\tilde{x}_i-x_i|}{|x_i|} 
        \right)
  \end{align*}
-  Wähle $\widetilde{x}_i = x_j+h\cdot \Sign \frac{\partial f_i}{\partial x_j}(x)$ mit $h>0$,
+  Wähle $\tilde{x}_i = x_j+h\cdot \Sign \frac{\partial f_i}{\partial x_j}(x)$ mit $h>0$,
   dann gilt
   \begin{gather*}
-    |\D f_i(x)(\widetilde{x}-x)| = \D f_i(x)(\widetilde{x}-x)
+    |\D f_i(x)(\tilde{x}-x)| = \D f_i(x)(\tilde{x}-x)
   \end{gather*}
   und in obiger Rechnung gilt Gleichheit.
   Also folgt, dass
@@ -978,7 +978,7 @@ $
     \end{gather*}
     Falls $x$ und $y$ nahezu senkrecht aufeinander stehen, 
     kann das Skalarprodukt sehr schlecht konditioniert sein. 
-    Zum Beispiel für $x=\widetilde{x} = \begin{pmatrix} 1 \\1 \end{pmatrix}$
+    Zum Beispiel für $x=\tilde{x} = \begin{pmatrix} 1 \\1 \end{pmatrix}$
     und $y=\begin{pmatrix} 1+10^{-10} \\-1 \end{pmatrix},
     \, \widetilde{y}=\begin{pmatrix} 1 \\-1 \end{pmatrix}$. \\
     \begin{image}{\copyright Vektoren mit nahezu gleichem komponentenweisen Betrag}
@@ -1011,9 +1011,9 @@ Problem nicht \enquote{kaputt machen}.
       \fill (0,0) node[below]{$x$} circle (1pt);
       % Pfeile:
       \draw[->] (0,0) .. controls (1.5,0.4) and (3.5,0.4).. (5,0);
-      \draw[->] (0,0) .. controls (1.5,-1)  and (3.5,-1.6)..(5,-1.4) node[right] {$\tilde{f}(x)$};
+      \draw[->] (0,0) .. controls (1.5,-1)  and (3.5,-1.6)..(5,-1.4) node[right] {$\widetilde{f}(x)$};
       \draw (2.5,0.3) node[above] {$f$};
-      \draw (2.5,-1.3) node[below] {$\tilde{f}$};
+      \draw (2.5,-1.3) node[below] {$\widetilde{f}$};
       
       % Rechte Seite
       \draw (5,0) circle (1);
@@ -1026,7 +1026,7 @@ Problem nicht \enquote{kaputt machen}.
   \begin{minipage}{0.25\linewidth}
 	\begin{align*}
       R&=f(E)\qquad\text{stabil}\\
-      \tilde{R} &= \tilde{f}(E)\qquad\text{instabil}\\
+      \tilde{R} &= \widetilde{f}(E)\qquad\text{instabil}\\
 	\end{align*}
   \end{minipage}
 \end{image}
@@ -1137,8 +1137,8 @@ aus \eqref{III.3.2} folgt für $1\leq p\leq \infty$
 
 \begin{Leme}[Fehlerfortpflanzung]
   \label{3.3.5} \index{Fehler!Fortpflanzung}
-  Sei $x\in \Ren$ und $\widetilde{x}\in \F^n$ 
-  mit $|\widetilde{x}_i-x_i|\leq \Eps|x_i|$ für alle $i=1,\dotsc , n$.
+  Sei $x\in \Ren$ und $\tilde{x}\in \F^n$ 
+  mit $|\tilde{x}_i-x_i|\leq \Eps|x_i|$ für alle $i=1,\dotsc , n$.
   Sei $\left(f^{(1)},\dotsc ,f^{(l)}\right)$ ein Algorithmus für $f$ und 
   $(\widetilde{f}^{(1)},\dotsc ,\widetilde{f}^{(l)})$ 
   eine zugehörige Implementation.
@@ -1147,11 +1147,11 @@ aus \eqref{III.3.2} folgt für $1\leq p\leq \infty$
     x^{(j+1)} &\coloneqq f^{(j)}\circ \dotsc \circ f^{(1)}(x) \\
     x^{(1)} &\coloneqq x
   \end{align*}
-  und entsprechend mit $\widetilde{x}^{(j+1)}$ gilt,
+  und entsprechend mit $\tilde{x}^{(j+1)}$ gilt,
   falls $x^{(j+1)} \neq 0$ für alle $j=0,\dotsc , (l-1)$ 
   und $\nn$ eine beliebige p-Norm ist,
   \begin{align}
-    \frac{\nn[\widetilde{x}^{(j+1)}-x^{(j+1)}]}{\nn[x^{(j+1)}]}
+    \frac{\nn[\tilde{x}^{(j+1)}-x^{(j+1)}]}{\nn[x^{(j+1)}]}
     &\leq \Eps \cdot \K + o\left(\Eps\right)
       \label{III.3.4} 
     \\ \nonumber
@@ -1166,75 +1166,75 @@ aus \eqref{III.3.2} folgt für $1\leq p\leq \infty$
   Wir zeigen \ref{III.3.3} durch Induktion.
   Betrachte hierfür vorerst folgende Abschätzung
   \begin{align*}
-    \frac{\nn[\widetilde{x}^{(j+1)}-x^{(j+1)}]}{\nn[x^{(j+1)}]}
-    &= \frac{\nn[\widetilde{f}^{(j)}(\widetilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
+    \frac{\nn[\tilde{x}^{(j+1)}-x^{(j+1)}]}{\nn[x^{(j+1)}]}
+    &= \frac{\nn[\widetilde{f}^{(j)}(\tilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
       {\nn[f^{(j)}(x^{(j)})]} \\
-    &= \frac{\nn[\widetilde{f}^{(j)}(\widetilde{x}^{(j)})
-      -f^{(j)}(\widetilde{x}^{(j)})
-      +f^{(j)}(\widetilde{x}^{(j)})
+    &= \frac{\nn[\widetilde{f}^{(j)}(\tilde{x}^{(j)})
+      -f^{(j)}(\tilde{x}^{(j)})
+      +f^{(j)}(\tilde{x}^{(j)})
       -f^{(j)}(x^{(j)})]}
       {\nn[f^{(j)}(x^{(j)})]} \\
-    &\leq \frac{\nn[\widetilde{f}^{(j)}(\widetilde{x}^{(j)})
-      -f^{(j)}(\widetilde{x}^{(j)})]}
+    &\leq \frac{\nn[\widetilde{f}^{(j)}(\tilde{x}^{(j)})
+      -f^{(j)}(\tilde{x}^{(j)})]}
       {\nn[f^{(j)}(x^{(j)})]}
-      +\frac{\nn[f^{(j)}(\widetilde{x}^{(j)}) - f^{(j)}(x^{(j)})]}
+      +\frac{\nn[f^{(j)}(\tilde{x}^{(j)}) - f^{(j)}(x^{(j)})]}
       {\nn[f^{(j)}(x^{(j)})]} \\
-    &= \frac{\nn[\widetilde{f}^{(j)}(\widetilde{x}^{(j)})
-      -f^{(j)}(\widetilde{x}^{(j)})]}
-      {\nn[f^{(j)}(\widetilde{x}^{(j)})]}
-      \cdot \frac{\nn[f^{(j)}(\widetilde{x}^{(j)})]}
+    &= \frac{\nn[\widetilde{f}^{(j)}(\tilde{x}^{(j)})
+      -f^{(j)}(\tilde{x}^{(j)})]}
+      {\nn[f^{(j)}(\tilde{x}^{(j)})]}
+      \cdot \frac{\nn[f^{(j)}(\tilde{x}^{(j)})]}
       {\nn[f^{(j)}(x^{(j)})]}
-      +\frac{\nn[f^{(j)}(\widetilde{x}^{(j)}) - f^{(j)}(x^{(j)})]}
+      +\frac{\nn[f^{(j)}(\tilde{x}^{(j)}) - f^{(j)}(x^{(j)})]}
       {\nn[f^{(j)}(x^{(j)})]} \\
     &\overset{\mathllap{\ref{III.3.3}}}{\leq}
-      \Eps\cdot \frac{\nn[f^{(j)}(\widetilde{x}^{(j)})]}
+      \Eps\cdot \frac{\nn[f^{(j)}(\tilde{x}^{(j)})]}
       {\nn[f^{(j)}(x^{(j)})]}
-      +\frac{\nn[f^{(j)}(\widetilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
+      +\frac{\nn[f^{(j)}(\tilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
       {\nn[f^{(j)}(x^{(j)})]} \\
     &\leq \Eps\cdot\left( 
-      1 + \frac{\nn[f^{(j)}(\widetilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
+      1 + \frac{\nn[f^{(j)}(\tilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
       {\nn[f^{(j)}(x^{(j)})]}
       \right)
-      + \frac{\nn[f^{(j)}(\widetilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
+      + \frac{\nn[f^{(j)}(\tilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
       {\nn[f^{(j)}(x^{(j)})]}\\
     &= \Eps + \left( \Eps+1 \right)
-      \cdot \frac{\nn[f^{(j)}(\widetilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
+      \cdot \frac{\nn[f^{(j)}(\tilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
       {\nn[f^{(j)}(x^{(j)})]}\\      
     &\overset{\mathllap{\text{Def. }\ref{3.2.7}}}{\leq} 
       \Eps + (\Eps+1) \cdot
       \left(
-      \kappa^{(j)}\cdot \frac{\nn[\widetilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
+      \kappa^{(j)}\cdot \frac{\nn[\tilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
       + o\left( 
-      \frac{\nn[\widetilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
+      \frac{\nn[\tilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
       \right)
       \right)\\
     &= \Eps + (\Eps+1) \cdot
       \left(
-      \kappa^{(j)}\cdot \frac{\nn[\widetilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
+      \kappa^{(j)}\cdot \frac{\nn[\tilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
       \right)
       + o\left( 
-      \frac{\nn[\widetilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
+      \frac{\nn[\tilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
       \right)
   \end{align*}
   Nach Voraussetzung gilt Gleichung \eqref{III.3.4}  mit $\K^{(0)}=1$ für $j=0$.
   Für $j=1$ folgt mithilfe obiger Abschätzung und der Voraussetzung 
-  $\frac{\nn[\widetilde{x}-x]}{\nn[x]} 
-  = \frac{\nn[\widetilde{x}^{(1)}-x^{(1)}]}{\nn[x^{(1)}]}\leq \Eps$ 
+  $\frac{\nn[\tilde{x}-x]}{\nn[x]} 
+  = \frac{\nn[\tilde{x}^{(1)}-x^{(1)}]}{\nn[x^{(1)}]}\leq \Eps$ 
   \begin{align*}
-    \frac{\nn[\widetilde{x}^{(2)}-x^{(2)}]}{\nn[x^{(2)}]}
+    \frac{\nn[\tilde{x}^{(2)}-x^{(2)}]}{\nn[x^{(2)}]}
     & \leq \Eps +(\Eps+1) \cdot \left( \kappa^{(1)}\Eps+ o(\Eps)\right) \\
-    &= \Eps(1+\kappa^{(1)}) + o(\Eps) \\
-    &= \Eps\K^{(1)} + o(\Eps)
+    &= \Eps\cdot(1+\kappa^{(1)}) + o(\Eps) \\
+    &= \Eps\cdot\K^{(1)} + o(\Eps)
   \end{align*}
   Womit der Induktionsanfang gezeigt ist.
   Für den Induktionsschritt von $j-1$ zu $j$:
   \begin{align*}
-    \frac{\nn[\widetilde{x}^{(j+1)}-x^{(j+1)}]}{\nn[x^{(j+1)}]}
+    \frac{\nn[\tilde{x}^{(j+1)}-x^{(j+1)}]}{\nn[x^{(j+1)}]}
     \leq& \Eps + (\Eps+1) \cdot
           \left(
-          \kappa^{(j)}\cdot \frac{\nn[\widetilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
+          \kappa^{(j)}\cdot \frac{\nn[\tilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
           + o\left( 
-          \frac{\nn[\widetilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
+          \frac{\nn[\tilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
           \right)
           \right)\\
     \overset{\mathllap{\text{Ind.-Vor.}}}{\leq}
@@ -1253,18 +1253,21 @@ Hiermit folgt:
   \label{3.3.6}
   Unter der Voraussetzung von Lemma \ref{3.3.5} gilt
   \begin{gather}
-    \frac{\nn[\widetilde{f}(\widetilde{x})-f(x)]}{\nn[f(x)]} \leq 
-    \Eps\cdot \left( 1+\kappa^{(l)}+ \kappa^{(l)}\cdot \kappa^{(l-1)}+ \dotsc
-      + \kappa^{(l)}\cdot \dotsc \cdot \kappa^{(1)}\right) + o(\Eps) 
+    \frac{\nn[\widetilde{f}(\tilde{x})-f(x)]}{\nn[f(x)]} \leq 
+    \Eps\cdot \left( 1+\kappa^{(l)}+ \kappa^{(l)}\cdot \kappa^{(l-1)}+ \dotsb
+      + \kappa^{(l)}\dotsm\kappa^{(1)}\right) + o(\Eps) 
     \label{III.3.5}
   \end{gather}~
 \end{Kore}
 
 \begin{Beme}
-  Mit Korollar \ref{3.3.6} ist offensichtlich, dass schlecht konditionierte Probleme 
-  zu elementar ausführbaren Abbildungen so früh wie möglich ausgeführt werden sollten. \\
-  Nach Beispiel \ref{3.2.9} ist die Substraktion zweier annähernd gleicher Zahlen schlecht konditioniert.
-  Deshalb sollte man unvermeidbare Subtraktionen möglichst früh durchführen. \\
+  Mit Korollar \ref{3.3.6} ist offensichtlich, 
+  dass schlecht konditionierte Probleme 
+  zu elementar ausführbaren Abbildungen
+  so früh wie möglich ausgeführt werden sollten. 
+  Nach Beispiel \ref{3.2.9} ist die Substraktion 
+  zweier annähernd gleicher Zahlen schlecht konditioniert.
+  Deshalb sollte man unvermeidbare Subtraktionen möglichst früh durchführen.
   Allerdings hängt $\kappa^{(j)}$ nicht nur von $f^{(j)}$, sondern auch vom 
   Zwischenergebnis $x^{(j)}$ ab, welches a priori unbekannt ist.
 \end{Beme}
@@ -1272,16 +1275,16 @@ Hiermit folgt:
 \begin{Beme}[Sprechweise]\label{3.3.8}
   Der Quotient 
   \begin{gather}
-    \frac{\overbrace{\frac{\nn[\widetilde{f}(\widetilde{x})-f(x)]}{\nn[f(x)]}}^{
+    \frac{\overbrace{\frac{\nn[\widetilde{f}(\tilde{x})-f(x)]}{\nn[f(x)]}}^{
         \text{Gesamtfehler}}}
-    {\underbrace{\frac{\nn[\widetilde{f}(\widetilde{x})]}{\nn[f(x)]}}_{
+    {\underbrace{\frac{\nn[f(\tilde{x})-f(x)]}{\nn[f(x)]}}_{
         \scriptsize\substack{
           \text{Fehler} \\
           \text{durch} \\
           \text{Problem}
         }}
       \cdot
-      {\underbrace{\frac{\nn[\widetilde{x}-x]}{\nn[x]}}_{
+      {\underbrace{\frac{\nn[\tilde{x}-x]}{\nn[x]}}_{
           \scriptsize\substack{\text{Eingabe-} \\ \text{fehler}}}}}
     \label{III.3.6}
   \end{gather}
@@ -1293,27 +1296,31 @@ Hiermit folgt:
   \end{gather}
   verwendet werden und es gilt
   \begin{gather*}
-    \frac{\nn[\widetilde{f}(\widetilde{x})-f(x)]}{\nn[f(x)]}
+    \frac{\nn[\widetilde{f}(\tilde{x})-f(x)]}{\nn[f(x)]}
     < \underbrace{\sigma\left( f,\widetilde{f}, x\right) }_{
-      \substack{\text{Beitrag}\\
+      \mathclap{\substack{\text{Beitrag}\\
         \text{des} \\
-        \text{Algorithmus}}}
+        \text{Algorithmus}}}}
     \cdot \underbrace{\kappa_{rel}(f,x)}_{
-      \substack{\text{Beitrag} \\
+      \mathclap{\substack{\text{Beitrag} \\
         \text{des} \\
-        \text{Problems}}}
-    \cdot \underbrace{\Eps}_{\substack{\text{Rundungs-}\\\text{fehler}}}
-    + \quad o(\Eps)
+        \text{Problems}}}}
+    \cdot \underbrace{\Eps}_{\mathclap{\substack{\text{Rundungs-}\\\text{fehler}}}}
+    + o(\Eps)
   \end{gather*}
-  Falls $\sigma( f,\widetilde{f}, x)  < 1$, dämpft der Algorithmus die Fehlerfortpflanzung der Eingabe- und Rundungsfehler und heißt \textbf{stabil}\index{Stabilität}. \\
-  Für $\sigma( f,\widetilde{f}, x)  \gg 1$ heißt der Algorithmus \textbf{instabil}.
+  Falls $\sigma( f,\widetilde{f}, x)  < 1$, dämpft der Algorithmus die
+  Fehlerfortpflanzung der Eingabe- und Rundungsfehler 
+  und heißt \textbf{stabil}\index{Stabilität}.
+  Für $\sigma(f,\widetilde{f},x)\gg 1$ heißt der Algorithmus \textbf{instabil}.
 \end{Beme}
 
 
 
 \begin{Bspe}
-  Nach Gleichung \eqref{III.3.3} gilt für die Elementaroperationen $\K\leq 1$.
-  Da für die Subtraktion zweier annähernd gleich großer Zahlen $\kappa_{rel}\gg 1$ gilt,
+  Nach Gleichung \eqref{III.3.3} gilt für die Elementaroperationen
+  $\K\leq 2$, da sie bzgl. der Maschinenzahlen nahezu exakt sind.
+  Da für die Subtraktion zweier annähernd 
+  gleich großer Zahlen $\kappa_{rel}\gg 1$ gilt,
   ist der Stabilitätsfaktor zweier annähernd gleich großer
   Zahlen sehr klein und der Algorithmus also stabil,
   Falls es sich jedoch bei einer zusammengesetzten Abbildung $f=h\circ g$
@@ -1330,22 +1337,18 @@ Hiermit folgt:
 \extrasection{b)}{Rückwärtsanalyse} \index{Rückwärtsanalyse}
 Die Fragestellung ist nun:
 
-\textit{Kann $\widetilde{f}(\widehat{x})$ als exaktes Ergebnis von einer gestörten Eingabe $\widehat{x}$ unter der exakten Abbildung $f$ aufgefasst werden?}\\
+\textit{Kann $\widetilde{f}(\tilde{x})$ als exaktes Ergebnis
+  von einer gestörten Eingabe $\hat{x}$ 
+  unter der exakten Abbildung $f$ aufgefasst werden?}
 
 Das würde heißen
-\begin{gather*}
-  \exists\, \widehat{x}\in \Ren: f(\widehat{x})= \widetilde{f}(\widetilde{x})\, .
-\end{gather*}
-Dann schätze den Fehler $ \nn[\widehat{x}-x]$
-bzw. für nicht injektive $f$
-\begin{gather*}
-  \min_{\widehat{x}\in \Ren}
-  \left\{
-    \nn[\widehat{x}-x] 
-    \middle\vert f(\widehat{x}) = \widetilde{f}(\widetilde{x}) 
-  \right\}
-\end{gather*} 
-ab. 
+$\exists\hat{x}\in\Ren\colon f(\hat{x})=\widetilde{f}(\tilde{x})$.
+Dann schätze den Fehler $ \nn[\hat{x}-x]$
+bzw. falls $f$ nicht injektiv ist
+$\min_{\hat{x}\in \Ren}
+\left\{ \nn[\hat{x}-x]\middle\vert 
+  f(\hat{x}) = \widetilde{f}(\tilde{x}) 
+  \right\}$ ab. 
 
 \begin{image}{\copyright}
   \begin{tikzpicture}[scale=1,line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
@@ -1368,7 +1371,7 @@ ab.
 
 Ein Anwendungsbeispiel:\\
 Die Eingangsdaten seien Messdaten $\tilde{x}$  mit 1\% relativer Genauigkeit. 
-Liefert die Rückwärtsanalyse, dass $\tilde{f} (\tilde{x})$ als exaktes Ergebnis 
+Liefert die Rückwärtsanalyse, dass $\widetilde{f} (\tilde{x})$ als exaktes Ergebnis 
 $f(\hat x)$ mit Eingangsdaten $\hat x$, 
 die höchstens um 0,5 \% schwanken, aufgefasst werden kann,
 so ist das Verfahren \enquote{geeignet} . 
@@ -1382,11 +1385,13 @@ Die Rückwärtsanalyse ist
 \end{itemize}
 
 \begin{Beme}
-  $$ \mbox{Vorw"artsfehler} \; \leq \; \mbox{Kondition des
-    Problems } \cdot \mbox{R"uckw"artsfehler} .$$
-  
-  $$ ||\tilde f (\tilde x)  - f(x)|| \leq \kappa (f,x) \; || \hat x -x|| $$
-  
+  \begin{gather*}
+    \begin{array}{rcccl}
+      \text{Vorwärtsfehler } &\leq& \text{ Kondition des Problems }
+      &\cdot&\text{Rückwärtsfehler} \\  
+      \nn[\widetilde{f}(\tilde{x})-f(x)]&\leq &\kappa(f,x)&\cdot&\nn[\hat{x}-x]
+    \end{array}
+  \end{gather*}
   Beispiel: Rückwärtsanalyse der Gauß-Elimination
   (geht auf Wilkinson zurück)
 \end{Beme}
@@ -1425,12 +1430,13 @@ Die Rückwärtsanalyse ist
   $ A \in \R^{n\times n}$ besitze eine LR-Zerlegung.  Dann berechnet das
   Gaußsche Eliminationsverfahren für das Gleichungssystem
   $Ax = b$ eine Lösung $\overline{x}$ mit 
-  \begin{gather*} \overline{A} \overline{x} = b\end{gather*}
-  mit
-  \begin{gather*} 
-    |\overline{A}-A|  \leq  2n\Eps
-    |\hat{L}| \cdot |\hat{R}| + \mathcal{O}( n^2 \Eps^2).
-  \end{gather*}
+  \begin{align*} 
+    \overline{A} \overline{x} &= b
+    &\text{ und }& 
+    & |\overline{A}-A|  
+    &\leq  2n\Eps
+      \nn[\hat{L}]\cdot\nn[\hat{R}]+\mathcal{O}(n^2\Eps^2).
+  \end{align*}
 \end{Satze}
 
 \begin{proof}
@@ -1443,16 +1449,16 @@ Pivotisierung und für spezielle Klassen von Matrizen.
 \subsectione{Allgemeine Faustregeln für die LR-Zerlegung}
 \label{III.3.13}
 \begin{itemize}
-\item Falls die Matrix $n | \hat{ L} | \,  |\hat{ R}|$ die
-  selbe Größenordnung wie $| A|$ besitzt, ist der
+\item Falls für die Matrix $n\nn[\hat{L}]\nn[\hat{R}]$ 
+  dieselbe Größenordnung wie $\nn[A]$ besitzt, ist der
   Algorithmus \enquote{gutartig};
 \item Für tridiagonale Matrizen  ist der Algorithmus mit
   Spaltenpivotisierung stabil.
 \item Falls $ A$ oder $ A^T$  \textbf{strikt diagonal
     dominant}\index{strikt diagonal dominant} ist, d.h. 
   \begin{gather*}
-    | a_{ii} | > \sum\limits_{j=1 ,\, j \not = i}^{n} | a_{ij}| 
-    \mbox{ für alle } i = 1, \dotsc, n,
+    |a_{ii}| > \sum\limits_{\substack{j=1 \\ j \neq i}}^{n} |a_{ij}| 
+    \quad \forall i = 1, \dotsc, n,
   \end{gather*}
   ist Spaltenpivotisierung überflüssig. Der Algorithmus ist stabil.
 \item Für symmetrische, positiv definite Matrizen sollte keine Pivotisierung
@@ -1460,75 +1466,66 @@ Pivotisierung und für spezielle Klassen von Matrizen.
   Der Algorithmus ist stabil.
 \end{itemize}
 
-\subsubsection{Vorsicht}
+\paragraph{Vorsicht:}
 Selbst wenn die LR-Zerlegung stabil ist, in dem Sinne dass
-$| \overline{ A} - A|$ klein ist für
-$ \overline{ A}\overline{ x}  =  b $, 
+$\nn[\overline{A} - A]$ klein ist für
+$ \overline{A}\overline{x} = b $, 
 kann die numerische Lösung $\overline{ x}$ sehr
-ungenau sein, da der Vorwärtsfehler $|\overline{x}-{x}|$ auch von der
+ungenau sein, da der Vorwärtsfehler $\nn[\overline{x}-{x}]$ auch von der
 Kondition abhängt.
 
 Ein Beispiel hierzu ist die Hilbertmatrix
-\begin{gather*}
-  H  =  \left( \frac{1}{i + j -1 } \right)_{i,j= 1,\dotsc, n}\, ,
-\end{gather*}
+$  H  =  \left( \frac{1}{i + j -1 } \right)_{i,j= 1,\dotsc, n}\, ,$
 für die $\Cond ( H)$ exponentiell mit der Dimension $n$ wächst.
 
 
 \sectione{Beurteilung von Näherungslösungen linearer GLS}
-Zu $Ax=b$ liege eine Näherungslösung $\widetilde{x}$ vor.
-
+Zu $Ax=b$ liege eine Näherungslösung $\tilde{x}$ vor.
 
 \extrasection{a)}{Im Sinne der Vorwärtsanalyse}
 Im Sinne der Vorwärtsanalyse und der Fehlerentwicklung durch das Problem gilt
 \begin{gather*}
-  \frac{\nn[\widetilde{x}-x]}{\nn[x]} 
+  \frac{\nn[\tilde{x}-x]}{\nn[x]} 
   \leq \Cond(A) \cdot \frac{\nn[\Delta b]}{\nn[b]}
 \end{gather*}
 nach Beispiel \ref{3.2.10}, 
 mit dem Residuum 
-\begin{align}
-  r(\widetilde{x})  
-  & \coloneqq A\widetilde{x} - b \label{III.4.1} \\ \nonumber 
-  &	= \widetilde{b}-b \\ \nonumber
-  & = \Delta b
-\end{align}
+\begin{gather}
+  r(\tilde{x})  
+   \coloneqq A\tilde{x} - b
+  = \widetilde{b}-b
+  = \Delta b
+ \label{III.4.1}
+\end{gather}
 Wie der absolute Fehler ist das Residuum skalierungsabhängig.
-Daher ist $\nn[r(\widetilde{x})]$ \enquote{klein} ungeeignet, um
-Genauigkeitsaussagen zu treffen. \\
+Daher ist $\nn[r(\tilde{x})]$ \enquote{klein} ungeeignet, um
+Genauigkeitsaussagen zu treffen.
 Um den Fehler in $x$ abzuschätzen, ist die Betrachtung von 
 \begin{gather}
-  \frac{\nn[r(\widetilde{x})]}{\nn[b]} \label{III.4.2}
+  \frac{\nn[r(\tilde{x})]}{\nn[b]} \label{III.4.2}
 \end{gather}
-geeigneter. \\
+geeigneter. 
 Für große $\Cond(A)$ ist dieser Quotient jedoch weiterhin ungeeignet.
 
 \extrasection{b)}{Im Sinne der Rückwärtsanalyse}
 \begin{Satze}[Prager und Oettli, 1964]\label{3.4.1}
-  Sei $\tilde{ x}$ eine Näherungslösung für 
-  $  A  x =  b$. 
-  Falls
+  Sei $\tilde{x}$ eine Näherungslösung für $Ax= b$. Falls
   \begin{gather}\label{III.4.3}
-    |  r(\tilde { x})| \leq \varepsilon ( | A| | \tilde { x} | + |  b|).
+    \nn[r(\tilde{x})]\leq\varepsilon(\nn[A]\cdot\nn[\tilde{x}]+\nn[b]).
   \end{gather}
   dann existiert eine Matrix $\tilde{ A}$  und ein
-  Vektor $\tilde { b}$, so dass
-  \begin{gather*}
-    \tilde{ A} \tilde { x}  =  \tilde{ b} 
-  \end{gather*}
-  und
-  \begin{equation}
-    |\tilde{ A} -  A |  \leq  \varepsilon | A|
-    \quad \textrm{und} \quad | \tilde{ b} -  b| \leq
-    \varepsilon | b|.
+  Vektor $\tilde { b}$, so dass $\tilde{A}\tilde{x}=\tilde{b}$ und
+  \begin{align}
+    \nn[\tilde{A}-A]&\leq\varepsilon\nn[A]
+    &\text{ und }&
+    &\nn[\tilde{b}-b]&\leq \varepsilon \nn[b]\,.
     \label{III.4.4}
-  \end{equation}
-  
+  \end{align}
   Aufgrund von \eqref{III.4.3} wird der komponentenweise relative
   Rückwärtsfehler durch 
   \begin{gather*}
-    \max_i \frac{|  A \tilde{ x} -  b|_i}
-    { (| A|\, |\tilde{ x}| + | b|)_i} 
+    \max_i \frac{| A \tilde{ x} -  b|_i}
+    { (| A|\cdot |\tilde{x}| + |b|)_i} 
   \end{gather*}
   abgeschätzt.
   
