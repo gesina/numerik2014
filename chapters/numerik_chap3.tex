@@ -522,7 +522,7 @@ untersucht.
   \end{pmatrix}
   \intertext{also}
   \frac{|f(\tilde{x})-f(x)|}{|f(x)|}	&= \frac{0,9}{1,1} 
-                                              = 0,\overline{81} \\
+                                          = 0,\overline{81} \\
     &\leq \kappa_{rel}(f,x)\cdot \frac{\nn[\tilde{x}-x]_1}{\nn[x]_1} \\
     &= \kappa_{rel}(f,x) \cdot 4,6\cdot 10^{-4}
 \end{align*} 
@@ -581,7 +581,7 @@ untersucht.
     \begin{gather*}
       \kappa_{rel}(f,\widehat{b}) = \nn[A]\cdot \nn[ A^{-1}]
     \end{gather*}
-        %         
+    % 
   \item Betrachte die Störungen in $A$:\\
     Löse also 
     \begin{gather*}
@@ -863,10 +863,10 @@ und die folgende Relation benötigen:
     && \text{für }\tilde{x}\to x
   \end{align*}
   Vorsicht:
-$
-    \frac{\nn[\tilde{x}-x]_\infty}{\nn[x]_\infty}
-    \neq \underset{i}{\max}\frac{|\tilde{x}_i-x_i|}{|x_i|}
-$
+  $
+  \frac{\nn[\tilde{x}-x]_\infty}{\nn[x]_\infty}
+  \neq \underset{i}{\max}\frac{|\tilde{x}_i-x_i|}{|x_i|}
+  $
 \end{Defe}
 
 \begin{Leme}
@@ -887,42 +887,42 @@ $
 \begin{proof}
   Vergleiche seien ebenfalls komponentenweise zu verstehen.
   Nach dem Satz von Taylor gilt
- \begin{align*}
+  \begin{align*}
     f_i(\tilde{x})-f_i(x) 
-     &= \left( 
-       \frac{\partial f_i}{\partial x_i}(x),
-       \dotsc ,\frac{\partial f_i}{\partial x_n}(x) 
-       \right)
-       \cdot \begin{pmatrix}
-         \tilde{x}_1-x_1 \\
-         \vdots \\
-         \tilde{x}_n-x_n
-       \end{pmatrix}
-     + o\left(\nn[\tilde{x}-x]\right) \\
-   \Longrightarrow 
-   |f(\tilde{x})-f(x)|
-     &\leq |\D f(x)|
-       \cdot \begin{pmatrix}
-       |x_1|\cdot \frac{|\tilde{x}_1-x_1|}{|x_1|}\\
-       \vdots \\
-       |x_n|\cdot \frac{|\tilde{x}_n-x_n|}{|x_n|}
-       \end{pmatrix}
-   + o\left(
-   \underset{i}{\max} \frac{|\tilde{x}_i-x_i|}{|x_i|}
-   \right)
-     && \text{da $x_i$ fest und $\tilde{x}_i\to x_i$} \\
-     &\leq |\D f(x)| \cdot |x| 
-       \cdot \underset{i}{\max} \frac{|\tilde{x}_i-x_i|}{|x_i|}
-       + o\left(
-       \underset{i}{\max} \frac{|\tilde{x}_i-x_i|}{|x_i|}
-       \right) \\
-   \Longrightarrow \frac{\nn[f(\tilde{x})-f(x)]_\infty}{\nn[f(x)]_\infty}
-     &\leq  \frac{\nn[\,|\D f(x)|\cdot |x| \,]}{\nn[f(x)]_\infty}
-       \cdot \underset{i}{\max}\frac{|\tilde{x}_i-x_i|}{|x_i|}
-       + o\left( 
-       \underset{i}{\max} \frac{|\tilde{x}_i-x_i|}{|x_i|} 
-       \right)
- \end{align*}
+    &= \left( 
+      \frac{\partial f_i}{\partial x_i}(x),
+      \dotsc ,\frac{\partial f_i}{\partial x_n}(x) 
+      \right)
+      \cdot \begin{pmatrix}
+        \tilde{x}_1-x_1 \\
+        \vdots \\
+        \tilde{x}_n-x_n
+      \end{pmatrix}
+    + o\left(\nn[\tilde{x}-x]\right) \\
+    \Longrightarrow 
+    |f(\tilde{x})-f(x)|
+    &\leq |\D f(x)|
+      \cdot \begin{pmatrix}
+        |x_1|\cdot \frac{|\tilde{x}_1-x_1|}{|x_1|}\\
+        \vdots \\
+        |x_n|\cdot \frac{|\tilde{x}_n-x_n|}{|x_n|}
+      \end{pmatrix}
+    + o\left(
+    \underset{i}{\max} \frac{|\tilde{x}_i-x_i|}{|x_i|}
+    \right)
+    && \text{da $x_i$ fest und $\tilde{x}_i\to x_i$} \\
+    &\leq |\D f(x)| \cdot |x| 
+      \cdot \underset{i}{\max} \frac{|\tilde{x}_i-x_i|}{|x_i|}
+      + o\left(
+      \underset{i}{\max} \frac{|\tilde{x}_i-x_i|}{|x_i|}
+      \right) \\
+    \Longrightarrow \frac{\nn[f(\tilde{x})-f(x)]_\infty}{\nn[f(x)]_\infty}
+    &\leq  \frac{\nn[\,|\D f(x)|\cdot |x| \,]}{\nn[f(x)]_\infty}
+      \cdot \underset{i}{\max}\frac{|\tilde{x}_i-x_i|}{|x_i|}
+      + o\left( 
+      \underset{i}{\max} \frac{|\tilde{x}_i-x_i|}{|x_i|} 
+      \right)
+  \end{align*}
   Wähle $\tilde{x}_i = x_j+h\cdot \Sign \frac{\partial f_i}{\partial x_j}(x)$ mit $h>0$,
   dann gilt
   \begin{gather*}
@@ -970,7 +970,7 @@ $
       = \frac{\nn[
         \,\left|(y^T, x^T)\right|
         \cdot\left|\begin{pmatrix}x\\y\end{pmatrix}\right|\,
-      ]_\infty }
+        ]_\infty }
       {\nn[\langle x,y\rangle]_\infty}
       = \frac{2\cdot |y^T|\cdot |x|}{|\langle x,y\rangle|} 
       = 2\cdot \frac{\langle |x|,|y|\rangle}{|\langle x,y\rangle|} 
@@ -1162,89 +1162,89 @@ aus \eqref{III.3.2} folgt für $1\leq p\leq \infty$
   wobei $\kappa^{(j)} \coloneqq \kappa_{rel}(f^{(j)}, x^{(j)})$
   die Kondition der elementar ausführbaren Operationen $f^{(j)}$ ist.
 
-\begin{proof}
-  Wir zeigen \ref{III.3.3} durch Induktion.
-  Betrachte hierfür vorerst folgende Abschätzung
-  \begin{align*}
-    \frac{\nn[\tilde{x}^{(j+1)}-x^{(j+1)}]}{\nn[x^{(j+1)}]}
-    &= \frac{\nn[\widetilde{f}^{(j)}(\tilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
-      {\nn[f^{(j)}(x^{(j)})]} \\
-    &= \frac{\nn[\widetilde{f}^{(j)}(\tilde{x}^{(j)})
-      -f^{(j)}(\tilde{x}^{(j)})
-      +f^{(j)}(\tilde{x}^{(j)})
-      -f^{(j)}(x^{(j)})]}
-      {\nn[f^{(j)}(x^{(j)})]} \\
-    &\leq \frac{\nn[\widetilde{f}^{(j)}(\tilde{x}^{(j)})
-      -f^{(j)}(\tilde{x}^{(j)})]}
-      {\nn[f^{(j)}(x^{(j)})]}
-      +\frac{\nn[f^{(j)}(\tilde{x}^{(j)}) - f^{(j)}(x^{(j)})]}
-      {\nn[f^{(j)}(x^{(j)})]} \\
-    &= \frac{\nn[\widetilde{f}^{(j)}(\tilde{x}^{(j)})
-      -f^{(j)}(\tilde{x}^{(j)})]}
-      {\nn[f^{(j)}(\tilde{x}^{(j)})]}
-      \cdot \frac{\nn[f^{(j)}(\tilde{x}^{(j)})]}
-      {\nn[f^{(j)}(x^{(j)})]}
-      +\frac{\nn[f^{(j)}(\tilde{x}^{(j)}) - f^{(j)}(x^{(j)})]}
-      {\nn[f^{(j)}(x^{(j)})]} \\
-    &\overset{\mathllap{\ref{III.3.3}}}{\leq}
-      \Eps\cdot \frac{\nn[f^{(j)}(\tilde{x}^{(j)})]}
-      {\nn[f^{(j)}(x^{(j)})]}
-      +\frac{\nn[f^{(j)}(\tilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
-      {\nn[f^{(j)}(x^{(j)})]} \\
-    &\leq \Eps\cdot\left( 
-      1 + \frac{\nn[f^{(j)}(\tilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
-      {\nn[f^{(j)}(x^{(j)})]}
-      \right)
-      + \frac{\nn[f^{(j)}(\tilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
-      {\nn[f^{(j)}(x^{(j)})]}\\
-    &= \Eps + \left( \Eps+1 \right)
-      \cdot \frac{\nn[f^{(j)}(\tilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
-      {\nn[f^{(j)}(x^{(j)})]}\\      
-    &\overset{\mathllap{\text{Def. }\ref{3.2.7}}}{\leq} 
-      \Eps + (\Eps+1) \cdot
-      \left(
-      \kappa^{(j)}\cdot \frac{\nn[\tilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
-      + o\left( 
-      \frac{\nn[\tilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
-      \right)
-      \right)\\
-    &= \Eps + (\Eps+1) \cdot
-      \left(
-      \kappa^{(j)}\cdot \frac{\nn[\tilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
-      \right)
-      + o\left( 
-      \frac{\nn[\tilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
-      \right)
-  \end{align*}
-  Nach Voraussetzung gilt Gleichung \eqref{III.3.4}  mit $\K^{(0)}=1$ für $j=0$.
-  Für $j=1$ folgt mithilfe obiger Abschätzung und der Voraussetzung 
-  $\frac{\nn[\tilde{x}-x]}{\nn[x]} 
-  = \frac{\nn[\tilde{x}^{(1)}-x^{(1)}]}{\nn[x^{(1)}]}\leq \Eps$ 
-  \begin{align*}
-    \frac{\nn[\tilde{x}^{(2)}-x^{(2)}]}{\nn[x^{(2)}]}
-    & \leq \Eps +(\Eps+1) \cdot \left( \kappa^{(1)}\Eps+ o(\Eps)\right) \\
-    &= \Eps\cdot(1+\kappa^{(1)}) + o(\Eps) \\
-    &= \Eps\cdot\K^{(1)} + o(\Eps)
-  \end{align*}
-  Womit der Induktionsanfang gezeigt ist.
-  Für den Induktionsschritt von $j-1$ zu $j$:
-  \begin{align*}
-    \frac{\nn[\tilde{x}^{(j+1)}-x^{(j+1)}]}{\nn[x^{(j+1)}]}
-    \leq& \Eps + (\Eps+1) \cdot
-          \left(
-          \kappa^{(j)}\cdot \frac{\nn[\tilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
-          + o\left( 
-          \frac{\nn[\tilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
-          \right)
-          \right)\\
-    \overset{\mathllap{\text{Ind.-Vor.}}}{\leq}
-    & \Eps + (1+\Eps)
-      \cdot\kappa^{(j)} \left[ \Eps \K^{(j-1)}+ o(\Eps) \right] \\
-        &+ (1+\Eps) \cdot o\left( \Eps\cdot \K^{(j-1)} +o(\Eps)\right) \\
-    =& \Eps\left(1+\kappa^{(j)}\cdot \K^{(j-1)}\right)+ o(\Eps)
-  \end{align*}
-  Mit $\K^{(j)} = 1+ \kappa^{(j)}\cdot \K^{(j-1)}$ folgt die Behauptung.
-\end{proof}
+  \begin{proof}
+    Wir zeigen \ref{III.3.3} durch Induktion.
+    Betrachte hierfür vorerst folgende Abschätzung
+    \begin{align*}
+      \frac{\nn[\tilde{x}^{(j+1)}-x^{(j+1)}]}{\nn[x^{(j+1)}]}
+      &= \frac{\nn[\widetilde{f}^{(j)}(\tilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
+        {\nn[f^{(j)}(x^{(j)})]} \\
+      &= \frac{\nn[\widetilde{f}^{(j)}(\tilde{x}^{(j)})
+        -f^{(j)}(\tilde{x}^{(j)})
+        +f^{(j)}(\tilde{x}^{(j)})
+        -f^{(j)}(x^{(j)})]}
+        {\nn[f^{(j)}(x^{(j)})]} \\
+      &\leq \frac{\nn[\widetilde{f}^{(j)}(\tilde{x}^{(j)})
+        -f^{(j)}(\tilde{x}^{(j)})]}
+        {\nn[f^{(j)}(x^{(j)})]}
+        +\frac{\nn[f^{(j)}(\tilde{x}^{(j)}) - f^{(j)}(x^{(j)})]}
+        {\nn[f^{(j)}(x^{(j)})]} \\
+      &= \frac{\nn[\widetilde{f}^{(j)}(\tilde{x}^{(j)})
+        -f^{(j)}(\tilde{x}^{(j)})]}
+        {\nn[f^{(j)}(\tilde{x}^{(j)})]}
+        \cdot \frac{\nn[f^{(j)}(\tilde{x}^{(j)})]}
+        {\nn[f^{(j)}(x^{(j)})]}
+        +\frac{\nn[f^{(j)}(\tilde{x}^{(j)}) - f^{(j)}(x^{(j)})]}
+        {\nn[f^{(j)}(x^{(j)})]} \\
+      &\overset{\mathllap{\ref{III.3.3}}}{\leq}
+        \Eps\cdot \frac{\nn[f^{(j)}(\tilde{x}^{(j)})]}
+        {\nn[f^{(j)}(x^{(j)})]}
+        +\frac{\nn[f^{(j)}(\tilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
+        {\nn[f^{(j)}(x^{(j)})]} \\
+      &\leq \Eps\cdot\left( 
+        1 + \frac{\nn[f^{(j)}(\tilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
+        {\nn[f^{(j)}(x^{(j)})]}
+        \right)
+        + \frac{\nn[f^{(j)}(\tilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
+        {\nn[f^{(j)}(x^{(j)})]}\\
+      &= \Eps + \left( \Eps+1 \right)
+        \cdot \frac{\nn[f^{(j)}(\tilde{x}^{(j)})-f^{(j)}(x^{(j)})]}
+        {\nn[f^{(j)}(x^{(j)})]}\\      
+      &\overset{\mathllap{\text{Def. }\ref{3.2.7}}}{\leq} 
+        \Eps + (\Eps+1) \cdot
+        \left(
+        \kappa^{(j)}\cdot \frac{\nn[\tilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
+        + o\left( 
+        \frac{\nn[\tilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
+        \right)
+        \right)\\
+      &= \Eps + (\Eps+1) \cdot
+        \left(
+        \kappa^{(j)}\cdot \frac{\nn[\tilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
+        \right)
+        + o\left( 
+        \frac{\nn[\tilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
+        \right)
+    \end{align*}
+    Nach Voraussetzung gilt Gleichung \eqref{III.3.4}  mit $\K^{(0)}=1$ für $j=0$.
+    Für $j=1$ folgt mithilfe obiger Abschätzung und der Voraussetzung 
+    $\frac{\nn[\tilde{x}-x]}{\nn[x]} 
+    = \frac{\nn[\tilde{x}^{(1)}-x^{(1)}]}{\nn[x^{(1)}]}\leq \Eps$ 
+    \begin{align*}
+      \frac{\nn[\tilde{x}^{(2)}-x^{(2)}]}{\nn[x^{(2)}]}
+      & \leq \Eps +(\Eps+1) \cdot \left( \kappa^{(1)}\Eps+ o(\Eps)\right) \\
+      &= \Eps\cdot(1+\kappa^{(1)}) + o(\Eps) \\
+      &= \Eps\cdot\K^{(1)} + o(\Eps)
+    \end{align*}
+    Womit der Induktionsanfang gezeigt ist.
+    Für den Induktionsschritt von $j-1$ zu $j$:
+    \begin{align*}
+      \frac{\nn[\tilde{x}^{(j+1)}-x^{(j+1)}]}{\nn[x^{(j+1)}]}
+      \leq& \Eps + (\Eps+1) \cdot
+            \left(
+            \kappa^{(j)}\cdot \frac{\nn[\tilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
+            + o\left( 
+            \frac{\nn[\tilde{x}^{(j)}-x^{(j)}]}{\nn[x^{(j)}]}
+            \right)
+            \right)\\
+      \overset{\mathllap{\text{Ind.-Vor.}}}{\leq}
+          & \Eps + (1+\Eps)
+            \cdot\kappa^{(j)} \left[ \Eps \K^{(j-1)}+ o(\Eps) \right] \\
+          &+ (1+\Eps) \cdot o\left( \Eps\cdot \K^{(j-1)} +o(\Eps)\right) \\
+      =& \Eps\left(1+\kappa^{(j)}\cdot \K^{(j-1)}\right)+ o(\Eps)
+    \end{align*}
+    Mit $\K^{(j)} = 1+ \kappa^{(j)}\cdot \K^{(j-1)}$ folgt die Behauptung.
+  \end{proof}
 \end{Leme}
 
 Hiermit folgt:
@@ -1299,12 +1299,12 @@ Hiermit folgt:
     \frac{\nn[\widetilde{f}(\tilde{x})-f(x)]}{\nn[f(x)]}
     < \underbrace{\sigma\left( f,\widetilde{f}, x\right) }_{
       \mathclap{\substack{\text{Beitrag}\\
-        \text{des} \\
-        \text{Algorithmus}}}}
+          \text{des} \\
+          \text{Algorithmus}}}}
     \cdot \underbrace{\kappa_{rel}(f,x)}_{
       \mathclap{\substack{\text{Beitrag} \\
-        \text{des} \\
-        \text{Problems}}}}
+          \text{des} \\
+          \text{Problems}}}}
     \cdot \underbrace{\Eps}_{\mathclap{\substack{\text{Rundungs-}\\\text{fehler}}}}
     + o(\Eps)
   \end{gather*}
@@ -1348,7 +1348,7 @@ bzw. falls $f$ nicht injektiv ist
 $\min_{\hat{x}\in \Ren}
 \left\{ \nn[\hat{x}-x]\middle\vert 
   f(\hat{x}) = \widetilde{f}(\tilde{x}) 
-  \right\}$ ab. 
+\right\}$ ab. 
 
 \begin{image}{\copyright}
   \begin{tikzpicture}[scale=1,line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
@@ -1403,18 +1403,18 @@ Die Rückwärtsanalyse ist
   so dass $\hat{L}\hat{R} =\hat{A}$
   und
   \begin{align*}
-     \nn[\hat{A}-A] 
-     & \leq 
-       \frac{\Eps}{1-n \cdot \Eps}
-       \left( \nn[\hat{L}]
-       \nn[{\begin{pmatrix}
-         1 && & 0\\
-         &2\\
-         &&\ddots \\
-         0&&& n\\
-       \end{pmatrix}}]
+    \nn[\hat{A}-A] 
+    & \leq 
+      \frac{\Eps}{1-n \cdot \Eps}
+      \left( \nn[\hat{L}]
+      \nn[{\begin{pmatrix}
+          1 && & 0\\
+          &2\\
+          &&\ddots \\
+          0&&& n\\
+        \end{pmatrix}}]
     \nn[\hat{R}]-\nn[\hat{R}]
-     \right)\\
+    \right)\\
     & \leq  \frac{n\cdot \Eps}{1-n\cdot \Eps}\nn[\hat{L}]\nn[\hat{R}] \\
     & = n\cdot \Eps \nn[\hat{L}]\cdot \nn[\hat{R}] 
       + \mathcal{O}( n^2 \Eps^2)
@@ -1492,10 +1492,10 @@ nach Beispiel \ref{3.2.10},
 mit dem Residuum 
 \begin{gather}
   r(\tilde{x})  
-   \coloneqq A\tilde{x} - b
+  \coloneqq A\tilde{x} - b
   = \widetilde{b}-b
   = \Delta b
- \label{III.4.1}
+  \label{III.4.1}
 \end{gather}
 Wie der absolute Fehler ist das Residuum skalierungsabhängig.
 Daher ist $\nn[r(\tilde{x})]$ \enquote{klein} ungeeignet, um
@@ -1519,7 +1519,7 @@ Für große $\Cond(A)$ ist dieser Quotient jedoch weiterhin ungeeignet.
     \nn[\tilde{A}-A]&\leq\varepsilon\nn[A]
     &\text{ und }&
     &\nn[\tilde{b}-b]&\leq \varepsilon \nn[b]\,.
-    \label{III.4.4}
+                       \label{III.4.4}
   \end{align}
   Aufgrund von \eqref{III.4.3} wird der komponentenweise relative
   Rückwärtsfehler durch 
