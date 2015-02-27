@@ -25,7 +25,7 @@ Eine naheliegende Forderung ist die
 \begin{gather*}
   \varphi^{(j)} (t_i) = f_i^{(j)}\qquad \text{gegeben für alle } i,j ,
 \end{gather*}
-d.h. $\varphi$ und $f$ sollen an den \textbf{Knoten} oder 
+d.h. $\varphi$ und $f$ sollen an den \textbf{Knoten}\index{Knoten} oder 
 \textbf{Stützstellen}\index{Stützstelle} $t_i$ übereinstimmen.
 Die $f_i^{(j)}$ heißen Stützwerte\index{Stützwert}.
 $\varphi$ soll zusätzlich meist leicht an einer beliebigen Stelle $t$
@@ -35,7 +35,7 @@ Es bietet sich z.B. an
 \item Polynome: $\varphi(t) = a_0+\dotsb +a_n t^n$
 \item rationale Funktion: $\varphi(t) = \frac{p(t)}{q(t)} $
   (insbesondere, falls Pole vorliegen)
-\item Spline, d.h. stückweise Polynome
+\item Splines, d.h. stückweise Polynome
 \item trigonometrische Funktionen, Fouriertransformationen:
   $ \varphi (t) = \sum_{j=1}^{\infty} a_je^{-2\pi ijt}$
   (insbesondere für periodische Funktionen)
@@ -50,29 +50,29 @@ Wir definieren als
 \end{gather}
 den Raum aller Polynome\index{Polynomraum} mit $\deg(p)\leq n$.
 Die Monome $1,x, \dotsc , x^n$ bilden eine Basis von $\p_n$
-und es gilt $dim\p_n = n+1$.
+und es gilt $\dim\p_n = n+1$.
 
 \extrasection{a)}{Lagrangesche Interpolationsformel und Lemma von Aitken}
 
 \begin{Satze}\label{6.1.1}
   Zu beliebigen $n+1$ Stützpunkten $(x_i, f_i)_{i=0, \dotsc, n}$ 
   mit $x_i\neq x_k$ für $i\neq k$,
-  gibt es genau ein $p\in \p$ mit $p(x_i) = f_i$ für $i=0,
+  gibt es genau ein $p\in \p_n$ mit $p(x_i) = f_i$ für $i=0,
   \dotsc ,n$.
   $p$ heißt \textbf{Interpolationspolynom}\index{Interpolation!-polynom}
   und wird mit $\ipol{p}{f}{x_0, \dotsc, x_n}$ bezeichnet.
 \end{Satze}
 
 \begin{proof}~
-  \begin{enumerate}[a)]
-  \item \textit{Eindeutigkeit}:
+  \begin{description}
+  \item[Eindeutigkeit]
     Seien $p_1, p_2\in \p_n$ mit $p_1(x_i)=p_2(x_i) = f_i$
     für $i=0, \dotsc, n$.
     Dann ist $p\coloneqq p_1-p_2 \in\p_n$
     mit mindestens $n+1$ Nullstellen.
     Daraus folgt bereits, dass $p\equiv 0$, also $p_1\equiv p_2$.
 
-  \item \textit{Existenz}: 
+  \item[Existenz]
     Betrachte die Polynome $L_i\in\p_n$ für $i=0, \dotsc, n$
     mit 
     \begin{gather}
@@ -87,14 +87,14 @@ und es gilt $dim\p_n = n+1$.
     \end{gather}
     und sind nach a) eindeutig.
     Sie heißen \textbf{Lagrange-Polynome}\index{Lagrange-Polynome}.
-  \end{enumerate}
-  Die \textbf{Lagrange-Interpolationsformel}\index{Interpolation!Lagrange-Formel}
-  \begin{gather}
-    p(x) = \sum_{i=0}^{n} f_iL_i(x)
-    \label{VI.1.4}
-  \end{gather}
-  bestimmt somit $\ipol{p}{f}{x_0,\dotsc,x_n}$,
-  da $p\in\p_n$ und $p(x_i) = f_i$ für $i=0,\dotsc, n$.
+    Die \textbf{Lagrange-Interpolationsformel}\index{Interpolation!Lagrange-Formel}
+    \begin{gather}
+      p(x) = \sum_{i=0}^{n} f_iL_i(x)
+      \label{VI.1.4}
+    \end{gather}
+    bestimmt somit $\ipol{p}{f}{x_0,\dotsc,x_n}$,
+    da $p\in\p_n$ und $p(x_i) = f_i$ für $i=0,\dotsc, n$.
+  \end{description}
 \end{proof}
 
 Mit \eqref{VI.1.4} folgt weiterhin
@@ -114,14 +114,13 @@ benötigt man:
 
 \begin{Leme}[Lemma von Aitken]\index{Lemma von Aitken}
   Für das Interpolationspolynom $\ipol{p}{f}{x_0,\dotsc,x_n}$
-  gilt die Rekursionsformel
+  gilt für $n>0$ die Rekursionsformel
   \begin{gather}
     \ipol{p}{f}{x_0,\dotsc,x_n}(x) = \frac{(x_0-x)\ipol{p}{f}{x_1,\dotsc,x_n}(x) -
       (x_n-x)\ipol{p}{f}{x_0,\dotsc,x_{n-1}}(x)}
     {(x_0-x_n)}
     \label{VI.1.5}
   \end{gather}
-  für $n>0$.	
 \end{Leme}
 
 \begin{proof}
@@ -182,7 +181,7 @@ Setze $P_{i0}=f_i$ für $i=0,\dotsc,n$ und
 \eqref{VI.1.5} und ist deutlich billiger als
 \eqref{VI.1.4}.
 Pro Auswertung an einer Stelle $\overline{x}$ sind
-$\frac{n(n+1)}{2}$ Multiplikationen und Divisionen notwendig.\\
+$\frac{n(n+1)}{2}$ Multiplikationen und Divisionen notwendig.
 Soll das Interpolationspolynom an mehreren Stellen ausgewertet werden,
 ist das Schema von Neville zu teuer.
 
@@ -196,7 +195,7 @@ Damit wird $p$ zu
 \begin{gather}
   p(x)= \Bigg(\dotsc \bigg(\Big(
   \big(a_n(x-x_{n-1})+a_{n-1}\big)\cdot(x-x_{n-2})+a_{n-2}\Big)
-  \cdot (x-x_{n-3})+a_{n-3}\bigg)~\dotsc~\Bigg)
+  \cdot (x-x_{n-3})+a_{n-3}\bigg)~~\dotsc~~\Bigg)
   \label{VI.1.10}
 \end{gather}
 Es ergibt sich für bekannte $a_i\in\R$:
@@ -206,7 +205,7 @@ Es ergibt sich für bekannte $a_i\in\R$:
 \begin{pseudocode}{6cm}
   $p=a_n$ \\
   \textbf{for} $k=n-1:-1:0$\\
-  |\>  $p=p(x-x_k)+a_k$\\
+  |\>  $p=p\cdot (x-x_k)+a_k$\\
   \textbf{end}
 \end{pseudocode}
 
@@ -233,7 +232,7 @@ Es geht jedoch noch billiger, wie gleich zu sehen ist.
     \end{align*}
   \item Die $n$-te dividierte Differenz $[x_0,\dotsc, x_n]f$
     \index{dividierte Differenzen}
-    ist definiert durch
+    ist für $x_n\neq x_i$ definiert durch
     \begin{align}\nonumber
       [x_i]f &\coloneqq f_i\\
       [x_i,\dotsc,x_n]f 
@@ -242,7 +241,6 @@ Es geht jedoch noch billiger, wie gleich zu sehen ist.
                {x_n-x_i}
                \label{VI.1.11}
     \end{align}
-    für $x_n\neq x_i$.
   \end{enumerate}
 \end{Defe}
 
@@ -270,11 +268,10 @@ Es geht jedoch noch billiger, wie gleich zu sehen ist.
 \end{Satze}
 
 \begin{proof}
-  Wir zeigen den Satz per Induktion.\\
-  Induktionsanfang mit $n=0$:
-  \begin{gather*}
-    p(f\mid x_0) (x) = f_0 = a_0 = [x_0]f
-  \end{gather*}
+  Wir zeigen den Satz per Induktion.
+
+  Induktionsanfang mit $n=0$: Es ist $\ipol{p}{f}{x_0}(x)=f_0=a_0=[x_0]f$.
+
   Induktionsschritt $n \rightarrow n+1$:
   Nach dem Lemma von Aitken gilt \eqref{VI.1.5}, also 
   \begin{gather*}
@@ -290,6 +287,11 @@ Es geht jedoch noch billiger, wie gleich zu sehen ist.
               {x_0-x_{n+1}}\\
             & = [x_0, \dotsc , x_{n+1}] f
   \end{align*}
+
+  Die Permutationsinvarianz der dividierten Differenzen 
+  folgt direkt aus $[x_0,\dotsc,x_n]f=a_n$,
+  da die Interpolationspolynome $\ipol{p}{f}{x_i,\dotsc,x_k}$
+  permutationsinvariant sind.
 \end{proof}
 
 
@@ -343,11 +345,9 @@ in \eqref{VI.1.10} folgendes Schema:
                                                               \dots &\rightarrow && \boldsymbol{[x_0,\dotsc,x_n]f}
   \end{array}
 \end{gather*}
-(markiert sind die benötigten Werte)\\
+(markiert sind die benötigten Werte)
 Der Aufwand zur Berechnung aller Koeffizienten $a_i$ beträgt
-\begin{gather*}
-  \frac{n(n+1)}{2} ~\text{Divisionen}
-\end{gather*}
+$\frac{n(n+1)}{2}$ Divisionen.
 Kombiniert mit dem Horner-Schema ergibt sich
 zur Auswertung von $p$ an $m$ Stellen ein Aufwand von
 \begin{gather*}
@@ -356,12 +356,12 @@ zur Auswertung von $p$ an $m$ Stellen ein Aufwand von
 \end{gather*}
 Das Schema von Neville benötigt dagegen
 \begin{gather*}
-  m\cdot\frac{n(n+1)}{2} ~\text{Multiplikationene und Divisionen}
+  m\cdot\frac{n(n+1)}{2} ~\text{Multiplikationen und Divisionen}
 \end{gather*}
 
 \begin{Beme}
-  Da $\ipol{p}{f}{x_0,\dotsc,x_n}$ linear von den Stützwerten $f_i$
-  abhängt,
+  Da $\ipol{p}{f}{x_0,\dotsc,x_n}$ linear 
+  von den Stützwerten $f_i$ abhängt,
   d.h. $\ipol{p}{\alpha f+\beta g}{x_0,\dotsc,x_n} = 
   \alpha \ipol{p}{f}{x_0,\dotsc,x_n}+\beta \ipol{p}{g}{x_0,\dotsc,x_n}$
   gilt, folgt somit auch
@@ -392,20 +392,20 @@ Das Schema von Neville benötigt dagegen
   \end{align*}
   mit $\widetilde{w}_j(x) =
   \prod_{l=j+1}^{n}(x-x_l)\in\p_{n-j}$.\\
-  Dann folgt 
+  Dann ist $(G\cdot H)(x_i)=g(x_i)h(x_i)~\forall i\leq n$ und
   \begin{align*}
-    (G\cdot H)(x_i) &= g(x_i)h(x_i) \quad \forall i\leq n
-                      \intertext{und}
-                      G\cdot H &= \sum_{i,j=0}^{n}[x_0,\dotsc,x_i]g\cdot
-                                 [x_j,\dotsc,x_n]h\cdot w_i\widetilde{w}_j
-                                 \in\p_{2n}
+    G\cdot H &= \sum_{i,j=0}^{n}[x_0,\dotsc,x_i]g\cdot
+               [x_j,\dotsc,x_n]h\cdot w_i\widetilde{w}_j
+               \in\p_{2n} \,.
   \end{align*}
-  Wegen 
+  Wegen der Relation
   \begin{gather*}
     w_i(x_k)\widetilde{w}_j(x_k) = \prod_{l=0}^{i-1}(x_k-x_l)
     \prod_{l=j+1}^{n}(x_k-x_l) = 0
+    \quad \forall k, i\geq j+1
   \end{gather*}
-  für alle $k$, falls $i\geq j+1$, interpoliert auch 
+  %für alle $k$, falls $i\geq j+1$, 
+  interpoliert auch 
   \begin{gather*}
     P\coloneqq \sum_{0\leq i\leq j\leq n}[x_0,\dotsc, x_i]g
     \cdot [x_j,\dotsc, x_n]h
@@ -431,11 +431,7 @@ Das Schema von Neville benötigt dagegen
 Gegeben seien die Knoten  $x_0<x_1<\dotsb <x_m$
 und die Werte $ f_i^{(k)}$ für $k=0,\dotsc, n_i-1$
 mit $i=1,\dotsc m$.
-Dann sind
-\begin{gather*}
-  n+1\coloneqq \sum_{i=0}^{m} n_i
-\end{gather*}
-Werte gegeben.
+Dann sind $n+1\coloneqq \sum_{i=0}^{m} n_i$ Werte gegeben.
 
 \begin{Defe}\index{Hermite-Interpolationspolynom}
   Ein Polynom $p$ mit $p\in \p_n$
@@ -471,7 +467,7 @@ Werte gegeben.
 \end{Satze}
 
 
-Führe nun virtuelle Knoten ein:
+Führe nun virtuelle Knoten\index{Knoten!virtuell} ein:
 \begin{gather}
   \overbrace{\underset{\eqqcolon t_0}{x_0}
     =\dotsb
@@ -501,7 +497,7 @@ dann gilt
       && \Rightarrow & n_0=2 \\
       x_1=1 & f_1^{(0)} = 0 &  f_1^{(1)}= 10 & f_1^{(2)}=40               
                      &\Rightarrow & n_1=3 \\
-    \end{array}\Longrightarrow n=6
+    \end{array}\Longrightarrow n=2+3-1=4
   \end{align*}
   \begin{gather*}
     t_0 = t_1 =x_0=0, \quad t_2=t_3=t_4=x_1=1 \\
@@ -537,7 +533,7 @@ dann gilt
 
 \begin{proof}
   In beiden Fällen wird nachgewiesen, dass die rechte Seite
-  das zugehörige Hermite-Interpolationsproblem löst.\\
+  das zugehörige Hermite-Interpolationsproblem löst.
   Aufgrund der Eindeutigkeit von $p\in\p_k$
   folgt dann die Behauptung.
 \end{proof}
@@ -595,7 +591,7 @@ dann gilt
 
 \extrasection{d)}{Fehlerabschätzung bei Polynominterpolation}
 Der Fehler $f(x) -p(x) $ kann nicht abgeschätzt werden,
-falls nicht mehr als die Funktionswerte $f_i$ von f bekannt sind.
+falls nicht mehr als die Funktionswerte $f_i$ von $f$ bekannt sind.
 
 \begin{Satze}[Fehlerdarstellung mit dividierten Differenzen]
   \index{dividierte Differenzen!Fehlerdarstellung}
@@ -683,9 +679,7 @@ falls nicht mehr als die Funktionswerte $f_i$ von f bekannt sind.
   paarweise verschiedene Nullstellen in $I$.
   Also existiert mindestens eine Nullstelle $\xi$ von
   $F^{(n+1)}=f^{(n+1)}-K(n+1)!$. Damit ist
-  \begin{gather*}
-    K=\frac{f^{(n+1)}(\xi)}{(n+1)!}
-  \end{gather*}
+  $K=\frac{f^{(n+1)}(\xi)}{(n+1)!}$.
   Mit $F(\overline{x}) =0$ folgt die Behauptung.
 \end{proof}
 
@@ -700,10 +694,8 @@ falls nicht mehr als die Funktionswerte $f_i$ von f bekannt sind.
 
   \begin{proof}
     Für $f\in C^{n+1}(I)$ folgt aus
-    Beispiel \ref{6.1.16} und \eqref{VI.1.17}
-    \begin{gather*}
-      K= \frac{f^{(n+1)}(\xi)}{(n+1)!}
-    \end{gather*}
+    Satz \ref{VI.1.15} und \eqref{VI.1.17}
+    $[t_0,\dotsc,t_n,\overline{x}]f= \frac{f^{(n+1)}(\xi)}{(n+1)!}$,
     womit \eqref{VI.1.23} folgt.
   \end{proof}
 \end{Fole}
@@ -713,24 +705,20 @@ spielt nicht nur $f^{(n+1)}$ bzw.
 $[t_0,\dotsc,t_n, \overline{x}]f$ eine Rolle für den Fehler,
 sondern mit $w_{n+1}(\overline{x})$ auch die Verteilung der Knoten.
 Falls die Knoten frei wählbar sind und
-\begin{gather*}
-  \nn[f-\ipol{p}{f}{t_0,\dotsc,t_n}]_{C([a,b])}
-\end{gather*}
-klein ist, wird gewünscht, dass
+$\nn[f-\ipol{p}{f}{t_0,\dotsc,t_n}]_{C([a,b])}$
+klein sein soll, wird gewünscht, dass
 \begin{gather*}\index{Norm}
   \nn[w_{n+1}]_{C([a,b])}\coloneqq \nn[w_{n+1}]_\infty
   = \max_{x\in[a,b]}|w_{n+1}(x)|
 \end{gather*}
-minimal ist, d.h.
-es wird 
+minimal ist, d.h. man sucht nach
 \begin{gather*}
   \min_{t_0,\dotsc,t_n\in\R}\,\max_{x\in[a,b]}
   |(x-t_0)\dotsm(x-t_n)|
 \end{gather*}
-gesucht.
 Falls $t_i=x_i$, kann gezeigt werden 
 \cite[z.B.][]{deuflhardhohmann,freundhoppe},
-dass für $[a,b]=[-1,1]$ das zugehörige $w_{n+1}$,
+dass für $[a,b]=[-1,1]$ das zugehörige $w_{n+1}$
 das sogenannte
 \textbf{Tschebyscheff-Polynom}\index{Tschebyscheff-Polynom}
 \begin{gather}
@@ -738,19 +726,18 @@ das sogenannte
   \label{VI.1.24}
 \end{gather}
 ist. Dessen Nullstellen, die 
-\textbf{Tschebyscheff-Punkte}\index{Tschebyscheff-Punkte},
-sind
+\textbf{Tschebyscheff-Punkte}\index{Tschebyscheff-Punkte}, sind
 \begin{gather}
   x_i= \cos\left(\frac{2i+1}{2n+2}\pi\right)\quad \text{für } i=0,\dotsc,n
   \label{VI.1.25}
 \end{gather}
-Weiterhin ist der führende Koeffizient von $T_{n+1}$ genau $2^n$,
-sodass 
+Weiterhin ist der führende Koeffizient von 
+$T_{n+1}$ genau $2^n$, so dass 
 \begin{gather}
   \nn[w_{n+1}]_{C([-1,1])}=2^{-n}
   \label{VI.1.26}
 \end{gather}
-für die Tschebyscheff-Punkte gilt.\\
+für die Tschebyscheff-Punkte gilt.
 Für andere Intervalle $[a,b]$ wird die lineare Transformation
 \begin{gather*}
   x=\frac{1}{2}\big(t(b-a)+(b+a)\big)
@@ -764,10 +751,10 @@ d.h.
   \nn[f]_2\coloneqq \left(\int_{a}^{b}|f(t)|^2dt \right)^\frac{1}{2}
 \end{gather*}
 betrachtet, erweisen sich auf $[-1,1]$ die Nullstellen
-des \textbf{Legendre-Polynoms}\index{Legendre-Polynom} $P_{n+1}$
+des \textbf{Legendre-Polynoms}\index{Legendre-Polynom} $L_{n+1}$
 als minimal \cite{haemmerlinhoffmann}, wobei
 \begin{gather*}
-  P_n(x) = \frac{n!}{(2n)!}\frac{d^n}{dx^n}\left((x^2-1)^n\right)
+  L_n(x) = \frac{n!}{(2n)!}\frac{\dd^n}{\dd x^n}\left((x^2-1)^n\right)
 \end{gather*}
 
 
@@ -819,7 +806,7 @@ Im Gegensatz zur $\nn_\infty$-Norm (auch Tschebyscheff-Norm genannt)
 gilt für die $\nn_2$-Norm \cite[siehe][]{haemmerlinhoffmann}:
 \begin{Satze}
   Sei $f\in C([-1,1])$ und seien $x_0,\dotsc, x_n$ die Nullstellen
-  des	Legendre-Polynoms $L_n+1$. Dann gilt
+  des	Legendre-Polynoms $L_{n+1}$. Dann gilt
   \begin{gather*}
     \lim\limits_{n\rightarrow \infty}\nn[f-\ipol{p}{f}{x_0,\dotsc,x_n}]_2 = 0
   \end{gather*}
@@ -894,7 +881,7 @@ und diese \enquote{glatt} zusammenzusetzen.
     \right\}
   \end{gather*}
   Für $k=2$ ergeben sich \textbf{lineare Splines}\index{Spline!linear}
-  und für $k=4$ die \textbf{kubischen Splines}\index{Spline!kubisch}.\\
+  und für $k=4$ die \textbf{kubischen Splines}\index{Spline!kubisch}.
   Offensichtlich gilt
   \begin{enumerate}[a)]
   \item $S_{k,\Delta}$ ist ein linearer Vektorraum.
@@ -946,7 +933,7 @@ und diese \enquote{glatt} zusammenzusetzen.
   alle Basisfunktionen ausgewertet werden, was relativ teuer ist.
 \item Falls $x_i\approx x_{i+1}$ sind 
   $(x-x_i)_+^{k-1}$ und $(x-x_{i+1})_+^{k-1}$
-  \enquote{nahezu} linear abhängig.\\
+  \enquote{nahezu} linear abhängig.
   Damit ist die Basis schlecht konditioniert bzgl. Störungen in $b_i$.
 \end{enumerate}
 
@@ -1118,10 +1105,10 @@ verschieden von Null sein, da
 \end{align*}
 
 Daraus folgt, dass $N_{i,k}(\overline{x})\neq x$ 
-für höchstens $i=j-k+1,\dotsc, j$.\\
+für höchstens $i=j-k+1,\dotsc, j$.
 Nach der Rekursionsformel baut $N_{i,k}$ auf 
 $N_{i,1},\dotsc , N_{i+(k-1),1}$ auf und
-benutzt $t_i,\dotsc, t_{i+k}$.\\
+benutzt $t_i,\dotsc, t_{i+k}$.
 Da in der Rekursionsformel nur nichtnegative Vielfache
 nichtnegativer Zahlen addiert werden,
 ist das Verfahren zur Bestimmung der $N_{i,k}(\overline{x})$
@@ -1195,7 +1182,7 @@ Setzt man nun
       Dann folgt $(c,d)\subseteq (t_l, t_{l+1})$.
       Nach a) lässt sich jedes Polynom $p\in \p_{k-1}$
       durch die B-Splines $N_{l,k}$ darstellen.
-      Auf $(c,d)$ sind nur $k=dim\p_{k-1}$
+      Auf $(c,d)$ sind nur $k=\dim\p_{k-1}$
       B-Splines von Null verschieden.
       Daher müssen diese linear unabhängig sein.
     \end{description}
@@ -1210,7 +1197,7 @@ Setzt man nun
   \begin{gather*}
     s(x)=\sum_{i=1}^{n+k-1}c_iN_{ik}(x)
   \end{gather*}
-  heißen \textbf{de Boor-Punkte}\index{de Boor-Punkte} von $s$. \\
+  heißen \textbf{de Boor-Punkte}\index{de Boor-Punkte} von $s$. 
   Die Funktionswerte $s(x)$ sind somit eine
   Konvexkombination der de Boor-Punkte $c_i$.
 \end{Fole}
@@ -1233,7 +1220,7 @@ Setzt man nun
 \extrasection{b)}{Splineinterpolation}
 
 \subsectione{Splineinterpolation allgemein}\label{6.2.13}
-Gegeben seien $N=n+k-1=dimS_{k,\Delta}$ Stützpunkte $(\xi_i,f_i)$
+Gegeben seien $N=n+k-1=\dim S_{k,\Delta}$ Stützpunkte $(\xi_i,f_i)$
 mit
 \begin{gather*}
   \xi_1<\dotsb<\xi_N\,.
@@ -1307,12 +1294,12 @@ eine der folgenden Randbedingungen gefordert:
 \item $s'(a)=f'(a)$ und $s'(b)=f'(b)$: 
   \textbf{vollständige} oder \textbf{Hermitesche kubische 
     Spline-Interpolation} 
-\item $s''(a)=s''(b)=0$ (\enquote{natürliche}  Endbedingungen):\\
-  \textbf{natürliche kubische Spline-Interpolation}\\
+\item $s''(a)=s''(b)=0$ (\enquote{natürliche}  Endbedingungen):
+  \textbf{natürliche kubische Spline-Interpolation}
   (d.h. $s$ kann linear außerhalb von $[a,b]$ glatt fortgesetzt
   werden) 
 \item $s'(a)=s'(b)$ und $s''(a)=s''(b)$,
-  falls $f$ periodisch mit Periode $b-a$ ist: \\
+  falls $f$ periodisch mit Periode $b-a$ ist:
   \textbf{periodische kubische Spline-Interpolation}.
 \end{enumerate}
 Die drei Randbedingungen werden aufgrund physikalischer
@@ -1330,9 +1317,9 @@ Dann misst
   \right)^2dt
 \end{gather*}
 (wobei $\kappa $ die Krümmung der Kurve $y$ in der Ebene ist) 
-die Biegeenergie.\\
+die Biegeenergie.
 Aufgrund des \textbf{Hamiltonschen Prinzips}\index{Hamiltonsches Prinzip}
-stellt sich der Stab so ein, dass $E(y)$ minimiert wird.\\
+stellt sich der Stab so ein, dass $E(y)$ minimiert wird.
 Unter der Annahme $|y'(t)| \ll 1$ für $t\in [a,b]$ 
 wird $E$ linearisiert zu $c\int_a^by''(t)^2dt$.
 Also wird annähernd eine Funktion $y\in C^2$ gesucht,
@@ -1378,7 +1365,7 @@ Obige Splines haben gerade diese Eigenschaft, denn:
                                     - \big(y(x_{i-1})-s(x_{i-1})\big)\bigg) \\
                                   &=0
     \end{align*}
-    da $y$,$s$ Interpolationen von $f$ sind.\\
+    da $y$,$s$ Interpolationen von $f$ sind.
     Mit den Randbedingungen i), ii) und iii) 
     ist die Voraussetzung von \ref{6.2.16} erfüllt.
   \end{proof}
@@ -1395,9 +1382,9 @@ Obige Splines haben gerade diese Eigenschaft, denn:
   \end{gather*}
 
   \begin{proof}
-    Die Anzahl der Forderungen ist $N=dim S_{4,\Delta}$.
+    Die Anzahl der Forderungen ist $N=\dim S_{4,\Delta}$.
     Es ergibt sich also ein quadradratisches lineares Gleichungssystem
-    und es genügt Injektivität zu zeigen.\\
+    und es genügt Injektivität zu zeigen.
     Sei $f\equiv 0$, dann erfüllt $y\equiv 0$ alle Forderungen.
     für alle Lösungen $s\in S_{4,\Delta}$ gilt daher
     \begin{gather*}
@@ -1462,12 +1449,12 @@ Obige Splines haben gerade diese Eigenschaft, denn:
                   bzw. die Ableitungen betragsmäßig sehr groß sind.
 
                   Natürliche Spline-Interpolation
-                  versus polynomiale Interpolation:\\
+                  versus polynomiale Interpolation:
                   \begin{image}{Splines versus Polynominterpolation}
                     \includegraphics[width=\linewidth]{images/laster1.png}
                   \end{image}\label{6.2.19(1)}
 
-                  Mit mehr Stützstellen:\\
+                  Mit mehr Stützstellen:
                   \begin{image}{Splines versus Polynominterpolation
                       mit vielen Stützstellen}
                     \includegraphics[width=\linewidth]{images/laster2.png} 
@@ -1488,7 +1475,7 @@ Obige Splines haben gerade diese Eigenschaft, denn:
                   \begin{proof}
                     \cite[siehe z.B.]
                     [(in allgemeiner Form, d.h. auch für nicht gleichmäßiges Gitter)]
-                    {stoerbulirsch}\\
+                    {stoerbulirsch}
                     Die optimalen $c_k$ wurden von Hall und Meyer (1976) bewiesen.
                     Oft wird mit Stetigkeitsmodulen gearbeitet.
                   \end{proof}
