@@ -14,35 +14,30 @@
 % ESSENTIAL PACKAGES
 % ---------------------------------------------------------------
 %% encodings
-\usepackage[T1]{fontenc}      %font-encoding WITH e.g. ö (default is OT1 with 7- instead of 8-bit)
-\usepackage[utf8]{inputenc}   %input-encoding WITH e.g. ö (depends on system), better after fontenc
-% ..................................................
+\usepackage[T1]{fontenc}      %8-bit font-encoding
+\usepackage[utf8]{inputenc}   %8-bit input-encoding (after fontenc)
 %% language
-\usepackage[shorthands=off]{babel}  % language settings; no replacement of "a -> ä etc.
-% ..................................................
+\usepackage[shorthands=off]{babel}  %language settings; no replacement of "a->ä"
 %% font-settings
 \usepackage{lmodern}	       %font: latin modern
 \usepackage{microtype}	       %micro-typographic optimizing, e.g. ligatures
-% 
+
 % EXTRA PACKAGES
 % ---------------------------------------------------------------
 %% pagestyle
 \usepackage{scrpage2}		%KOMA pagestyles scrheadings, scrplain
-% \usepackage{enumitem}		% numeration items like \alpha*)
 \usepackage{enumerate}		% easy numeration
-% ..................................................
 %% quotes
 \usepackage{csquotes}		%easy quotes with \enquote{...}
-% ..................................................
 %% maths
 \usepackage{amsmath}		%improves maths-sections
-\usepackage{mathtools}          %provides tools like \DeclareParedDelimiter or \DefineMathOperator
-\usepackage{amsthm}		%for proofs etc.
-\usepackage{amssymb}		%further maths symbols like \square for proofs
-\usepackage{dsfont}		%for \mathds{letter} to create e.g. the rational numbers symbol Q
+\usepackage{mathtools}      %\DeclareParedDelimiter or
+                            %\DefineMathOperator …
+\usepackage{amsthm}		    %for proofs etc.
+\usepackage{amssymb}		%maths symbols like \square for proofs
+\usepackage{dsfont}		    %for \mathds{letter} to create e.g. symbol Q
 \usepackage{stmaryrd}		%for math symbols like lightning bold
 \usepackage{MnSymbol}
-% ..................................................
 %% objects
 \usepackage{wrapfig,graphicx}	%inclusion of graphics with \includegraphics{name}
 \usepackage{tikz,pgf}
@@ -52,24 +47,19 @@
 \usetikzlibrary{angles}
 \usetikzlibrary{quotes}
 \usepackage{framed}
-% ..................................................
 %% index/bibliography
 \usepackage{makeidx}		%index with \makeindex in head (creates *.idx file)
 \makeindex
-\usepackage[backend=biber,style=alphabetic]{biblatex}	% bibliography with \printbibliography
+\usepackage[backend=biber,style=alphabetic]{biblatex}	%use \printbibliography
 \bibliography{numerik_script.bib}
-% ..................................................
 %% (nicer)tables
-\usepackage{booktabs} 	% better spacing and lines in tables
-% ..................................................
+\usepackage{booktabs} 	    %better spacing and lines in tables
 %% font
 \usepackage[normalem]{ulem}         % strike text out
-% ..................................................
 %% hyperlinks
 \usepackage{hyperref}
 % options: colorlink=true (-> no boxes but colored hyperlinks), color of all link
-% ..................................................
-\usepackage{tabularx}  %table with extendable X-column
+\usepackage{tabularx}        %table with extendable X-column
 
 
 % DEFINITIONS
@@ -92,12 +82,15 @@
 \DeclareMathOperator{\D}{D}
 \DeclareMathOperator{\dd}{d}
 \DeclareMathOperator{\Rang}{rang}
-\DeclareMathOperator{\Dim}{dim}
+%\DeclareMathOperator{\Dim}{dim}
 \DeclareMathOperator{\Sign}{sign}
 \DeclareMathOperator{\Eps}{eps}
 \DeclareMathOperator{\Tol}{tol}
 \DeclareMathOperator{\Cond}{cond}
 \DeclareMathOperator{\Givens}{givens}
+\DeclareMathOperator{\Supp}{supp}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Const}{const}
 
 % NEW COMMANDS
 % ---------------------------------------------------------------
@@ -115,6 +108,8 @@
 \newcommand{\K}{\mathcal{K}}
 \newcommand{\nn}[1][\,\bullet\,]{\left\| #1 \right\|}	% norm
 \newcommand{\scp}[2]{\langle #1, #2 \rangle}	% scalar prod. 
+\newcommand{\ipol}[3]{#1\left( #2 \mid #3 \right)}
+
 
 % for the three boxes to show float numbers
 \newcommand{\floatbox}[3]{ %
@@ -124,7 +119,6 @@
     \cline{1-3}
   \end{array}
 }
-
 
 % inserted sections a), b)
 \newcommand{\extrasection}[2]{\vspace{1.5eM}\minisec{\Large\itshape \thesection #1 #2}\vspace{1eM}}
@@ -215,7 +209,7 @@
 % \allowdisplaybreaks              %allow multipage for equations
 \renewcommand{\theequation}{\thesection.\arabic{equation}}
 
-\input{theorem_index}
+%\input{theorem_index}
 
 
 %%% Local Variables:
