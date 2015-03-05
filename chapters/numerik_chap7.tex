@@ -699,7 +699,7 @@ wird $p(0)$ mittels des Schemas von Neville berechnet.
 wobei $T_{m,m}$ das gewünschte Ergebnis $p(0)$ liefert.
 
 \begin{Beme}\label{7.3.3}
-  Jedes $T_{i,k}=p(T\mid h_{i-1}^2,\dotsc, h_i^2)(0)$ 
+  Jedes $T_{i,k}=p(T\mid h_{i-k}^2,\dotsc, h_i^2)(0)$ 
   stellt eine lineare Integrationsformel dar
   \begin{gather*}
     T_{i,k}=\sum_{l=0}^m \alpha_lf(t_l)
@@ -1308,7 +1308,7 @@ höchste Ordnung (auch im Vergleich zum Romberg-Verfahren).
 Wenn zu einer vorgegebenen Fehlertoleranz die
 Gauß-Quadratur angewendet werden soll, ist die Schwierigkeit,
 das entsprechende $n$ zu wählen, da i.d.R. keine vernünftigen
-Abschätzungen für $f^(m)(\xi)$ vorliegen.
+Abschätzungen für $f^{(m)}(\xi)$ vorliegen.
 
 Gewöhnlich werden die Gauß-Formeln für wachsende $n$ solange
 angewendet, bis die Näherungswerte bis auf die gewünschte
@@ -1330,7 +1330,7 @@ Einige große Vorteile der Gauß-Quadratur sind:
 \begin{enumerate}[a)]
 \item Sie ist anwendbar auch für Gewichtsfunktionen $w\not\equiv 1$,
   d.h. insbesondere für schwach singuläre Funktionen
-($f$ integrierbar, aber $f^(k)$ existiert nicht auf $[a,b]$)
+($f$ integrierbar, aber $f^{(k)}$ existiert nicht auf $[a,b]$)
 wie z.B. $\frac{1}{\sqrt{1-x^2}}$, 
 für die die Trapezregel nicht anwendbar ist. 
 \item Sie kann auch Integrale über unendliche Intervalle
@@ -1350,7 +1350,8 @@ $f(t) = \cos(te^{4t^2})$).
 \begin{image}{Funktionsplot von $f(t) = \cos(te^{4t^2})$:\\
     Stark oszillierende Funktion, bei der numerische
     Quadratur misslingt}
-  \includegraphics[height=6cm]{images/stark_oszi_funktion.png}
+  %\includegraphics[width=10cm]{images/stark_oszi_funktion.png}
+  \includegraphics[width=11cm]{images/stark_oszi_funktion2.pdf}
 \end{image}
 
 
