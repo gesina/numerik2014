@@ -32,93 +32,89 @@ Für Eigenvektoren gilt dies i.A. nicht.
 
   \begin{proof}
     Es gilt per Definition
-    \begin{gather*}
-      Av=\lambda v \Leftrightarrow 
-      (\lambda - a_{ll})v_l = \sum_{k\neq l} a_{lk}v_k
-    \end{gather*}
+    $Av=\lambda v \Leftrightarrow 
+    (\lambda - a_{ll})v_l = \sum_{k\neq l} a_{lk}v_k$.
     Sei nun $l$ so, dass $v_l=\nn[v]_\infty$. Dann folgt
-    \begin{gather*}
-      |\lambda - a_{ll} | \leq \sum_{k\neq l} |a_{lk}|=r_k
-    \end{gather*}
+    $|\lambda - a_{ll} | \leq \sum_{k\neq l} |a_{lk}|=r_k$.
   \end{proof}
 \end{Satze}
 
-  Obige Aussage lässt sich verschärfen durch
-  die Betrachtung von $A^T$ oder $D^{-1}AD$ etc.
-  Je weniger sich $A$ von einer Diagonalmatrix unterscheidet,
-  desto schärfer ist die Abschätzung.
+Obige Aussage lässt sich verschärfen durch
+die Betrachtung von $A^T$ oder $D^{-1}AD$ etc.
+Je weniger sich $A$ von einer Diagonalmatrix unterscheidet,
+desto schärfer ist die Abschätzung.
 
-  \begin{Satze}
-    Bilden $k$ Gerschgorin-Kreise eine Menge $G$,
-    die zu den restlichen $K_i$ disjunkt ist,
-    dann liegen in $G$ genau $k$ Eigenwerte der Matrix $A$.
+\begin{Satze}
+  Bilden $k$ Gerschgorin-Kreise eine Menge $G$,
+  die zu den restlichen $K_i$ disjunkt ist,
+  dann liegen in $G$ genau $k$ Eigenwerte der Matrix $A$.
 
-    \begin{proof}
-      Betrachte
-      \begin{gather*}
-        A(t) =
-        \begin{pmatrix}
-          a_{11} && 0\\
-          &\ddots \\
-          0 && a_{nn}
-        \end{pmatrix}
-        +t(A-D)
-      \end{gather*}
-Dann ist $A(0)=D$ und $A(1)=A$.
-Für $t=0$ gilt $\lambda_i(0)=a_{ii}$ und
-es liegen genau $k$ Eigenwerte in $G$ und
-$n-k$ in den restlichen $K_j$.
-Weiterhin ist $K_i(t) \subseteq K_i$ für $t\in[0,1]$.
-Da $\lambda_i(t)$ stetig von $t$
-abhängt und $\lambda_i(t) \subseteq \bigcup_{l=1}^{n}K_l$
-und die restlichen $K_j$ disjunkt zu $G$ sind,
-gilt die Aussage des Satzes für alle $t\in[0,1]$.
-    \end{proof}
-  \end{Satze}
-
-
-  \begin{Bspe}
-    Sei 
+  \begin{proof}
+    Betrachte
     \begin{gather*}
-      A=
+      A(t) =
       \begin{pmatrix}
-        1 & 0,1 & -0,1\\
-        0 & 2 & 0,4 \\
-        0,2 & 0 & 3
+        a_{11} && 0\\
+        &\ddots \\
+        0 && a_{nn}
       \end{pmatrix}
+      +t(A-D)
     \end{gather*}
-    Dann ist
-    \begin{align*}
-      K_1 &= \left\{ \mu \mid |\mu-1|\leq 0,2 \right\} \\
-      K_2 &= \left\{ \mu \mid |\mu-2|\leq 0,4 \right\} \\
-      K_3 &= \left\{ \mu \mid |\mu-3|\leq 0,2 \right\}
-    \end{align*}
-    \begin{image}{Gerschgorin-Kreise}
-      \begin{tikzpicture}
-     % Koordinatensystem
-     \draw[->,color=black] (0,0) -- (12,0);
-     \draw[->,color=black] (0,0) -- (0,3);
+    Dann ist $A(0)=D$ und $A(1)=A$.
+    Für $t=0$ gilt $\lambda_i(0)=a_{ii}$ und
+    es liegen genau $k$ Eigenwerte in $G$ und
+    $n-k$ in den restlichen $K_j$.
+    Weiterhin ist $K_i(t) \subseteq K_i$ für $t\in[0,1]$.
+    Da $\lambda_i(t)$ stetig von $t$
+    abhängt und $\lambda_i(t) \subseteq \bigcup_{l=1}^{n}K_l$
+    und die restlichen $K_j$ disjunkt zu $G$ sind,
+    gilt die Aussage des Satzes für alle $t\in[0,1]$.
+  \end{proof}
+\end{Satze}
 
-     \foreach \x/\val/\radius in {3/1/0.6,6/2/1.2,9/3/0.6}
-     {
-       \draw (\x,0.1) -- (\x,-0.1)  node[below] {\val};
-       \draw (\x,0) circle (\radius cm);
-       \draw[->] (7, -2) -- (\x+0.2, 0.2-\radius);
-     }
-     \draw (7, -2) node[anchor=north west] {je ein Eigenwert};
-     \fill (5.5, 0.75) circle[radius=1pt] node[anchor=west] {$\lambda$};
-     \fill (5.5,-0.75) circle[radius=1pt] node[anchor=west] {$\overline{\lambda}$};
-   \end{tikzpicture}
-\end{image}\label{im8.1.3}
-da mit $\lambda$ auch $\overline{\lambda}$ Eigenwert ist,
-müssen alle Eigenwerte reell sein:
-\begin{align*}
-  \lambda_1 \approx 0,9862 \\
-  \lambda_2 \approx 2,0078 \\
-  \lambda_3 \approx 3,0060
-\end{align*}
-Solche Abschätzungen werden u.a. für die numerische
-Approximation von Eigenwerten benutzt.
+
+\begin{Bspe}
+  Sei 
+  \begin{gather*}
+    A=
+    \begin{pmatrix}
+      1 & 0,1 & -0,1\\
+      0 & 2 & 0,4 \\
+      0,2 & 0 & 3
+    \end{pmatrix}
+  \end{gather*}
+  Dann ist
+  \begin{align*}
+    K_1 &= \left\{ \mu \mid |\mu-1|\leq 0,2 \right\} \\
+    K_2 &= \left\{ \mu \mid |\mu-2|\leq 0,4 \right\} \\
+    K_3 &= \left\{ \mu \mid |\mu-3|\leq 0,2 \right\}
+  \end{align*}
+  \begin{image}{Gerschgorin-Kreise}
+    \begin{tikzpicture}
+      % Koordinatensystem
+      \draw[->,color=black] (0,0) -- (12,0);
+      \draw[->,color=black] (0,0) -- (0,3);
+
+      \foreach \x/\val/\radius in {3/1/0.6,6/2/1.2,9/3/0.6}
+      {
+        \draw (\x,0.1) -- (\x,-0.1)  node[below] {\val};
+        \draw (\x,0) circle (\radius cm);
+        \draw[->] (7, -2) -- (\x+0.2, 0.2-\radius);
+      }
+      \draw (7, -2) node[anchor=north west] {je ein Eigenwert};
+      \fill (5.5, 0.75) circle[radius=1pt] node[anchor=west] {$\lambda$};
+      \fill (5.5,-0.75) circle[radius=1pt] node[anchor=west] {$\overline{\lambda}$};
+    \end{tikzpicture}
+  \end{image}\label{im8.1.3}
+  da mit $\lambda$ auch $\overline{\lambda}$ Eigenwert ist,
+  müssen alle Eigenwerte reell sein:
+  \begin{align*}
+    \lambda_1 \approx 0,9862 \\
+    \lambda_2 \approx 2,0078 \\
+    \lambda_3 \approx 3,0060
+  \end{align*}
+  Solche Abschätzungen werden u.a. für die numerische
+  Approximation von Eigenwerten benutzt.
 \end{Bspe}
 
 \sectione{Potenzmethode (Vektoriteration, power method)}
@@ -128,12 +124,10 @@ Sei $A\in\R^{n\times n}$ eine  in $\C$
 diagonalisierbare Matrix und 
 sei der dominante Eigenwert $\lambda_1$ einfach,
 d.h. 
-$|\lambda_1|>|\lambda_2|\geq |\lambda_1\geq \ldots\geq |\lambda_n|$
+$|\lambda_1|>|\lambda_2|\geq |\lambda_1|\geq\dotsb\geq |\lambda_n|$
 mit den bzgl. $\nn_2$ normierten Eigenvektoren $v_i$.
 Weiter sei ein Startvektor $x^{(0)}\in\R^n$ gegeben,
-welcher 
-%nicht senkrecht zu $v_1$ ist.
-keinen Nullanteil in $v_1$ hat.
+welcher keinen Nullanteil in $v_1$ hat.
 
 \subsectione{Vektoriteration}\label{8.2.2}\index{Vektoriteration}
 Die Vektoriteration ist gegeben durch
@@ -142,40 +136,38 @@ Die Vektoriteration ist gegeben durch
   \label{VIII.2.1}
 \end{gather}
 Hierfür folgt:
-Da $A$ reell ist, folgt $\lambda_1\in \R$ und $v_1\in\R^n$.
+Da $A$ reell ist, muss $\lambda_1\in \R$ und $v_1\in\R^n$ gelten.
 Da $A$ in $\C$ diagonalisierbar ist,
 gibt es eine Basis des $\C^n$ aus
-normierten Eigenvektoren $\left\{v_1,\ldots,v_n\right\}$
+normierten Eigenvektoren $\left\{v_1,\dotsc,v_n\right\}$
 und es gilt $x^{(0)}= \sum_{i=1}^{n} \alpha_iv_i$.
-%Da $x^{(0)} \not \bot v_1$ folgt $\alpha_1\neq 0$. Weiterhin ist $\alpha_1\in\R$.
+% Da $x^{(0)} \not \bot v_1$ folgt $\alpha_1\neq 0$. Weiterhin ist $\alpha_1\in\R$.
 Nach Voraussetzung ist $\alpha_1\neq 0$ und $\alpha_1\in\R$.
 \begin{align}\nonumber
   x^{(k)} &= A^kx^{(0)} \\\nonumber
           &= \sum_{i=1}^{n} \alpha_i\lambda_i^kv_i\\\nonumber
           &= \alpha_1\lambda_1^k\left(
-            v_1+\sum_{i=1}^{n}\frac{\alpha_i}{\alpha_1}
+            v_1+\sum_{i=2}^{n}\frac{\alpha_i}{\alpha_1}
             \cdot \left(\frac{\lambda_i}{\lambda_1}\right)^kv_i
             \right)\\
           &= \alpha_1\lambda_1^k\left( v_1+r^{(k)}  \right)
-\label{VIII.2.2}
+            \label{VIII.2.2}
 \end{align}
 mit $r^{(k)}\coloneqq \sum_{i=1}^{n}\frac{\alpha_i}{\alpha_1}
-            \cdot \left(\frac{\lambda_i}{\lambda_1}\right)^kv_i$.
+\cdot \left(\frac{\lambda_i}{\lambda_1}\right)^kv_i$.
 
 Da $\left|\frac{\lambda_i}{\lambda_1}\right|
 \leq \left|\frac{\lambda_2}{\lambda_1}\right|<1$
-gilt, gilt
-\begin{gather*}
-  \nn[r^{(k)}] \leq \left|\frac{\lambda_2}{\lambda_1}\right|^k
+gilt, gilt 
+  $\nn[r^{(k)}] \leq \left|\frac{\lambda_2}{\lambda_1}\right|^k
   \sum_{i=2}^n \left|\frac{\alpha_i}{\alpha_1}\right|^k
-    \underbrace{\nn[v_i]_2}_{=1}
-\end{gather*}
+  \underbrace{\nn[v_i]_2}_{=1}$
 also 
 \begin{gather*}
   \nn[r^{(k)}]_2=\mathcal{O}\left(
     \left|\frac{\lambda_2}{\lambda_1}\right|^k 
   \right)
-\overset{\mathclap{k\rightarrow \infty}}{\longrightarrow} 0
+  \overset{\mathclap{k\to \infty}}{\longrightarrow} 0
 \end{gather*}
 Für große $k$ verhält sich $x^{(k)}$ daher wie 
 $ x^{(k)}\approx \alpha_1\lambda_1^kv_1$
@@ -183,7 +175,7 @@ und \enquote{konvergiert} gegen ein Vielfaches des Eigenvektors $v_1$,
 bzw. genauer
 \begin{gather*}
   \frac{x^{(k)}}{\lambda_1^k}= \alpha_1v_1+\alpha_1r^{(k)}
-  \overset{\mathclap{k\rightarrow \infty}}{\longrightarrow}
+  \overset{\mathclap{k\to \infty}}{\longrightarrow}
   \alpha_1v_1
 \end{gather*}
 Da $\nn[x^{(k)}]_2\longrightarrow\infty$ für $|\lambda_1|>1$
@@ -192,18 +184,18 @@ ist es zweckmäßig $x^{(k)}$ zu normieren.
 Setze also
 \begin{gather}
   v^{(k)} \coloneqq \frac{x^{(k)}}{ \nn[x^{(k)}] } \in \R^n
-\label{VIII.2.3}
+  \label{VIII.2.3}
 \end{gather}
 so folgt, da mit $\lambda_1\in \R$,
- $sign(\lambda_1)=\frac{|\lambda_1|}{\lambda_1}\in\{-1,1\}$
- \begin{gather}
-   sign(\lambda_1)^k v^{(k)} = \frac{\alpha_1}{|\alpha_1|}
-   \cdot \frac{v_1+r^{(k)}}{\nn[v_1+r^{(k)}]}
- = sign(\alpha_1)v_1 + \mathcal{O}\left(\left| 
-     \frac{\lambda_2}{\lambda_1}
-     \right|^k\right)
-   \label{VIII.2.4}
- \end{gather}
+$\Sign(\lambda_1)=\frac{|\lambda_1|}{\lambda_1}\in\{-1,1\}$
+\begin{gather}
+  \Sign(\lambda_1)^k v^{(k)} = \frac{\alpha_1}{|\alpha_1|}
+  \cdot \frac{v_1+r^{(k)}}{\nn[v_1+r^{(k)}]}
+  = \Sign(\alpha_1)v_1 + \mathcal{O}\left(\left| 
+      \frac{\lambda_2}{\lambda_1}
+    \right|^k\right)
+  \label{VIII.2.4}
+\end{gather}
 Sei nun
 \begin{gather}
   \lambda^{(k)} = {v^{(k)}}^TAv^{(k)}
@@ -212,18 +204,18 @@ Sei nun
 so folgt 
 \begin{align*}
   \lambda^{(k)} &= \underbrace{ \left(
-                 sign(\alpha_1)sign(\lambda_1)^kv_1^T
-                 +\mathcal{O}\left( \left| \frac{\lambda_2}{\lambda_1} 
-                 \right|^k \right)\right)
-                 }_{
-                 {v^{(k)}}^T
-                 } Av^{(k)} \\
-               &=v_1^T A v_1 + \mathcal{O}\left( \left|
-                 \frac{\lambda_2}{\lambda_1} 
-                 \right|^k \right) \\
-               &= \lambda_1 + \mathcal{O}\left( 
-                 \left| \frac{\lambda_2}{\lambda_1} 
-                 \right|^k \right)
+                  \Sign(\alpha_1)\Sign(\lambda_1)^kv_1^T
+                  +\mathcal{O}\left( \left| \frac{\lambda_2}{\lambda_1} 
+                  \right|^k \right)\right)
+                  }_{
+                  {v^{(k)}}^T
+                  } Av^{(k)} \\
+                &=v_1^T A v_1 + \mathcal{O}\left( \left|
+                  \frac{\lambda_2}{\lambda_1} 
+                  \right|^k \right) \\
+                &= \lambda_1 + \mathcal{O}\left( 
+                  \left| \frac{\lambda_2}{\lambda_1} 
+                  \right|^k \right)
 \end{align*}
 da $v_1$ normierter Eigenvektor zu $\lambda_1$.
 
@@ -231,7 +223,7 @@ da $v_1$ normierter Eigenvektor zu $\lambda_1$.
 \begin{pseudocode}{0.5\linewidth}
   Wähle $x^{(0)}\in\R^n$ \\
   $v^{(0)}\coloneqq x^{(0)}/\nn[x^{(0)}]_2$ \\
-  \textbf{for} $k=0,1,2,\ldots, $ \\
+  \textbf{for} $k=0,1,2,\dotsc, $ \\
   |\> $\widetilde{x}^{(k+1)}= Av^{(k)}$ \\
   |\> $\lambda^{(k)} = {v^{(k)}}^T\widetilde{x}^{(k+1)}$ \\
   |\> $v^{(k+1)} = \widetilde{x}^{(k+1)}/\nn[\widetilde{x}^{(k+1)}]_2$
@@ -250,35 +242,33 @@ Es folgt
   die Vektoriteration \ref{8.2.3} den dominanten Eigenwert
   $\lambda_1\in\R$ und einen zugehörigen 
   normierten Eigenvektor $v_i\in\R^n$.
-Weiterhin gilt
-\begin{gather*}
-  \left| \lambda_1^{(k)}-\lambda_1\right|
-  =\mathcal{O}\left(\left|
+  Weiterhin gilt
+  \begin{align*}
+    \left| \lambda_1^{(k)}-\lambda_1\right|
+    &=\mathcal{O}\left(\left|
         \frac{\lambda_2}{\lambda_1}
-        \right|^k\right)
-\end{gather*}
-und
-\begin{gather*}
-  \nn[sign(\lambda_1)^k v^{(k)}-v_1]
-  =\mathcal{O}\left( \left|
+      \right|^k\right)
+    &\text{und}&
+    &\nn[\Sign(\lambda_1)^k v^{(k)}-v_1]
+    &=\mathcal{O}\left( \left|
         \frac{\lambda_2}{\lambda_1}
-        \right|^k \right)
-\end{gather*}
-Die Effizienz hängt also von 
-$\left|\frac{\lambda_2}{\lambda_1}\right|$ ab.
+      \right|^k \right)
+  \end{align*}
+  Die Effizienz hängt also von 
+  $\left|\frac{\lambda_2}{\lambda_1}\right|$ ab.
 \end{Satze}
 
 \begin{Beme}~
   \begin{enumerate}[a)]
-  \item Falls $(v_1)\neq 0$ ist, gilt
+  \item Falls $(v_1)_l\neq 0$ ist, gilt
     \begin{alignat}{2}
       \lim_{k\to\infty} \frac{x^{(k)}}{x_l^{(k)}}
-      &= \frac{1}{(v_1)_l}\quad
+      &= \frac{1}{(v_1)_l}\cdot v_1\quad
       &\text{und}\quad\lim_{k\to\infty}\frac{x_l^{(k)}}{x_l^{(k-1)}}
       &=\lambda_1
       \label{VIII.2.6}
     \end{alignat}
-  \item Für eine mehrfache Nullstelle $\lambda_1=\ldots=\lambda_m$
+  \item Für eine mehrfache Nullstelle $\lambda_1=\dotsb=\lambda_m$
     gilt weiterhin \eqref{VIII.2.6} und
     $v^{(k)}$ approximiert einen Eigenvektor.
   \item Falls $A$ symmetrisch ist,
@@ -287,17 +277,17 @@ $\left|\frac{\lambda_2}{\lambda_1}\right|$ ab.
     \begin{gather*}
       \left|\lambda^{(k)}-\lambda_1\right|
       = \mathcal{O}\left(\left|
-        \frac{\lambda_2}{\lambda_1}
+          \frac{\lambda_2}{\lambda_1}
         \right|^{2k}\right)
     \end{gather*}
   \end{enumerate}
-Die Nachteile sind allerdings
-\begin{enumerate}[1)]
-\item Es kann nur der betragsmäßig größte Eigenwert
-  mit Eigenvektor erhalten werden.
-\item Falls $|\lambda_1|\approx|\lambda_2|$,
-  ist die Konvergenzgeschwindigkeit langsam.
-\end{enumerate}
+  Die Nachteile sind allerdings
+  \begin{enumerate}[1)]
+  \item Es kann nur der betragsmäßig größte Eigenwert
+    mit Eigenvektor erhalten werden.
+  \item Falls $|\lambda_1|\approx|\lambda_2|$,
+    ist die Konvergenzgeschwindigkeit langsam.
+  \end{enumerate}
 \end{Beme}
 
 
@@ -321,7 +311,7 @@ dann ist $\frac{1}{\lambda_i-\widetilde{\lambda}}$
 der maximale Eigenwert von $(A-\widetilde{\lambda}I)^{-1}$
 mit Eigenvektor $v$.
 
-%--------------------------------
+% --------------------------------
 
 \marginpar{21.01.2015}
 Die direkte Potenzmethode angewandt auf
@@ -329,7 +319,7 @@ $(A-\widetilde{\lambda}I)^{-1}$
 liefert dann
 $\overline{\lambda}=\frac{1}{\lambda_i-\widetilde{\lambda}}$
 und somit $\lambda_i=\frac{1}{\overline{\lambda}}+\widetilde{\lambda}$
-und einen zugehörigen Einheitsvektor.
+und einen zugehörigen Eigenvektor.
 
 
 \subsectione{Inverse Vektoriteration mit Spektralverschiebung}\label{8.3.1}
@@ -337,18 +327,18 @@ Hier wird $\widetilde{x}^{(k+1)}$ anders als in \ref{8.2.3}
 schrittweise berechnet durch
 \begin{gather}
   (A-\widetilde{\lambda}I)\widetilde{x}^{(k+1)}=v^{(k)}
-\label{VIII.3.1}
+  \label{VIII.3.1}
 \end{gather}
 Der zugehörige Algorithmus ergibt sich als
 
 \begin{pseudocode}{0.5\linewidth}
   Wähle $x^{(0)}$ \\
   $v^{(0)} \coloneqq \frac{x^{(0)}}{\nn[x^{(0)}]_2} $\\
-  \textbf{for} $k=0,1,2,\ldots$ \\
+  \textbf{for} $k=0,1,2,\dotsb$ \\
   |\> löse
   $(A-\widetilde{\lambda}I)\widetilde{x}^{(k+1)}=v^{(k)}$\\
   |\> $\lambda^{(k)} = \frac{1}{\left(v^{(k)}\right)^T \widetilde{x}^{(k+1)}}
-    + \widetilde{\lambda}$\\
+  + \widetilde{\lambda}$\\
   |\> $v^{(k+1)} = \widetilde{x}^{(k+1)}/\nn[\widetilde{x}^{(k+1)}]_2$\\
   \textbf{end}
 \end{pseudocode}\\
@@ -365,17 +355,15 @@ für verschiedene rechte Seiten (Aufwand $\mathcal{O}(n^2)$).
 Für eine gute Schätzung $\widetilde{\lambda}$ können 
 z.B. die Gerschgorinkreise benutzt werden.
 Die Konvergenzgeschwindigkeit hängt ab von
-\begin{gather*}
-  \frac{\left| \lambda_i-\widetilde{\lambda}\right|}
-  {\min_{j\neq i} \left| \lambda_j-\widetilde{\lambda}\right|}~~.
-\end{gather*}
+$\frac{\left| \lambda_i-\widetilde{\lambda}\right|}
+{\min_{j\neq i} \left| \lambda_j-\widetilde{\lambda}\right|}$.
 
 \begin{Beme}\label{8.3.2}\cite[siehe][]{deuflhardhohmann}
-$A-\widetilde{\lambda}I$ ist für $\widetilde{\lambda}\approx\lambda$
-schlecht konditioniert, und somit auch das Problem
-der Bestimmung von $\widetilde{x}^{(k)}$.
-Jedoch bleibt die Bestimmung von $v^{(k)}$ weiterhin gut
-konditioniert.  
+  $A-\widetilde{\lambda}I$ ist für $\widetilde{\lambda}\approx\lambda$
+  schlecht konditioniert, und somit auch das Problem
+  der Bestimmung von $\widetilde{x}^{(k)}$.
+  Jedoch bleibt die Bestimmung von $v^{(k)}$ weiterhin gut
+  konditioniert.  
 \end{Beme}
 
 

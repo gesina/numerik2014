@@ -14,95 +14,142 @@
 \chapter{Lineare Gleichungssysteme: Iterative Methoden}
 \sectione{Einführung}
 \begin{Bspe}[Approximation der Poisson-Gleichung]\label{9.1.1}
-  Betrachte $\Delta u=u_{xx}-u_{yy}\eqqcolon f$ in $\Omega=(0,1)^2$
-mit $u=0$ auf $\delta\Omega$
-\begin{figure}
-  \begin{image}{Gitter mit Unbekannten zu Beispiel \ref{9.1.1}}
-    \begin{tikzpicture}[scale=0.8]
-     \foreach \xy/\num in
-     {0/0,1/1,2/2,3/3,13/N-2,14/N-1,15/N,16/N+1}
-       {
-         %outer x lines
-         \draw (\xy,16) -- (\xy,0) node[anchor=north] {$x_{\num}$};
-         % outer y lines
-         \draw (16,\xy) -- (0,\xy) node[anchor=east] {$y_{\num}$};
-       }
-       \foreach \xy/\num in
-       {6,7,8,9,10}
-       {
-         % inner x lines
-         \draw (\xy,4.5) -- (\xy,11.5);
-         \draw (4.5,\xy) -- (11.5,\xy);
-       }
+  Betrachte 
+  \begin{gather}
+    \Delta u=u_{xx}-u_{yy}\eqqcolon f
+    \label{IX.1.1}
+  \end{gather}
+  in $\Omega=(0,1)^2$
+  mit $u=0$ auf $\partial\Omega$.
+  \begin{figure}
+    \begin{image}{Gitter mit Unbekannten zu Beispiel \ref{9.1.1}}
+      \begin{tikzpicture}[scale=0.8]
+        \foreach \xy/\num in
+        {0/0,1/1,2/2,3/3,13/N-2,14/N-1,15/N,16/N+1}
+        {
+          % outer x lines
+          \draw (\xy,16) -- (\xy,0) node[anchor=north] {$x_{\num}$};
+          % outer y lines
+          \draw (16,\xy) -- (0,\xy) node[anchor=east] {$y_{\num}$};
+        }
+        \foreach \xy/\num in
+        {6,7,8,9,10}
+        {
+          % inner x lines
+          \draw (\xy,4.5) -- (\xy,11.5);
+          \draw (4.5,\xy) -- (11.5,\xy);
+        }
 
-       %points
-       \foreach \xy/\val in {1/-1,0/\phantom{-}2}
-       {
-         \fill[color=blue] (8,8+\xy) circle[radius=2pt]
-         node[anchor=south west] {\small\val};
-         \fill[color=red] (8+\xy,8) circle[radius=2pt]
-         node[anchor=north west] {\small\val};
-       }
-       \fill[color=blue] (8,8-1) circle[radius=2pt]
-       node[anchor=north west] {\small -1};
-       \fill[color=red] (8-1,8) circle[radius=2pt]
-       node[anchor=north west] {\small -1};
-       \fill[color=blue] (8,8) ++(0:2pt) arc (0:180:2pt);
+        % points
+        \foreach \xy/\val in {1/-1,0/\phantom{-}2}
+        {
+          \fill[color=blue] (8,8+\xy) circle[radius=2pt]
+          node[anchor=south west] {\small\val};
+          \fill[color=red] (8+\xy,8) circle[radius=2pt]
+          node[anchor=north west] {\small\val};
+        }
+        \fill[color=blue] (8,8-1) circle[radius=2pt]
+        node[anchor=north west] {\small -1};
+        \fill[color=red] (8-1,8) circle[radius=2pt]
+        node[anchor=north west] {\small -1};
+        \fill[color=blue] (8,8) ++(0:2pt) arc (0:180:2pt);
 
-       \draw[->] (8,-0.5) -- (8,-2.5);
-       \draw[color=blue] (8,-3) node {-1};
-       \draw[color=blue] (8,-5) node {-1};
-       \draw[color=red] (7,-4) node {-1};
-       \draw[color=red] (9,-4) node {-1};
-       \draw (8,-4) node {4};
- \end{tikzpicture}
-\end{image}\label{im9.1.2}
-\end{figure}
-Es gibt $N^2$ Unbekannte, $N^2\times N^2$.
-Also $A\in\R^{n\times n}$ mit $n=N^2$.
-\begin{gather*}
-  (x_0,y_0),(x_1,y_0),(x_2,y_0),
-  \ldots,(x_{N+1},y_0),(x_0,y_1),(x_1,y_1),
-  \ldots,(x_{N+1},y_{N+1})\\
-  \Rightarrow 0\ldots0~\underbrace{-1~0\ldots0~-1}_{N}~4~
-  \underbrace{-1~0\ldots0~-1}_{N}~0\ldots0
-  \qquad \text{$i$-te Zeile von $A$}
-\end{gather*}
-Damit sind nur maximal 5 Elemente verschieden von Null je Zeile
-und $Au$ benötigt ca. $5n=5N^2$ Multiplikationen (statt $n^2=N^4$).
-\begin{gather}
-  A=
-  \begin{pmatrix}
-    A_{11}&-I&&0\\
-    -I &\ddots &\ddots \\
-    && &-I\\
-    0&&-I&A_{nn}    
-  \end{pmatrix}
-  \quad \text{mit }
-  A_{ii}=\begin{pmatrix}
-    4&-1\\
-    -1&\ddots&\ddots\\
-    &&&-1\\
-    &&-1&4
-  \end{pmatrix}\in\R^{n\times n}
-\label{IX.1.2}
-\end{gather}
+        \draw[->] (8,-0.5) -- (8,-2.5);
+        \draw[color=blue] (8,-3) node {-1};
+        \draw[color=blue] (8,-5) node {-1};
+        \draw[color=red] (7,-4) node {-1};
+        \draw[color=red] (9,-4) node {-1};
+        \draw (8,-4) node {4};
+      \end{tikzpicture}
+    \end{image}\label{im9.1.2}
+  \end{figure}
+  Es gibt $N^2$ Unbekannte, $N^2\times N^2$.
+  Also $A\in\R^{n\times n}$ mit $n=N^2$.
+  \begin{gather*}
+    (x_0,y_0),(x_1,y_0),(x_2,y_0),
+    \dotsc,(x_{N+1},y_0),(x_0,y_1),(x_1,y_1),
+    \dotsc,(x_{N+1},y_{N+1})\\
+    \Rightarrow 0\dotsc0~\underbrace{(-1)~0\dotsc0~(-1)}_{N}~4~
+    \underbrace{(-1)~0\dotsc0~(-1)}_{N}~0\dotsc0
+    \qquad \text{$i$-te Zeile von $A$}
+  \end{gather*}
+  Damit sind nur maximal 5 Elemente verschieden von Null je Zeile
+  und $Au$ benötigt ca. $5n=5N^2$ Multiplikationen (statt $n^2=N^4$).
+  \begin{gather}
+    A=
+    \begin{pmatrix}
+      A_{11}&-I&&0\\
+      -I &\ddots &\ddots \\
+      && &-I\\
+      0&&-I&A_{nn}    
+    \end{pmatrix}
+    \quad \text{mit }
+    A_{ii}=\begin{pmatrix}
+      4&-1\\
+      -1&\ddots&\ddots\\
+      &&&-1\\
+      &&-1&4
+    \end{pmatrix}\in\R^{n\times n}
+    \label{IX.1.2}
+  \end{gather}
 \end{Bspe}
 
 \subsectione{Typische Aufgabenstellung}
 Zu lösen ist $Ax=b$ mit
-\begin{itemize}
-\item $A\in\R^{n\times n}$, $n$ sehr groß
-\item $A$ dünn besetzt
-\item $A$ hat Blockstruktur
-\end{itemize}
-s. Folien
+\begin{enumerate}
+\item $A\in\R^{n\times n}$ mit sehr großem  $n$,
+\item die meisten Komponenten $a_{ij}$ sind 0,
+  d.h. $A$ ist dünn besetzt
+  (sparse, $\mathcal{O}(n)$ Nicht-Null-Einträge),
+\item $A$ hat eine Struktur wie z.B. die Blockstruktur in \eqref{IX.1.2},
+\item $A$ ist das Resultat einer Diskretisierung, 
+  d.h. $x$ approximiert eine kontinuierliche Lösung,
+\item Die Eingabedaten sind zu $b$ verarbeitet worden, 
+  d.h. i.A. steht $b$ nicht \enquote{exakt} zur Verfügung, 
+  sondern ist eine Näherung.
+\end{enumerate}
+
+
+\subsectione{Konsequenzen}\label{9.1.3}
+\begin{description}
+  \item[1.:] Die Komplexität $\mathcal{O}(n^3)$ der direkten
+   Verfahren für vollbesetzte Matrizen ist zu groß.
+  \item[2. und 3.] können i.d.R. nicht effizient durch direkte Methoden
+   ausgenutzt werden oder die Struktur bleibt nicht erhalten.
+  \item [Wegen 4. und 5.] ist die Lösung $x$ nicht exakt erforderlich,
+    sondern deren Genauigkeit sollte im Rahmen des
+    Diskretisierungsfehlers oder der Eingabefehler liegen.
+\end{description}
+
+\begin{Beme}\label{9.1.4}
+Ziel einer Iterationsvorschrift
+\begin{gather*}
+  x^{(k+1)} = \Phi (x^{(0)}, \dotsc, x^{(k)} )
+\end{gather*}
+ist, dass
+\begin{enumerate}
+  \item[a)] die Folge $\{x^{(k)}\}$ möglichst schnell gegen $x$
+  konvergiert und
+  \item[b)] $x^{(k+1)}$ mit möglichst geringem Aufwand berechnet
+  wird.
+\end{enumerate}
+
+Typischerweise wird ein Aufwand von nicht
+  wesentlich mehr als einer Realisierung einer 
+Matrix-Vektor-Multiplikation $Ay$
+  pro Iteration erwünscht.  Für dünnbesetztes $A$ entspricht
+  dies pro Iteration einem Aufwand von $\mathcal{O}(n)$.
+
+  Anstelle von $\mathcal{O}(n^3)$  bei einem direkten 
+  \enquote{black-box Löser} ergibt sich damit für $k$
+    Iterationen ein Aufwand von $k \cdot \mathcal{O}(n)$ flops.
+\end{Beme}
 
 \sectione{Klassische (stationäre) Verfahren}
 Betrachte
 \begin{gather}
   Ax=b
-\label{IX.2.1}
+  \label{IX.2.1}
 \end{gather}
 Wähle nun für $A$ eine \textbf{Aufspaltung} $A=M-N$
 mit einer einfach invertierbaren Matrix $M$, s.d.
@@ -112,7 +159,7 @@ mit einer einfach invertierbaren Matrix $M$, s.d.
 
 Die \textbf{Iterationsvorschrift} ist dann: 
 Löse zu einem gegebenen Startwert $x^{(0)}$ als Schätzung für $x$
-für $k=0,-1,2, \ldots$
+für $k=0,1,2, \dotsc$
 \begin{gather}
   Mx^{(k+1)}= Nx^{(k)} +b \label{IX.2.3}
 \end{gather}
@@ -129,8 +176,8 @@ mit $r^{(k)}= b-Ax^{(k)}$ (Residuum im $k$-ten Schritt).
 Als \textbf{Abbruchkriterium}
 \begin{enumerate}[a)]
 \item sollte immer eine maximale Iterationszahl angegeben werden und
-\item wird oft für eine gegebene Toleranz $tol\geq\nn[r^{(k)}]$
-  oder wie diskutiert $tol\cdot \nn[b]\geq \nn[r^{(k)}]$ verwendet.
+\item wird oft für eine gegebene Toleranz $\Tol\geq\nn[r^{(k)}]$
+  oder wie diskutiert $\Tol \cdot \nn[b]\geq \nn[r^{(k)}]$ verwendet.
 \end{enumerate}
 
 Nach \eqref{IX.2.4} ergibt sich also die \textbf{Fixpunktiteration}
@@ -139,9 +186,7 @@ Nach \eqref{IX.2.4} ergibt sich also die \textbf{Fixpunktiteration}
   \label{IX.2.6}
 \end{gather}
 zur \textbf{Fixpunktgleichung}\index{Fixpunktgleichung}
-\begin{gather*}
-  x^{*} = Gx^{*} + d = g(x^{*})
-\end{gather*}
+$x^{*} = Gx^{*} + d = g(x^{*})$
 mit der \textbf{Iterationsmatrix} 
 \begin{gather}
   G=M^{-1}N=I-M^{-1}A = g'(x)
@@ -151,7 +196,7 @@ und $d=M^{-1}b$. Weiterhin folgt
 \begin{gather*}
   x^{(k+1)}-x^{*} = G(x^{(k)}-x^{*})=G^{k+1}(x^{(0)}-x^{*})
 \end{gather*}
-und hiermit gilt elementweise (falls $x^{(0)}-x^{*}\not\in ker
+und hiermit gilt elementweise (falls $x^{(0)}-x^{*}\not\in \Ker
 (G^{k+1})$)
 \begin{gather*}
   \lim_{k\to\infty} x^{(k)} = x^{*}
@@ -162,108 +207,108 @@ und hiermit gilt elementweise (falls $x^{(0)}-x^{*}\not\in ker
 
 \begin{Satze}[Konvergenzkriterien]\label{9.2.1}
   Sei $G\in\R^{n\times n}$.
-Dann sind folgende Aussagen äquivalent:
-\begin{enumerate}[i)]
-\item Die Iteration \eqref{IX.2.6} konvergiert für jeden Startwert
-  $x^{(0)}\in\R^n$
-\item Es gilt $\lim_{k\to\infty}G^k = 0$
-\item Für den Spektralradius 
-  $\rho(G) \coloneqq \max_i|\lambda_i|$ 
-  mit $\lambda_i\in\C$ Eigenwert zu $G$ gilt
-  \begin{gather}
-    \rho(G) < 1
-    \label{IX.2.8}
-  \end{gather}
-\end{enumerate}
+  Dann sind folgende Aussagen äquivalent:
+  \begin{enumerate}[i)]
+  \item Die Iteration \eqref{IX.2.6} konvergiert für jeden Startwert
+    $x^{(0)}\in\R^n$
+  \item Es gilt $\lim_{k\to\infty}G^k = 0$
+  \item Für den Spektralradius 
+    $\rho(G) \coloneqq \max_i|\lambda_i|$ 
+    mit $\lambda_i\in\C$ Eigenwert zu $G$ gilt
+    \begin{gather}
+      \rho(G) < 1
+      \label{IX.2.8}
+    \end{gather}
+  \end{enumerate}
 
-\begin{proof}
-  \begin{description}
-  \item[i)$\Leftrightarrow$ ii):] siehe oben.
-  \item[ii)$\Rightarrow$ iii):]  Ist $\rho(G)\geq 1$ dann 
-existiert ein Eigenwert $\lambda\in\C$ mit $|\lambda|>1$ und
-Eigenvektor $v\neq 0$ zu $G$.
-Damit ist $G^kv=\lambda^kv$. 
-Mit $\lim_{k\to\infty}\lambda^k\neq 0$ (falls existent) folgt
-$\lim_{k\to\infty}G^k \neq 0$.
-\item[iii)$\Rightarrow$ ii):] Sei $\rho(G)<1$.
-  Da $\left(TGT^{-1}\right)^k = TG^kT^{-1}$
- für eine invertierbare Matrix $T$, reicht es,
-für die Jordansche Normalform $J=TGT^{-1}$ von $G$ zu zeigen,
-dass $\lim_{k\to\infty}J^k=0$ gilt.
-Da $ J^k =
-\begin{pmatrix}
-  J_1^k && 0 \\
-  &\ddots \\
-  0&& J_m^k
-\end{pmatrix}$ mit den Jordankästchen
-$J_i =
-\begin{pmatrix}
-  \lambda_i & 1 && 0\\
-  &\ddots&\ddots\\
-  &&&1\\
-  0&&&\lambda_i
-\end{pmatrix} \eqqcolon \lambda_iI+S_i$
-mit $S_i =
-\begin{pmatrix}
-  0&1&&0 \\
-  &\ddots&\ddots\\
-  &&&1\\
-  0&&&0
-\end{pmatrix}$ ist, ist nur $\lim_{k\to\infty}J_i^k$ zu untersuchen.
-\begin{align*}
-  J_i^k &= (\lambda_i I+S_i)^k \\
-        &= \sum_{l=0}^{k}\begin{pmatrix}k\\l\end{pmatrix}
-  \lambda_i^{k-l} S_i^l\\
-        &=\sum_{l=0}^{n-1} \begin{pmatrix}k\\l\end{pmatrix}
-  \lambda_i^{k-l} S_i^{k}
-\end{align*}
-für $k\geq n$, da für $S_i\in\R^{r\times r}$ gilt $S_i^r=0$ 
-und mit $r\leq k$ ist dann $\lim_{k\to\infty}S_i^k=0$.
-Weiterhin gilt $\begin{pmatrix}k\\l\end{pmatrix}\leq k^l$ 
-und wegen $|\lambda_i|<1$
-\begin{gather*}
-  \left| \begin{pmatrix}k\\l\end{pmatrix}\right|
-  \cdot\left|\lambda_i^{k-l}\right|
-  \leq \left|\lambda_i^{k}\right| 
-  \cdot \left|\frac{k}{\lambda_i}\right|^l
-  \leq \left|\lambda_i\right|^k
-  \cdot \left|\frac{k}{\lambda_i}\right|^n
-\overset{\mathclap{k\rightarrow \infty}}{\longrightarrow} 0
-\end{gather*}
-Also $J_i^k\longrightarrow 0$ für $k\longrightarrow \infty$.
-  \end{description}
-\end{proof}
+  \begin{proof}
+    \begin{description}
+    \item[i)$\Leftrightarrow$ ii):] siehe oben.
+    \item[ii)$\Rightarrow$ iii):]  Ist $\rho(G)\geq 1$ dann 
+      existiert ein Eigenwert $\lambda\in\C$ mit $|\lambda|>1$ und
+      Eigenvektor $v\neq 0$ zu $G$.
+      Damit ist $G^kv=\lambda^kv$. 
+      Mit $\lim_{k\to\infty}\lambda^k\neq 0$ (falls existent) folgt
+      $\lim_{k\to\infty}G^k \neq 0$.
+    \item[iii)$\Rightarrow$ ii):] Sei $\rho(G)<1$.
+      Da $\left(TGT^{-1}\right)^k = TG^kT^{-1}$
+      für eine invertierbare Matrix $T$, reicht es,
+      für die Jordansche Normalform $J=TGT^{-1}$ von $G$ zu zeigen,
+      dass $\lim_{k\to\infty}J^k=0$ gilt.
+      Da $ J^k =
+      \begin{pmatrix}
+        J_1^k && 0 \\
+        &\ddots \\
+        0&& J_m^k
+      \end{pmatrix}$ mit den Jordankästchen
+      $J_i =
+      \begin{pmatrix}
+        \lambda_i & 1 && 0\\
+        &\ddots&\ddots\\
+        &&&1\\
+        0&&&\lambda_i
+      \end{pmatrix} \eqqcolon \lambda_iI+S_i$
+      mit $S_i =
+      \begin{pmatrix}
+        0&1&&0 \\
+        &\ddots&\ddots\\
+        &&&1\\
+        0&&&0
+      \end{pmatrix}$ ist, ist nur $\lim_{k\to\infty}J_i^k$ zu untersuchen.
+      \begin{align*}
+        J_i^k &= (\lambda_i I+S_i)^k \\
+              &= \sum_{l=0}^{k}\begin{pmatrix}k\\l\end{pmatrix}
+        \lambda_i^{k-l} S_i^l\\
+              &=\sum_{l=0}^{n-1} \begin{pmatrix}k\\l\end{pmatrix}
+        \lambda_i^{k-l} S_i^{k}
+      \end{align*}
+      für $k\geq n$, da für $S_i\in\R^{r\times r}$ gilt $S_i^r=0$ 
+      und mit $r\leq k$ ist dann $\lim_{k\to\infty}S_i^k=0$.
+      Weiterhin gilt $\begin{pmatrix}k\\l\end{pmatrix}\leq k^l$ 
+      und wegen $|\lambda_i|<1$
+      \begin{gather*}
+        \left| \begin{pmatrix}k\\l\end{pmatrix}\right|
+        \cdot\left|\lambda_i^{k-l}\right|
+        \leq \left|\lambda_i^{k}\right| 
+        \cdot \left|\frac{k}{\lambda_i}\right|^l
+        \leq \left|\lambda_i\right|^k
+        \cdot \left|\frac{k}{\lambda_i}\right|^n
+        \overset{\mathclap{k\to \infty}}{\longrightarrow} 0
+      \end{gather*}
+      Also $J_i^k\to 0$ für $k\to \infty$.
+    \end{description}
+  \end{proof}
 \end{Satze}
 
 
 \begin{Leme}
   Für jede von einer Vektornorm induzierten Matrixnorm 
-$\nn$ gilt
-\begin{gather}
-  \rho(G) \leq \nn[G]
-\label{IX.2.9}
-\end{gather}
-\begin{proof}
-  Sei $\lambda$ Eigenwert von $G$ zum Eigenvektor $v$.
-Dann gilt $\frac{\nn[Gv]}{\nn[v]} = |\lambda|$
-und daraus folgt direkt
-\begin{gather*}
-  \nn[G] \geq \sup_{v\in V}\frac{\nn[Gv]}{\nn[v]}\geq |\lambda|
-  \quad \forall \lambda
-\end{gather*}
-\end{proof}
+  $\nn$ gilt
+  \begin{gather}
+    \rho(G) \leq \nn[G]
+    \label{IX.2.9}
+  \end{gather}
+  \begin{proof}
+    Sei $\lambda$ Eigenwert von $G$ zum Eigenvektor $v$.
+    Dann gilt $\frac{\nn[Gv]}{\nn[v]} = |\lambda|$
+    und daraus folgt direkt
+    \begin{gather*}
+      \nn[G] \geq \sup_{v\in V}\frac{\nn[Gv]}{\nn[v]}\geq |\lambda|
+      \quad \forall \lambda
+    \end{gather*}
+  \end{proof}
 \end{Leme}
 
 $\nn[G]<1$ ist meist leichter zu prüfen als $\rho(G)<1$.
 Desweiteren gilt die Fehlerabschätzung
 \begin{gather}
-   \nn[x^{(k)}-x^{*}]\leq \nn[G]^k\nn[x^{(0)}-x^{*}]
-   \label{IX.2.10}
+  \nn[x^{(k)}-x^{*}]\leq \nn[G]^k\nn[x^{(0)}-x^{*}]
+  \label{IX.2.10}
 \end{gather}
 für submultiplikative Matrixnormen.
 
 
-%-----------------------------------
+% -----------------------------------
 
 \marginpar{24.01.2015}
 \sectione{Gesamt- und Einzelschritt-Verfahren}
@@ -275,20 +320,20 @@ $x^{(k+1)}=x^{(k)}+(b-Ax^{(k)})=x^{(k)}+r^{(k)}$
 konvergiert für alle Startwerte genau dann, wenn
 \begin{gather}
   \rho(G) = \max_i\left| 1-\lambda_i \right|<1
-\label{IX.3.1}
+  \label{IX.3.1}
 \end{gather}
 mit den Eigenwerten $\lambda_i$ zu $A$.
 Es muss also gelten $\rho(A) <2$, was selten der Fall ist.
 
 \begin{image}{Mögliche Werte der $\lambda_i$ für $M=I$}
-\begin{tikzpicture}[scale=1.5]
-  \fill[color=gray] (1,0) circle[radius=1cm]; 
-  \draw[->] (0,-1) -- (0,1.5);
-  \draw[->] (-1,0) -- (2.5,0);
-  \draw (1,0.1) -- (1,-0.1) ++(0,-0.2) node(anchor above) {1};
-  \draw (2,0.1) -- (2,-0.1) ++(0,-0.2) node(anchor above) {2};
-  \draw (2.25,1.25) node {$\C$};
-\end{tikzpicture}
+  \begin{tikzpicture}[scale=1.5]
+    \fill[color=gray] (1,0) circle[radius=1cm]; 
+    \draw[->] (0,-1) -- (0,1.5);
+    \draw[->] (-1,0) -- (2.5,0);
+    \draw (1,0.1) -- (1,-0.1) ++(0,-0.2) node(anchor above) {1};
+    \draw (2,0.1) -- (2,-0.1) ++(0,-0.2) node(anchor above) {2};
+    \draw (2.25,1.25) node {$\C$};
+  \end{tikzpicture}
 \end{image}\label{im9.3.1}
 
 \subsectione{Gesamtschritt- oder Jacobi-Verfahren}
@@ -303,7 +348,7 @@ so dass  $D$ anschließend invertierbar ist.
 Es gilt die Rekursionsvorschrift
 \begin{gather}
   x^{(k+1)}=x^{(k)}+D^{-1}r^{(k)}
-\label{IX.3.2}
+  \label{IX.3.2}
 \end{gather}
 Oft wird die Schreibweise mit $A=L+D+R$ =
 \begin{tikzpicture}
@@ -320,12 +365,12 @@ Oft wird die Schreibweise mit $A=L+D+R$ =
 benutzt
 \begin{gather}
   Dx^{(k+1)}= -(L+R)x^{(k)}+b
-\label{IX.3.3}
+  \label{IX.3.3}
 \end{gather}
-bzw. für $i=1,\ldots,n$
+bzw. für $i=1,\dotsc,n$
 \begin{gather}
   a_{ii}x_i^{(k+1)} = -\sum_{j\neq i}a_{ij}x_j^{(k)}+b_i
-\label{IX.3.4}
+  \label{IX.3.4}
 \end{gather}
 Die Iterationsmatrix ist $G_G\coloneqq -D^{-1}(L+R)$.
 
@@ -334,16 +379,16 @@ Die Iterationsmatrix ist $G_G\coloneqq -D^{-1}(L+R)$.
 \index{Gauß-Seidel-Verfahren}
 Falls in \eqref{IX.3.4} die Schleife von $i=1$ bis $i=n$
 sukzessive durchlaufen wird, stehen bei der Berechnung von
-$x_i^{(k+1)}$ die Werte $x_1^{(k+1)},\ldots,x_{i-1}^{(k+1)}$
+$x_i^{(k+1)}$ die Werte $x_1^{(k+1)},\dotsc,x_{i-1}^{(k+1)}$
 bereits zur Verfügung und können genutzt werden.
-Also gilt für $i=1,\ldots,n$
+Also gilt für $i=1,\dotsc,n$
 \begin{align}
   &&a_{ii}x_i^{(k+1)} & = -\sum_{j=1}^{i-1}a_{ij}x_j^{(k+1)}
                         -\sum_{j=1+1}^{n}a_{ij}x_j^{(k)}+ b_i
                         \label{IX.3.5} \\\nonumber
   &\Longleftrightarrow &Dx^{(k+1)}&=-Lx^{(k+1)}-Rx^{(k)}+b \\
   &\Longleftrightarrow &(D+L)x^{(k+1)}&=-Rx^{(k)}+b
-                                    \label{IX.3.6} \\\nonumber
+                                        \label{IX.3.6} \\\nonumber
   &\Longleftrightarrow &x^{(k+1)} &= x^{(k)}+(D+L)^{-1}r^{(k)}
 \end{align}
 Daraus folgt, dass $M_G=D+L$, $N=-R$ 
@@ -361,13 +406,13 @@ und die zugehörige Iterationsmatrix ist
       -1&1&-1\\
       -2&-2&1
     \end{pmatrix}
-    &\Longrightarrow \rho(G_G)&=0, &\rho(G_E)&=2(1+\sqrt{2})\\
+          &\Longrightarrow \rho(G_G)&=0, &\rho(G_E)&=2(1+\sqrt{2})\\
     A&= \frac{1}{2}\begin{pmatrix}
       2&1&1\\
       -2&2&-2\\
       -1&1&2
     \end{pmatrix}
-    &\Longrightarrow \rho(G_G)&=\frac{1}{2}\sqrt{5}, &\rho(G_E)&=\frac{1}{2}
+          &\Longrightarrow \rho(G_G)&=\frac{1}{2}\sqrt{5}, &\rho(G_E)&=\frac{1}{2}
   \end{align*}
 \end{Bspe}
 
@@ -393,7 +438,7 @@ und die zugehörige Iterationsmatrix ist
 
 \begin{Defe}
   $A\in\R^{n\times n}$ heißt \textbf{zerfallend}\index{Matrix!zerfallend},
-  wenn es $J\subsetneqq \{1,\ldots,n\}$ gibt,
+  wenn es $J\subsetneqq \{1,\dotsc,n\}$ gibt,
   so dass $a_{ij}=0$ für $i\in J, j\not\in J$.
 \end{Defe}
 
@@ -406,15 +451,15 @@ und die zugehörige Iterationsmatrix ist
       \widetilde{A}_{21}&\widetilde{A}_{22}
     \end{pmatrix}
   \end{gather*}
-mit $\widetilde{A}_{11}\in\R^{p\times p}$,
-$\widetilde{A}_{22}\in\R^{q\times q}$,
-$p,q>0$, $p+q=m$.
-Das Gleichungssystem $Ax=b$ zerfällt somit in zwei kleinere
-\begin{align*}
-  \widetilde{A}_{11}\widetilde{x}_1 &= \widetilde{b}_1\\
-  \widetilde{A}_{22}\widetilde{x}_2 &= \widetilde{b}_2
-                                      -\widetilde{A}_{21}\widetilde{x}_1
-\end{align*}
+  mit $\widetilde{A}_{11}\in\R^{p\times p}$,
+  $\widetilde{A}_{22}\in\R^{q\times q}$,
+  $p,q>0$, $p+q=m$.
+  Das Gleichungssystem $Ax=b$ zerfällt somit in zwei kleinere
+  \begin{align*}
+    \widetilde{A}_{11}\widetilde{x}_1 &= \widetilde{b}_1\\
+    \widetilde{A}_{22}\widetilde{x}_2 &= \widetilde{b}_2
+                                        -\widetilde{A}_{21}\widetilde{x}_1
+  \end{align*}
 \end{Beme}
 
 \begin{Bspe}
@@ -431,88 +476,88 @@ Das Gleichungssystem $Ax=b$ zerfällt somit in zwei kleinere
   \item $A$ die schwache Zeilensummenbedingung erfüllt und nicht
     zerfallend ist.
   \end{enumerate}
-In beiden Fällen gilt
-\begin{gather}
-  \nn[G_E]_\infty \leq \nn[G_G]_\infty 
-  = \max_i\frac{1}{|a_{ii}|}\sum_{j\neq i} |a_{ij}|
-  \eqqcolon \overline{a} \leq 1
-  \label{IX.3.9}
-\end{gather}
-\begin{proof}
-  Es ist $G_G\coloneqq D^{-1}(L+R) = D^{-1}(A-D)$ und damit 
-  $\overline{a}=\nn[G]_\infty\leq 1$ aufgrund der Diagonaldominanz.
-  Für das Einzelschrittverfahren betrachte 
+  In beiden Fällen gilt
+  \begin{gather}
+    \nn[G_E]_\infty \leq \nn[G_G]_\infty 
+    = \max_i\frac{1}{|a_{ii}|}\sum_{j\neq i} |a_{ij}|
+    \eqqcolon \overline{a} \leq 1
+    \label{IX.3.9}
+  \end{gather}
+  \begin{proof}
+    Es ist $G_G\coloneqq D^{-1}(L+R) = D^{-1}(A-D)$ und damit 
+    $\overline{a}=\nn[G_G]_\infty\leq 1$ aufgrund der Diagonaldominanz.
+    Für das Einzelschrittverfahren betrachte 
     $y\coloneqq G_E x=-(D+L)^{-1}Rx$, wofür gilt
-$Dy = -Ly-Rx$. Dann
-\begin{align*}
-  |(G_Ex)_1| = |y_1| &\leq \frac{1}{|a_{11}|}\left(
-                       \sum_{j=2}^{n}|a_{1j}|\cdot |x_j|
-                       \right) \\
-                     &\leq \nn[x]_\infty \frac{1}{|a_{11}|}\left(
-                       \sum_{j=2}^{n}|a_{1j}|
-                       \right) \\
-                     &\leq \nn[x]_\infty \overline{a}\\
-                     &\leq \nn[x]_\infty
-\end{align*}
-Rekursiv folgt aus $|y_j|\leq \nn[x]_\infty $ für $j\leq i-1$
-\begin{align}\nonumber
-  |(G_Ex)_i| = |y_i| &\leq \frac{1}{|a_{ii}|}\left(
-                       \sum_{j=1}^{i-1}|a_{ij}|
-                       \cdot \underbrace{|y_j|}_{\mathclap{\leq\nn[x]_\infty}}
-                       +\sum_{j=i+1}^{n}|a_{ij}|
-                       \cdot \underbrace{|x_j|}_{\mathclap{\leq\nn[x]_\infty}}
-                       \right)\\\nonumber
-                     &\leq \nn[x]_\infty \frac{1}{|a_{ii}|}\left(
-                       \sum_{j=1}^{i-1}|a_{ij}|
-                       \right) \\\nonumber
-                     &=\nn[x]_\infty \overline{a}\\
-  &\leq \nn[x]_\infty
-    \label{IX.3.10}
-\end{align}
-Woraus $\nn[G_E]_\infty \leq \overline{a}=\nn[G_G]_\infty$ folgt.
+    $Dy = -Ly-Rx$. Dann
+    \begin{align*}
+      |(G_Ex)_1| = |y_1| &\leq \frac{1}{|a_{11}|}\left(
+                           \sum_{j=2}^{n}|a_{1j}|\cdot |x_j|
+                           \right) \\
+                         &\leq \nn[x]_\infty \frac{1}{|a_{11}|}\left(
+                           \sum_{j=2}^{n}|a_{1j}|
+                           \right) \\
+                         &\leq \nn[x]_\infty \overline{a}\\
+                         &\leq \nn[x]_\infty
+    \end{align*}
+    Rekursiv folgt aus $|y_j|\leq \nn[x]_\infty $ für $j\leq i-1$
+    \begin{align}\nonumber
+      |(G_Ex)_i| = |y_i| &\leq \frac{1}{|a_{ii}|}\left(
+                           \sum_{j=1}^{i-1}|a_{ij}|
+                           \cdot \underbrace{|y_j|}_{\mathclap{\leq\nn[x]_\infty}}
+                           +\sum_{j=i+1}^{n}|a_{ij}|
+                           \cdot \underbrace{|x_j|}_{\mathclap{\leq\nn[x]_\infty}}
+                           \right)\\\nonumber
+                         &\leq \nn[x]_\infty \frac{1}{|a_{ii}|}\left(
+                           \sum_{j=1}^{i-1}|a_{ij}|
+                           \right) \\\nonumber
+                         &=\nn[x]_\infty \overline{a}\\
+                         &\leq \nn[x]_\infty
+                           \label{IX.3.10}
+    \end{align}
+    Woraus $\nn[G_E]_\infty \leq \overline{a}=\nn[G_G]_\infty$ folgt.
 
-Zu a): Aus der starken Zeilensummenbedingung folgt $\overline{a}<1$
-und
-\begin{gather*}
-  \rho(G)\leq \nn[G]_\infty \leq \overline{a}<1
-\end{gather*}
-und mit Satz \ref{9.2.1} dann die Behauptung.
+    Zu a): Aus der starken Zeilensummenbedingung folgt $\overline{a}<1$
+    und
+    \begin{gather*}
+      \rho(G)\leq \nn[G]_\infty \leq \overline{a}<1
+    \end{gather*}
+    und mit Satz \ref{9.2.1} dann die Behauptung.
 
-Zu b): Die schwache Zeilensummenbedingung ergibt 
-$\rho(G) \leq 1$ für beide Verfahren.
-Es bleibt zu zeigen, dass kein Eigenwert $\lambda$ mit
-$|\lambda|=1$ existiert.
-Angenommen $G$ hat einen Eigenwert $\lambda$ mit $|\lambda|=1$.
-Sei $v$ ein zugehöriger Eigenvektor mit $\nn[v]_\infty=1$.
-Definiere $N_1\coloneqq \{l\in\N \mid |v_l|=1\}$
-und $N_2\coloneqq \{k\mid |v_k| <1\}$.
-Aus der Definition von $G_G$ bzw. der Ungleichung \eqref{IX.3.10}
-für $G_E$ folgt mit $|(Gv)_i| = |\lambda v_i| = |v_i|$
-\begin{align*}
-  |v_i| = |(Gv)_i| &\leq \frac{1}{|a_{ii}|}\left(
-                     \sum_{j\neq i} |a_{ij}|\cdot |{v_j}|
-                     \right) \\
-                   &=\frac{1}{|a_{ii}|}\left(
-                     \sum_{\substack{j\in N_1\\j\neq i}}|a_{ij}|
-                     +\sum_{\substack{j\in N_2\\j\neq i}} |a_{ij}|
-                     \cdot\underbrace{|{v_j}|}_{<1}
-                     \right) \\
-                   &<1
-\end{align*}
-Falls für ein $i$ ein $j\in N_2$ mit $i\neq j$ und $a_{ij}\neq 0$
-existiert, folgt
-\begin{gather*}
-  |v_i| < \frac{1}{|a_{ii}|} \left( \sum_{j\neq i}|a_{ij}|\right)
-  \leq \overline{a} \leq 1
-\end{gather*}
-Da $|v_i|=1$ für $i\in N_1$ muss $a_{ij}=0$ gelten für alle $j\in N_2$
-also $a_{ij}=0$ für $i\in N_1$, $j\in N_2$,
-was ist ein Widerspruch zum nicht zerfallenden $A$ ist.
-\end{proof}
+    Zu b): Die schwache Zeilensummenbedingung ergibt 
+    $\rho(G) \leq 1$ für beide Verfahren.
+    Es bleibt zu zeigen, dass kein Eigenwert $\lambda$ mit
+    $|\lambda|=1$ existiert.
+    Angenommen $G$ hat einen Eigenwert $\lambda$ mit $|\lambda|=1$.
+    Sei $v$ ein zugehöriger Eigenvektor mit $\nn[v]_\infty=1$.
+    Definiere $N_1\coloneqq \{l\in\N \mid |v_l|=1\}$
+    und $N_2\coloneqq \{k\mid |v_k| <1\}$.
+    Aus der Definition von $G_G$ bzw. der Ungleichung \eqref{IX.3.10}
+    für $G_E$ folgt mit $|(Gv)_i| = |\lambda v_i| = |v_i|$
+    \begin{align*}
+      |v_i| = |(Gv)_i| &\leq \frac{1}{|a_{ii}|}\left(
+                         \sum_{j\neq i} |a_{ij}|\cdot |{v_j}|
+                         \right) \\
+                       &=\frac{1}{|a_{ii}|}\left(
+                         \sum_{\substack{j\in N_1\\j\neq i}}|a_{ij}|
+      +\sum_{\substack{j\in N_2\\j\neq i}} |a_{ij}|
+      \cdot\underbrace{|{v_j}|}_{<1}
+      \right) \\
+                       &<1
+    \end{align*}
+    Falls für ein $i$ ein $j\in N_2$ mit $i\neq j$ und $a_{ij}\neq 0$
+    existiert, folgt
+    \begin{gather*}
+      |v_i| < \frac{1}{|a_{ii}|} \left( \sum_{j\neq i}|a_{ij}|\right)
+      \leq \overline{a} \leq 1
+    \end{gather*}
+    Da $|v_i|=1$ für $i\in N_1$ muss $a_{ij}=0$ gelten für alle $j\in N_2$
+    also $a_{ij}=0$ für $i\in N_1$, $j\in N_2$,
+    was ist ein Widerspruch zum nicht zerfallenden $A$ ist.
+  \end{proof}
 \end{Satze}
 
 
-%------------------------------
+% ------------------------------
 
 \marginpar{28.01.2015}
 
@@ -551,22 +596,30 @@ was ist ein Widerspruch zum nicht zerfallenden $A$ ist.
                            &&\text{da alle Normen auf $\R^N$ äquivalent}\\
                            &>0
     \end{align*}
-Damit gilt zusammengefasst
-\begin{gather*}
-  \underbrace{(1-kd^2)}_{c<1}\nn[x]^2\geq \nn[G_Ex]^2
-\end{gather*}
-\begin{align*}
-  A-G_E^TAG_E &=A-\left[(D+L)^{-1}A-I\right]^TA\left[(D+L)^{-1}A-I\right]\\
-              &=A\left((D+L)^{-T}+(D+L)^{-1}-(D+L)^{-T}A(D+L)^{-1}\right)A\\
-              &=A\left((D+L)^{-T}(D+L)(D+L)^{-1}
-                +(D+L)^{-1}(D+L)^{-T}(D+L)^T
-                -(D+L)^{-T}(D+L+L^T)(D+L)^{-1}\right)A\\
-              &=A(D+1)^{-T}D(D+L)^{-1}A\\
-              &=\left(D^\frac{1}{2}(D+L)^{-1}A^T\right)^T
-                \left(D^\frac{1}{2}(D+L)^{-1}A\right)
-\end{align*}
-und $D^{\frac{1}{2}}$ existiert, da $D$ mit $A$ spd 
-nur positive Einträge hat.
+    Damit gilt zusammengefasst
+    \begin{gather*}
+      \underbrace{(1-kd^2)}_{c<1}\nn[x]^2\geq \nn[G_Ex]^2
+    \end{gather*}
+    \begin{align*}
+      A-G_E^TAG_E &=A-\left[(D+L)^{-1}A-I\right]^TA\left[(D+L)^{-1}A-I\right]\\
+                  &=A\cdot \left(
+                    (D+L)^{-T}+(D+L)^{-1}-(D+L)^{-T}A(D+L)^{-1}
+                    \right)\cdot A\\
+                  &=A\cdot \left((D+L)^{-T}(D+L)(D+L)^{-1} \right.\\
+                  &       \phantom{=A()} +(D+L)^{-T}(D+L)^T(D+L)^{-1}\\
+                  &\left. \phantom{=A()} -(D+L)^{-T}(D+L+L^T)(D+L)^{-1}
+                    \right)\cdot A\\
+                  &=A(D+L)^{-T}\cdot \left(
+                    D(D+L)^{-1} + L(D+L)^{-1}\right.\\ 
+                  &\phantom{=A()} + D(D+L)^{-1} + L^T(D+L)^{-1}\\
+                  &\left. \phantom{=A()}- D(D+L)^{-1} - L(D+L)^{-1} - L^T(D+L)^{-1}
+                    \right) \cdot A \\
+                  &=A(D+L)^{-T}D(D+L)^{-1}A\\
+                  &=\left(D^\frac{1}{2}(D+L)^{-1}A^T\right)^T
+                    \left(D^\frac{1}{2}(D+L)^{-1}A\right)
+    \end{align*}
+    und $D^{\frac{1}{2}}$ existiert, da $D$ mit $A$ spd 
+    nur positive Einträge hat.
   \end{proof}
 \end{Satze}
 
@@ -578,7 +631,7 @@ durch einen Schritt des Einzelschritt-Verfahrens, d.h.
   a_{ii}\widetilde{x}_i^{(k+1)} = -\sum_{j=1}^{i-1}a_{ij}x_j^{(k+1)}
   -\sum_{j=i+1}^{n}a_{ij}x_j^{(k)}
   +b_i
-\label{IX.4.1}
+  \label{IX.4.1}
 \end{gather}
 Dann definiere
 \begin{gather}
@@ -597,15 +650,15 @@ Das \textbf{SOR-(successive
 lautet:
 \begin{gather}
   a_{ii}x_i^{(k+1)}=w\left(-\sum_{j=1}^{i-1}a_{ij}x_j^{(k+1)}
-  -\sum_{j=i+1}^{n}a_{ij}x_j^{(k)}+b_i\right)
--(w-1)a_{ii}x_i^{(k)}\quad \text{für } i=1,\ldots,n
-\label{IX.4.3}
+    -\sum_{j=i+1}^{n}a_{ij}x_j^{(k)}+b_i\right)
+  -(w-1)a_{ii}x_i^{(k)}\quad \text{für } i=1,\dotsc,n
+  \label{IX.4.3}
 \end{gather}
 bzw.
 \begin{align*}
   Dx^{(k+1)}&=w(-Lx^{(k+1)}-Rx^{(k)}+b) -(x-1)Dx^{(k)}\\
-\Leftrightarrow (D+wL)x^{(k+1)} &=
--\left[ w(R+D)-D \right]x^{(k)}+wb
+  \Leftrightarrow (D+wL)x^{(k+1)} &=
+                                    -\left[ w(R+D)-D \right]x^{(k)}+wb
 \end{align*}
 Also $M_{SOR} = D+wL$ und $G_{SOR}= -(D+wL)^{-1}(w(D+R)-D)$
 Für spezielle Fälle kann ein optimales $w$ berechnet werden.
@@ -618,12 +671,12 @@ Im Allgemeinen jedoch nicht oder es ist zu aufwändig.
   \item Für spd Matrizen konvergiert das Verfahren genau dann, wenn
     0<$w$<2 gilt.
   \end{enumerate}
-\begin{proof}~
-  \begin{enumerate}[a)]
-  \item \cite{stoerbulirsch}
-  \item (Satz von Ostrowski, Reich)
-  \end{enumerate}
-\end{proof}
+  \begin{proof}~
+    \begin{enumerate}[a)]
+    \item \cite{stoerbulirsch}
+    \item (Satz von Ostrowski, Reich)
+    \end{enumerate}
+  \end{proof}
 \end{Satze}
 
 Die Relaxationsidee ist allgemein anwendbar
@@ -635,14 +688,14 @@ Die Relaxationsidee ist allgemein anwendbar
 mit der Iterationsmatrix
 \begin{gather}
   G_w = wG+(1-w)I
-\label{IX.4.5}
+  \label{IX.4.5}
 \end{gather}
 Die Kunst besteht nun darin, $w$ so zu wählen,
 dass $\rho(G_w)$ möglichst klein ist.
 Der Aufwand pro Iteration bleibt fast identisch
 zum Originalverfahren.
 
-Wird $W$ optimal gewählt, so konvergiert das gedämpfte
+Wird $w$ optimal gewählt, so konvergiert das gedämpfte
 Richardson-Verfahren\index{Richardson-Verfahren!Konvergenz}
 
 Heutige wichtigste Anwendungsgebiete sind die sogenannten
@@ -650,14 +703,14 @@ Mehrgitterverfahren (Multigrid methods).
 
 \subsectione{Symmetrisches SOR-Verfahren (SSOR)}\index{SOR-Verfahren!symmetrisch}
 Läuft die Schleife in \eqref{IX.3.4} rückwärts,
-d.h. $i=n,\ldots,1$, kann entsprechend ein Einzelschritt-Verfahren
- genutzt werden für $i=n,n-1,\ldots,1$
- \begin{align*}
-   a_{ii}x_i^{(k+1)} &= -\sum_{j=1}^{i-1}a_{ij}x_j^{(k)}
-   -\sum_{j=i+1}^{n}a_{ij}x_j^{(k+1)}
-   +b_i \\
-   \Leftrightarrow (D+R)x^{(k+1)} &= -Lx^{(k)}+b
- \end{align*}
+d.h. $i=n,\dotsc,1$, kann entsprechend ein Einzelschritt-Verfahren
+genutzt werden für $i=n,n-1,\dotsc,1$
+\begin{align*}
+  a_{ii}x_i^{(k+1)} &= -\sum_{j=1}^{i-1}a_{ij}x_j^{(k)}
+                      -\sum_{j=i+1}^{n}a_{ij}x_j^{(k+1)}
+                      +b_i \\
+  \Leftrightarrow (D+R)x^{(k+1)} &= -Lx^{(k)}+b
+\end{align*}
 Eine Iteration des \textbf{SSOR-Verfahrens} ist gegeben durch
 eine relaxierte Vorwärts-Einzelschritt-Iteration und eine
 relaxierte Rückwärts-Einzelschritt-Iteration, d.h.
@@ -665,7 +718,7 @@ relaxierte Rückwärts-Einzelschritt-Iteration, d.h.
   Dx^{(k+\frac{1}{2})} &= w(-Lx^{(k+\frac{1}{2})}-Rx^{(k)}+b)
                          -(w-1)Dx^{(k)}\\\nonumber
   Dx^{(k+1)}&=w(-Lx^{(k+\frac{1}{2})}-Rx^{(k+1)}+b)
-                         -(w-1)Dx^{(k+\frac{1}{2})}
+              -(w-1)Dx^{(k+\frac{1}{2})}
 \end{align}
 
 
@@ -673,7 +726,7 @@ relaxierte Rückwärts-Einzelschritt-Iteration, d.h.
 \begin{enumerate}[a)]
 \item $k$ SSOR-Schritte \enquote{entsprechen} $2k$ SOR-Schritten,
   können aber mit einem Aufwand umgesetzt werden, 
-der $(k+\frac{1}{2})$ SOR-Schritten entspricht.
+  der $(k+\frac{1}{2})$ SOR-Schritten entspricht.
 \item Falls $A$ spd ist, so ist dies auch
   \begin{gather}
     M_{SSOR}^{-1} = w(1-w)(D+wR)^{-1}D(D+wL)^{-1}
@@ -683,9 +736,8 @@ der $(k+\frac{1}{2})$ SOR-Schritten entspricht.
 Beim SOR-Verfahren geht die Symmetrie für $M_{SOR}$ verloren,
 diese wird jedoch oft benötigt.
 
-\section*{Zusammenfassung der Vorlesung}
-s. Folien
 
+%\chapter*{Zusammenfassung}
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../numerik_script"
