@@ -1,4 +1,5 @@
 ## Project-specific ignore-file for LaTeX
+*.pdf
 *.aux
 *.bbl
 *.bcf
